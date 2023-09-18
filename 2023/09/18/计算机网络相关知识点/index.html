@@ -110,7 +110,7 @@
 
 <h2 id="第一章概述"><a href="#第一章概述" class="headerlink" title="第一章概述"></a>第一章概述</h2><h3 id="1-1-协议和服务之间的联系和区别"><a href="#1-1-协议和服务之间的联系和区别" class="headerlink" title="1.1 协议和服务之间的联系和区别"></a>1.1 协议和服务之间的联系和区别</h3><p>（1）首先，协议是对等层实体之间通信的规则集。在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本协议，还需要使用下面一层所提供的服务。本层只能看见本层的服务，看不见下层的协议，即下层的协议对上层服务的实体而言是透明的。</p>
 <p>（2）协议是“水平的”，即协议是控制<strong>对等实体之间通信的规则</strong>。但服务是“垂直的”，即服务是<strong>由下层向上层通过层间接口</strong>提供的。</p>
-<h3 id="1-2-计算机网络有哪些层？"><a href="#1-2-计算机网络有哪些层？" class="headerlink" title="1.2 计算机网络有哪些层？"></a>1.2 计算机网络有哪些层？</h3><p><img src="/.com//Users\dell\AppData\Roaming\Typora\typora-user-images\image-20230426154530411.png" alt="image-20230426154530411"></p>
+<h3 id="1-2-计算机网络有哪些层？"><a href="#1-2-计算机网络有哪些层？" class="headerlink" title="1.2 计算机网络有哪些层？"></a>1.2 计算机网络有哪些层？</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/image-20230426154530411.png" alt="image-20230426154530411"></p>
 <p>五层协议各层（自上到下）的功能：</p>
 <h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><p>（对应七层协议中的应用层、表示层、会话层）</p>
 <p>通过一台<strong>主机内进程间的交互</strong>来完成<strong>特定网络应用</strong>，为操作系统或网络应用程序提供访问<strong>网络服务</strong>的接口。</p>
@@ -221,7 +221,7 @@
 <li>TCP只能是点对点的（一对一），UDP支持一对一、一对 多、多对一和多对多的交互通信。</li>
 <li>TCP传输效率较低，UDP传输效率较高。</li>
 </ol>
-<h3 id="5-7-TCP建立连接（三次握手）"><a href="#5-7-TCP建立连接（三次握手）" class="headerlink" title="5.7 TCP建立连接（三次握手）"></a>5.7 TCP建立连接（三次握手）</h3><p><img src="https://img-blog.csdnimg.cn/20190414101321191.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hvbmd3ZWlfMTk5MA==,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h3 id="5-7-TCP建立连接（三次握手）"><a href="#5-7-TCP建立连接（三次握手）" class="headerlink" title="5.7 TCP建立连接（三次握手）"></a>5.7 TCP建立连接（三次握手）</h3><p>!<img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211544.jpg" alt="QQ截图20230918211544"></p>
 <p>连接建立前，服务器进程处于LISTEN（收听）状态，等待客户的连接请求。</p>
 <p>第1步，客户机的TCP首先向服务器的TCP发出连接<strong>请求报文段</strong>，这时首部中的同步位SYN=1，同时选择一个初始序列seq=x。TCP规定，SYN报文段（即SYN=1的报文段）不能携带数据，但要消耗掉一个序列。这时，TCP客户进程进入SYN-SENT（同步已发送）状态。</p>
 <p>第2步，服务器的TCP收到连接请求报文段后，如果<strong>同意建立连接，则向客户机发送确认</strong>。在确认报文段中应把SYN位和ACK位都置1，确认号是ack=x+1，同时也为自己选择一个初始序列seq=y。请注意，这个报文段也不能携带数据，但同样要消耗掉一个序号。这时TCP服务器进程进入SYN-RCVD（同步收到）状态。</p>
@@ -230,7 +230,7 @@
 <h4 id="5-7-1-TCP三次握手建立连接，两次不行吗？"><a href="#5-7-1-TCP三次握手建立连接，两次不行吗？" class="headerlink" title="5.7.1 TCP三次握手建立连接，两次不行吗？"></a>5.7.1 TCP三次握手建立连接，两次不行吗？</h4><p>不可以。 如果存在已失效的连接请求报文重新传到了服务器端，则服务器会响应然后向客户端发送ACK，此时认为已经建立连接，之后服务器便开始等待客户机传送数据。但是客户机并未响应这个ACK，所以服务器会一直等待下去，造成资源的浪费。</p>
 <p>如果有最后一次确认，则在服务器收到滞留的请求并回复之后，客户机不会对服务器的回复做出回复，进而不会建立连接。</p>
 <h4 id="5-7-2-四次呢？"><a href="#5-7-2-四次呢？" class="headerlink" title="5.7.2 四次呢？"></a>5.7.2 四次呢？</h4><p>四次太多了，三次就可以双方都确认对方已经做好了接收数据以及发送数据的准备。</p>
-<h3 id="5-8-TCP连接释放（四次挥手）"><a href="#5-8-TCP连接释放（四次挥手）" class="headerlink" title="5.8 TCP连接释放（四次挥手）"></a>5.8 TCP连接释放（四次挥手）</h3><p><img src="https://img-blog.csdnimg.cn/2019041418290822.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hvbmd3ZWlfMTk5MA==,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h3 id="5-8-TCP连接释放（四次挥手）"><a href="#5-8-TCP连接释放（四次挥手）" class="headerlink" title="5.8 TCP连接释放（四次挥手）"></a>5.8 TCP连接释放（四次挥手）</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211544.jpg" alt="QQ截图20230918211544"></p>
 <p>数据传输结束后，通信的双方都可释放连接。</p>
 <p>第1步，<strong>客户机打算关闭时，先向其TCP发出连接释放报文段，并停止再发送数据，主动关闭TCP连接。</strong>该报文段的终止位FIN置1，其序列seq=u，它等于前面已传送过的数据的最后一个字节的序列加1。这时客户机进入FIN-WAIT-1（终止等待1）状态。请注意，TCP规定，FIN报文段即使不携带数据，它也要消耗一个序列。</p>
 <p>第2步，<strong>服务器收到连接释放报文，发出确认报文</strong>，ACK=1，ack=u+1，并且<strong>带上自己的序列号seq=v</strong>，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。此时，从客户机到服务器这个方向的连接就释放了，TCP处于半关闭状态。但服务器若发送数据，客户机仍要接收，即从服务器到客户机这个方向的连接并未关闭。</p>
@@ -362,7 +362,7 @@
 <li>TCP传输效率较低，UDP传输效率较高。</li>
 </ol>
 <p>应用场景：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-06bdd52997add27938607b33edea4068_1440w.webp" alt="img"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211843.jpg" alt="QQ截图20230918211843"></p>
 <h2 id="HTTP中GET与POST区别？"><a href="#HTTP中GET与POST区别？" class="headerlink" title="HTTP中GET与POST区别？"></a>HTTP中GET与POST区别？</h2><table>
 <thead>
 <tr>
@@ -448,12 +448,12 @@
 <p>（5）如果本地的DNS服务器也找不到的话，本地DNS将会发送请求至根域名服务器，根域名服务器中没有相关缓存数据的时候，就会返回com顶级域名服务器的地址。然后本地DNS服务器再发送请求至com顶级域名服务器，com顶级域名服务器中查询不到的话，就会返回baidu权威服务器的地址，然后本地DNS服务器再发送请求至baidu权威服务器，baidu权威服务器就会返回www主机地址。（这是一种迭代的过程，还有一种递归的过程。即local至根域名，根域名不直接返回com地址，而是发送请求至com，com发送请求至baidu，baidu发送请求至www，www再返回给baidu，baidu返回给com，com再返回给local）至此，整个DNS查询步骤结束，现在浏览器拿到了域名对应的ip地址。</p>
 <p>第三步：浏览器发送请求至服务器，假设我们现在输入的地址是<a target="_blank" rel="noopener" href="http://www.baidu.com,那么浏览器默认将网址改成这样的形式,即http//www.baidu.com%E3%80%82">www.baidu.com，那么浏览器默认将网址改成这样的形式，即http://www.baidu.com。</a></p>
 <p>发送格式如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/20181119155220971.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTkxOTAz,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211927.jpg" alt="QQ截图20230918211927"></p>
 <p>发现返回了307状态码，也就是临时重定向，需要我们重定向到location表明的地址，即<a target="_blank" rel="noopener" href="https://www.baidu.com.仔细观察,仅仅多了个s,也就是说http与https之间是有差别的,关于两个的区别,请移步我的另外一篇文章浅析http与https的区别/">https://www.baidu.com。仔细观察，仅仅多了个s，也就是说http与https之间是有差别的，关于两个的区别，请移步我的另外一篇文章浅析HTTP与HTTPS的区别</a></p>
 <p>307与301、302本质上差不多，但是有细微的差别，简单来说是为了增强301与302的规范性。其他差别这里不做深究，可以参考HTTP状态码302、303和307的故事</p>
 <p>第四步：浏览器向重定向后的地址发送请求</p>
 <p>发送的请求格式如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/20181119155117449.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTkxOTAz,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E8%AF%B7%E6%B1%82%E6%A0%BC%E5%BC%8F.jpg" alt="请求格式"></p>
 <p>可以看得出：</p>
 <p>（1）Request Method表明请求方式是get。</p>
 <p>（2）User-Agent，用户代理，表明所用浏览器的一些信息，包括内核，版本等。</p>
@@ -463,20 +463,20 @@
 <p>服务器可以根据Cookie中的数据，通过遍历内存中的Session集合，从而判断用户的登录状态。如果用户未登录，则展示一些诸如首页的基本宣传数据。如果用户已经登录，通过解析get请求头、post请求体中的参数，查询数据库，返回用户相关数据，填充到视图中。并将此次处理完的内容通过相应的压缩算法，压缩成某个块。</p>
 <p>第六步：服务器返回http响应</p>
 <p>服务器返回的响应格式如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/20181119155320648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTkxOTAz,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%93%8D%E5%BA%94%E6%A0%BC%E5%BC%8F.jpg" alt="响应格式"></p>
 <p>其中有些键值対表明：</p>
 <p>（1）Content-Encoding的值是gzip，表明响应体使用了gzip方式压缩了，浏览器也需要使用gzip算法进行解压缩，解压缩响应体后，产生如下的内容</p>
-<p><img src="https://img-blog.csdnimg.cn/20181119155809460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTkxOTAz,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%90%8E%E5%86%85%E5%AE%B9.jpg" alt="解压缩后内容"></p>
 <p>（2）Content-Type的值是text/html，表明服务器需要浏览器将次内容以html文本的形式显示出来，而不是以文件形式去下载它</p>
 <p>第七步：浏览器请求样式以及图片文件，用以渲染界面并显示给用户</p>
 <p>浏览器解压缩响应体后，在界面显示的同时，下载css、png、gif等一些静态文件，这些静态文件可以被浏览器缓存，防止多次请求。很多公司将自己的静态文件托管在CDN上（Content Delivery Network，即内容分发网络），从CDN上加载大量静态文件，加快查找速度，减少原本网站的并发压力。</p>
 <p>访问百度的静态文件有：（出去前两个与最长的那个）</p>
-<p><img src="https://img-blog.csdnimg.cn/20181119161206112.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTkxOTAz,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%86%85%E5%AE%B9.jpg" alt="内容"></p>
 <p>第八步：浏览器通过Ajax（Asynchronous Javascript And XML 异步 JavaScript 和 XML）</p>
 <p>在传统的web应用，用户每发一次请求，用户的动作就会被阻塞，即在服务器返回响应之前，用户不可以进行其他的操作，只能等待响应。然后服务器会响应一个完整的html页面，浏览器再次进行渲染。哪怕是一个很小的一个请求，都会阻塞用户动作，以及刷新整个页面，极大地浪费了用户的时间和网络的带宽，也增加了服务器的压力。</p>
 <p>Ajax出现之后，通过此技术发起的http请求，将不会阻塞用户的动作，服务器响应之后，页面会进行一个局部的刷新，也就是不会刷新整个页面，极大提高了页面加载与服务器处理的效率。当然Ajax也要自身的缺点，暴露了浏览器和服务器通信的具体逻辑，容易造成漏洞攻击。此外，Ajax没有后退机制，在一定程度上，用户的体验感降低。</p>
 <p>百度界面显示出来后，百度又利用了ajax去请求我之前的搜索关键词，然后利用js填充到搜索框的下拉列表中，返回的数据如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/20181119163508720.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTkxOTAz,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE.jpg" alt="返回数据"></p>
 <h2 id="三次握手问题："><a href="#三次握手问题：" class="headerlink" title="三次握手问题："></a>三次握手问题：</h2><p>见上面5.7、5.8中内容。</p>
 <h1 id="常见名词："><a href="#常见名词：" class="headerlink" title="常见名词："></a>常见名词：</h1><h2 id="载波监听："><a href="#载波监听：" class="headerlink" title="载波监听："></a>载波监听：</h2><p>CSMA：Carrier Sense Multiple Access</p>
 <p>任何站点要向公共介质发送信息时，首先要监听介质上是否有其他站点正在传送信息</p>
