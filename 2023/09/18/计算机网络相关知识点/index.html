@@ -110,7 +110,7 @@
 
 <h2 id="第一章概述"><a href="#第一章概述" class="headerlink" title="第一章概述"></a>第一章概述</h2><h3 id="1-1-协议和服务之间的联系和区别"><a href="#1-1-协议和服务之间的联系和区别" class="headerlink" title="1.1 协议和服务之间的联系和区别"></a>1.1 协议和服务之间的联系和区别</h3><p>（1）首先，协议是对等层实体之间通信的规则集。在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本协议，还需要使用下面一层所提供的服务。本层只能看见本层的服务，看不见下层的协议，即下层的协议对上层服务的实体而言是透明的。</p>
 <p>（2）协议是“水平的”，即协议是控制<strong>对等实体之间通信的规则</strong>。但服务是“垂直的”，即服务是<strong>由下层向上层通过层间接口</strong>提供的。</p>
-<h3 id="1-2-计算机网络有哪些层？"><a href="#1-2-计算机网络有哪些层？" class="headerlink" title="1.2 计算机网络有哪些层？"></a>1.2 计算机网络有哪些层？</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/image-20230426154530411.png" alt="image-20230426154530411"></p>
+<h3 id="1-2-计算机网络有哪些层？"><a href="#1-2-计算机网络有哪些层？" class="headerlink" title="1.2 计算机网络有哪些层？"></a>1.2 计算机网络有哪些层？</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B.png" alt="image-20230426154530411"></p>
 <p>五层协议各层（自上到下）的功能：</p>
 <h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><p>（对应七层协议中的应用层、表示层、会话层）</p>
 <p>通过一台<strong>主机内进程间的交互</strong>来完成<strong>特定网络应用</strong>，为操作系统或网络应用程序提供访问<strong>网络服务</strong>的接口。</p>
@@ -433,7 +433,7 @@
 <li>IPv6只能在主机处分片，IPv4可以在路由器和主机处分片。</li>
 <li>IPv6取消了协议字段，改成下一个首部字段。</li>
 </ol>
-<h2 id="输入网址到网页显示的整个流程"><a href="#输入网址到网页显示的整个流程" class="headerlink" title="输入网址到网页显示的整个流程"></a>输入网址到网页显示的整个流程</h2><p>第一步：首先你得在浏览器中输入网址，比如输入<a target="_blank" rel="noopener" href="http://www.baidu.com.其中www为主机,baidu为域名,com为类型.但是有网址不能直接找到对应的响应主机,必须把网址,即域名转化为ip地址./">www.baidu.com。其中www为主机，baidu为域名，com为类型。但是有网址不能直接找到对应的响应主机，必须把网址，即域名转化为ip地址。</a></p>
+<h2 id="输入网址到网页显示的整个流程"><a href="#输入网址到网页显示的整个流程" class="headerlink" title="输入网址到网页显示的整个流程"></a>输入网址到网页显示的整个流程</h2><p>第一步：首先你得在浏览器中输入网址，比如输入<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 。其中www为主机，baidu为域名，com为类型。但是有网址不能直接找到对应的响应主机，必须把网址，即域名转化为ip地址。</p>
 <p>第二步：进行DNS（Domain Name System，域名系统）查询，它的作用是将域名转化为具体的ip地址。</p>
 <p>先谈一下DNS的结构：</p>
 <p>（1）根域名服务器，全球只有13个不同ip地址的服务器，注意不是服务器只有13台，只是他们所代表的地址只有13个，也就是存在镜像服务器，一个地址可以对应多个镜像服务器。</p>
@@ -446,9 +446,9 @@
 <p>（3）系统缓存中也查询不到后，将会去路由器缓存中查找。</p>
 <p>（4）路由器缓存中也找不到的话，将会从本地DNS服务器的缓存中查找，本地服务器即用户自己配置的DNS服务器。</p>
 <p>（5）如果本地的DNS服务器也找不到的话，本地DNS将会发送请求至根域名服务器，根域名服务器中没有相关缓存数据的时候，就会返回com顶级域名服务器的地址。然后本地DNS服务器再发送请求至com顶级域名服务器，com顶级域名服务器中查询不到的话，就会返回baidu权威服务器的地址，然后本地DNS服务器再发送请求至baidu权威服务器，baidu权威服务器就会返回www主机地址。（这是一种迭代的过程，还有一种递归的过程。即local至根域名，根域名不直接返回com地址，而是发送请求至com，com发送请求至baidu，baidu发送请求至www，www再返回给baidu，baidu返回给com，com再返回给local）至此，整个DNS查询步骤结束，现在浏览器拿到了域名对应的ip地址。</p>
-<p>第三步：浏览器发送请求至服务器，假设我们现在输入的地址是<a target="_blank" rel="noopener" href="http://www.baidu.com,那么浏览器默认将网址改成这样的形式,即http//www.baidu.com%E3%80%82">www.baidu.com，那么浏览器默认将网址改成这样的形式，即http://www.baidu.com。</a></p>
+<p>第三步：浏览器发送请求至服务器，假设我们现在输入的地址是<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> ，那么浏览器默认将网址改成这样的形式，即<a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a> 。</p>
 <p>发送格式如下：</p>
-<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211927.jpg" alt="QQ截图20230918211927"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%8F%91%E9%80%81%E6%A0%BC%E5%BC%8F.jpg" alt="QQ截图20230918211927"></p>
 <p>发现返回了307状态码，也就是临时重定向，需要我们重定向到location表明的地址，即<a target="_blank" rel="noopener" href="https://www.baidu.com.仔细观察,仅仅多了个s,也就是说http与https之间是有差别的,关于两个的区别,请移步我的另外一篇文章浅析http与https的区别/">https://www.baidu.com。仔细观察，仅仅多了个s，也就是说http与https之间是有差别的，关于两个的区别，请移步我的另外一篇文章浅析HTTP与HTTPS的区别</a></p>
 <p>307与301、302本质上差不多，但是有细微的差别，简单来说是为了增强301与302的规范性。其他差别这里不做深究，可以参考HTTP状态码302、303和307的故事</p>
 <p>第四步：浏览器向重定向后的地址发送请求</p>
