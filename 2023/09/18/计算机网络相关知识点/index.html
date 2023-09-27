@@ -74,13 +74,17 @@
     <div class="article-meta">
       <a href="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/" class="article-date">
   <time datetime="2023-09-18T08:35:00.000Z" itemprop="datePublished">2023-09-18</time>
-</a>   
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/">课程学习</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">13.6k</span>
+            <span class="post-count">13.7k</span>
         </span>
     </span>
 
@@ -110,16 +114,16 @@
 
 <h2 id="第一章概述"><a href="#第一章概述" class="headerlink" title="第一章概述"></a>第一章概述</h2><h3 id="1-1-协议和服务之间的联系和区别"><a href="#1-1-协议和服务之间的联系和区别" class="headerlink" title="1.1 协议和服务之间的联系和区别"></a>1.1 协议和服务之间的联系和区别</h3><p>（1）首先，协议是对等层实体之间通信的规则集。在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务。要实现本协议，还需要使用下面一层所提供的服务。本层只能看见本层的服务，看不见下层的协议，即下层的协议对上层服务的实体而言是透明的。</p>
 <p>（2）协议是“水平的”，即协议是控制<strong>对等实体之间通信的规则</strong>。但服务是“垂直的”，即服务是<strong>由下层向上层通过层间接口</strong>提供的。</p>
-<h3 id="1-2-计算机网络有哪些层？"><a href="#1-2-计算机网络有哪些层？" class="headerlink" title="1.2 计算机网络有哪些层？"></a>1.2 计算机网络有哪些层？</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B.png" alt="image-20230426154530411"></p>
+<h3 id="1-2-计算机网络有哪些层？"><a href="#1-2-计算机网络有哪些层？" class="headerlink" title="1.2 计算机网络有哪些层？"></a>1.2 计算机网络有哪些层？</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B.png" alt="四层模型"></p>
 <p>五层协议各层（自上到下）的功能：</p>
 <h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><p>（对应七层协议中的应用层、表示层、会话层）</p>
 <p>通过一台<strong>主机内进程间的交互</strong>来完成<strong>特定网络应用</strong>，为操作系统或网络应用程序提供访问<strong>网络服务</strong>的接口。</p>
-<p>包含的主要协议：FTP（文件传送协议）、Telnet（远程登录协议）、DNS（域名解析协议）、SMTP（邮件传送协议），POP3协议（邮局协议），HTTP协议（Hyper Text Transfer Protocol）。</p>
+<p>包含的主要协议：FTP（文件传送协议、TCP、21）、Telnet（远程登录协议、TCP、23）、DNS（域名解析协议、区域传输的时候使用TCP协议，其他时候使用UDP协议、53）、SMTP（邮件传送协议、TCP、25），POP3 协议（邮局协议，用于接收邮件、TCP、110），HTTP协议（Hyper Text Transfer Protocol、UDP、80）。</p>
 <p>数据单位：<strong>报文</strong>。</p>
 <h4 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h4><p>负责为两台主机进程之间的通信提供<strong>通用的数据传输服务</strong>，负责将数据可靠地传送到相应的端口。</p>
 <p>运输层包括两种协议：</p>
-<p>**传输控制协议TCP：Transmission Control Protocol ** 提供面向连接、可靠的数据传输服务，数据单位为报文段；TCP 主要提供完整性服务。</p>
-<p>**用户数据报协议UDP：User Datagram Protocol ** 提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。UDP 主要提供及时性服务。</p>
+<p><strong>传输控制协议TCP：Transmission Control Protocol</strong> 提供面向连接、可靠的数据传输服务，数据单位为报文段；TCP 主要提供完整性服务。</p>
+<p><strong>用户数据报协议UDP：User Datagram Protocol</strong> 提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。UDP 主要提供及时性服务。</p>
 <p>重要设备：<strong>网关</strong>。</p>
 <h4 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h4><p><em>网络层提供了主机之间的逻辑通信，而运输层为运行在不同主机上的进程之间提供了逻辑通信</em></p>
 <p>网络层为<strong>主机间</strong>提供数据传输服务，而运输层协议是为<strong>主机中</strong>的进程提供服务。</p>
@@ -221,7 +225,7 @@
 <li>TCP只能是点对点的（一对一），UDP支持一对一、一对 多、多对一和多对多的交互通信。</li>
 <li>TCP传输效率较低，UDP传输效率较高。</li>
 </ol>
-<h3 id="5-7-TCP建立连接（三次握手）"><a href="#5-7-TCP建立连接（三次握手）" class="headerlink" title="5.7 TCP建立连接（三次握手）"></a>5.7 TCP建立连接（三次握手）</h3><p>!<img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211544.jpg" alt="QQ截图20230918211544"></p>
+<h3 id="5-7-TCP建立连接（三次握手）"><a href="#5-7-TCP建立连接（三次握手）" class="headerlink" title="5.7 TCP建立连接（三次握手）"></a>5.7 TCP建立连接（三次握手）</h3><p>!<img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211544.jpg" alt="三次握手流程"></p>
 <p>连接建立前，服务器进程处于LISTEN（收听）状态，等待客户的连接请求。</p>
 <p>第1步，客户机的TCP首先向服务器的TCP发出连接<strong>请求报文段</strong>，这时首部中的同步位SYN=1，同时选择一个初始序列seq=x。TCP规定，SYN报文段（即SYN=1的报文段）不能携带数据，但要消耗掉一个序列。这时，TCP客户进程进入SYN-SENT（同步已发送）状态。</p>
 <p>第2步，服务器的TCP收到连接请求报文段后，如果<strong>同意建立连接，则向客户机发送确认</strong>。在确认报文段中应把SYN位和ACK位都置1，确认号是ack=x+1，同时也为自己选择一个初始序列seq=y。请注意，这个报文段也不能携带数据，但同样要消耗掉一个序号。这时TCP服务器进程进入SYN-RCVD（同步收到）状态。</p>
@@ -230,7 +234,7 @@
 <h4 id="5-7-1-TCP三次握手建立连接，两次不行吗？"><a href="#5-7-1-TCP三次握手建立连接，两次不行吗？" class="headerlink" title="5.7.1 TCP三次握手建立连接，两次不行吗？"></a>5.7.1 TCP三次握手建立连接，两次不行吗？</h4><p>不可以。 如果存在已失效的连接请求报文重新传到了服务器端，则服务器会响应然后向客户端发送ACK，此时认为已经建立连接，之后服务器便开始等待客户机传送数据。但是客户机并未响应这个ACK，所以服务器会一直等待下去，造成资源的浪费。</p>
 <p>如果有最后一次确认，则在服务器收到滞留的请求并回复之后，客户机不会对服务器的回复做出回复，进而不会建立连接。</p>
 <h4 id="5-7-2-四次呢？"><a href="#5-7-2-四次呢？" class="headerlink" title="5.7.2 四次呢？"></a>5.7.2 四次呢？</h4><p>四次太多了，三次就可以双方都确认对方已经做好了接收数据以及发送数据的准备。</p>
-<h3 id="5-8-TCP连接释放（四次挥手）"><a href="#5-8-TCP连接释放（四次挥手）" class="headerlink" title="5.8 TCP连接释放（四次挥手）"></a>5.8 TCP连接释放（四次挥手）</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211544.jpg" alt="QQ截图20230918211544"></p>
+<h3 id="5-8-TCP连接释放（四次挥手）"><a href="#5-8-TCP连接释放（四次挥手）" class="headerlink" title="5.8 TCP连接释放（四次挥手）"></a>5.8 TCP连接释放（四次挥手）</h3><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211544.jpg" alt="四次握手流程"></p>
 <p>数据传输结束后，通信的双方都可释放连接。</p>
 <p>第1步，<strong>客户机打算关闭时，先向其TCP发出连接释放报文段，并停止再发送数据，主动关闭TCP连接。</strong>该报文段的终止位FIN置1，其序列seq=u，它等于前面已传送过的数据的最后一个字节的序列加1。这时客户机进入FIN-WAIT-1（终止等待1）状态。请注意，TCP规定，FIN报文段即使不携带数据，它也要消耗一个序列。</p>
 <p>第2步，<strong>服务器收到连接释放报文，发出确认报文</strong>，ACK=1，ack=u+1，并且<strong>带上自己的序列号seq=v</strong>，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。此时，从客户机到服务器这个方向的连接就释放了，TCP处于半关闭状态。但服务器若发送数据，客户机仍要接收，即从服务器到客户机这个方向的连接并未关闭。</p>
@@ -362,7 +366,7 @@
 <li>TCP传输效率较低，UDP传输效率较高。</li>
 </ol>
 <p>应用场景：</p>
-<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/QQ%E6%88%AA%E5%9B%BE20230918211843.jpg" alt="QQ截图20230918211843"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.jpg" alt="两种传输协议的应用场景"></p>
 <h2 id="HTTP中GET与POST区别？"><a href="#HTTP中GET与POST区别？" class="headerlink" title="HTTP中GET与POST区别？"></a>HTTP中GET与POST区别？</h2><table>
 <thead>
 <tr>
@@ -397,8 +401,8 @@
 <td>不可以</td>
 </tr>
 </tbody></table>
-<h2 id="HTTP和HTTPS的区别"><a href="#HTTP和HTTPS的区别" class="headerlink" title="HTTP和HTTPS的区别?"></a>HTTP和HTTPS的区别?</h2><p>由来：https解决了http的传输的安全问题，因为http传输的是明文，简单来说https=http+ssl进行加密传输，https是身份认证的网络协议</p>
-<p>https两个作用：1.建立信息安全通道 2.网站的真实性</p>
+<h2 id="HTTP和HTTPS的区别"><a href="#HTTP和HTTPS的区别" class="headerlink" title="HTTP和HTTPS的区别?"></a>HTTP和HTTPS的区别?</h2><p>由来：https 解决了http的传输的安全问题，因为http传输的是明文，简单来说https=http+ssl进行加密传输，https是身份认证的网络协议</p>
+<p>https 的两个作用：1.建立信息安全通道 2.网站的真实性</p>
 <table>
 <thead>
 <tr>
@@ -423,15 +427,18 @@
 <td>443端口</td>
 </tr>
 </tbody></table>
-<h2 id="IPV4与IPV6的区别？"><a href="#IPV4与IPV6的区别？" class="headerlink" title="IPV4与IPV6的区别？"></a>IPV4与IPV6的区别？</h2><ol>
-<li>IPv6将地址从32位（4B）扩大到128位（16B），更大的地址空间。</li>
-<li>IPv6将IPv4的效验和字段彻底删除，以减小每跳的处理时间。</li>
-<li>IPv6支持即插即用（即自动配置），不需要DHCP协议。</li>
-<li>IPv6首部长度必须是8B的整数倍，IPv4首部是4B的整数倍。</li>
-<li>IPv6将IPv4的可选字段移出首部，变成了扩展首部，成为灵活的首部格式，路由器通常不对扩展首部进行检查，大大提高了路由器的处理效率。</li>
-<li>IPv6取消了总长度字段，改用有效载荷长度字段。</li>
-<li>IPv6只能在主机处分片，IPv4可以在路由器和主机处分片。</li>
-<li>IPv6取消了协议字段，改成下一个首部字段。</li>
+<h2 id="Cookie-和-Session-有什么区别"><a href="#Cookie-和-Session-有什么区别" class="headerlink" title="Cookie 和 Session 有什么区别?"></a>Cookie <strong>和</strong> Session 有什么区别?</h2><p>1.存放位置不同：cookie存放在客户端；session存放在服务器。</p>
+<p>2.安全性不同：cookie不安全，非法攻击者可以用本地的 cookie 进行非法操作与欺骗，如果主要考虑到安全应当使用session。</p>
+<p>3.数据大小限制不同：cookie的大小有限制；session没有限制</p>
+<h2 id="IPV4-与-IPV6-的区别？"><a href="#IPV4-与-IPV6-的区别？" class="headerlink" title="IPV4 与 IPV6 的区别？"></a>IPV4 与 IPV6 的区别？</h2><ol>
+<li>IPv6 将地址从32位（4B）扩大到128位（16B），更大的地址空间。</li>
+<li>IPv6 将 IPv4 的效验和字段彻底删除，以减小每跳的处理时间。</li>
+<li>IPv6 支持即插即用（即自动配置），不需要 DHCP 协议。</li>
+<li>IPv6 首部长度必须是 8B 的整数倍，IPv4 首部是 4B 的整数倍。</li>
+<li>IPv6 将 IPv4 的可选字段移出首部，变成了扩展首部，成为灵活的首部格式，路由器通常不对扩展首部进行检查，大大提高了路由器的处理效率。</li>
+<li>IPv6 取消了总长度字段，改用有效载荷长度字段。</li>
+<li>IPv6 只能在主机处分片，IPv4 可以在路由器和主机处分片。</li>
+<li>IPv6 取消了协议字段，改成下一个首部字段。</li>
 </ol>
 <h2 id="输入网址到网页显示的整个流程"><a href="#输入网址到网页显示的整个流程" class="headerlink" title="输入网址到网页显示的整个流程"></a>输入网址到网页显示的整个流程</h2><p>第一步：首先你得在浏览器中输入网址，比如输入<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 。其中www为主机，baidu为域名，com为类型。但是有网址不能直接找到对应的响应主机，必须把网址，即域名转化为ip地址。</p>
 <p>第二步：进行DNS（Domain Name System，域名系统）查询，它的作用是将域名转化为具体的ip地址。</p>
@@ -448,8 +455,9 @@
 <p>（5）如果本地的DNS服务器也找不到的话，本地DNS将会发送请求至根域名服务器，根域名服务器中没有相关缓存数据的时候，就会返回com顶级域名服务器的地址。然后本地DNS服务器再发送请求至com顶级域名服务器，com顶级域名服务器中查询不到的话，就会返回baidu权威服务器的地址，然后本地DNS服务器再发送请求至baidu权威服务器，baidu权威服务器就会返回www主机地址。（这是一种迭代的过程，还有一种递归的过程。即local至根域名，根域名不直接返回com地址，而是发送请求至com，com发送请求至baidu，baidu发送请求至www，www再返回给baidu，baidu返回给com，com再返回给local）至此，整个DNS查询步骤结束，现在浏览器拿到了域名对应的ip地址。</p>
 <p>第三步：浏览器发送请求至服务器，假设我们现在输入的地址是<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> ，那么浏览器默认将网址改成这样的形式，即<a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a> 。</p>
 <p>发送格式如下：</p>
-<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%8F%91%E9%80%81%E6%A0%BC%E5%BC%8F.jpg" alt="QQ截图20230918211927"></p>
-<p>发现返回了307状态码，也就是临时重定向，需要我们重定向到location表明的地址，即<a target="_blank" rel="noopener" href="https://www.baidu.com.仔细观察,仅仅多了个s,也就是说http与https之间是有差别的,关于两个的区别,请移步我的另外一篇文章浅析http与https的区别/">https://www.baidu.com。仔细观察，仅仅多了个s，也就是说http与https之间是有差别的，关于两个的区别，请移步我的另外一篇文章浅析HTTP与HTTPS的区别</a></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%8F%91%E9%80%81%E6%A0%BC%E5%BC%8F.jpg" alt="发送格式"></p>
+<p>发现返回了307状态码，也就是临时重定向，需要我们重定向到 location 表明的地址，即<a target="_blank" rel="noopener" href="https://www.baidu.com./">https://www.baidu.com。</a></p>
+<p>仔细观察，重定向后的地址仅仅多了个s，也就是说 http 与 https 之间是有差别的，关于两个的区别，请移步上面。</p>
 <p>307与301、302本质上差不多，但是有细微的差别，简单来说是为了增强301与302的规范性。其他差别这里不做深究，可以参考HTTP状态码302、303和307的故事</p>
 <p>第四步：浏览器向重定向后的地址发送请求</p>
 <p>发送的请求格式如下：</p>
@@ -458,7 +466,8 @@
 <p>（1）Request Method表明请求方式是get。</p>
 <p>（2）User-Agent，用户代理，表明所用浏览器的一些信息，包括内核，版本等。</p>
 <p>（3）Connection:keep-alive表明需要服务器为之后的请求保持tcp连接</p>
-<p>（4）Cookie中保存了一些与用户状态相关的数值，可以与session连用来跟踪会话，那么有关cookie与session的内容，可以参考我的另外一篇文章【计算机网络】Cookie与Session的区别</p>
+<p>（4）Cookie中保存了一些与用户状态相关的数值，可以与session连用来跟踪会话。</p>
+<p>关于Cookie与Session的区别请见上文。</p>
 <p>第五步：服务器处理http请求</p>
 <p>服务器可以根据Cookie中的数据，通过遍历内存中的Session集合，从而判断用户的登录状态。如果用户未登录，则展示一些诸如首页的基本宣传数据。如果用户已经登录，通过解析get请求头、post请求体中的参数，查询数据库，返回用户相关数据，填充到视图中。并将此次处理完的内容通过相应的压缩算法，压缩成某个块。</p>
 <p>第六步：服务器返回http响应</p>
@@ -471,7 +480,7 @@
 <p>第七步：浏览器请求样式以及图片文件，用以渲染界面并显示给用户</p>
 <p>浏览器解压缩响应体后，在界面显示的同时，下载css、png、gif等一些静态文件，这些静态文件可以被浏览器缓存，防止多次请求。很多公司将自己的静态文件托管在CDN上（Content Delivery Network，即内容分发网络），从CDN上加载大量静态文件，加快查找速度，减少原本网站的并发压力。</p>
 <p>访问百度的静态文件有：（出去前两个与最长的那个）</p>
-<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%86%85%E5%AE%B9.jpg" alt="内容"></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%86%85%E5%AE%B9.jpg" alt="静态文件内容"></p>
 <p>第八步：浏览器通过Ajax（Asynchronous Javascript And XML 异步 JavaScript 和 XML）</p>
 <p>在传统的web应用，用户每发一次请求，用户的动作就会被阻塞，即在服务器返回响应之前，用户不可以进行其他的操作，只能等待响应。然后服务器会响应一个完整的html页面，浏览器再次进行渲染。哪怕是一个很小的一个请求，都会阻塞用户动作，以及刷新整个页面，极大地浪费了用户的时间和网络的带宽，也增加了服务器的压力。</p>
 <p>Ajax出现之后，通过此技术发起的http请求，将不会阻塞用户的动作，服务器响应之后，页面会进行一个局部的刷新，也就是不会刷新整个页面，极大提高了页面加载与服务器处理的效率。当然Ajax也要自身的缺点，暴露了浏览器和服务器通信的具体逻辑，容易造成漏洞攻击。此外，Ajax没有后退机制，在一定程度上，用户的体验感降低。</p>
@@ -482,7 +491,7 @@
 <p>任何站点要向公共介质发送信息时，首先要监听介质上是否有其他站点正在传送信息</p>
 <p>如果通信介质上无载波，即没有被占用，则可以利用通信介质进行传送；</p>
 <p>如果已监听到介质上有载波，即有其它站点正在传送信息，则必须等待介质平静之后才能进行传送的处理，这样就会使信道上的冲突大大减少。</p>
-<h2 id="协议栈："><a href="#协议栈：" class="headerlink" title="协议栈："></a>协议栈：</h2><p>Protocol Stack，是计算机<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE?fromModule=lemma_inlink">网络协议</a>套件的一个具体的软件实现。协议套件中的一个协议通常是只为一个目的而设计的，这样可以使得设计更容易。因为每个协议模块通常都要和上下两个其他协议模块通信，它们通常可以想象成是协议栈中的层。</p>
+<h2 id="协议栈："><a href="#协议栈：" class="headerlink" title="协议栈："></a>协议栈：</h2><p>Protocol Stack，是计算机网络协议套件的一个具体的软件实现。协议套件中的一个协议通常是只为一个目的而设计的，这样可以使得设计更容易。因为每个协议模块通常都要和上下两个其他协议模块通信，它们通常可以想象成是协议栈中的层。</p>
  
       <!-- reward -->
       
@@ -552,7 +561,7 @@
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/" rel="tag">课程学习</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
 
     </footer>
   </div>
