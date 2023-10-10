@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.4k</span>
+            <span class="post-count">1.9k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">5 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -130,6 +130,21 @@
 <p>Softmax 层会对上一层的原始数据归一化，转化为一个 (0 , 1) 之间的数值，这些数值可以被当做概率分布，用来作为多分类的目标预测值。</p>
 <p>Softmax 函数一般作为神经网络的最后一层，接受来自上一层网络的输入值，然后将其转化为概率。</p>
 <h2 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h2><h3 id="BEV"><a href="#BEV" class="headerlink" title="BEV:"></a>BEV:</h3><p><strong>BEV</strong>: 鸟瞰视角，Bird’s Eye View，是一种<strong>从上方观看</strong>对象或场景的视角，就像鸟在空中俯视地面一样。在自动驾驶和机器人领域，通过传感器（如 LiDAR 和摄像头）获取的数据通常会被转换成 BEV 表示，以便更好地进行<strong>物体检测、路径规划</strong>等任务。</p>
+<h3 id="FPN："><a href="#FPN：" class="headerlink" title="FPN："></a>FPN：</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62604038">【目标检测】FPN(Feature Pyramid Network) - 知乎 (zhihu.com)</a></p>
+<blockquote>
+<p>整理完下面这些发现其实只看这一篇文章就够了。</p>
+</blockquote>
+<p><strong>FPN</strong>: 特征金字塔网络，Feature Pyramid Network。</p>
+<p>传统方法使用图像金字塔，将图片 resize 到不同的大小，然后分别得到对应大小的特征，然后进行预测。这种方法可以一定程度上解决多尺度的问题，但带来的计算量也非常大。如下图所示：</p>
+<p><img src="/images/Pron/%E5%9B%BE%E5%83%8F%E9%87%91%E5%AD%97%E5%A1%94.jpg" alt="图像金字塔"></p>
+<p>也有使用单个feature map进行检测，在网络的最后一层的特征图上进行预测。优点是计算速度快，缺点是最后一层的特征图分辨率低，不能准确的包含物体的位置信息。直接使用这种架构导致预测层的特征尺度比较单一，对小目标检测效果比较差。如下图所示：</p>
+<p><img src="/images/Pron/featuremap.jpg" alt="featuremap"></p>
+<p>为了使得不同尺度的特征都包含丰富的语义信息，同时又不使得计算成本过高，FPN 采用top down和lateral connection的方式，让低层高分辨率低语义的特征和高层低分辨率高语义的特征融合在一起。</p>
+<p><img src="/images/Pron/FPN.jpg" alt="FPN"></p>
+<p>三个结构：</p>
+<p>Bottom-up：Bottom-up 的过程就是将图片输入到backbone ConvNet中提取特征的过程中。Backbone输出的feature map的尺寸有的是不变的，有的是成2倍的减小的。</p>
+<p>Top-down：Top-down 的过程就是将高层得到的feature map进行上采样然后往下传递。高层的特征包含丰富的语义信息，经过top-down 这些语义信息能传播到低层特征上，使得低层特征也包含丰富的语义信息。</p>
+<p>Lateral connection：3 个步骤，先 1*1的卷积降低维度，再将得到的特征和上一层采样得到特征图 $P_{n+1}$ 进行融合，直接相加。相加完后再进行一个 3*3 的卷积得到本层的特征输出 $P_n$。</p>
 <h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
 <h3 id="仿射变换："><a href="#仿射变换：" class="headerlink" title="仿射变换："></a>仿射变换：</h3><h3 id="DCT变换："><a href="#DCT变换：" class="headerlink" title="DCT变换："></a><strong>DCT变换</strong>：</h3><p>Discrete Cosine Transform，离散余弦变换。</p>
 <p>离散余弦变换经常被信号处理和图像处理使用，<strong>用于对信号和图像(包括静止图像和运动图像)进行有损数据压缩</strong>。这是由于离散余弦变换具有很强的”能量集中”特性:大多数的自然信号(包括声音和图像)的能量都集中在离散余弦变换后的低频部分，而且当信号具有接近马尔科夫过程的统计特性时，离散余弦变换的去相关性接近于K-L变换 (Karhunen-Loève 变换，具有最优的去相关性) 的性能。</p>
