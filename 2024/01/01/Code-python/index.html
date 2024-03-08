@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>About Myself |  LightDust</title>
+      <title>常见代码记录-python |  LightDust</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,8 +53,8 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="page-"
-  class="article article-type-page"
+  id="post-Code-python"
+  class="article article-type-post"
   itemscope
   itemprop="blogPost"
   data-scroll-reveal
@@ -64,18 +64,89 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  About Myself
+  常见代码记录-python
 </h1>
  
 
       
     </header>
-       
+     
+    <div class="article-meta">
+      <a href="/2024/01/01/Code-python/" class="article-date">
+  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">794</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
     <div class="article-entry" itemprop="articleBody">
        
-  <p>A fourth-year university student majoring in information security. A Rookie in Programming, interested in deep learning, computer version, programming and so on.</p>
-<p>Study at Hunan University.    :)</p>
-<p>email： <a href="mailto:&#108;&#105;&#103;&#x68;&#116;&#100;&#x75;&#x73;&#116;&#48;&#50;&#x40;&#113;&#113;&#46;&#99;&#x6f;&#109;">&#108;&#105;&#103;&#x68;&#116;&#100;&#x75;&#x73;&#116;&#48;&#50;&#x40;&#113;&#113;&#46;&#99;&#x6f;&#109;</a></p>
+  <p>记录 Python 中一些常见的代码。</p>
+<p>该博文会一直持续更新。</p>
+<span id="more"></span>
+
+<h2 id="常见简易问题"><a href="#常见简易问题" class="headerlink" title="常见简易问题"></a>常见简易问题</h2><h2 id="输入输出问题"><a href="#输入输出问题" class="headerlink" title="输入输出问题"></a>输入输出问题</h2><h2 id="torch-Pytorch"><a href="#torch-Pytorch" class="headerlink" title="torch(Pytorch)"></a>torch(Pytorch)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br></pre></td></tr></table></figure>
+
+<p>Torch：张量，即向量，是Pytorch中进行运算的基本单位</p>
+<p>torch.cat：连接两个张量</p>
+<h3 id="init-self"><a href="#init-self" class="headerlink" title="init(self)"></a>init(self)</h3><p>这个函数用于初始化这个类，在创建类的实例的时候自动执行。必须包含self.</p>
+<h3 id="super-A-self-init"><a href="#super-A-self-init" class="headerlink" title="super(A, self).init()"></a>super(A, self).<strong>init</strong>()</h3><p>该函数会首先找到 A 的父类（比如是类 B ），然后把 self 转换为类 B 的对象，对象转换成 B 类后调用自己的init函数，其实简单理解就是子类把父类的__init__()放到自己的__init__()当中，这样子类就有了父类的__init__()的那些东西。</p>
+<p>这个是必须的，如果没有父类，那么 A 我们赋该对象本身所属的类即可。</p>
+<h3 id="torch-manual-seed-opt-seed"><a href="#torch-manual-seed-opt-seed" class="headerlink" title="torch.manual_seed(opt.seed):"></a>torch.manual_seed(opt.seed):</h3><p>设置CPU生成随机数的种子，方便下次复现实验结果。</p>
+<h3 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h3><p>一般是用来导入文件夹中文件</p>
+<h3 id="Conv2d"><a href="#Conv2d" class="headerlink" title="Conv2d"></a>Conv2d</h3><p>参数：</p>
+<p>in_channels：输入张量的channels数。</p>
+<p>out_channels：期望的四维输出张量的channels数。</p>
+<p>kernel_size：卷积核的大小，一般我们会使用5x5、3x3这种左右两个数相同的卷积核</p>
+<p>stride：步长</p>
+<p>padding = 0，是否填充（与Tensorflow不同）</p>
+<p>dilation = 1：是否采用空洞卷积，默认为1，即不采用，采用空洞卷积增加感受野</p>
+<p>groups = 1：是否采用分组卷积</p>
+<h3 id="rearrange"><a href="#rearrange" class="headerlink" title="rearrange"></a>rearrange</h3><h3 id="softmax"><a href="#softmax" class="headerlink" title="softmax"></a>softmax</h3><p>dim = 0 : 按列</p>
+<p>dim = 1 : 按行</p>
+<h3 id="einsum"><a href="#einsum" class="headerlink" title="einsum"></a>einsum</h3><p>numpy 中一种优雅的矩阵矩阵计算方法，非常复杂。</p>
+<p>具体参见：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/506843213">https://zhuanlan.zhihu.com/p/506843213</a></p>
+<h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2><p>model.eval()：在模型中加上Dropout层和batch normalization层，在模型预测阶段将这些层设置到预测模式。</p>
+<h2 id="argparse-模块："><a href="#argparse-模块：" class="headerlink" title="argparse 模块："></a>argparse 模块：</h2><p>是 Python 内置的一个用于命令项选项与参数解析的模块，argparse 模块可以让人轻松编写用户友好的命令行接口。通过在程序中定义好我们需要的参数，然后 argparse 将会从 sys.argv 解析出这些参数。</p>
+<p>语法格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">parser = argparse.ArgumentParser(description=<span class="string">&#x27;Process and align face forensics frames&#x27;</span>)</span><br><span class="line"><span class="comment"># 先创建一个解析器对象</span></span><br><span class="line">parser.add_argument(<span class="string">&#x27;--source_dir_manipulated&#x27;</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;source videos directory, e.g. manipulated_sequences/Deepfakes/c23/frames&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--source_dir_original&#x27;</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;original videos directory, e.g. original_sequences/youtube/c23/frames&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--outsize&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">128</span>, <span class="built_in">help</span>=<span class="string">&#x27;resize to this size&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--output_dir&#x27;</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;output directory&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--split&#x27;</span>, default=<span class="string">&#x27;val.json&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;Path to split json file&#x27;</span>)</span><br><span class="line"><span class="comment"># 参数从前到后含义：选项名字、type参数类型、default无参数时默认值、required可选参数是否可省略、help写明解析器作用。</span></span><br><span class="line"></span><br><span class="line">args = parser.parse_args()</span><br><span class="line"><span class="comment"># 通过parse_args()，把参数转换为适当的类型，然后调用相应的操作</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="os模块："><a href="#os模块：" class="headerlink" title="os模块："></a>os模块：</h2><h3 id="os-mkdir"><a href="#os-mkdir" class="headerlink" title="os.mkdir()"></a>os.mkdir()</h3><p>就是创建相应的目录</p>
+<h3 id="os-getcwd"><a href="#os-getcwd" class="headerlink" title="os.getcwd()"></a>os.getcwd()</h3><p>获取当前文件夹的路径</p>
+<h3 id="os-path-join"><a href="#os-path-join" class="headerlink" title="os.path.join()"></a>os.path.join()</h3><p>用于拼接文件路径</p>
+<h3 id="io-imread"><a href="#io-imread" class="headerlink" title="io.imread()"></a>io.imread()</h3><p>用于读取图片文件。读取的图片为GRB格式</p>
+<h2 id="logging模块："><a href="#logging模块：" class="headerlink" title="logging模块："></a>logging模块：</h2><p>日志模块，使我们可以实时监测程序运行的状态。</p>
+<h2 id="time模块："><a href="#time模块：" class="headerlink" title="time模块："></a>time模块：</h2><p>时间模块，提供各种与时间相关的函数。</p>
+<p>time time()： 返回当前时间的时间戳</p>
  
       <!-- reward -->
       
@@ -140,15 +211,36 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/about/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/Code-python/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
     </footer>
   </div>
 
    
+  <nav class="article-nav">
+    
+      <a href="/2024/01/03/BAOYAN/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            2023计算机保研全历程
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2024/01/01/MyFirstBlog/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">MyFirstBlog</div>
+      </a>
+    
+  </nav>
+
    
 <!-- valine评论 -->
 <div id="vcomments-box">
@@ -200,6 +292,7 @@
  
    
   
+    
 </article>
 
 </section>
@@ -347,6 +440,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
