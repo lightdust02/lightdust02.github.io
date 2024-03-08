@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>书籍阅读-D2L |  LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-书籍阅读-D2L"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  书籍阅读-D2L
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/05/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/" class="article-date">
+  <time datetime="2024-02-05T08:35:00.000Z" itemprop="datePublished">2024-02-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">4.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">18 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>阅读李沐老师写的动手学深度学习，在这里进行笔记记录。</p>
+<p>主要记录 Pytorch 代码。</p>
+<span id="more"></span>
+
+<h2 id="第一章-引言"><a href="#第一章-引言" class="headerlink" title="第一章  引言"></a>第一章  引言</h2><p>​    一个典型的训练过程：</p>
+<p><img src="/images/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/image-20231116093212892.png" alt="典型训练过程"></p>
+<p>​    监督学习：在“给定输⼊特征”的情况下预测标签，每个“特征-标签”对都称为⼀个样本</p>
+<p>​    监督学习样例：回归、分类、标记、搜索、序列学习（语音识别、机器翻译）、<strong>推荐系统</strong>等</p>
+<p>​    无监督学习：数据中不含有“⽬标”的机器学习问题</p>
+<p>​    无监督学习样例：聚类、主成分分析、⽣成对抗性⽹络 GAN</p>
+<h3 id="强化学习："><a href="#强化学习：" class="headerlink" title="强化学习："></a>强化学习：</h3><p>Agent在⼀系列的时间步骤上与环境交互。在每个特定时间点，智能体从环境接收⼀些观察（observation），并且必须选择⼀个动作（action），然后通过某种机制将其传输回环境，最后智能体从环境中获得奖励（reward）。此后新⼀轮循环开始，智能体接收后续观察，并选择后续操作。</p>
+<p><img src="/images/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/image-20231116094012198.png" alt="强化学习与环境之间的相互作用"></p>
+<p>​    神经网络的两个核心：</p>
+<p><img src="/images/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/image-20231116094147650.png" alt="神经网络核心"></p>
+<blockquote>
+<p>最近⼗年，在统计模型、应⽤和算法⽅⾯的进展就像寒武纪⼤爆发——历史上物种⻜速进化的时期。</p>
+</blockquote>
+<p>本章小结：</p>
+<ul>
+<li><p>机器学习研究计算机系统如何利⽤经验（通常是数据）来提⾼特定任务的性能。它结合了统计学、数据挖掘和优化的思想。通常，它是被⽤作实现⼈⼯智能解决⽅案的⼀种⼿段。</p>
+</li>
+<li><p>表⽰学习作为机器学习的⼀类，其研究的重点是如何⾃动找到合适的数据表⽰⽅式。深度学习是通过学习多层次的转换来进⾏的多层次的表⽰学习。</p>
+</li>
+<li><p>深度学习不仅取代了传统机器学习的浅层模型，⽽且取代了劳动密集型的特征⼯程。</p>
+</li>
+<li><p>最近在深度学习⽅⾯取得的许多进展，⼤都是由廉价传感器和互联⽹规模应⽤所产⽣的⼤量数据，以及（通过GPU）算⼒的突破来触发的。</p>
+</li>
+<li><p>整个系统优化是获得⾼性能的关键环节。有效的深度学习框架的开源使得这⼀点的设计和实现变得非常容易。</p>
+</li>
+</ul>
+<h2 id="第二章-预备知识"><a href="#第二章-预备知识" class="headerlink" title="第二章  预备知识"></a>第二章  预备知识</h2><h3 id="torch-相关代码："><a href="#torch-相关代码：" class="headerlink" title="torch 相关代码："></a>torch 相关代码：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x.numel()<span class="comment">#返回张量中元素总数</span></span><br><span class="line">x.reshape(<span class="number">3</span>,<span class="number">4</span>)<span class="comment">#把张量x转换为形状为（3,4）的矩阵</span></span><br><span class="line">torch.zeros((<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))<span class="comment">#创建形状为（2,3,4）的张量，其中所有元素都设置为0。</span></span><br><span class="line">torch.ones((<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))<span class="comment">#创建形状为（2,3,4）的张量，其中所有元素都设置为1。</span></span><br><span class="line">torch.randn()<span class="comment">#从均值为0、标准差为1的标准⾼斯分布中随机采样。</span></span><br><span class="line">torch.cat((X, Y), dim=<span class="number">0</span>)<span class="comment">#将张量X,Y连接起来，变行不变列</span></span><br><span class="line">torch.cat((X, Y), dim=<span class="number">1</span>)<span class="comment">#将张量X,Y连接起来，变列不变行</span></span><br><span class="line">A = X.numpy()</span><br><span class="line">B = torch.tensor(A)<span class="comment">#将numpy转为tensor</span></span><br><span class="line">B.item()<span class="comment">#将tensor转为numpy</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="索引："><a href="#索引：" class="headerlink" title="索引："></a>索引：</h4><p>同 python，左闭右开，-1 表示最后一个。</p>
+<p>X[0:2, :] ：0:2 指第一第二行，: 指所有列。</p>
+<h4 id="数据预处理："><a href="#数据预处理：" class="headerlink" title="数据预处理："></a>数据预处理：</h4><p>写入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.makedirs(os.path.join(<span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;data&#x27;</span>), exist_ok=<span class="literal">True</span>)</span><br><span class="line">data_file = os.path.join(<span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;data&#x27;</span>, <span class="string">&#x27;house_tiny.csv&#x27;</span>)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(data_file, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">f.write(<span class="string">&#x27;NumRooms,Alley,Price\n&#x27;</span>) <span class="comment"># 列名</span></span><br><span class="line">f.write(<span class="string">&#x27;NA,Pave,127500\n&#x27;</span>) <span class="comment"># 每⾏表⽰⼀个数据样本</span></span><br><span class="line">f.write(<span class="string">&#x27;2,NA,106000\n&#x27;</span>)</span><br><span class="line">f.write(<span class="string">&#x27;4,NA,178100\n&#x27;</span>)</span><br><span class="line">f.write(<span class="string">&#x27;NA,NA,140000\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>读：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">data = pd.read_csv(data_file)</span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
+
+<p>NaN 代表缺省值</p>
+<h3 id="线性代数："><a href="#线性代数：" class="headerlink" title="线性代数："></a>线性代数：</h3><h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">下面，设置 A:tensor([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]]),</span><br><span class="line">A.<span class="built_in">sum</span>(axis=<span class="number">0</span>)<span class="comment">#沿列降维，生成输出向量，A.sum(axis=0)得到tensor([6,8,10,12])</span></span><br><span class="line">A.<span class="built_in">sum</span>(axis=<span class="number">1</span>)<span class="comment">#沿行降维，生成输出向量，A.sum(axis=0)得到tensor([10,26])</span></span><br><span class="line">A.<span class="built_in">sum</span>()<span class="comment">#36,等同于A.sum(axis=[0,1])</span></span><br><span class="line">A.mean()<span class="comment">#求均值</span></span><br><span class="line">A.<span class="built_in">sum</span>(axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)<span class="comment">#非降维求和，得到得到tensor([[10],[26]])</span></span><br><span class="line">A.cumsum(axis=<span class="number">0</span>)<span class="comment">#此函数不会沿任何轴降低输⼊张量的维度。</span></span><br><span class="line"></span><br><span class="line">torch.dot(x,y)<span class="comment">#算两个张量的点积，等同于torch.sum(x*y)</span></span><br><span class="line">torch.mm(A,B)<span class="comment">#计算矩阵A与矩阵B相乘</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="范数："><a href="#范数：" class="headerlink" title="范数："></a>范数：</h4><p>向量的范数表示⼀个向量 “有多大” 。范数要求非负，且听起来很像距离的度量。</p>
+<h4 id="L1-范数："><a href="#L1-范数：" class="headerlink" title="L1 范数："></a>L1 范数：</h4><p>L1 范数，表示为向量元素的绝对值之和，受异常值影响较小：$||x||<em>1=\sum^n</em>{i=1}{|x^2_i|}$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.<span class="built_in">abs</span>(u).<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+
+<h4 id="L2-范数（更经常使用）："><a href="#L2-范数（更经常使用）：" class="headerlink" title="L2 范数（更经常使用）："></a>L2 范数（更经常使用）：</h4><p>L2 范数是向量元素平⽅和的平⽅根：$||x||<em>2=\sqrt{\sum^n</em>{i=1}x^2_i}$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.norm(u)</span><br></pre></td></tr></table></figure>
+
+<p>还有 <em>Frobenius</em> 范数（Frobenius norm）是矩阵元素平⽅和的平⽅根。</p>
+<p>在深度学习中，我们经常试图解决优化问题：最大化分配给观测数据的概率; 最小化预测和真实观测之间的距离。我们用向量表示物品（如单词、产品或新闻文章），以便最小化相似项目之间的距离，最大化不同项目之间的距离。目标，是深度学习算法最重要的组成部分（除了数据），通常被表达为范数。</p>
+<h3 id="微积分："><a href="#微积分：" class="headerlink" title="微积分："></a>微积分：</h3><h4 id="代码：-1"><a href="#代码：-1" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 微积分部分</span></span><br><span class="line">x.requires_grad_(<span class="literal">True</span>)<span class="comment">#x.grad默认为None</span></span><br><span class="line">y = <span class="number">2</span> * torch.dot(x, x)<span class="comment">#y：tensor(28., grad_fn=&lt;MulBackward0&gt;)</span></span><br><span class="line">y.backward()<span class="comment">#⾃动计算y关于x每个分量的梯度,tensor([ 0., 4., 8., 12.])</span></span><br><span class="line"><span class="comment"># 在默认情况下，PyTorch会累积梯度，我们需要清除之前的值</span></span><br><span class="line">x.grad.zero_()</span><br><span class="line">y = x.<span class="built_in">sum</span>()</span><br><span class="line">y.backward()</span><br><span class="line">x.grad</span><br></pre></td></tr></table></figure>
+
+<p>绘图：P66 - P67</p>
+<p>2.5.2 P89 不是很好理解</p>
+<p>自动微分的好处是：即使构建函数的计算图需要通过Python控制流（例如，条件、循环或任意函数），仍然可以计算得到的变量的梯度。</p>
+<h3 id="概率论："><a href="#概率论：" class="headerlink" title="概率论："></a>概率论：</h3><h4 id="代码：-2"><a href="#代码：-2" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.distributions <span class="keyword">import</span> multinomial</span><br><span class="line"><span class="keyword">from</span> d2l <span class="keyword">import</span> torch <span class="keyword">as</span> d2l</span><br></pre></td></tr></table></figure>
+
+<h3 id="帮助："><a href="#帮助：" class="headerlink" title="帮助："></a>帮助：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">dir</span>(torch.distributions)) <span class="comment"># 查询模块中的所有属性</span></span><br><span class="line"><span class="built_in">help</span>(torch.ones) <span class="comment"># 查询如何使用给定函数或类的更具体说明</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第三章-线性"><a href="#第三章-线性" class="headerlink" title="第三章 线性"></a>第三章 线性</h2><h3 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h3><p>回归 ( regression )：为一个或多个自变量与因变量之间关系建模的方法，经常用来表示输入输出之间的关系。</p>
+<p>一般线性回归模型：<br>$$<br>y = w_1x_1 + w_2x_2 +……+ w_dx_d+b<br>$$<br><code>w</code>：权重 weight，决定每个特征对预测值的影响</p>
+<p><code>b</code>：偏置 bias ( offset ) </p>
+<p>上述公式严格来说，是输入特征的⼀个仿射变换（affine transformation）。特点是通过加权和对特征进行线性变换（linear transformation），并通过偏置项进行平移（translation）。</p>
+<p>给定数据集，我们的目标是寻找模型的权重 <strong>w</strong> 和偏置 <strong>b</strong> ，使得模型做出的预测符合数据的真实价格。</p>
+<p>所有特征放到向量 <strong>x</strong> 中，所有权重放到向量 <strong>w</strong> 中，我们可以用矩阵形式简洁地表达模型：<br>$$<br>y = W^TX + b<br>$$<br>其中，<strong>X</strong> 的<strong>每⼀行是⼀个样本，每⼀列是⼀种特征</strong>。</p>
+<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><p>用于确定拟合程度。损失函数（loss function）能够量化目标的实际值与预测值之间的差距。通常我们会选择非负数作为损失，<strong>数值越小表示损失越小</strong>，完美预测时的损失为 0 。</p>
+<h4 id="解析解"><a href="#解析解" class="headerlink" title="解析解"></a>解析解</h4><p>线性回归的解可用公式表达出来，这类解叫作解析解（analytical solution）。线性回归这样的简单问题存在解析解，但并不是所有的问题都存在解析解。</p>
+<h4 id="随机梯度下降"><a href="#随机梯度下降" class="headerlink" title="随机梯度下降"></a>随机梯度下降</h4><p>可优化所有深度学习模型。通过不断地在损失函数递减的方向上更新参数来降低误差。</p>
+<p>随机梯度下降大概步骤：</p>
+<p>（1）随机初始化模型参数的值</p>
+<p>（2）从数据集中随机抽取小批量样本且在负梯度的方向上更新参数，并不断迭代这⼀步骤。</p>
+<p>两个重要概念：batch size，每个小批量中样本数，学习率，</p>
+<p>batch size 和学习率的值通常是手动预先指定，而不是通过模型训练得到的。这些可以调整但不在训练过程中更新的参数称为超参数（hyperparameter）。调参（hyperparameter tuning）是选择超参数的过程。超参数通常是我们根据训练迭代结果来调整的，⽽训练迭代结果是在独立的验证数据集（validation dataset）上评估得到的。</p>
+<h4 id="矢量化"><a href="#矢量化" class="headerlink" title="矢量化"></a>矢量化</h4><p>对计算进行矢量化，从而利用线性代数库，而不是在Python中编写开销高昂的for循环</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> d2l <span class="keyword">import</span> torch <span class="keyword">as</span> d2l</span><br><span class="line">n = <span class="number">10000</span></span><br><span class="line">a = torch.ones([n])</span><br><span class="line">b = torch.ones([n])</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Timer</span>: <span class="comment">#@save</span></span><br><span class="line">	<span class="string">&quot;&quot;&quot;记录多次运⾏时间&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.times = []</span><br><span class="line">        self.start()</span><br><span class="line">        </span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">start</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;启动计时器&quot;&quot;&quot;</span></span><br><span class="line">        self.tik = time.time()</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">stop</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;停⽌计时器并将时间记录在列表中&quot;&quot;&quot;</span></span><br><span class="line">        self.times.append(time.time() - self.tik)</span><br><span class="line">        <span class="keyword">return</span> self.times[-<span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">avg</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;返回平均时间&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(self.times) / <span class="built_in">len</span>(self.times)</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">sum</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;返回时间总和&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(self.times)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">cumsum</span>(<span class="params">self</span>):</span><br><span class="line">    	<span class="string">&quot;&quot;&quot;返回累计时间&quot;&quot;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> np.array(self.times).cumsum().tolist()</span><br></pre></td></tr></table></figure>
+
+<p>这样，可以对工作负载进行基准测试。</p>
+<p>矢量化代码通常会带来数量级的加速。另外，我们将更多的数学运算放到库中，而无须编写那么多的计算，从而减少了出错的可能性。</p>
+<h4 id="正态分布与平方损失"><a href="#正态分布与平方损失" class="headerlink" title="正态分布与平方损失"></a>正态分布与平方损失</h4><p>正态分布概率密度函数：$p(x)=\frac{1}{2\pi\sigma^2}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算正态分布</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">normal</span>(<span class="params">x, mu, sigma</span>):</span><br><span class="line">    p = <span class="number">1</span> / math.sqrt(<span class="number">2</span> * math.pi * sigma**<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> p * np.exp(-<span class="number">0.5</span> / sigma**<span class="number">2</span> * (x - mu)**<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 再次使⽤numpy进⾏可视化</span></span><br><span class="line">x = np.arange(-<span class="number">7</span>, <span class="number">7</span>, <span class="number">0.01</span>)</span><br><span class="line"><span class="comment"># 均值和标准差对</span></span><br><span class="line">params = [(<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">2</span>), (<span class="number">3</span>, <span class="number">1</span>)]</span><br><span class="line">d2l.plot(x, [normal(x, mu, sigma) <span class="keyword">for</span> mu, sigma <span class="keyword">in</span> params], xlabel=<span class="string">&#x27;x&#x27;</span>,</span><br><span class="line">ylabel=<span class="string">&#x27;p(x)&#x27;</span>, figsize=(<span class="number">4.5</span>, <span class="number">2.5</span>),</span><br><span class="line">legend=[<span class="string">f&#x27;mean <span class="subst">&#123;mu&#125;</span>, std <span class="subst">&#123;sigma&#125;</span>&#x27;</span> <span class="keyword">for</span> mu, sigma <span class="keyword">in</span> params])</span><br></pre></td></tr></table></figure>
+
+<p>我们一般会假设观测中包含噪声，其中噪声服从正态分布。</p>
+<h3 id="从零实现线性回归"><a href="#从零实现线性回归" class="headerlink" title="从零实现线性回归"></a>从零实现线性回归</h3><p>线性模型参数 $W = [2, −3.4]^⊤$、<em>b</em> = 4*.*2 、标准差 0.01</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> d2l <span class="keyword">import</span> torch <span class="keyword">as</span> d2l</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">synthetic_data</span>(<span class="params">w, b, num_examples</span>): <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;⽣成y=Xw+b+噪声&quot;&quot;&quot;</span></span><br><span class="line">    X = torch.normal(<span class="number">0</span>, <span class="number">1</span>, (num_examples, <span class="built_in">len</span>(w)))</span><br><span class="line">    y = torch.matmul(X, w) + b</span><br><span class="line">    y += torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, y.shape)</span><br><span class="line">    <span class="keyword">return</span> X, y.reshape((-<span class="number">1</span>, <span class="number">1</span>))	</span><br><span class="line">true_w = torch.tensor([<span class="number">2</span>, -<span class="number">3.4</span>])</span><br><span class="line">true_b = <span class="number">4.2</span></span><br><span class="line">features, labels = synthetic_data(true_w, true_b, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取数据集"><a href="#读取数据集" class="headerlink" title="读取数据集"></a>读取数据集</h4><p>定义⼀个 data_iter 函数，该函数接收批量大小、特征矩阵和标签向量作为输入，生成大小为 batch_size 的批。每个批包含⼀组特征和标签。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">data_iter</span>(<span class="params">batch_size, features, labels</span>):</span><br><span class="line">    num_examples = <span class="built_in">len</span>(features)</span><br><span class="line">    indices = <span class="built_in">list</span>(<span class="built_in">range</span>(num_examples))</span><br><span class="line">    <span class="comment"># 随机读取的，没有特定的顺序</span></span><br><span class="line">    random.shuffle(indices)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, num_examples, batch_size):</span><br><span class="line">        batch_indices = torch.tensor(indices[i: <span class="built_in">min</span>(i + batch_size, num_examples)])</span><br><span class="line">        <span class="keyword">yield</span> features[batch_indices], labels[batch_indices]</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化参数、定义模型、损失函数、优化算法"><a href="#初始化参数、定义模型、损失函数、优化算法" class="headerlink" title="初始化参数、定义模型、损失函数、优化算法"></a>初始化参数、定义模型、损失函数、优化算法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从均值为0、标准差为0.01的正态分布中采样随机数来初始化权重，并将偏置初始化为0。</span></span><br><span class="line">w = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(<span class="number">2</span>,<span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">linreg</span>(<span class="params">X, w, b</span>): <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;线性回归模型&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> torch.matmul(X, w) + b</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">squared_loss</span>(<span class="params">y_hat, y</span>): <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;均⽅损失&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> (y_hat - y.reshape(y_hat.shape)) ** <span class="number">2</span> / <span class="number">2</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sgd</span>(<span class="params">params, lr, batch_size</span>): <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;⼩批量随机梯度下降&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">            param -= lr * param.grad / batch_size</span><br><span class="line">            param.grad.zero_()</span><br></pre></td></tr></table></figure>
+
+<h4 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h4><p>执⾏以下循环：初始化参数、重复计算梯度、更新参数，直到完成。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">lr = <span class="number">0.03</span> <span class="comment"># 学习率设置为 0.3</span></span><br><span class="line">num_epochs = <span class="number">3</span></span><br><span class="line">net = linreg</span><br><span class="line">loss = squared_loss</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">	<span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">		l = loss(net(X, w, b), y) <span class="comment"># X和y的⼩批量损失</span></span><br><span class="line">        <span class="comment"># 因为l形状是(batch_size,1)，⽽不是⼀个标量。l中的所有元素被加到⼀起，</span></span><br><span class="line">        <span class="comment"># 并以此计算关于[w,b]的梯度</span></span><br><span class="line">        l.<span class="built_in">sum</span>().backward()</span><br><span class="line">        sgd([w, b], lr, batch_size) <span class="comment"># 使⽤参数的梯度更新参数</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        train_l = loss(net(features, w, b), labels)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;epoch + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;<span class="built_in">float</span>(train_l.mean()):f&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;w的估计误差: <span class="subst">&#123;true_w - w.reshape(true_w.shape)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;b的估计误差: <span class="subst">&#123;true_b - b&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="简洁实现"><a href="#简洁实现" class="headerlink" title="简洁实现"></a>简洁实现</h3><h4 id="读取数据集-1"><a href="#读取数据集-1" class="headerlink" title="读取数据集"></a>读取数据集</h4><p>直接调用框架中现有的 API 来读取数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">load_array</span>(<span class="params">data_arrays, batch_size, is_train=<span class="literal">True</span></span>): <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;构造⼀个PyTorch数据迭代器&quot;&quot;&quot;</span></span><br><span class="line">    dataset = data.TensorDataset(*data_arrays)</span><br><span class="line">    <span class="keyword">return</span> data.DataLoader(dataset, batch_size, shuffle=is_train)</span><br><span class="line">batch_size = <span class="number">10</span></span><br><span class="line">data_iter = load_array((features, labels), batch_size)</span><br></pre></td></tr></table></figure>
+
+<p>为了验证是否正常⼯作，我们读取并打印第⼀个⼩批量样本。这⾥我们使⽤ iter 构造 Python 迭代器，并使⽤next从迭代器中获取第⼀项。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">next</span>(<span class="built_in">iter</span>(data_iter))</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化参数、定义模型、损失函数、优化算法-1"><a href="#初始化参数、定义模型、损失函数、优化算法-1" class="headerlink" title="初始化参数、定义模型、损失函数、优化算法"></a>初始化参数、定义模型、损失函数、优化算法</h4><p>⾸先定义⼀个模型变量 net，它是⼀个 Sequential 类的实例。Sequential 类将多个层串联在⼀起。当给定输⼊数据时，Sequential 实例将数据传入到第⼀层，然后将第一层的输出作为第二层的输入，以此类推。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nn是神经⽹络的缩写</span></span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line">net = nn.Sequential(nn.Linear(<span class="number">2</span>, <span class="number">1</span>))<span class="comment"># 2是输⼊特征形状，1是输出特征形状</span></span><br><span class="line">net[<span class="number">0</span>].weight.data.normal_(<span class="number">0</span>, <span class="number">0.01</span>)</span><br><span class="line">net[<span class="number">0</span>].bias.data.fill_(<span class="number">0</span>)</span><br><span class="line">loss = nn.MSELoss()</span><br><span class="line">trainer = torch.optim.SGD(net.parameters(), lr=<span class="number">0.03</span>)</span><br><span class="line">num_epochs = <span class="number">3</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        <span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter:</span><br><span class="line">            l = loss(net(X) ,y)</span><br><span class="line">            trainer.zero_grad()</span><br><span class="line">            l.backward()</span><br><span class="line">            trainer.step()</span><br><span class="line">    	l = loss(net(features), labels)</span><br><span class="line">   		<span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;epoch + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;l:f&#125;</span>&#x27;</span>)</span><br><span class="line">w = net[<span class="number">0</span>].weight.data</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;w的估计误差：&#x27;</span>, true_w - w.reshape(true_w.shape))</span><br><span class="line">b = net[<span class="number">0</span>].bias.data</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;b的估计误差：&#x27;</span>, true_b - b)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="softmax"><a href="#softmax" class="headerlink" title="softmax"></a>softmax</h3><p>$$<br>softmax(x_i)=\frac{e^{x_i}}{\sum^N_{q=1}e^{x_q}}<br>$$</p>
+<p>softmax 将未规范化的预测变换为⾮负数并且总和为1，同时让模型保持可导的性质。通过 softmax 函数就可以将多分类的输出值转换为范围在 [0, 1] 和为1的概率分布。</p>
+<p>softmax和相关的损失函数很常⻅。</p>
+<p>导数是我们 softmax 模型分配的概率与实际发⽣的情况（由独热标签向量表示）之间的差异</p>
+<h3 id="损失函数-1"><a href="#损失函数-1" class="headerlink" title="损失函数"></a>损失函数</h3><p>需要损失函数来度量预测的效果。我们将使⽤最⼤似然估计。</p>
+<p>常用交叉熵损失：$ l(y,y)=-\sum^q_{j=1}y_jlog(y_j)$</p>
+<p>我们使用上述公式来定义损失 l，它是所有标签分布的预期损失值。称为交叉熵损失（cross-entropy loss），它是分类问题最常用的损失之⼀。</p>
+<p>我们从两⽅⾯来考虑交叉熵分类⽬标：（i）最大化观测数据的似然（ii）最小化传达标签所需的惊异。</p>
+<h3 id="图像分类数据集"><a href="#图像分类数据集" class="headerlink" title="图像分类数据集"></a>图像分类数据集</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">from</span> d2l <span class="keyword">import</span> torch <span class="keyword">as</span> d2l</span><br><span class="line">d2l.use_svg_display()</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取数据集-2"><a href="#读取数据集-2" class="headerlink" title="读取数据集"></a>读取数据集</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过ToTensor实例将图像数据从PIL类型变换成32位浮点数格式，</span></span><br><span class="line"><span class="comment"># 并除以255使得所有像素的数值均在0〜1之间</span></span><br><span class="line">trans = transforms.ToTensor()</span><br><span class="line">mnist_train = torchvision.datasets.FashionMNIST(root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">True</span>,transform=trans, download=<span class="literal">True</span>)</span><br><span class="line">mnist_test = torchvision.datasets.FashionMNIST(root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">False</span>,transform=trans, download=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">len</span>(mnist_train), <span class="built_in">len</span>(mnist_test)</span><br></pre></td></tr></table></figure>
+
+<p>Fashion-MNIST 由10个类别的图像组成，每个类别由训练数据集（train dataset）中的6000张图像和测试数据集（test dataset）中的1000张图像组成。因此，训练集和测试集分别包含60000和10000张图像。测试数据集不用于训练，只用于评估模型性能。</p>
+<p>每个输⼊图像的⾼度和宽度均为28像素。数据集由灰度图像组成，其通道数为1。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mnist_train[<span class="number">0</span>][<span class="number">0</span>].shape</span><br></pre></td></tr></table></figure>
+
+<p>以下函数⽤于在数字标签索引及其⽂本名称之间进⾏转换。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_fashion_mnist_labels</span>(<span class="params">labels</span>): <span class="comment">#@save</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;返回Fashion-MNIST数据集的⽂本标签&quot;&quot;&quot;</span></span><br><span class="line">    text_labels = [<span class="string">&#x27;t-shirt&#x27;</span>, <span class="string">&#x27;trouser&#x27;</span>, <span class="string">&#x27;pullover&#x27;</span>, <span class="string">&#x27;dress&#x27;</span>, <span class="string">&#x27;coat&#x27;</span>,<span class="string">&#x27;sandal&#x27;</span>, <span class="string">&#x27;shirt&#x27;</span>, <span class="string">&#x27;sneaker&#x27;</span>, <span class="string">&#x27;bag&#x27;</span>, <span class="string">&#x27;ankle boot&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> [text_labels[<span class="built_in">int</span>(i)] <span class="keyword">for</span> i <span class="keyword">in</span> labels]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show_images</span>(<span class="params">imgs, num_rows, num_cols, titles=<span class="literal">None</span>, scale=<span class="number">1.5</span></span>): <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;绘制图像列表&quot;&quot;&quot;</span></span><br><span class="line">    figsize = (num_cols * scale, num_rows * scale)</span><br><span class="line">    _, axes = d2l.plt.subplots(num_rows, num_cols, figsize=figsize)</span><br><span class="line">    axes = axes.flatten()</span><br><span class="line">    <span class="keyword">for</span> i, (ax, img) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(axes, imgs)):</span><br><span class="line">        <span class="keyword">if</span> torch.is_tensor(img):</span><br><span class="line">            <span class="comment"># 图⽚张量</span></span><br><span class="line">            ax.imshow(img.numpy())</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># PIL图⽚</span></span><br><span class="line">            ax.imshow(img)</span><br><span class="line">        ax.axes.get_xaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">        ax.axes.get_yaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">        <span class="keyword">if</span> titles:</span><br><span class="line">        	ax.set_title(titles[i])</span><br><span class="line">    <span class="keyword">return</span> axes</span><br></pre></td></tr></table></figure>
+
+<h4 id="小批量读取"><a href="#小批量读取" class="headerlink" title="小批量读取"></a>小批量读取</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">batch_size = <span class="number">256</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dataloader_workers</span>(): <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;使⽤4个进程来读取数据&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span></span><br><span class="line">train_iter = data.DataLoader(mnist_train,batch_size,</span><br><span class="line">shuffle=<span class="literal">True</span>,num_workers=get_dataloader_workers())</span><br></pre></td></tr></table></figure>
+
+<h4 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">load_data_fashion_mnist</span>(<span class="params">batch_size, resize=<span class="literal">None</span></span>): <span class="comment">#@save</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;下载Fashion-MNIST数据集，然后将其加载到内存中&quot;&quot;&quot;</span></span><br><span class="line">    trans = [transforms.ToTensor()]</span><br><span class="line">    <span class="keyword">if</span> resize:</span><br><span class="line">        trans.insert(<span class="number">0</span>, transforms.Resize(resize))</span><br><span class="line">    trans = transforms.Compose(trans)</span><br><span class="line">    mnist_train = torchvision.datasets.FashionMNIST(</span><br><span class="line">    	root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">True</span>, transform=trans, download=<span class="literal">True</span>)</span><br><span class="line">    mnist_test = torchvision.datasets.FashionMNIST(</span><br><span class="line">    	root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">False</span>, transform=trans, download=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> (data.DataLoader(mnist_train,batch_size,shuffle=<span class="literal">True</span>,num_workers=get_dataloader_workers()),data.DataLoader(mnist_test, batch_size, shuffle=<span class="literal">False</span>,num_workers=get_dataloader_workers()))</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们已经准备好使⽤ Fashion-MNIST 数据集。</p>
+<h3 id="softmax从0开始"><a href="#softmax从0开始" class="headerlink" title="softmax从0开始"></a>softmax从0开始</h3><p>ŷ ：y_hat（写作 ŷ ）是指线性回归模型中响应变量的<strong>估计值</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> IPython <span class="keyword">import</span> display</span><br><span class="line"><span class="keyword">from</span> d2l <span class="keyword">import</span> torch <span class="keyword">as</span> d2l</span><br><span class="line">batch_size = <span class="number">256</span></span><br><span class="line">train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化模型参数</span></span><br><span class="line"><span class="comment"># 展平每个图像，把它们看作⻓度为784的向量</span></span><br><span class="line">num_inputs = <span class="number">784</span></span><br><span class="line"><span class="comment"># 数据集有10个类别，⽹络输出维度为10。权重将构成⼀个784×10的矩阵，偏置将构成⼀个1×10的⾏向量。</span></span><br><span class="line">num_outputs = <span class="number">10</span></span><br><span class="line">W = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(num_inputs, num_outputs), requires_grad=<span class="literal">True</span>)</span><br><span class="line">b = torch.zeros(num_outputs, requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 定义softmax函数</span></span><br><span class="line">X = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>], [<span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>]])</span><br><span class="line">X.<span class="built_in">sum</span>(<span class="number">0</span>, keepdim=<span class="literal">True</span>), X.<span class="built_in">sum</span>(<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">softmax</span>(<span class="params">X</span>):</span><br><span class="line">    X_exp = torch.exp(X)</span><br><span class="line">    partition = X_exp.<span class="built_in">sum</span>(<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> X_exp / partition <span class="comment"># 这⾥应⽤了⼴播机制</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义模型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">net</span>(<span class="params">X</span>):</span><br><span class="line">	<span class="keyword">return</span> softmax(torch.matmul(X.reshape((-<span class="number">1</span>, W.shape[<span class="number">0</span>])), W) + b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义损失函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cross_entropy</span>(<span class="params">y_hat, y</span>):</span><br><span class="line">	<span class="keyword">return</span> - torch.log(y_hat[<span class="built_in">range</span>(<span class="built_in">len</span>(y_hat)), y])</span><br><span class="line"></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">accuracy</span>(<span class="params">y_hat, y</span>): <span class="comment">#@save</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;计算预测正确的数量&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(y_hat.shape) &gt; <span class="number">1</span> <span class="keyword">and</span> y_hat.shape[<span class="number">1</span>] &gt; <span class="number">1</span>:</span><br><span class="line">    	y_hat = y_hat.argmax(axis=<span class="number">1</span>)</span><br><span class="line">    cmp = y_hat.<span class="built_in">type</span>(y.dtype) == y</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float</span>(cmp.<span class="built_in">type</span>(y.dtype).<span class="built_in">sum</span>())</span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/02/05/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag">计算机视觉</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/01/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">计算机网络相关知识点</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
