@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2k</span>
+            <span class="post-count">2.5k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">7 min</span>
+            <span class="post-count">9 min</span>
         </span>
     </span>
 </div>
@@ -131,6 +131,22 @@
 <p>Softmax 函数一般作为神经网络的最后一层，接受来自上一层网络的输入值，然后将其转化为概率。</p>
 <h3 id="einsum"><a href="#einsum" class="headerlink" title="einsum:"></a>einsum:</h3><p>numpy 中一种优雅的矩阵矩阵计算方法，非常复杂。</p>
 <p>具体参见：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/506843213">https://zhuanlan.zhihu.com/p/506843213</a></p>
+<h3 id="EMA"><a href="#EMA" class="headerlink" title="EMA"></a>EMA</h3><p>EMA 模型，Exponential Moving Average model，通过计算模型参数的指数加权移动平均来平滑参数更新的过程。</p>
+<p><img src="/images/Pron/ema.png" alt="image-20240325235724569"></p>
+<p>EMA可以近似看成过去 $1/(1−\beta) $ 个时刻  v 值 的平均。</p>
+<p>本质是对变量的一种加权平均。在训练过程中，原始模型的参数会不断更新，而 EMA 模型的参数则通过指数加权平均的方式来跟踪原始模型的参数变化。</p>
+<h3 id="NIAM"><a href="#NIAM" class="headerlink" title="NIAM"></a>NIAM</h3><p>NIAM， Neural Implicit Attentive Model ，是一种与深度学习相关的模型。</p>
+<p>一种基于注意力机制的神经网络模型，旨在处理具有隐式关系的数据。</p>
+<p>隐式关系：不能直接观察到的关系，但可以通过数据间的相关性来推断。NIAM 模型可以自动地学习和捕捉这些隐式关系，从而在各种任务中表现出色，如推荐系统、自然语言处理和图像处理等。</p>
+<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="Q-K-V"><a href="#Q-K-V" class="headerlink" title="Q K V"></a>Q K V</h3><p>Q: Query，查询        K: Key，键    V: Value，值</p>
+<p>注意力机制中，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
+<p>输入序列被用来计算查询 Q 、键 K 和值 V 。每个查询 Q 与所有键 K 计算得到相关性分数，然后通过 Softmax 函数将这些分数归一化为权重，最终这些权重被应用到相应的值 V 上，从而得到注意力表示。</p>
+<p>Q、K 和 V 的作用可以简单概括如下：</p>
+<ul>
+<li>查询（Q）：确定关注的内容。</li>
+<li>键（K）：提供与查询相关的上下文。</li>
+<li>值（V）：根据查询和键的相关性来计算权重，从而产生最终的注意力表示。</li>
+</ul>
 <h2 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h2><h3 id="BEV"><a href="#BEV" class="headerlink" title="BEV:"></a>BEV:</h3><p><strong>BEV</strong>: 鸟瞰视角，Bird’s Eye View，是一种<strong>从上方观看</strong>对象或场景的视角，就像鸟在空中俯视地面一样。在自动驾驶和机器人领域，通过传感器（如 LiDAR 和摄像头）获取的数据通常会被转换成 BEV 表示，以便更好地进行<strong>物体检测、路径规划</strong>等任务。</p>
 <h3 id="FPN："><a href="#FPN：" class="headerlink" title="FPN："></a>FPN：</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62604038">【目标检测】FPN(Feature Pyramid Network) - 知乎 (zhihu.com)</a></p>
 <blockquote>
@@ -147,7 +163,7 @@
 <p>Bottom-up：Bottom-up 的过程就是将图片输入到backbone ConvNet中提取特征的过程中。Backbone输出的feature map的尺寸有的是不变的，有的是成2倍的减小的。</p>
 <p>Top-down：Top-down 的过程就是将高层得到的feature map进行上采样然后往下传递。高层的特征包含丰富的语义信息，经过top-down 这些语义信息能传播到低层特征上，使得低层特征也包含丰富的语义信息。</p>
 <p>Lateral connection：3 个步骤，先 1*1的卷积降低维度，再将得到的特征和上一层采样得到特征图 $P_{n+1}$ 进行融合，直接相加。相加完后再进行一个 3*3 的卷积得到本层的特征输出 $P_n$。</p>
-<h3 id="模型："><a href="#模型：" class="headerlink" title="模型："></a>模型：</h3><p>LC-GAN : 基于生成对抗网络的人脸数据隐私保护算法模型</p>
+<h3 id="常见模型简称："><a href="#常见模型简称：" class="headerlink" title="常见模型简称："></a>常见模型简称：</h3><p>LC-GAN : 基于生成对抗网络的人脸数据隐私保护算法模型</p>
 <p>CGAN : 条件生成对抗网络，是一种基于监督学习的神经网络深度学习模型</p>
 <p>PP-GAN : 隐私保护网络，基于生成对抗网络，引入了针对人脸去识别问题而设计的验证器和调节模块</p>
 <h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
@@ -174,6 +190,7 @@
 <h3 id="face-landmarks："><a href="#face-landmarks：" class="headerlink" title="face landmarks："></a>face landmarks：</h3><p>直译为面部地标，作为一种匹配标准，用于在真实图像生成训练数据过程中实现寻找。</p>
 <p>mask：相应区域的掩码。可以理解为图像的某种属性。表现在图像上，是表示图像中某区域内的像素情况，可以用数字来表示。</p>
 <h3 id="SBI："><a href="#SBI：" class="headerlink" title="SBI："></a>SBI：</h3><p>Self-Blended Images，自混合图像，混合来自单个原始图像的伪源图像和目标图像。</p>
+<h2 id="自然语言处理："><a href="#自然语言处理：" class="headerlink" title="自然语言处理："></a>自然语言处理：</h2><h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bidirectional Encoder Representations from Transformers，一种基于 Transformer 模型的预训练语言表示模型。用来生成文本的深层双向表示。</p>
  
       <!-- reward -->
       
