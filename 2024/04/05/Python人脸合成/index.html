@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Python人脸合成"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+     
+    <div class="article-meta">
+      <a href="/2024/04/05/Python%E4%BA%BA%E8%84%B8%E5%90%88%E6%88%90/" class="article-date">
+  <time datetime="2024-04-05T05:44:07.479Z" itemprop="datePublished">2024-04-05</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">title: 个人项目-人脸融合</span><br><span class="line">author: LightDust</span><br><span class="line">date: 2024-04-05 14:15:00</span><br><span class="line">categories:</span><br><span class="line">- 开发</span><br><span class="line">tags:</span><br><span class="line">- python</span><br><span class="line">- 个人项目</span><br><span class="line">top: false</span><br></pre></td></tr></table></figure>
+
+
+
+<p>一个使用 python 语言，将多个人脸的特征融合为一个人脸的小型个人项目。</p>
+<span id="more"></span>
+
+<p>我们需要：六张人脸图像，以及六份人脸图像对应的脸部特征坐标文件。</p>
+<h3 id="面部特征读取-readPoints"><a href="#面部特征读取-readPoints" class="headerlink" title="面部特征读取: readPoints"></a>面部特征读取: readPoints</h3><p>创建列表 point 存储每个图像特征的点坐标，创建列表 pointsarray 存储对应的六个 point 列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">readPoints</span>(<span class="params">path</span>) :</span><br><span class="line"></span><br><span class="line">    pointsArray = []</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> <span class="built_in">sorted</span>(os.listdir(path)):</span><br><span class="line">        <span class="keyword">if</span> filePath.endswith(<span class="string">&quot;.txt&quot;</span>):        </span><br><span class="line">            points = []</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(path, filePath)) <span class="keyword">as</span> file :</span><br><span class="line">                <span class="keyword">for</span> line <span class="keyword">in</span> file :</span><br><span class="line">                    x, y = line.split()</span><br><span class="line">                    points.append((<span class="built_in">int</span>(x), <span class="built_in">int</span>(y)))</span><br><span class="line">            </span><br><span class="line">            pointsArray.append(points)            </span><br><span class="line">    <span class="keyword">return</span> pointsArray</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="图像读取：readImage"><a href="#图像读取：readImage" class="headerlink" title="图像读取：readImage"></a>图像读取：readImage</h3><p>使用 opencv 中的 imread 函数读取图片，对图片进行归一化，存储在 imagesArray 数组中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">readImages</span>(<span class="params">path</span>) :</span><br><span class="line">    imagesArray = []</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> <span class="built_in">sorted</span>(os.listdir(path)):</span><br><span class="line">        <span class="keyword">if</span> filePath.endswith(<span class="string">&quot;.jpg&quot;</span>):</span><br><span class="line">            img = cv2.imread(os.path.join(path,filePath))</span><br><span class="line">            img = np.float32(img)/<span class="number">255.0</span></span><br><span class="line">            imagesArray.append(img)</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">return</span> imagesArray</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="坐标变化：similarTransform"><a href="#坐标变化：similarTransform" class="headerlink" title="坐标变化：similarTransform"></a>坐标变化：similarTransform</h3><p>一个关键的问题是，输入的人脸图像尺寸大小可能并不相同。因此，我们需要规格化人脸图像，将所有人脸图像变换到同一个坐标系（即下文的<strong>输出坐标系</strong>）中。</p>
+<p>因此，我们需要 similarTransform 函数，计算得到一个相似变换矩阵，这是将输入点集转换到输出点集所需一个的仿射变换参数。</p>
+<p>我们在这里选择输出坐标系的方法是：将面部大小扭曲为 600×600 图像，使得左眼的左眼角位于像素位置 ( 180, 200 )，右眼的右眼角位于像素位置 ( 420, 200 )。</p>
+<p>我们将该坐标系称为输出坐标系，将原始图像的坐标称为输入坐标系。</p>
+<p>我们根据提供的输入点与输出点，计算了输入点、输出点的新坐标（<code>xin</code>、<code>yin</code>与<code>xout</code>、<code>yout</code>）。新坐标相比于原坐标，逆时针旋转了 60°。</p>
+<p>我们通过计算相似变换，即 estimateRigidTransform 函数，将点从输入坐标系变换到输出坐标系。`</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">similarTransform</span>(<span class="params">inPoints, outPoints</span>) :</span><br><span class="line">    sin60 = math.sin(<span class="number">60</span>*math.pi/<span class="number">180</span>)</span><br><span class="line">    cos60 = math.cos(<span class="number">60</span>*math.pi/<span class="number">180</span>)  </span><br><span class="line">  </span><br><span class="line">    inPts = np.copy(inPoints).tolist()</span><br><span class="line">    outPts = np.copy(outPoints).tolist()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Based on input points and output points, get the new coordinates of the input points and output points.</span></span><br><span class="line">    xin = cos60*(inPts[<span class="number">0</span>][<span class="number">0</span>] - inPts[<span class="number">1</span>][<span class="number">0</span>]) - sin60*(inPts[<span class="number">0</span>][<span class="number">1</span>] - inPts[<span class="number">1</span>][<span class="number">1</span>]) + inPts[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">    yin = sin60*(inPts[<span class="number">0</span>][<span class="number">0</span>] - inPts[<span class="number">1</span>][<span class="number">0</span>]) + cos60*(inPts[<span class="number">0</span>][<span class="number">1</span>] - inPts[<span class="number">1</span>][<span class="number">1</span>]) + inPts[<span class="number">1</span>][<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">print</span>(xin ,yin)</span><br><span class="line">    inPts.append([np.<span class="built_in">int</span>(xin), np.<span class="built_in">int</span>(yin)])</span><br><span class="line"></span><br><span class="line">    xout = cos60*(outPts[<span class="number">0</span>][<span class="number">0</span>] - outPts[<span class="number">1</span>][<span class="number">0</span>]) - sin60*(outPts[<span class="number">0</span>][<span class="number">1</span>] - outPts[<span class="number">1</span>][<span class="number">1</span>]) + outPts[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">    yout = sin60*(outPts[<span class="number">0</span>][<span class="number">0</span>] - outPts[<span class="number">1</span>][<span class="number">0</span>]) + cos60*(outPts[<span class="number">0</span>][<span class="number">1</span>] - outPts[<span class="number">1</span>][<span class="number">1</span>]) + outPts[<span class="number">1</span>][<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">print</span>(xout ,yout)</span><br><span class="line"></span><br><span class="line">    outPts.append([np.<span class="built_in">int</span>(xout), np.<span class="built_in">int</span>(yout)])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Obtain affine transformation through input points and output points</span></span><br><span class="line">    tform = cv2.estimateAffinePartial2D(np.array([inPts]), np.array([outPts]))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> tform[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>通过这个函数，我们可以将所有面部图像调整到统一大小，同时两个眼角是对齐的。</p>
+<h3 id="三角剖分：DelaunayTriangles"><a href="#三角剖分：DelaunayTriangles" class="headerlink" title="三角剖分：DelaunayTriangles"></a>三角剖分：DelaunayTriangles</h3><p>我们下面需要计算三角剖分。</p>
+<p>三角剖分是人脸合成中应用非常广的一个方法。</p>
+<p>我们将人脸分成多个目标区域，这里三角剖分目的网格化图像脸部区域，方便寻找特征点。</p>
+<p><img src="../images/Python%E4%BA%BA%E8%84%B8%E5%90%88%E6%88%90/Delaunay.jpg" alt="Delaunay"></p>
+<p>python 的 opencv 库中提供了进行三角剖分的函数 cv2.Subdiv2D，可以直接使用。</p>
+<p>同时，我们需要保证每个三角剖分得到的三角形必须在图像里面（即三个点都在图像里），因此还需要判断。</p>
+<p>这里判断用的是自定义的函数 rectContains(rect, point)，判断点 point 是否在 rect 对应的矩形中。</p>
+<p>如果对应的三个三角形的点都在 rect 函数中，那么我们就可以把点集中的点与三角形中的点进行比较。</p>
+<p>就把这个三角形添加到 ind 列表中，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># rect [0] and [1] are leftdown ,[2] and [3] are rightup </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rectContains</span>(<span class="params">rect, point</span>) :</span><br><span class="line">    <span class="comment"># point is below rect</span></span><br><span class="line">    <span class="keyword">if</span> point[<span class="number">0</span>] &lt; rect[<span class="number">0</span>] :</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">elif</span> point[<span class="number">1</span>] &lt; rect[<span class="number">1</span>] :</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># ppint is above rect </span></span><br><span class="line">    <span class="keyword">elif</span> point[<span class="number">0</span>] &gt; rect[<span class="number">2</span>] :</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">elif</span> point[<span class="number">1</span>] &gt; rect[<span class="number">3</span>] :</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate delanauy triangle</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculateDelaunayTriangles</span>(<span class="params">rect, points</span>):</span><br><span class="line">    <span class="comment"># Create subdiv to make delanauy triangle</span></span><br><span class="line">    subdiv = cv2.Subdiv2D(rect)</span><br><span class="line">   </span><br><span class="line">    <span class="comment"># Insert points into subdiv</span></span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> points:</span><br><span class="line">        subdiv.insert((p[<span class="number">0</span>], p[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># List of triangles. Each triangle is a list of 3 points ( 6 numbers )</span></span><br><span class="line">    triangleList = subdiv.getTriangleList()</span><br><span class="line">    <span class="comment"># Find the indices of triangles in the points array</span></span><br><span class="line"></span><br><span class="line">    delaunayTri = []</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> triangleList:</span><br><span class="line">        pt = []</span><br><span class="line">        pt.append((t[<span class="number">0</span>], t[<span class="number">1</span>]))</span><br><span class="line">        pt.append((t[<span class="number">2</span>], t[<span class="number">3</span>]))</span><br><span class="line">        pt.append((t[<span class="number">4</span>], t[<span class="number">5</span>]))</span><br><span class="line">        </span><br><span class="line">        pt1 = (t[<span class="number">0</span>], t[<span class="number">1</span>])</span><br><span class="line">        pt2 = (t[<span class="number">2</span>], t[<span class="number">3</span>])</span><br><span class="line">        pt3 = (t[<span class="number">4</span>], t[<span class="number">5</span>])        </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Ensures that the Delaunay triangulation contains only triangles that are completely inside the given rectangle.</span></span><br><span class="line">        <span class="keyword">if</span> rectContains(rect, pt1) <span class="keyword">and</span> rectContains(rect, pt2) <span class="keyword">and</span> rectContains(rect, pt3):</span><br><span class="line">            ind = []</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3</span>):</span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(points)):                    </span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">abs</span>(pt[j][<span class="number">0</span>] - points[k][<span class="number">0</span>]) &lt; <span class="number">1.0</span> <span class="keyword">and</span> <span class="built_in">abs</span>(pt[j][<span class="number">1</span>] - points[k][<span class="number">1</span>]) &lt; <span class="number">1.0</span>):</span><br><span class="line">                        ind.append(k)                            </span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(ind) == <span class="number">3</span>:                                                </span><br><span class="line">                delaunayTri.append((ind[<span class="number">0</span>], ind[<span class="number">1</span>], ind[<span class="number">2</span>]))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> delaunayTri</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="仿射变换：applyAffineTransform"><a href="#仿射变换：applyAffineTransform" class="headerlink" title="仿射变换：applyAffineTransform"></a>仿射变换：applyAffineTransform</h3><p>我们在</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/04/05/Python%E4%BA%BA%E8%84%B8%E5%90%88%E6%88%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/04/05/Python-%E4%BA%BA%E8%84%B8%E5%90%88%E6%88%90/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title"></div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
