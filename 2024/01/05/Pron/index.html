@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.6k</span>
+            <span class="post-count">3k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">9 min</span>
+            <span class="post-count">10 min</span>
         </span>
     </span>
 </div>
@@ -139,6 +139,7 @@
 <p>一种基于注意力机制的神经网络模型，旨在处理具有隐式关系的数据。</p>
 <p>隐式关系：不能直接观察到的关系，但可以通过数据间的相关性来推断。NIAM 模型可以自动地学习和捕捉这些隐式关系，从而在各种任务中表现出色，如推荐系统、自然语言处理和图像处理等。</p>
 <h3 id="端到端end-to-end"><a href="#端到端end-to-end" class="headerlink" title="端到端end-to-end"></a>端到端end-to-end</h3><p>指从原始输入数据到最终输出结果的整个过程由一个统一的模型处理，即输入是原始数据，输出是最后的结果。</p>
+<h3 id="2D-Feature-map"><a href="#2D-Feature-map" class="headerlink" title="2D Feature map"></a>2D Feature map</h3><p>通过卷积神经网络的卷积层和池化层处理后得到的二维矩阵。该矩阵包含了输入图像的某些特征。</p>
 <h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="Q-K-V"><a href="#Q-K-V" class="headerlink" title="Q K V"></a>Q K V</h3><p>Q: Query，查询        K: Key，键    V: Value，值</p>
 <p>注意力机制中，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
 <p>输入序列被用来计算查询 Q 、键 K 和值 V 。每个查询 Q 与所有键 K 计算得到相关性分数，然后通过 Softmax 函数将这些分数归一化为权重，最终这些权重被应用到相应的值 V 上，从而得到注意力表示。</p>
@@ -167,8 +168,20 @@
 <h3 id="常见模型简称："><a href="#常见模型简称：" class="headerlink" title="常见模型简称："></a>常见模型简称：</h3><p>LC-GAN : 基于生成对抗网络的人脸数据隐私保护算法模型</p>
 <p>CGAN : 条件生成对抗网络，是一种基于监督学习的神经网络深度学习模型</p>
 <p>PP-GAN : 隐私保护网络，基于生成对抗网络，引入了针对人脸去识别问题而设计的验证器和调节模块</p>
-<h2 id="Diffusion"><a href="#Diffusion" class="headerlink" title="Diffusion"></a>Diffusion</h2><h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
-<h3 id="仿射变换："><a href="#仿射变换：" class="headerlink" title="仿射变换："></a>仿射变换：</h3><h3 id="DCT变换："><a href="#DCT变换：" class="headerlink" title="DCT变换："></a><strong>DCT变换</strong>：</h3><p>Discrete Cosine Transform，离散余弦变换。</p>
+<h3 id="CLIP"><a href="#CLIP" class="headerlink" title="CLIP"></a>CLIP</h3><p>Contrastive Language-Image Pre-Training 模型。一种多模态预训练神经网络，由OpenAI在2021年发布，是从自然语言监督中学习的一种有效且<strong>可扩展</strong>的方法。</p>
+<p>CLIP模型有两个模态，一个是文本模态，一个是视觉模态，包括两个主要部分：</p>
+<ol>
+<li>Text Encoder：用于将文本转换为低维向量表示-Embeding。</li>
+<li>Image Encoder：用于将图像转换为类似的向量表示-Embedding</li>
+</ol>
+<p>CLIP 通过计算文本和图像向量之间的<strong>余弦相似度</strong>来生成预测。这种模型特别适用于<strong>零样本学习</strong>任务，即模型不需要看到新的图像或文本的训练示例就能进行预测。CLIP模型在多个领域表现出色，如图像文本检索、图文生成等。</p>
+<h2 id="Diffusion"><a href="#Diffusion" class="headerlink" title="Diffusion"></a>Diffusion</h2><h3 id="LDM"><a href="#LDM" class="headerlink" title="LDM"></a>LDM</h3><p>Latent Diffusion Model，潜在扩散模型，一种生成模型，结合了扩散模型和潜在空间的思想，用于生成高质量的图像。通过逐步对噪声数据进行去噪，从而生成逼真的图像。</p>
+<p>LDM 将数据投射到一个潜在空间中，然后在这个潜在空间中进行扩散过程，最后再将结果映射回原始数据空间。</p>
+<h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
+<h3 id="仿射变换："><a href="#仿射变换：" class="headerlink" title="仿射变换："></a>仿射变换：</h3><p>Affine Transformation，线性变换与平移变化的叠加。</p>
+<p>包括<strong>缩放</strong>(Scale)、<strong>平移</strong>(transform)、<strong>旋转</strong>(rotate)、<strong>反射</strong>（reflection）、<strong>错切</strong>(shear mapping）</p>
+<p><img src="/images/Pron/affine.png" alt="affine transformations"></p>
+<h3 id="DCT变换："><a href="#DCT变换：" class="headerlink" title="DCT变换："></a><strong>DCT变换</strong>：</h3><p>Discrete Cosine Transform，离散余弦变换。</p>
 <p>离散余弦变换经常被信号处理和图像处理使用，<strong>用于对信号和图像(包括静止图像和运动图像)进行有损数据压缩</strong>。这是由于离散余弦变换具有很强的”能量集中”特性:大多数的自然信号(包括声音和图像)的能量都集中在离散余弦变换后的低频部分，而且当信号具有接近马尔科夫过程的统计特性时，离散余弦变换的去相关性接近于K-L变换 (Karhunen-Loève 变换，具有最优的去相关性) 的性能。</p>
 <h3 id="量化："><a href="#量化：" class="headerlink" title="量化："></a><strong>量化</strong>：</h3><p>将图像像素点对应亮度的连续变换区间转换为单个特定值的过程，即<strong>将原始灰度图像的空间坐标幅度值离散化</strong>。量化等级越多，图像层次越丰富，灰度分辨率越高，图像的质量也越好；量化等级越少，图像层次欠丰富，灰度分辨率越低。</p>
 <p>量化后，图像就被表示成一个整数矩阵，每个像素具有两个属性：位置和灰度。位置由行，列表示。灰度表示该像素位置上亮暗程度的整数。此数字矩阵M*N就作为计算机处理的对象了，灰度级一般为0-255（8bit量化）。如果量化等级为2，则将使用两种灰度级表示原始图像的像素（0-255），灰度值小于128的取0，大于等于128的取128；如果量化等级为4，则将使用四种灰度级表示原始图像的像素，新图像将分层为四种颜色，0-64区间取0,64-128区间取64,128-192区间的取128,192-255区间取192，依次类推。</p>
