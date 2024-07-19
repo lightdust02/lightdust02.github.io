@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">3k</span>
+            <span class="post-count">3.5k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">10 min</span>
+            <span class="post-count">12 min</span>
         </span>
     </span>
 </div>
@@ -205,7 +205,19 @@
 <p>mask：相应区域的掩码。可以理解为图像的某种属性。表现在图像上，是表示图像中某区域内的像素情况，可以用数字来表示。</p>
 <h3 id="SBI："><a href="#SBI：" class="headerlink" title="SBI："></a>SBI：</h3><p>Self-Blended Images，自混合图像，混合来自单个原始图像的伪源图像和目标图像。</p>
 <h2 id="自然语言处理："><a href="#自然语言处理：" class="headerlink" title="自然语言处理："></a>自然语言处理：</h2><h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bidirectional Encoder Representations from Transformers，一种基于 Transformer 模型的预训练语言表示模型。用来生成文本的深层双向表示。</p>
-<h2 id="LLM"><a href="#LLM" class="headerlink" title="LLM:"></a>LLM:</h2><h3 id><a href="#" class="headerlink" title></a></h3> 
+<h2 id="LLM"><a href="#LLM" class="headerlink" title="LLM:"></a>LLM:</h2><p>注：这部分内容几乎全部摘自人大高瓴出版的那本书。</p>
+<h3 id="大语言模型"><a href="#大语言模型" class="headerlink" title="大语言模型"></a>大语言模型</h3><p>大语言模型是指在海量无标注文本数据上进行预训练得到的大型预训练语言模型。</p>
+<p>如 GPT-3 [23]，PaLM [33] 和 LLaMA [34]。</p>
+<p>目前大语言模型所需要具有的最小参数规模还没有一个明确的参考标准，但是大语言模型通常是指参数规模达到百亿、千亿甚至万亿的模型。</p>
+<h3 id="大语言模型的能力"><a href="#大语言模型的能力" class="headerlink" title="大语言模型的能力"></a>大语言模型的能力</h3><p>具有较为丰富的世界知识、具有较强的通用任务解决能力、具有较好的复杂任务推理能力、具有较强的人类指令遵循能力。</p>
+<h3 id="大语言模型的预训练"><a href="#大语言模型的预训练" class="headerlink" title="大语言模型的预训练"></a>大语言模型的预训练</h3><p>由于参数规模巨大，需要使用大规模分布式训练算法优化大语言模型的神经网络参数。</p>
+<p>在训练过程中，需要联合使用各种并行策略以及效率优化方法，包括 3D 并行（数据并行、流水线并行、张量并行）、ZeRO（内存冗余消除技术）等。</p>
+<p>为了有效支持分布式训练，很多研究机构发布了专用的分布式优化框架来简化并行算法的实现与部署，其中具有代表性的分布式训练软件包括DeepSpeed 和 Megatron-LM。</p>
+<h3 id="3H对齐标准"><a href="#3H对齐标准" class="headerlink" title="3H对齐标准"></a>3H对齐标准</h3><p>实践应用中，需要保证大语言模型能够较好地符合人类的价值观</p>
+<p>3H标准即 Helpfulness（有用性）Honesty（诚实性）Harmlessness（无害性）。</p>
+<p>为了解决这一问题，OpenAI 提出了基于人类反馈的强化学习算法（Reinforcement Learning from Human Feedback, RLHF），将人类偏好引入到大模型的对齐过程中。</p>
+<h3 id="涌现能力"><a href="#涌现能力" class="headerlink" title="涌现能力"></a>涌现能力</h3><p>指当模型扩展到一定规模时，模型的特定任务性能突然出现显著跃升的趋势，远超过随机水平。</p>
+ 
       <!-- reward -->
       
     </div>

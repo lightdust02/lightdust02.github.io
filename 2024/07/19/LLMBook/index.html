@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>书籍阅读-大语言模型 |  LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-LLMBook"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  书籍阅读-大语言模型
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/07/19/LLMBook/" class="article-date">
+  <time datetime="2024-07-19T08:45:26.000Z" itemprop="datePublished">2024-07-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">6.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">21 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>阅读人大高瓴写的《大语言模型》，在这里进行内容记录。</p>
+<p>该内容会长期更新。</p>
+<span id="more"></span>
+
+<h2 id="第一章-引言"><a href="#第一章-引言" class="headerlink" title="第一章 引言"></a>第一章 引言</h2><h3 id="1-1-语言模型发展历程"><a href="#1-1-语言模型发展历程" class="headerlink" title="1.1 语言模型发展历程"></a>1.1 语言模型发展历程</h3><p>语言模型旨在对于人类语言的内在规律进行建模，从而准确预测词序列中未来（或缺失）词或<strong>词元（Token）</strong>的概率。</p>
+<p>四个主要发展阶段：</p>
+<ul>
+<li>统计语言模型（Statistical Language Model, SLM），基于统计学习方法研发，广泛应用于信息检索（Information Retrieval, IR）和自然语言处理（Natural Language Processing, NLP）等领域。</li>
+<li>神经语言模型（Neural Language Model, NLM），神经语言模型使用神经网络来建模文本序列的生成，如RNN。<strong>代表性模型：word2vec.</strong></li>
+<li>预训练语言模型（Pre-trained Language Model, PLM），其中<strong>ELMo</strong>使用大量的无标注数据训练双向 LSTM（Bidirectional LSTM, biLSTM）网络，基于 Transformer 架构，谷歌进一步提出了预训练语言模型 BERT。以 ELMo、BERT、GPT-1 为代表的预训练语言模型确立了“预训练-微调”这一任务求解范式。</li>
+<li>大语言模型（Large Language Model, LLM），通过规模扩展（如增加模型参数规模或数据规模）通常会带来下游任务的模型性能提升，这种现象通常被称为“扩展法则”（Scaling Law）；大模型具有但小模型不具有的能力通常被称为“涌现能力”（Emergent Abilities）。</li>
+</ul>
+<p>早期的语言模型主要面向自然语言的建模和生成任务，而最新的语言模型（如 GPT-4）则侧重于复杂任务的求解。</p>
+<h3 id="1-2-大语言模型的能力特点"><a href="#1-2-大语言模型的能力特点" class="headerlink" title="1.2 大语言模型的能力特点"></a>1.2 <strong>大语言模型的能力特点</strong></h3><ul>
+<li>具有较为丰富的世界知识. 与传统机器学习模型相比，大语言模型经过超大规模文本数据的预训练后能够学习到较为丰富的世界知识。</li>
+<li>具有较强的通用任务解决能力。很多传统任务（如摘要、翻译等）都可以采用基于大语言模型的提示学习方法进行解决，而且能够获得较好的任务效果。</li>
+<li>具有较好的复杂任务推理能力，能够回答知识关系复杂的推理问题 ，还可以解决涉及复杂数学推理过程的数学题目。</li>
+<li>具有较强的人类指令遵循能力，能够直接通过自然语言描述下达任务指令。</li>
+<li>具有较好的人类对齐能力。目前广泛采用的对齐方式是基于人类反馈的强化学习技术，通过强化学习使得模型进行正确行为的加强以及错误行为的规避，进而建立较好的人类对齐能力。</li>
+<li>具有可拓展的工具使用能力。可以通过微调、上下文学习等方式掌握外部工具的使用，如搜索引擎与计算器。</li>
+</ul>
+<h3 id="1-3-大语言模型关键技术概览"><a href="#1-3-大语言模型关键技术概览" class="headerlink" title="1.3 大语言模型关键技术概览"></a><strong>1.3</strong> <strong>大语言模型关键技术概览</strong></h3><p>概括性地介绍一下大语言模型能够取得重要进展背后的关键技术。</p>
+<ul>
+<li><p>规模扩展。在较早期的研究中，OpenAI 从参数、数据、算力三个方面深入地研究了规模扩展对于模型性能所带来的影响，建立了定量的函数关系，称之为“扩展法则”（Scaling Law）。</p>
+<blockquote>
+<p>Transformer 模型的可扩展性非常强，对于硬件并行优化的支持也比较友好，特别适合大语言模型的研发</p>
+</blockquote>
+</li>
+<li><p>数据工程。当前大语言模型的技术路线图：通过在海量文本上进行下一个词预测的优化，使得模型能够学习到丰富的语义知识信息，进而通过文本补全的方式解决各种下游任务。</p>
+</li>
+<li><p>高效预训练。</p>
+<ul>
+<li>由于参数规模巨大，需要使用大规模分布式训练算法优化大语言模型的神经网络参数。</li>
+<li>在训练过程中，需要联合使用各种并行策略以及效率优化方法，包括 3D 并行（数据并行、流水线并行、张量并行）、ZeRO（内存冗余消除技术）等。</li>
+<li>很多研究机构发布了专用的分布式优化框架来简化并行算法的实现与部署，其中具有代表性的分布式训练软件包括DeepSpeed 和 Megatron-LM。</li>
+</ul>
+</li>
+<li><p>能力激发。为了提升模型的任务求解能力，需要设计合适的指令微调以及提示策略进行激发或诱导。进一步，大语言模型还具有较好的规划能力，能够针对复杂任务生成逐步求解的解决方案。</p>
+</li>
+<li><p>人类对齐。经过海量无标注文本预训练的大语言模型可能会生成有偏见、泄露隐私甚至对人类有害的内容。在实践应用中，需要保证大语言模型能够较好地符合人类的价值观。</p>
+<ul>
+<li>3H对齐标准：即 Helpfulness（有用性）Honesty（诚实性）Harmlessness（无害性）。</li>
+<li>为解决这一问题，OpenAI 提出了基于人类反馈的强化学习算法（Reinforcement Learning fromHuman Feedback, RLHF）[28]，将人类偏好引入到大模型的对齐过程中。</li>
+</ul>
+</li>
+<li><p>工具使用。通过让大语言模型学会使用各种工具的调用方式，进而利用合适的工具去实现特定的功能需求。</p>
+</li>
+</ul>
+<p>大模型的基本原理仍然缺乏深入的探索。现有的大语言模型非常依赖于工程方法的优化。</p>
+<h3 id="1-4-大语言模型对科技发展的影响"><a href="#1-4-大语言模型对科技发展的影响" class="headerlink" title="1.4 大语言模型对科技发展的影响"></a>1.4 <strong>大语言模型对科技发展的影响</strong></h3><p>大语言模型对人工智能技术的未来发展方向带来了重要影响。</p>
+<ul>
+<li>自然语言处理。在自然语言处理领域，大语言模型可以作为一种通用的语言任务解决技术，能够通过特定的提示方式解决不同类型的任务，<strong>很多传统任务的研究意义在衰减。</strong></li>
+<li>信息检索。</li>
+<li>计算机视觉。GPT-4 已经能够支持图文多模态信息的输入。将图像、视频等模态的信息与文本语义空间相融合，可以通过计算量相对较少的微调方法来研发多模态大语言模型。</li>
+<li>AI4Science。目前大语言模型技术已经广泛应用于数学、化学、物理、生物等多个领域，基于其强大的模型能力赋能科学研究。</li>
+<li>大语言模型对于产业应用带来了变革性的技术影响，会催生基于大语言模型的应用生态系统。</li>
+</ul>
+<h2 id="第二章-基础介绍"><a href="#第二章-基础介绍" class="headerlink" title="第二章 基础介绍"></a><strong>第二章 基础介绍</strong></h2><p>大语言模型：在海量无标注文本数据上进行预训练得到的大型预训练语言模型。</p>
+<p>如 GPT-3 ，PaLM 和 LLaMA。</p>
+<p>与传统语言模型相比，大语言模型的构建过程涉及到<strong>更为复杂的训练方法。</strong></p>
+<p>本部分介绍大语言模型的构建过程、扩展法则（Scaling Law）、涌现能力（Emergent Abilities），然后将介绍 GPT 系列模型的研发历程。</p>
+<h3 id="2-1-大语言模型的构建过程"><a href="#2-1-大语言模型的构建过程" class="headerlink" title="2.1 大语言模型的构建过程"></a><strong>2.1</strong> <strong>大语言模型的构建过程</strong></h3><p>大语言模型：一种<strong>基于 Transformer 结构的神经网络模型。</strong></p>
+<p>可以将大语言模型看作一种拥有大规模参数的函数，<strong>构建过程就是使用训练数据对于模型参数的拟合过程。</strong></p>
+<p>大语言模型的构建过程需要复杂、精细的训练方法。一般来说分为<strong>大规模预训练</strong>和<strong>指令微调与人类对齐</strong>两个阶段。</p>
+<h4 id="2-1-1-大规模预训练"><a href="#2-1-1-大规模预训练" class="headerlink" title="2.1.1 大规模预训练"></a><strong>2.1.1</strong> <strong>大规模预训练</strong></h4><p>预训练：指使用与下游任务无关的大规模数据进行模型参数的初始训练，为模型参数找到一个较好的“初值点”。</p>
+<p>早期的预训练技术还是聚焦于解决下游某一类的特定任务，如传统的自然语言处理任务。</p>
+<p>“解码器架构 + 预测下一个词”的有效性得到了充分验证，已经成为现有大语言模型主要采纳的技术路径。</p>
+<p>预训练大语言模型，需要准备大规模的文本数据，并且进行严格的清洗，去除掉可能包含有毒有害的内容，最后将清洗后的数据进行<strong>词元化（Tokenization）</strong>流，并且切分成<strong>批次（Batch）</strong>，用于大语言模型的预训练。</p>
+<p>数据的收集与清洗对于模型性能具有重要的影响。</p>
+<p>开源模型普遍采用 <strong>2∼3T</strong> 规模的词元进行预训练。</p>
+<p><strong>关于算力：</strong>一般来说训练百亿模型至少需要百卡规模的算力集群（如 A100 80G）联合训练数月时间；而训练千亿模型则需要千卡甚至万卡规模的算力集群。</p>
+<p>实施过程中涉及到大量需要深入探索的<strong>经验性技术</strong>，如数据如何进行配比、如何进行学习率的调整、如何早期发现模型的异常行为等，需要研发人员具有丰富的训练经验和异常处理能力。</p>
+<h4 id="2-1-2-指令微调与人类对齐"><a href="#2-1-2-指令微调与人类对齐" class="headerlink" title="2.1.2 指令微调与人类对齐"></a><strong>2.1.2</strong> <strong>指令微调与人类对齐</strong></h4><p>有趣的比喻：<em>预训练后的模型就像进入工作岗位的毕业生，尽管学习了很多通用的文化课，具备了一定的实习经验，但是仍然需要加强面向特定岗位的工作能力，并且深入了解工作岗位所涉及的相关要求。</em></p>
+<p>预训练结束后，通常需要对于大语言模型进行微调与对齐，使之更好地被用于任务求解，为人类服务。</p>
+<p>比较广泛使用的微调技术是<strong>“指令微调”（也叫做有监督微调，Supervised Fine-tuning, SFT）。</strong>通过使用任务输入与输出的配对数据进行模型训练，可以使得语言模型较好地掌握通过问答形式进行任务求解的能力。</p>
+<p>通常来说，数十万到百万规模的指令微调数据能够有效地激发语言模型的通用任务解决能力，甚至有些工作认为数千条或者数万条高质量指令数据也能达到不错的微调效果。</p>
+<p>需要将大语言模型与<strong>人类的期望、需求以及价值观对齐</strong>（Alignment）。</p>
+<p>对齐过程中引入了基于人类反馈的强化学习对齐方法 RLHF（Reinforcement Learning from Human Feedback），在指令微调后使用强化学习加强模型的对齐能力。该算法需训练一个<strong>符合人类价值观的奖励模型（Reward Model）。</strong></p>
+<h3 id="2-2-扩展法则"><a href="#2-2-扩展法则" class="headerlink" title="2.2 扩展法则"></a><strong>2.2</strong> <strong>扩展法则</strong></h3><p>大语言模型获得成功的关键在于对“规模扩展”（Scaling）的充分探索与利用。</p>
+<p>通过扩展<strong>参数规模、数据规模和计算算力</strong>，大语言模型的能力显著超越了小型语言模型的能力。</p>
+<p>建立定量的建模方法，即扩展法则（ScalingLaw），来研究规模扩展所带来的模型性能提升具有重要的实践指导意义。</p>
+<h4 id="2-2-1-KM扩展法则"><a href="#2-2-1-KM扩展法则" class="headerlink" title="2.2.1 KM扩展法则"></a>2.2.1 KM扩展法则</h4><p>2020年提出，建立了神经语言模型性能与三个主要因素——**模型规模<code>N</code>、数据规模<code>D</code>和计算算力<code>C</code>**之间的幂律关系。</p>
+<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\KM.png" alt="KM扩展法则"></p>
+<p><code>L(.)</code>表示用以 $nat^1$为单位的交叉熵损失。其中，$N_c$、$D_c$和 <em>$C_c$</em> 是实验性的常数数值，分别对应于非嵌入参数数量、训练数据数量和实际的算力开销。</p>
+<p>一些基本假设：一个因素的分析不会受到其他两个因素的限制，如当变动模型参数规模的时候，需要保证数据资源是充足的。</p>
+<p>上述公式为规模扩展效应提供了一种定量的普适建模方法。通过普适规则能够更好地探究问题的本质。</p>
+<p>这里的损失函数进一步分解为两部分：</p>
+<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\损失函数.png" alt="`x`指代上面公式的`N`、`D`、`C`"></p>
+<p>其中，不可约损失由数据自身特征确定，无法通过扩展法则或者优化算法进行约减；模型性能的优化只能减小可约损失部分。</p>
+<h4 id="2-2-2-Chinchilla-扩展法则"><a href="#2-2-2-Chinchilla-扩展法则" class="headerlink" title="2.2.2 Chinchilla 扩展法则"></a><strong>2.2.2 Chinchilla</strong> <strong>扩展法则</strong></h4><p>2022 年提出，通过针对更大范围的模型规模（70M 到 16B 参数）和数据规模（5B 到 500B 词元）进行实验。</p>
+<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\Chinchilla.png" alt="Chinchilla扩展法则"></p>
+<p>其中<code>𝐸</code> = 1*.*69, <code>𝐴</code> = 406.4, <code>𝐵</code> = 410.7，<code>𝛼</code> = 0.34 和 <code>𝛽</code> = 0.28。</p>
+<p>KM 扩展法则和 Chinchilla 扩展法则都可以近似表示成上述算力为核心的公式：</p>
+<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\以算力为核心.png" alt="以算力为核心"></p>
+<p>即当算力<code>C</code>给定的情况下，最优的模型参数规模和数据规模由指数系数<code>a</code>和<code>b</code>分别确定。</p>
+<p>不难看出，a&gt;b时，应用更多的算例去提高数据规模<code>D</code>，a&lt;b时，应该用更多的算力去提高数据规模<code>N</code>。</p>
+<p>Chinchilla 扩展法则首次指出了之前的预训练工作可能<strong>忽视了训练数据的规模扩展</strong>。如，具有 175B 参数的 GPT-3 仅仅使用了 300B 的词元进行训练，所使用的数据量远远没有达到模型能够编码的最大数据容量。</p>
+<p>越来越多的工作表明，现有的预训练语言模型对于数据的需求量远高于这些扩展法则中所给出的估计规模。这种现象的一个重要原因是由于 Transformer 架构具有较好的数据扩展性。</p>
+<h4 id="2-2-3-关于扩展法则的讨论"><a href="#2-2-3-关于扩展法则的讨论" class="headerlink" title="2.2.3 关于扩展法则的讨论"></a><strong>2.2.3</strong> <strong>关于扩展法则的讨论</strong></h4><p>在实践中，扩展法则可以用于指导大语言模型的训练，通过较小算力资源可靠地估计较大算力资源投入后的模型性能，这被称为<strong>可预测的扩展</strong>。</p>
+<p>随着模型规模的不断增加，一个问题是可供用来训练大语言模型的数据量实际上是有限的，公共文本数据将很快变得“枯竭”。因此，如何在数据受限的情况下建模扩展法则，仍然具有重要的实践意义。</p>
+<p>在实践中，我们则更关注大语言模型在真实任务中的性能提升。</p>
+<p>整体上来说，语言建模损失较小的模型往往在下游任务中表现更好，因为语言建模的能力可以被认为是一种模型整体能力的综合度量。</p>
+<p>然而，语言建模损失的减少并不总是意味着模型在下游任务上的性能改善。对于某些特殊任务，甚至会出现逆向扩展（Inverse Scaling）现象，即随着语言建模损失的降低，任务性能却出人意料地变差 。</p>
+<p>通过扩展法则可以准确预测某些任务能力（例如编码能力），但是对于有些任务的性能预测是非常困难的。此外，有些重要能力（例如上下文学习能力）根据扩展法则是不可预测的。</p>
+<h3 id="2-3-涌现能力"><a href="#2-3-涌现能力" class="headerlink" title="2.3 涌现能力"></a><strong>2.3</strong> <strong>涌现能力</strong></h3><p><strong>涌现能力：在小型模型中不存在但在大模型中出现的能力。</strong></p>
+<p>具体是指当模型扩展到一定规模时，模型的特定任务性能突然出现显著跃升的趋势，远超过随机水平。</p>
+<p>该能力仍然缺乏相应的理论解释以及理论证实。</p>
+<h4 id="2-3-1-代表性的涌现能力"><a href="#2-3-1-代表性的涌现能力" class="headerlink" title="2.3.1 代表性的涌现能力"></a><strong>2.3.1</strong> <strong>代表性的涌现能力</strong></h4><p><strong>上下文学习（In-context Learning, ICL）</strong>：在提示中为语言模型提供自然语言指令和多个任务示例（Demonstration），无需显式的训练或梯度更新，仅输入文本的单词序列就能为测试样本生成预期的输出。</p>
+<p><strong>指令遵循（Instruction Following）</strong>：指大语言模型能够按照自然语言指令来执行对应的任务。</p>
+<p>通常需要使用自然语言描述的多任务示例数据集进行微调，称为指令微调（Instruction Tuning）或监督微调（Supervised Fine-tuning）。</p>
+<p>指令遵循能力整体上更容易获得，但是最终的任务执行效果还取决于模型性能和任务难度决定。</p>
+<p><strong>逐步推理（Step-by-step Reasoning）</strong>：小型语言模型很难解决涉及多个推理步骤的复杂任务，而大语言模型则可以利用思维链提示策略来加强推理性能。</p>
+<p>大语言模型可以在提示中引入任务相关的中间推理步骤来加强复杂任务的求解，从而获得更为可靠的答案。</p>
+<p>很难统一界定大语言模型出现这些上述能力的临界规模，因为能力涌现会受到多种因素或者任务设置的影响。</p>
+<h4 id="2-3-2-涌现能力与扩展法则的关系"><a href="#2-3-2-涌现能力与扩展法则的关系" class="headerlink" title="2.3.2 涌现能力与扩展法则的关系"></a><strong>2.3.2</strong> <strong>涌现能力与扩展法则的关系</strong></h4><p>扩展法则：使用<strong>语言建模损失</strong>来衡量语言模型的整体性能，整体上展现出了<strong>较为平滑</strong>的性能提升趋势，<strong>具有较好的可预测性</strong>，但是指数形式暗示着可能存在的<strong>边际效益递减</strong>现象；</p>
+<p>涌现能力：使用<strong>任务性能</strong>来衡量模型性能，整体上展现出<strong>随规模扩展的骤然跃升趋势</strong>，不具有可预测性，但是<strong>一旦出现</strong>涌现能力则意味着模型性能将会产生<strong>大幅跃升</strong>。</p>
+<p>关于涌现能力的合理性也存在广泛的争议。目前还缺少对于大语言模型涌现机理的基础性解释研究工作。</p>
+<p>“顿悟”（Grokking）：训练过程中的一种数据学习模式，模型性能从随机水平提升为高度泛化。</p>
+<h3 id="2-4-GPT-系列模型的技术演变"><a href="#2-4-GPT-系列模型的技术演变" class="headerlink" title="2.4 GPT 系列模型的技术演变"></a><strong>2.4 GPT</strong> <strong>系列模型的技术演变</strong></h3><p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\LLM.png" alt="唉，大语言模型"></p>
+<p>GPT 系列模型的基本原理：训练模型学习恢复预训练文本数据，将广泛的世界知识压缩到<strong>仅包含解码器</strong>（Decoder-Only）的 Transformer 模型中，从而使模型能够学习获得较为全面的能力。</p>
+<p><strong>关键</strong>：1.训练能够准确预测下一个词的 Transformer （只包含解码器）语言模型  2.扩展语言模型的规模以及扩展预训练数据的规模</p>
+<h4 id="2-4-1-早期探索"><a href="#2-4-1-早期探索" class="headerlink" title="2.4.1 早期探索"></a><strong>2.4.1</strong> <strong>早期探索</strong></h4><p>GPT-1：2018年发布。奠定了 GPT 系列模型的核心架构与基于自然语言文本的预训练方式。没引起学术界的足够关注。</p>
+<p>与 GPT-1同期发布的预训练语言模型是的 BERT 模型，主要面向自然语言理解任务，因此只保留了 Transformer 中的编码器。BERT 当时引领了自然语言处理社区的研究浪潮，涌现了大量针对它改进与探索的工作。</p>
+<p>GPT-2：旨在探索通过扩大模型参数规模来提升模型性能，且尝试去除针对特定任务所需要的微调环节。</p>
+<p><em>由于特定任务的有监督学习目标与无监督学习目标（语言建模）在本质上是相同的（预测下一个词元），主要区别就在于它们只是在全部训练数据的子集上进行优化，因此对于特定下游任务而言，优化无监督的全局学习目标本质上也是在优化有监督的任务学习目标</em></p>
+<h4 id="2-4-2-规模扩展"><a href="#2-4-2-规模扩展" class="headerlink" title="2.4.2 规模扩展"></a><strong>2.4.2</strong> <strong>规模扩展</strong></h4><p>GPT-3的模型参数扩展到了175B的规模，在下游任务中初步展现出了一定的通用性，可以被看作从预训练语言模型到大语言模型演进过程中的一个重要里程碑。</p>
+<p>GPT-3 的论文中正式提出了“上下文学习”这一概念，使得大语言模型可以通过少样本学习的方式来解决各种任务。</p>
+<p>上下文学习可以指导大语言模型学会“理解”自然语言文本形式描述的新任务，从而消除了针对新任务进行微调的需要。</p>
+<p>模型预训练是在给定上下文条件下预测后续文本序列，模型使用则是根据任务描述以及示例数据来推理正确的任务解决方案。</p>
+<h4 id="2-4-3-能力增强"><a href="#2-4-3-能力增强" class="headerlink" title="2.4.3 能力增强"></a><strong>2.4.3</strong> <strong>能力增强</strong></h4><p>代码数据训练：2021 年 7 月推出了 Codex ，这是一个在大量 GitHub 代码数据集合上微调的 GPT 模型。Codex 可以解决非常困难的编程问题，还能显著提升大模型解决数学问题的能力。</p>
+<p>人类对齐：OpenAI 的研究团队介绍了一项使用强化学习算法从人类标注的偏好数据中学习如何改进模型性能的工作。</p>
+<p>PPO 算法（Proximal Policy Optimization）成为了 OpenAI 在后续人类对齐技术里所采用的标配强化学习算法。</p>
+<p>训练人工智能系统以达到（1）使用人类反馈、（2）协助人类评估和（3）进行对齐研究</p>
+<h4 id="2-4-4-性能跃升"><a href="#2-4-4-性能跃升" class="headerlink" title="2.4.4 性能跃升"></a><strong>2.4.4</strong> <strong>性能跃升</strong></h4><p>ChatGPT 将人类生成的对话数据（同时扮演用户和人工智能的角色）与训练 InstructGPT 的相关数据进行结合，并统一成对话形式用于训练 ChatGPT。</p>
+<p>GPT-4 具有令人震撼的模型性能，论文作者认为 GPT-4 的到来展现出了通用人工智能的曙光。</p>
+<p>Openai应用了一些干预策略来缓解大语言模型可能出现的问题，幻觉、隐私泄露等。例如，研究人员引入了“红队攻击”（Red Teaming）机制来减少生成有害或有毒的内容。</p>
+<p>OpenAI 在 2023 年 9 月进一步发布了 GPT-4V，重点关注 GPT-4 视觉能力的安全部署。</p>
+<p>新版本的 GPT 模型还进一步增强了多模态能力，分别由 GPT-4 Turbo with Vision、DALL·E-3、TTS（Text-to-speech）以及 Listen to voice samples 等支持实现。</p>
+<p>GPT 模型可能在某些特定上下文中生成带有事实错误的内容（即幻觉）或存在潜在风险的回应。</p>
+<h2 id="第三章-大语言模型资源"><a href="#第三章-大语言模型资源" class="headerlink" title="第三章 大语言模型资源"></a><strong>第三章 大语言模型资源</strong></h2><p>本章介绍可公开使用的大语言模型研发资源。</p>
+<h3 id="3-1-公开可用的模型检查点或API"><a href="#3-1-公开可用的模型检查点或API" class="headerlink" title="3.1 公开可用的模型检查点或API"></a><strong>3.1</strong> 公开可用的模型检查点或API</h3><h4 id="3-1-1-公开可用的通用大语言模型检查点"><a href="#3-1-1-公开可用的通用大语言模型检查点" class="headerlink" title="3.1.1 公开可用的通用大语言模型检查点"></a><strong>3.1.1</strong> <strong>公开可用的通用大语言模型检查点</strong></h4><p>LLaMA ：7B、13B、30B 和 65B 四种版本。LLaMA 各个参数量版本都在超过 1T 词元的预训练语料上进行了训练。</p>
+<p>LLaMA 已经成为了最受欢迎的开源大语言模型之一，许多研究工作都是以其为基座模型进行微调或继续预训练。</p>
+<p>LLaMA-2 有 7B、13B、34B（未开源）和 70B</p>
+<p>ChatGLM：6B 智谱 AI</p>
+<p>Falcon：7B、40B 和 180B</p>
+<p>Baichuan：7B，预训练数据规模达到了1.2T 词元</p>
+<p>Baichuan-2：预训练数据规模达到了 2.6T 词元</p>
+<p>InternLM 和 InternLM-2：AILab开发</p>
+<p>Qwen：阿里巴巴</p>
+<p>（还有很多）…………</p>
+<h4 id="3-1-2-LLaMA-变体系列"><a href="#3-1-2-LLaMA-变体系列" class="headerlink" title="3.1.2 LLaMA 变体系列"></a><strong>3.1.2 LLaMA</strong> <strong>变体系列</strong></h4><p>指令微调由于相对较低的计算成本，已成为开发定制化或专业化模型的首选方法，也因此出现了庞大的 LLaMA 家族。</p>
+<p>中文指令：为了使 LLaMA 模型能够有效地支持中文，研究人员通常会选择扩展原始词汇表，在中文数据上进行继续预训练，并用中文指令数据对其进行微调。经过中文数据的训练，这些扩展模型不仅能更好地处理中文任务，在跨语言处理任务中也展现出了强大的潜力。</p>
+<p>垂域指令：基于搜集到的垂域相关的指令数据，构建多轮对话数据，并使用这些指令数据对 LLaMA 进行指令微调，包括法律、医学、教育、数学、金融等领域。</p>
+<p>多模态指令：搭配视觉模态的编码器，使用多模态指令对齐视觉表征与文本。</p>
+<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\LLaMA衍生图.png" alt="LLaMA衍生"></p>
+<h4 id="3-1-3-大语言模型的公共-API"><a href="#3-1-3-大语言模型的公共-API" class="headerlink" title="3.1.3 大语言模型的公共 API"></a><strong>3.1.3</strong> <strong>大语言模型的公共</strong> <strong>API</strong></h4><p>OpenAI 目前提供的常用 API 服务。</p>
+<p>GPT-3.5 Turbo 对应的 API 接口为 gpt-3.5-turbo，支持16K 词元的上下文长度。</p>
+<p>GPT-4 是一个多模态模型，也是目前 GPT 系列效果最好的模型，其对应的 API 接口有 gpt-4（基础版本，没有视觉功能）、gpt-4-32k（将上下文长度扩展到 32K）、gpt-4-vision-preview。</p>
+<p>OpenAI 主要提供三种文本表征的 API 接口，包括 text-embedding-ada-002、text-embedding-3-small 以及 text-embedding-3-large。</p>
+<h3 id="3-2-常用的预训练数据集"><a href="#3-2-常用的预训练数据集" class="headerlink" title="3.2 常用的预训练数据集"></a><strong>3.2</strong> <strong>常用的预训练数据集</strong></h3><p>这些语料库可以划分为：网页、书籍、维基百科、代码以及混合型数据集。</p>
+<h4 id="3-2-1-网页"><a href="#3-2-1-网页" class="headerlink" title="3.2.1 网页"></a>3.2.1 网页</h4><p>网页是大语言模型训练语料中最主要的数据来源，包含了丰富多样的文本内容。</p>
+<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\常用语料库.png" alt="常用语料库信息"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/07/19/LLMBook/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" rel="tag">多模态</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title"></div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
