@@ -190,18 +190,18 @@
 <p>通过扩展<strong>参数规模、数据规模和计算算力</strong>，大语言模型的能力显著超越了小型语言模型的能力。</p>
 <p>建立定量的建模方法，即扩展法则（ScalingLaw），来研究规模扩展所带来的模型性能提升具有重要的实践指导意义。</p>
 <h4 id="2-2-1-KM扩展法则"><a href="#2-2-1-KM扩展法则" class="headerlink" title="2.2.1 KM扩展法则"></a>2.2.1 KM扩展法则</h4><p>2020年提出，建立了神经语言模型性能与三个主要因素——**模型规模<code>N</code>、数据规模<code>D</code>和计算算力<code>C</code>**之间的幂律关系。</p>
-<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\KM.png" alt="KM扩展法则"></p>
+<p><img src="/images/LLMBook/KM.png" alt="KM扩展法则"></p>
 <p><code>L(.)</code>表示用以 $nat^1$为单位的交叉熵损失。其中，$N_c$、$D_c$和 <em>$C_c$</em> 是实验性的常数数值，分别对应于非嵌入参数数量、训练数据数量和实际的算力开销。</p>
 <p>一些基本假设：一个因素的分析不会受到其他两个因素的限制，如当变动模型参数规模的时候，需要保证数据资源是充足的。</p>
 <p>上述公式为规模扩展效应提供了一种定量的普适建模方法。通过普适规则能够更好地探究问题的本质。</p>
 <p>这里的损失函数进一步分解为两部分：</p>
-<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\损失函数.png" alt="`x`指代上面公式的`N`、`D`、`C`"></p>
+<p><img src="/images/LLMBook/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0.png" alt="`x`指代上面公式的`N`、`D`、`C`"></p>
 <p>其中，不可约损失由数据自身特征确定，无法通过扩展法则或者优化算法进行约减；模型性能的优化只能减小可约损失部分。</p>
 <h4 id="2-2-2-Chinchilla-扩展法则"><a href="#2-2-2-Chinchilla-扩展法则" class="headerlink" title="2.2.2 Chinchilla 扩展法则"></a><strong>2.2.2 Chinchilla</strong> <strong>扩展法则</strong></h4><p>2022 年提出，通过针对更大范围的模型规模（70M 到 16B 参数）和数据规模（5B 到 500B 词元）进行实验。</p>
-<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\Chinchilla.png" alt="Chinchilla扩展法则"></p>
+<p><img src="/images/LLMBook/Chinchilla.png" alt="Chinchilla扩展法则"></p>
 <p>其中<code>𝐸</code> = 1*.*69, <code>𝐴</code> = 406.4, <code>𝐵</code> = 410.7，<code>𝛼</code> = 0.34 和 <code>𝛽</code> = 0.28。</p>
 <p>KM 扩展法则和 Chinchilla 扩展法则都可以近似表示成上述算力为核心的公式：</p>
-<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\以算力为核心.png" alt="以算力为核心"></p>
+<p><img src="/images/LLMBook/%E4%BB%A5%E7%AE%97%E5%8A%9B%E4%B8%BA%E6%A0%B8%E5%BF%83.png" alt="以算力为核心"></p>
 <p>即当算力<code>C</code>给定的情况下，最优的模型参数规模和数据规模由指数系数<code>a</code>和<code>b</code>分别确定。</p>
 <p>不难看出，a&gt;b时，应用更多的算例去提高数据规模<code>D</code>，a&lt;b时，应该用更多的算力去提高数据规模<code>N</code>。</p>
 <p>Chinchilla 扩展法则首次指出了之前的预训练工作可能<strong>忽视了训练数据的规模扩展</strong>。如，具有 175B 参数的 GPT-3 仅仅使用了 300B 的词元进行训练，所使用的数据量远远没有达到模型能够编码的最大数据容量。</p>
@@ -226,7 +226,7 @@
 <p>涌现能力：使用<strong>任务性能</strong>来衡量模型性能，整体上展现出<strong>随规模扩展的骤然跃升趋势</strong>，不具有可预测性，但是<strong>一旦出现</strong>涌现能力则意味着模型性能将会产生<strong>大幅跃升</strong>。</p>
 <p>关于涌现能力的合理性也存在广泛的争议。目前还缺少对于大语言模型涌现机理的基础性解释研究工作。</p>
 <p>“顿悟”（Grokking）：训练过程中的一种数据学习模式，模型性能从随机水平提升为高度泛化。</p>
-<h3 id="2-4-GPT-系列模型的技术演变"><a href="#2-4-GPT-系列模型的技术演变" class="headerlink" title="2.4 GPT 系列模型的技术演变"></a><strong>2.4 GPT</strong> <strong>系列模型的技术演变</strong></h3><p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\LLM.png" alt="唉，大语言模型"></p>
+<h3 id="2-4-GPT-系列模型的技术演变"><a href="#2-4-GPT-系列模型的技术演变" class="headerlink" title="2.4 GPT 系列模型的技术演变"></a><strong>2.4 GPT</strong> <strong>系列模型的技术演变</strong></h3><p><img src="/images/LLMBook/LLM.png" alt="唉，大语言模型"></p>
 <p>GPT 系列模型的基本原理：训练模型学习恢复预训练文本数据，将广泛的世界知识压缩到<strong>仅包含解码器</strong>（Decoder-Only）的 Transformer 模型中，从而使模型能够学习获得较为全面的能力。</p>
 <p><strong>关键</strong>：1.训练能够准确预测下一个词的 Transformer （只包含解码器）语言模型  2.扩展语言模型的规模以及扩展预训练数据的规模</p>
 <h4 id="2-4-1-早期探索"><a href="#2-4-1-早期探索" class="headerlink" title="2.4.1 早期探索"></a><strong>2.4.1</strong> <strong>早期探索</strong></h4><p>GPT-1：2018年发布。奠定了 GPT 系列模型的核心架构与基于自然语言文本的预训练方式。没引起学术界的足够关注。</p>
@@ -262,14 +262,14 @@
 <p>中文指令：为了使 LLaMA 模型能够有效地支持中文，研究人员通常会选择扩展原始词汇表，在中文数据上进行继续预训练，并用中文指令数据对其进行微调。经过中文数据的训练，这些扩展模型不仅能更好地处理中文任务，在跨语言处理任务中也展现出了强大的潜力。</p>
 <p>垂域指令：基于搜集到的垂域相关的指令数据，构建多轮对话数据，并使用这些指令数据对 LLaMA 进行指令微调，包括法律、医学、教育、数学、金融等领域。</p>
 <p>多模态指令：搭配视觉模态的编码器，使用多模态指令对齐视觉表征与文本。</p>
-<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\LLaMA衍生图.png" alt="LLaMA衍生"></p>
+<p><img src="/images/LLMBook/LLaMA%E8%A1%8D%E7%94%9F%E5%9B%BE.png" alt="LLaMA衍生"></p>
 <h4 id="3-1-3-大语言模型的公共-API"><a href="#3-1-3-大语言模型的公共-API" class="headerlink" title="3.1.3 大语言模型的公共 API"></a><strong>3.1.3</strong> <strong>大语言模型的公共</strong> <strong>API</strong></h4><p>OpenAI 目前提供的常用 API 服务。</p>
 <p>GPT-3.5 Turbo 对应的 API 接口为 gpt-3.5-turbo，支持16K 词元的上下文长度。</p>
 <p>GPT-4 是一个多模态模型，也是目前 GPT 系列效果最好的模型，其对应的 API 接口有 gpt-4（基础版本，没有视觉功能）、gpt-4-32k（将上下文长度扩展到 32K）、gpt-4-vision-preview。</p>
 <p>OpenAI 主要提供三种文本表征的 API 接口，包括 text-embedding-ada-002、text-embedding-3-small 以及 text-embedding-3-large。</p>
 <h3 id="3-2-常用的预训练数据集"><a href="#3-2-常用的预训练数据集" class="headerlink" title="3.2 常用的预训练数据集"></a><strong>3.2</strong> <strong>常用的预训练数据集</strong></h3><p>这些语料库可以划分为：网页、书籍、维基百科、代码以及混合型数据集。</p>
 <h4 id="3-2-1-网页"><a href="#3-2-1-网页" class="headerlink" title="3.2.1 网页"></a>3.2.1 网页</h4><p>网页是大语言模型训练语料中最主要的数据来源，包含了丰富多样的文本内容。</p>
-<p><img src="/.io//Users\25374\Desktop\LRP\Blog\source\images\LLMBook\常用语料库.png" alt="常用语料库信息"></p>
+<p><img src="/images/LLMBook/%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%96%99%E5%BA%93.png" alt="常用语料库信息"></p>
  
       <!-- reward -->
       
