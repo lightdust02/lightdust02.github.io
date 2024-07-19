@@ -108,8 +108,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>于21年秋季做的关于数据库系统的课程笔记。可参考的内容有限……</p>
-<p>笔者于21年秋季做的关于数据库系统的课程笔记，整理文件时发现的……</p>
+  <p>笔者于21年秋季做的关于数据库系统的课程笔记，整理文件时发现的……</p>
 <p>内容比较粗糙，可参考的内容有限……</p>
 <span id="more"></span>
 
@@ -218,11 +217,11 @@
 <p><strong>自然连接不满足交换律</strong></p>
 <p>除：两个表，R÷S，R与S中有部分共同的属性，R÷S得到的就是关系R包含而关系S不包含的属性。</p>
 <p>一个例子：</p>
-<p><img src="https://img-blog.csdnimg.cn/20210701131028505.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjAyMzcyMw==,size_16,color_FFFFFF,t_70" alt="img"></p>
-<p>R÷S的结果是：<img src="https://img-blog.csdnimg.cn/20210701131131339.png" alt="img"></p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/image-20240719235143476.png" alt="image-20240719235143476"></p>
+<p>R÷S的结果是：</p>
+<p><img src="/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/image-20240719235157778.png" alt="image-20240719235157778"></p>
 <p>R与S公共的属性是Y（这两个属性不一定要名字相同，但表示的意义应当相同），公共的Y属性有Y1,Y2。Y1,Y2组成集合y。R表中包含而S表中不包含的属性是X。在R表中，X1对应的Y的集合为{Y2}，≠y，不是除运算的结果。而X2对应的Y的集合是{Y1,Y2,Y3}，包括y中所有的元素，所以X2是除运算的结果。因此答案是X2。</p>
-<p>运算优先级：带括号的 &gt;一元运算符 &gt;二元运算符</p>
-<p>哼哼，哼啊啊啊啊啊啊啊啊啊啊</p>
+<p>运算优先级：带括号的 &gt; 一元运算符 &gt; 二元运算符</p>
 <h1 id="3-数据操作"><a href="#3-数据操作" class="headerlink" title="3.数据操作"></a>3.数据操作</h1><p>SQL是声明性语言，只需要表明需要做什么，不表达做的过程。</p>
 <p>SQL由数据定语言（DDL）和数据操作语言（DML）构成。</p>
 <p>SQL不区分大小写</p>
@@ -315,7 +314,6 @@
 <p>重做redo：在故障发生之间已经提交的事务，既有开始BEGIN，又有COMMIT</p>
 <p>撤销undo：</p>
 <p><strong>日志与数据库不应写在一个磁盘上</strong></p>
-<p>哼，哼，哼啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
 <h1 id="7-数据处理性能问题"><a href="#7-数据处理性能问题" class="headerlink" title="7.数据处理性能问题"></a>7.数据处理性能问题</h1><p>通过有效方法处理海量数据：</p>
 <p>挖掘，利用数据特性，机器特性，访问特性</p>
 <p>有效方法：数据分类/排序，数据索引</p>
