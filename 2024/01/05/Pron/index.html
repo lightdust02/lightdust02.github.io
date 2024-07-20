@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">3.5k</span>
+            <span class="post-count">3.6k</span>
         </span>
     </span>
 
@@ -108,7 +108,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>这部分内容记录了一些读论文过程中常见到的概念，主要是深度学习、图像处理与计算机视觉方面。</p>
+  <p>这部分内容记录了一系列科研过程中常到的概念，包括深度学习、图像处理、计算机视觉、多模态等方面的内容。</p>
 <p>该博文会一直持续更新。</p>
 <span id="more"></span>
 
@@ -140,6 +140,10 @@
 <p>隐式关系：不能直接观察到的关系，但可以通过数据间的相关性来推断。NIAM 模型可以自动地学习和捕捉这些隐式关系，从而在各种任务中表现出色，如推荐系统、自然语言处理和图像处理等。</p>
 <h3 id="端到端end-to-end"><a href="#端到端end-to-end" class="headerlink" title="端到端end-to-end"></a>端到端end-to-end</h3><p>指从原始输入数据到最终输出结果的整个过程由一个统一的模型处理，即输入是原始数据，输出是最后的结果。</p>
 <h3 id="2D-Feature-map"><a href="#2D-Feature-map" class="headerlink" title="2D Feature map"></a>2D Feature map</h3><p>通过卷积神经网络的卷积层和池化层处理后得到的二维矩阵。该矩阵包含了输入图像的某些特征。</p>
+<h3 id="准确率、精确度、召回率、F1"><a href="#准确率、精确度、召回率、F1" class="headerlink" title="准确率、精确度、召回率、F1"></a>准确率、精确度、召回率、F1</h3><h4 id="准确率-Accuracy"><a href="#准确率-Accuracy" class="headerlink" title="准确率 Accuracy"></a>准确率 Accuracy</h4><p>正例和负例中预测正确数量占总数量的比例<br>$$<br>ACC=\frac{TP+TN}{TP+TN+FP+FN}<br>$$</p>
+<h4 id="精确度-Precision"><a href="#精确度-Precision" class="headerlink" title="精确度 Precision"></a>精确度 Precision</h4><p>以<strong>预测结果</strong>为判断依据，预测为正例的样本中预测正确的比例<br>$$<br>Precision=\frac{TP}{TP+FP}<br>$$</p>
+<h4 id="召回率-Recall"><a href="#召回率-Recall" class="headerlink" title="召回率 Recall"></a>召回率 Recall</h4><p>以<strong>实际样本</strong>为判断依据，实际为正例的样本中，被预测正确的正例占总实际正例样本的比例。<br>$$<br>Recall=\frac{TP}{TP+FN}<br>$$</p>
+<h4 id="F1值"><a href="#F1值" class="headerlink" title="F1值"></a>F1值</h4><p>中和了精确率和召回率的指标<br>$$<br>F1=\frac{2PR}{R+P}<br>$$</p>
 <h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="Q-K-V"><a href="#Q-K-V" class="headerlink" title="Q K V"></a>Q K V</h3><p>Q: Query，查询        K: Key，键    V: Value，值</p>
 <p>注意力机制中，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
 <p>输入序列被用来计算查询 Q 、键 K 和值 V 。每个查询 Q 与所有键 K 计算得到相关性分数，然后通过 Softmax 函数将这些分数归一化为权重，最终这些权重被应用到相应的值 V 上，从而得到注意力表示。</p>

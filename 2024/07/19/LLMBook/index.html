@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">6.2k</span>
+            <span class="post-count">8.9k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">21 min</span>
+            <span class="post-count">31 min</span>
         </span>
     </span>
 </div>
@@ -270,6 +270,106 @@
 <h3 id="3-2-常用的预训练数据集"><a href="#3-2-常用的预训练数据集" class="headerlink" title="3.2 常用的预训练数据集"></a><strong>3.2</strong> <strong>常用的预训练数据集</strong></h3><p>这些语料库可以划分为：网页、书籍、维基百科、代码以及混合型数据集。</p>
 <h4 id="3-2-1-网页"><a href="#3-2-1-网页" class="headerlink" title="3.2.1 网页"></a>3.2.1 网页</h4><p>网页是大语言模型训练语料中最主要的数据来源，包含了丰富多样的文本内容。</p>
 <p><img src="/images/LLMBook/%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%96%99%E5%BA%93.png" alt="常用语料库信息"></p>
+<ul>
+<li>Common Crawl.  该数据集是一个规模庞大的、非结构化的、多语言的网页数据集，其时间跨度很长，从 2008 年至今一直在定期更新，包含原始网页数据、元数据和提取的文本数据等。</li>
+<li>C4（Colossal Clean Crawled Corpus）[77]. 该数据集是一个大型网页数据集，源自超过 365M 个互联网域，包含超过 156B 词元，数据量约 800GB。</li>
+<li>CC-Stories. 该数据集是一个专为常识推理和语言建模构建的故事风格数据集，数据来源是 Common Crawl 中与常识推理任务问题有高度重叠的文档</li>
+<li>CC-News. 该数据集是一个新闻文章数据集，数据量约 76GB，包含了从 2016 年 9 月到 2019 年 2 月期间抓取的 63M 篇英文新闻文章</li>
+</ul>
+<p>……</p>
+<h5 id="中文网页数据"><a href="#中文网页数据" class="headerlink" title="中文网页数据"></a><strong>中文网页数据</strong></h5><ul>
+<li>ChineseWebText. 该数据集汇集了 2021 年至 2023 年间的网页快照，总计 1.42TB数据量。同时，ChineseWebText 的每篇文本都附有一个定量的质量评分</li>
+<li>WanJuan1.0Text. 该数据集是上海人工智能实验室发布的万卷 1.0 多模态语料库的一部分。</li>
+</ul>
+<p>……</p>
+<h4 id="3-2-2-书籍"><a href="#3-2-2-书籍" class="headerlink" title="3.2.2 书籍"></a>3.2.2 书籍</h4><p>书籍的语言表达更为严谨，整体上相对质量较高，并且能够覆盖多元化的知识体系。</p>
+<ul>
+<li>BookCorpus. 一个免费小说书籍集合，包含了 11,038 本未出版书籍（大约有 74M 句子和 1B 个单词），涵盖了 16 种不同的主题类型</li>
+<li>Project Gutenberg.  一个拥有 70K 部免费电子书的在线图书馆，目前还在持续更新中。主要收录了西方文学作品，包括小说、诗歌、戏剧等</li>
+<li>arXiv Dataset. 一个收录了众多领域预印本论文的网站</li>
+</ul>
+<h4 id="3-2-3-维基百科"><a href="#3-2-3-维基百科" class="headerlink" title="3.2.3 维基百科"></a><strong>3.2.3</strong> <strong>维基百科</strong></h4><p>有以下几个特点：专业性、多语性、实时性。</p>
+<h4 id="3-2-4-代码"><a href="#3-2-4-代码" class="headerlink" title="3.2.4 代码"></a>3.2.4 代码</h4><p>为了收集代码数据，现有的工作主要从互联网上爬取具有开源许可的代码。</p>
+<ul>
+<li>BigQuery  一个谷歌发布的企业数据仓库</li>
+<li>The Stack 数据来源于 GHArchive 项目中 2015 年 1 月 1 日至 2022年 3 月 31 日期间的 GitHub 活跃仓库。</li>
+<li>StarCoder</li>
+</ul>
+<h4 id="3-2-5-混合型数据集"><a href="#3-2-5-混合型数据集" class="headerlink" title="3.2.5 混合型数据集"></a>3.2.5 混合型数据集</h4><p>混合型数据集融合了新闻、社交媒体内容、维基百科条目等各种类型的文本，减少了重复清洗数据、选择数据的繁重工程。</p>
+<ul>
+<li>The Pile. 该数据集是一个大规模、多样化且可公开下载的文本数据集，由超过 800GB 的数据组成，数据来源非常广泛，包括书籍、网站、代码、科学论文和社交媒体数据等。</li>
+<li>ROOTS. 该数据集是一个涵盖了 59 种不同语言的多源多语数据集。</li>
+</ul>
+<h3 id="3-3-常用微调数据集"><a href="#3-3-常用微调数据集" class="headerlink" title="3.3 常用微调数据集"></a><strong>3.3</strong> <strong>常用微调数据集</strong></h3><p>为了增强模型的任务解决能力，大语言模型在预训练之后需要进行适应性微调，通常涉及两个主要步骤，即指令微调（有监督微调）和对齐微调。</p>
+<h4 id="3-3-1-指令微调数据集"><a href="#3-3-1-指令微调数据集" class="headerlink" title="3.3.1 指令微调数据集"></a>3.3.1 指令微调数据集</h4><p>三种主要类型，自然语言处理任务数据集、日常对话数据集和合成数据集。</p>
+<h5 id="自然语言处理任务数据集"><a href="#自然语言处理任务数据集" class="headerlink" title="自然语言处理任务数据集"></a><strong>自然语言处理任务数据集</strong></h5><ul>
+<li>P3（Public Pool of Prompts）一个面向英文数据的指令微调数据集，由超过 270 个自然语言处理任务数据集和 2,000 多种提示整合而成。</li>
+<li>FLAN 是通过将 62 个广泛使用的 NLP 基准数据集进行格式化得到的英语指令数据集。</li>
+</ul>
+<h5 id="日常对话数据集"><a href="#日常对话数据集" class="headerlink" title="日常对话数据集"></a><strong>日常对话数据集</strong></h5><ul>
+<li>ShareGPT</li>
+<li>OpenAssistant. 一个人工创建的多语言对话语料库</li>
+<li>Dolly. 一个英语指令数据集， 包含了 15,000 个人类生成的数据实例</li>
+</ul>
+<h5 id="合成数据集"><a href="#合成数据集" class="headerlink" title="合成数据集"></a>合成数据集</h5><p>合成数据集通常是使用大语言模型基于预定义的规则或方法进行构建的。</p>
+<ul>
+<li>Self-Instruct-52K：是使用 self-instruct 方法（详见第 7.1.3 节）生成的英语指令数据集，共包含 52K 条指令以及 82K 个实例输入和输出。</li>
+<li>Alpaca-52K </li>
+</ul>
+<h4 id="3-3-2-人类对齐数据集"><a href="#3-3-2-人类对齐数据集" class="headerlink" title="3.3.2 人类对齐数据集"></a>3.3.2 人类对齐数据集</h4><p>将大语言模型与人类价值观和偏好对齐也非常重要。</p>
+<p>三个方面：有用性、诚实性和无害性</p>
+<p>对齐微调数据集各自针对上述对齐目标进行了标注。</p>
+<ul>
+<li> HH-RLHF. 该数据集包含两大类标注数据，分别关注于大语言模型的有用性和无害性。数据集包含约 169K 个开放式对话，每个对话涉及一个众包工作者向一个智能信息助手寻求帮助、建议或请求完成任务等情景。</li>
+<li>SHP. 该数据集关注模型生成回复内容的有用性。该数据集共 385K 个数据实例，对于 18 个不同主题领域中问题/指令的人类偏好进行标注，涵盖了从烹饪到法律建议等各种主题</li>
+<li>PKU-SafeRLHF. 该数据集侧重于对回复内容的有用性和无害性进行标注。囊括了 330K 个专家注释的实例</li>
+</ul>
+<p>……</p>
+<h3 id="3-4-代码库"><a href="#3-4-代码库" class="headerlink" title="3.4 代码库"></a>3.4 代码库</h3><h4 id="3-4-1-HuggingFace"><a href="#3-4-1-HuggingFace" class="headerlink" title="3.4.1 HuggingFace"></a>3.4.1 HuggingFace</h4><p>Hugging Face 平台上的代码大部分基于目前主流的深度学习框架实现完成的。</p>
+<ul>
+<li>Transformers. 该一个使用 Transformer 架构构建模型的开源 Python库，提供了一系列预训练的模型与相关开发工具</li>
+<li>Datasets. 用于高效访问和共享自然语言处理任务相关的数据集，可以快速从远程 Hugging Face Hub 中加载数据集到本地。</li>
+<li>Accelerate. 该代码库是一个旨在简化模型分布式训练和混合精度训练的Python 库，专门针对 PyTorch 开发。</li>
+</ul>
+<h4 id="3-4-2-DeepSpeed"><a href="#3-4-2-DeepSpeed" class="headerlink" title="3.4.2 DeepSpeed"></a>3.4.2 DeepSpeed</h4><p>DeepSpeed 是一个加速深度学习模型训练的高性能库（与 PyTorch兼容），广泛用于大语言模型的分布式训练</p>
+<p>特制的优化框架：DeepSpeed-MII 和 DeepSpeed-Chat</p>
+<ul>
+<li>DeepSpeed-MII：通过提高吞吐量、降低延迟等方式来降低大模型解码生成的运行成本。</li>
+<li>DeepSpeed-Chat：一个易于使用的用于训练类 ChatGPT 模型的开发工具，完整集成了包括基于人类反馈的强化学习算法在内的训练过程。</li>
+</ul>
+<h4 id="3-4-3-Megatron-LM"><a href="#3-4-3-Megatron-LM" class="headerlink" title="3.4.3 Megatron-LM"></a>3.4.3 Megatron-LM</h4><p>一款专门为训练大语言模型而设计的深度学习代码库</p>
+<h4 id="3-4-4-配套资源"><a href="#3-4-4-配套资源" class="headerlink" title="3.4.4 配套资源"></a>3.4.4 配套资源</h4><ul>
+<li>LLMSurvey：建立了大模型综述资源网站：<a target="_blank" rel="noopener" href="https://github.com/RUCAIBox/LLMSurvey/">https://github.com/RUCAIBox/LLMSurvey/</a></li>
+<li>YuLan-Chat ：中国人民大学自主研发的系列大语言模型</li>
+<li>LLMBox：围绕英文综述论文所开发的综合性大语言模型代码库<a target="_blank" rel="noopener" href="https://github.com/RUCAIBox/LLMBox">RUCAIBox/LLMBox: A comprehensive library for implementing LLMs, including a unified training pipeline and comprehensive model evaluation. (github.com)</a></li>
+</ul>
+<h2 id="第四章-数据准备"><a href="#第四章-数据准备" class="headerlink" title="第四章 数据准备"></a>第四章 数据准备</h2><p>预训练是最为重要的一个阶段，有效的预训练能够为大语言模型的能力奠定坚实的基础。预训练语料的规模和质量对于提升大语言模型的能力至关重要。</p>
+<p>主要包含原始数据的收集、数据预处理、数据词元化、以及预训练过程中的数据调度方法。</p>
+<h3 id="4-1-数据来源"><a href="#4-1-数据来源" class="headerlink" title="4.1 数据来源"></a>4.1 数据来源</h3><p>现有的大语言模型主要将各种公开的文本数据进行混合，作为预训练语料。</p>
+<p>根据来源不同，预训练数据主要分为两种类型：通用文本数据和专用文本数据。</p>
+<p>为了进一步提升大语言模型在特定专业任务上的表现，人们还将预训练语料的范围扩展至更专业的数据集，如多语数据、科学数据和代码数据等。</p>
+<h4 id="4-1-1-通用文本数据"><a href="#4-1-1-通用文本数据" class="headerlink" title="4.1.1 通用文本数据"></a><strong>4.1.1</strong> <strong>通用文本数据</strong></h4><p>通用语料涵盖了多个主题类别的文本内容。包含网页和书籍两大类。</p>
+<h4 id="4-1-2-专用文本数据"><a href="#4-1-2-专用文本数据" class="headerlink" title="4.1.2 专用文本数据"></a>4.1.2 专用文本数据</h4><p>专用数据集有助于提升大语言模型解决特定下游任务的能力，包括多语文本、科学文本、代码。</p>
+<h3 id="4-2-数据预处理"><a href="#4-2-数据预处理" class="headerlink" title="4.2 数据预处理"></a>4.2 数据预处理</h3><p>对数据进行预处理，从而消除低质量、冗余、无关甚可能有害的数据。</p>
+<p>这一节将介绍一系列常用的数据预处理流程与方法。</p>
+<h4 id="4-2-1-质量过滤"><a href="#4-2-1-质量过滤" class="headerlink" title="4.2.1 质量过滤"></a>4.2.1 质量过滤</h4><p>直接收集到的文本数据往往掺杂了很多低质量的数据。</p>
+<p>两种数据清洗方法（1）基于启发式规则的方法（2）基于分类器的方法</p>
+<h5 id="基于启发式规则的方法"><a href="#基于启发式规则的方法" class="headerlink" title="基于启发式规则的方法"></a><strong>基于启发式规则的方法</strong></h5><p>通过精心设计的规则来针对地识别和剔除低质量的文本数据。</p>
+<ul>
+<li>基于语种的过滤：为了训练特定目标语言为主导的大语言模型，通常要过滤掉其他语言的文本数据。</li>
+<li>基于简单统计指标的过滤：使用语料中标点符号分布、符号与单词比率、句子长度等特征来衡量文本质量，并过滤低质量数据。</li>
+<li>基于关键词的过滤：制定精准的清洗规则，结合相应的关键词集合，对文本进行扫描过滤，从而有效地识别和删除其中的噪声或无用元素。</li>
+</ul>
+<h5 id="基于分类器的方法"><a href="#基于分类器的方法" class="headerlink" title="基于分类器的方法"></a><strong>基于分类器的方法</strong></h5><p>也可以训练用于判别数据质量的文本分类器，进行预训练语料的清洗。可以选取部分代表性的数据进行质量标注，以此训练出一个精准的文本质量分类器。</p>
+<p>利用训练好的文本分类器，我们能够精准地识别和过滤低质量数据，从而显著提升整个语料库的质量。</p>
+<p>目前常用来实现分类器的方法包括轻量级模型（FastText ）、可微调的预训练语言模型（ BERT、BART、LLaMA ）、闭源大语言模型 API（GPT-4、Claude 3）。</p>
+<p>在进行数据清洗时，过滤效率也是需要考虑的因素。</p>
+<p>基于启发式的方法，其规则设计得相对简洁，效率也更高。</p>
+<p>基于分类器的方法，能够展现出更高的精确度，但也需要消耗更多的计算资源。</p>
+<h4 id="4-2-2-敏感内容过滤"><a href="#4-2-2-敏感内容过滤" class="headerlink" title="4.2.2 敏感内容过滤"></a><strong>4.2.2</strong> <strong>敏感内容过滤</strong></h4><p>过滤有毒内容：可以采用基于分类器的过滤方法。</p>
+<p>Jigsaw 评论数据集：近 160K 条论坛评论数据，每条评论都经过细致的标注，包括“有毒”、“严重有毒”、“有威胁”、“侮辱性”、“暴力”以及“身份仇恨”等六个类别。</p>
+<p>通过设置合理的阈值，训练完成的分类器将能够有效识别并过滤掉含有有毒内容的信息。</p>
+<p>需要在精确度和召回率之间寻求平衡，避免过多或者过少去除候选数据。</p>
  
       <!-- reward -->
       
