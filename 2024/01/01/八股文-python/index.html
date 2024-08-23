@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>面试题记录-python |  LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-八股文-python"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  面试题记录-python
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/01/01/%E5%85%AB%E8%82%A1%E6%96%87-python/" class="article-date">
+  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B0%B1%E4%B8%9A/">就业</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">9 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>记录 Python 相关的面试题。</p>
+<p>会一直持续更新。</p>
+<span id="more"></span>
+
+<h2 id="1-五个常用python库"><a href="#1-五个常用python库" class="headerlink" title="1. 五个常用python库"></a><strong>1.</strong> 五个常用python库</h2><p>os：提供了与操作系统相关联的函数</p>
+<p>sys：通常用于命令行参数</p>
+<p>re：正则匹配</p>
+<p>math：数学运算</p>
+<p>datetime：处理日期时间</p>
+<p>numpy:矩阵运算，数据处理</p>
+<h2 id="2-Python的GIL与多线程"><a href="#2-Python的GIL与多线程" class="headerlink" title="2. Python的GIL与多线程"></a><strong>2.</strong> Python的GIL与多线程</h2><p>GIL是Python的全局解释器锁，同一进程中假如有多个线程运行，一个线程在运行Python程序的时候会霸占Python解释器（加了一把锁即GIL），使该进程内的其他线程无法运行，等该线程运行完后其他线程才能运行。如果线程运行过程中遇到耗时操作，则解释器锁解开，使其他线程运行。所以在多线程中，线程的运行仍是有先后顺序的，并不是同时进行。<br>    多进程中因为每个进程都能被系统分配资源，相当于每个进程有了一个Python解释器，所以多进程可以实现多个进程的同时运行，缺点是进程系统资源开销大。</p>
+<p>GIL确保每次只能执行一个“线程”。一个线程获取GIL执行相关操作，然后将GIL传递到下一个线程。虽然看起来程序被多线程并行执行，但它们实际上只是轮流使用相同的CPU核心。<br>    所有这些GIL传递都增加了执行的开销。这意味着多线程并不能让程序运行的更快。</p>
+<h2 id="3-面向对象中-new-和-init-区别？"><a href="#3-面向对象中-new-和-init-区别？" class="headerlink" title="3. 面向对象中__new__和__init__区别？"></a><strong>3.</strong> 面向对象中__new__和__init__区别？</h2><p>1、__new__至少要有一个参数cls，代表当前类，此参数在实例化时由Python解释器自动识别。</p>
+<p>2、__new__必须要有返回值，返回实例化出来的实例，这点在自己实现__new__时要特别注意，可以return父类（通过super(当前类名, cls)）__new__出来的实例，或者直接是object的__new__出来的实例。</p>
+<p>3、__init__有一个参数self，就是这个__new__返回的实例，__init__在__new__的基础上可以完成一些其它初始化的动作，__init__不需要返回值。</p>
+<p>4、如果__new__创建的是当前类的实例，会自动调用__init__函数，通过return语句里面调用的__new__函数的第一个参数是cls来保证是当前类实例，如果是其他类的类名，；那么实际创建返回的就是其他类的实例，其实就不会调用当前类的__init__函数，也不会调用其他类的__init__函数。</p>
+<h2 id="4-python中生成随机整数、随机小数、0–1之间小数方法？"><a href="#4-python中生成随机整数、随机小数、0–1之间小数方法？" class="headerlink" title="4. python中生成随机整数、随机小数、0–1之间小数方法？"></a><strong>4.</strong> python中生成随机整数、随机小数、0–1之间小数方法？</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="built_in">print</span>(random.randint(<span class="number">1</span>, <span class="number">10</span>))  <span class="comment"># 随机整数，1-10，包括1和10</span></span><br><span class="line"><span class="built_in">print</span>(random.random())  <span class="comment"># 0-1随机小数</span></span><br><span class="line"><span class="built_in">print</span>(random.uniform(<span class="number">2</span>, <span class="number">6</span>)) <span class="comment"># 指定随机小数</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-正则表达式输出汉字"><a href="#5-正则表达式输出汉字" class="headerlink" title="5. 正则表达式输出汉字"></a><strong>5.</strong> 正则表达式输出汉字</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">a = <span class="string">&quot;not 404 found 中国 2018 我爱你&quot;</span></span><br><span class="line">r1 = <span class="string">&#x27;[a-zA-Z0-9’!&quot;#$%&amp;\&#x27;()*+,-./:;&lt;=&gt;?@，。?★、…【】《》？“”‘’！[\\]^_`&#123;|&#125;~]+\s?&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(re.sub(r1, <span class="string">&#x27;&#x27;</span>, a))</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Logging模块"><a href="#6-Logging模块" class="headerlink" title="6. Logging模块"></a><strong>6.</strong> Logging模块</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level = logging.INFO,<span class="built_in">format</span> = <span class="string">&#x27;%(asctime)s - %(name)s - %(levelname)s - %(message)s&#x27;</span>)</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line">logger.info(<span class="string">&quot;Start print log&quot;</span>)</span><br><span class="line">logger.debug(<span class="string">&quot;Do something&quot;</span>)</span><br><span class="line">logger.warning(<span class="string">&quot;Something maybe fail.&quot;</span>)</span><br><span class="line">logger.info(<span class="string">&quot;Finish&quot;</span>)</span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-自定义异常代码"><a href="#7-自定义异常代码" class="headerlink" title="7. 自定义异常代码"></a><strong>7.</strong> 自定义异常代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#自定义异常用raise抛出异常</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fn</span>():</span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line"> 	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">      <span class="keyword">if</span> i&gt;<span class="number">2</span>:</span><br><span class="line">	   <span class="keyword">raise</span> Exception(<span class="string">&quot;数字大于2了&quot;</span>)</span><br><span class="line">  <span class="keyword">except</span> Exception <span class="keyword">as</span> ret:</span><br><span class="line">	 <span class="built_in">print</span>(ret)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>fn()       ==》数字大于2了</p>
+<h2 id="8-Zip函数"><a href="#8-Zip函数" class="headerlink" title="**8.**Zip函数"></a>**8.**Zip函数</h2><p>zip() 函数将可迭代的对象作为参数，将对象中对应的元素打包成一个元组，然后返回由这些元组组成的列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br><span class="line">list2 = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line">zipped = <span class="built_in">zip</span>(list1, list2)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(zipped))  <span class="comment"># [(1, 4), (2, 5), (3, 6)]</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(<span class="built_in">zip</span>(*zipped)))  <span class="comment"># [(1, 2, 3), (4, 5, 6)]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="9-提高python运行效率的方法"><a href="#9-提高python运行效率的方法" class="headerlink" title="9. 提高python运行效率的方法"></a><strong>9.</strong> 提高python运行效率的方法</h2><p>1、使用生成器，因为可以节约大量内存</p>
+<p>2、循环代码优化，避免过多重复代码的执行</p>
+<p>3、核心模块用Cython  PyPy等，提高效率</p>
+<p>4、多进程、多线程、协程</p>
+<p>5、多个if elif条件判断，可以把最有可能先发生的条件放到前面写，这样可以减少程序判断的次数，提高效率</p>
+<h2 id="10-多进程与多线程"><a href="#10-多进程与多线程" class="headerlink" title="10. 多进程与多线程"></a><strong>10.</strong> 多进程与多线程</h2><p>进程是资源（CPU、内存等）分配的基本单位，是程序执行时的一个实例。</p>
+<p>线程是程序执行时的最小单位，它是进程的一个执行流。</p>
+<p>进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵</p>
+<p>线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多</p>
+<h2 id="11-Lambda函数（重点）"><a href="#11-Lambda函数（重点）" class="headerlink" title="11. Lambda函数（重点）"></a><strong>11.</strong> Lambda函数（重点）</h2><p>lambda函数也叫匿名函数，该函数可以包含任意数量的参数，但只能有一个执行操作的语句。</p>
+<h2 id="12-lambda-i-x-for-i-in-range-4"><a href="#12-lambda-i-x-for-i-in-range-4" class="headerlink" title="12. [lambda i*x for i in range(4)]"></a><strong>12.</strong> [lambda i*x for i in range(4)]</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">num</span>(): </span><br><span class="line"> 	<span class="keyword">return</span> [<span class="keyword">lambda</span> x:i*x <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[m(<span class="number">1</span>) <span class="keyword">for</span> m <span class="keyword">in</span> num()] </span><br><span class="line"><span class="comment">#[3, 3, 3, 3]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="13-args与-kwargs"><a href="#13-args与-kwargs" class="headerlink" title="13. *args与**kwargs"></a><strong>13.</strong> *args与**kwargs</h2><p>当不确定将多少个参数传递给函数，或者我们想要将存储的列表或参数元组传递给函数时，我们使用* args。</p>
+<p>当我们不知道将多少关键字参数传递给函数时使用kwargs，或者它可以用于将字典的值作为关键字参数传递。</p>
+<p>标识符args和kwargs是一个约定，你也可以使用* bob和** billy。</p>
+<h2 id="14-self"><a href="#14-self" class="headerlink" title="14. self"></a><strong>14.</strong> self</h2><p>self是类的实例或对象。在Python中，self包含在第一个参数中。但是，Java中的情况并非如此，它是可选的。它有助于区分具有局部变量的类的方法和属性。init方法中的self变量引用新创建的对象，而在其他方法中，它引用其方法被调用的对象。</p>
+<p>self在python 中不是一个关键字，就是一个普通的变量名</p>
+<p>与C++中的this相比，C++的成员函数第一个参数是个隐藏参数，是指向对象本身的指针，这个指针就是this，因为是隐式的，用户无法改变他的名称，this就成为一个关键字，这一点与self不一样。</p>
+<h2 id="15-is与"><a href="#15-is与" class="headerlink" title="15. is与=="></a><strong>15.</strong> is与==</h2><p>==是比较操作符，只是判断对象的值（value）是否一致，而 is 则判断的是对象之间的身份（内存地址）是否一致。对象的身份，可以通过id()方法来查看。</p>
+<h2 id="16-深浅拷贝（重要）"><a href="#16-深浅拷贝（重要）" class="headerlink" title="16. 深浅拷贝（重要）"></a><strong>16.</strong> 深浅拷贝（重要）</h2><p>一般来说，在创建新实例类型时使用浅拷贝，并保留在新实例中复制的值。浅拷贝用于复制引用指针，就像复制值一样。这些引用指向原始对象，并且在类的任何成员中所做的更改也将影响它的原始副本。浅拷贝允许更快地执行程序，它取决于所使用的数据的大小。</p>
+<p>​    深拷贝用于存储已复制的值。深拷贝不会将引用指针复制到对象。它引用一个对象，并存储一些其他对象指向的新对象。原始副本中所做的更改不会影响使用该对象的任何其他副本。由于为每个被调用的对象创建了某些副本，因此深拷贝会使程序的执行速度变慢。</p>
+<h2 id="17-Filter、map、Reduce"><a href="#17-Filter、map、Reduce" class="headerlink" title="17. Filter、map、Reduce"></a><strong>17.</strong> Filter、map、Reduce</h2><p>Filter：用于过滤序列，它接收一个函数和一个序列，把函数作用在序列的每个元素上，然后根据返回值是True还是False决定保留还是丢弃该元素。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mylist = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">10</span>)) </span><br><span class="line"><span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x % <span class="number">2</span> == <span class="number">1</span>, mylist)) </span><br><span class="line"><span class="comment"># [1, 3, 5, 7, 9]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Map：传入一个函数和一个序列，并把函数作用到序列的每个元素上，返回一个可迭代对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> x: x % <span class="number">2</span>, mylist))</span><br><span class="line"><span class="comment"># [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]</span></span><br><span class="line"><span class="built_in">list</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> x: x * <span class="number">2</span>, mylist))</span><br><span class="line"><span class="comment"># [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</span></span><br></pre></td></tr></table></figure>
+
+<p>Reduce：用于递归计算，同样需要传入一个函数和一个序列，并把函数和序列元素的计算结果与下一个元素进行计算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reduce(<span class="keyword">lambda</span> x, y: x + y, <span class="built_in">range</span>(<span class="number">101</span>)) </span><br><span class="line"><span class="comment"># 5050</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="18-实现一行代码将列表展开"><a href="#18-实现一行代码将列表展开" class="headerlink" title="18. 实现一行代码将列表展开"></a><strong>18.</strong> 实现一行代码将列表展开</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list1 = [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]]</span><br><span class="line"> [j <span class="keyword">for</span> i <span class="keyword">in</span> list1 <span class="keyword">for</span> j <span class="keyword">in</span> i]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="19-转换字典与json"><a href="#19-转换字典与json" class="headerlink" title="19. 转换字典与json"></a><strong>19.</strong> 转换字典与json</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dict1 = &#123;<span class="string">&#x27;zhangfei&#x27;</span>:<span class="number">1</span>, <span class="string">&quot;liubei&quot;</span>:<span class="number">2</span>, <span class="string">&quot;guanyu&quot;</span>: <span class="number">4</span>, <span class="string">&quot;zhaoyun&quot;</span>:<span class="number">3</span>&#125;</span><br><span class="line">myjson = json.dumps(dict1)   <span class="comment"># 字典转JSON</span></span><br><span class="line">mydict = json.loads(myjson)  <span class="comment"># JSON转字典</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="20-Python-垃圾回收与gc"><a href="#20-Python-垃圾回收与gc" class="headerlink" title="20. Python 垃圾回收与gc"></a><strong>20.</strong> Python 垃圾回收与gc</h2><p>Python中的垃圾回收机制是一个复杂的系统，用于管理不在使用的内存，防止<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F&spm=1001.2101.3001.7020">内存泄漏</a>并提高程序的性能，通常由引用计数，标记–清除，分代收集算法来处理循环引用等问题。</p>
+<p>(1) 引用计数</p>
+<p>当一个python对象被调用时，他的引用计数就会增加，当对象为空或删除时，它的引用技术就会减小，当为0时，垃圾回收机制就会释放该对象占用的内存</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] 	<span class="comment">#a对象被调用，引用技术+1=1</span></span><br><span class="line">b = a 		<span class="comment">#b对象被调用，引用技术+1=2</span></span><br><span class="line"><span class="keyword">del</span> a 		<span class="comment">#a对象被删除，引用技术-1=1</span></span><br><span class="line"><span class="keyword">del</span> b 		<span class="comment">#b对象被删除，引用技术-1=0</span></span><br><span class="line"></span><br><span class="line">\<span class="comment">#此时被释放内存</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="comment"># 输出：NameError: name &#x27;a&#x27; is not defined，报错，因为该内存已被释放</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(2) 标记–清除</p>
+<p>通常分为两个阶段，第一阶段从根对象出发，遍历所有可达对象的”活动对象“并打上标记，第二阶段是清除阶段，释放所有未标记对象的空间。</p>
+<p>(3) 分代收集</p>
+<p>对于新对象进行高频率的检查，老对象则采用低频率检查，因而往往新对象更容易成为垃圾。主要目的是为了减少垃圾回收的开销。</p>
+<h2 id="21"><a href="#21" class="headerlink" title="21."></a><strong>21.</strong></h2> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/%E5%85%AB%E8%82%A1%E6%96%87-python/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2024/01/01/%E5%85%AB%E8%82%A1%E6%96%87-Linux/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            面试题记录-Linux
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">浙ICP备88888888</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
