@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.9k</span>
+            <span class="post-count">3.2k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">10 min</span>
+            <span class="post-count">11 min</span>
         </span>
     </span>
 </div>
@@ -190,6 +190,10 @@
 <p>在测试部分，作者团队提出了4个提示设置来测试现实的可能行为，分别是无提示、提示不充分、改变语义的冲突提示、完美提示。</p>
 <p>作为对照组的轻量级 ControlNet-lite 不够强大，无法解释条件图像，并且在不足和无提示条件下失败。</p>
 <p>ControlNet与轻量级 ControlNet-lite 差异对比如下图：<br><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/image-20240902160934874.png" alt="两种网络的对比差异"></p>
+<h3 id="质量评估"><a href="#质量评估" class="headerlink" title="质量评估"></a>质量评估</h3><p>作者团队对20个未见过的手绘草图进行采样，并将每个草图实施5种采样方法：PIPT [88]的草图模型、使用默认边缘引导比例（β = 1.6）的草图引导扩散（SGD）、使用相对较高的边缘引导比例（β = 3.2）的SGD、ControlNet-lite、ControlNet。</p>
+<p>我们让12位用户对这20组5个结果分别按照“显示图像的质量”和“对草图的保真度”进行排名。通过这种方式，我们获得了100个结果质量排名和100个条件保真度排名。我们使用平均人类排名（AHR）作为偏好度量。结果证明 ControlNet效果是最好的。</p>
+<p>同时，使用Frechet Inception Distance（FID）[28]来测量使用不同分割条件方法随机生成的512×512图像集的分布距离，结果同样证明 ControlNet效果是最好的。</p>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>ControlNet是一种神经网络结构，它可以学习大型预训练文本到图像扩散模型的条件控制。</p>
  
       <!-- reward -->
       
