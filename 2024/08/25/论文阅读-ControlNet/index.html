@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>MyFirstBlog |  LightDust</title>
+      <title>论文阅读笔记-ControlNet |  LightDust</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-MyFirstBlog"
+  id="post-论文阅读-ControlNet"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  MyFirstBlog
+  论文阅读笔记-ControlNet
 </h1>
  
 
@@ -72,11 +72,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/01/01/MyFirstBlog/" class="article-date">
-  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
+      <a href="/2024/08/25/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/" class="article-date">
+  <time datetime="2024-08-25T09:35:00.000Z" itemprop="datePublished">2024-08-25</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+    <a class="article-category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
   </div>
   
 <div class="word_count">
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">47</span>
+            <span class="post-count">2.9k</span>
         </span>
     </span>
 
@@ -93,23 +93,103 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">10 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Hello, My name is <strong>LightDust</strong> (not lightdust). </p>
-<p>This is my first blog.</p>
-<p>Next I will be posting a series of content on my blog. Including my notes, my summarizes, my life records and so on. </p>
-<p>If you are interested in my blog, then come along with me!</p>
+  <p>阅读论文《Adding Conditional Control to Text-to-Image Diffusion Models》时的笔记。</p>
+<p>该文被收录于ICCV 2023期刊中。</p>
+<p>代码地址：<a target="_blank" rel="noopener" href="https://github.com/lllyasviel/ControlNet">https://github.com/lllyasviel/ControlNet</a></p>
+<span id="more"></span>
+
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>提出模型：<strong>ControlNet</strong>，向 text2image 的大型扩散模型施加控制条件。</p>
+<p><em>重新使用扩散模型深度和健壮的编码层。</em></p>
+<p>控制条件：边缘edge、深度、分割segmentation、人体姿势。这些条件可以组合起来。</p>
+<p>在小型（&lt; 50K）和大型数据集（&gt;1M）上都表现出了良好效果。</p>
+<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>问题：原有扩散模型通过文本提示生成复杂图像很困难。包括布局、姿势、形状和形式等。</p>
+<p><em>能够使用附加图像来实现更精细的空间控制吗？</em></p>
+<p>提到了Image2Image Diffusion。（但下面直接转到Text2Image了）</p>
+<p>采用空间掩码、图像编辑指令、通过微调的个性化等实现对text2image模型的控制。</p>
+<p><em>a wider variety of problems like depth-to-image, pose-to-image, etc., require end-to-end<br>learning and data-driven solutions</em></p>
+<p><em>以端到端的方式学习大型文本到图像扩散模型的条件控制是具有挑战性的。</em></p>
+<p>问题：一些特殊情况下的数据集较小（&lt;100K），难以训练得到稳定的模型。<em>会导致过度拟合和灾难性的遗忘。</em></p>
+<p>ControlNet：端到端的。    学习内容：文本到图像扩散模型的条件控制（？）</p>
+<p><em>通过锁定参数并制作其编码层的可训练副本来保持大型模型的质量和能力</em></p>
+<p><em>将大型预训练模型视为学习各种条件控制的强大支柱，可训练副本和原始锁定模型用零卷积层连接，将权重初始化为零，以便它们在训练过程中逐渐增长。保证了在训练开始时不会将有害噪声添加到大扩散模型的深层特征中，并保护了可训练副本中的大规模预训练骨干不会受到此类噪声的破坏。</em></p>
+<p>ControlNet可以通过各种条件输入得到稳定的生成图像。边缘、Houg、涂鸦、人体关键点、分割地图、形状法线、深度等。同时ControlNet在不同大小的训练集上都有鲁棒的效果。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>(1) ControlNet，通过微调将空间局部化的输入条件添加到预先训练的文本到图像的扩散模型中</p>
+<p>2)提出了预先训练的控制网络来控制稳定的扩散，条件包括Canny边、Hough线、用户涂鸦、人体关键点、分割地图、形状法线、深度和卡通线条画</p>
+<p>3)通过与几种替代体系结构的对比实验验证了该方法，并对不同任务中先前的几个baseline进行了研究。</p>
+<h2 id="二、相关工作"><a href="#二、相关工作" class="headerlink" title="二、相关工作"></a>二、相关工作</h2><h3 id="2-1-微调神经网络"><a href="#2-1-微调神经网络" class="headerlink" title="2.1 微调神经网络"></a>2.1 微调神经网络</h3><p>如何微调神经网络？</p>
+<p>最简单的方法：用额外数据集训练，但会带来不少问题。所以目前聚焦于策略的寻找。</p>
+<p>超级神经网络（HyperNetwork）：源于NLP，通过训练一个小的递归神经网络来影响较大的神经网络的权重。该技术后面被应用到Diffusion中。具体可参加下面这篇文章。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.baidu.com/article/detail.html?id=3293856">深入解析Stable Diffusion（四）——Hypernetworks原理与实践-百度开发者中心 (baidu.com)</a></p>
+<p>Adapter：通过模块嵌入将预训练好的Transformer转为其他任务。广泛应用于incremental learning 和 domain adaptation。最近Adapter在VIT与VIT-Adapter中也取得了良好成果。</p>
+<p>Addictive Learning：<em>通过线性地混合冻结模型和添加的网络的输出来学习额外的功能</em></p>
+<p>LoRA：Low-Rank Adaption，通过学习参数与低阶矩阵的偏移量来防止灾难性遗忘。</p>
+<p>Zero-initialized Layer：结合ControlNet，在扩散模型中对卷积层的初始权值进行缩放以改进训练（但是ControlNet不是这篇论文提出来的东西吗？）。ProGan[36]、StyleGan[37]和Noise2Noise中也讨论了对初始卷积层权重进行处理。</p>
+<h3 id="2-2-图像扩散模型"><a href="#2-2-图像扩散模型" class="headerlink" title="2.2 图像扩散模型"></a>2.2 图像扩散模型</h3><p>经典的图像扩散模型：Latnet Diffusion Model(LDM)在潜在图像空间[19]中执行扩散步骤。</p>
+<p>文本到图像：通过预先训练的语言模型(如CLIP)将文本输入编码为潜在向量，从而获得图像生成结果。</p>
+<p>其它经典模型：DALL-E2，Stab Diffusion</p>
+<p><strong>控制图像扩散模型</strong>：实现个性化。</p>
+<p>一些方法：MakeAScene分割编码、SpaText映射掩码、GLIGEN学习注意力层的参数。</p>
+<h3 id="2-3-图像到图像"><a href="#2-3-图像到图像" class="headerlink" title="2.3 图像到图像"></a>2.3 图像到图像</h3><p>Conditional GANs 与 Transformer 可以学习不同图像域之间的映射。</p>
+<p>其它示例：Taming Transformer、StyleGANs……</p>
+<p>（其实感觉第二节的行文并不好，并没有讲述已有工作中存在的问题，感觉有单纯罗列问题的意思，而且看作者写的内容，似乎ControlNet是一个已有的架构，而不是作者团队首次提出的。）</p>
+<h2 id="三、介绍ControlNet"><a href="#三、介绍ControlNet" class="headerlink" title="三、介绍ControlNet"></a>三、介绍ControlNet</h2><p>ControlNet：一种神经网络体系架构，<strong>用</strong>（空间局部化的、特定于任务的）<strong>图像条件</strong>来增<strong>强大型预先训练的文本到图像扩散模型。</strong></p>
+<p>3.1节中介绍ControlNet的基本结构，然后在3.2节中描述如何将ControlNet应用于Diffusion稳定扩散。3.3介绍training过程，3.4节说明推理过程中的额外考虑因素，例如多个ControlNet。</p>
+<h3 id="3-1-ControlNet结构"><a href="#3-1-ControlNet结构" class="headerlink" title="3.1 ControlNet结构"></a>3.1 ControlNet结构</h3><p>特定名词：网络块 Network block，神经网络组合起来的一系列特定层，如resnet block，transformer block。</p>
+<p>设神经网络块的参数为<code>Θ</code>，将输入特征映射<code>x</code>变换为另一特征映射<code>y</code>，公式如下所示：<br>$$<br>y=F(x;\theta)<br>$$<br>其中，<code>x</code>与<code>y</code>都是2d feature maps，参数为 h×w×c，height，width，channels.</p>
+<p>如何添加ControlNet：冻结参数 $\theta$，同时复制该neural block 到有参数$\theta_c$的可训练副本</p>
+<p>可训练副本连接到具有零卷积层的锁定模型，表示为$Z(·;·)$。具体来说，$Z(·;·)$是一个1×1卷积层，权重和偏置都初始化为零。</p>
+<p>简单来说，ControlNet会<strong>保留并固定</strong>原始模型参数，在旁侧增加一个模块分支，该分支的参数基于原始模型参数初始化，并在模块前后增加 zero convolution（1x1 卷积，weight 和 bias 由 0 初始化）层。</p>
+<p>复制了就意味着在优化之前不会对深层神经特征造成任何影响。任何神经网络块的能力、功能和结果质量都得到了保留。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/v2-2c9b87e7041bba96609d3bffa45cdb42_1440w.webp" alt="ControlNet对比"></p>
+<h3 id="3-2-Stable-Diffusion-with-ControlNet"><a href="#3-2-Stable-Diffusion-with-ControlNet" class="headerlink" title="3.2 Stable Diffusion with ControlNet"></a>3.2 Stable Diffusion with ControlNet</h3><p>Stable Diffusion本质上是由一个UNet，一个Encoder，一个middle-block和一个skip-connected decoder组成。</p>
+<p>Stable Diffusion中，编码器和解码器都包含12个块，完整模型包含25个块，包括一个中间块。</p>
+<p>在25个块中，8个块是上下采样卷积层，其他17个块是主块，每个块包含4个resnet层和2个Vision Transformer（ViT）。每个ViT又会包含几个交叉注意和自我注意机制。文本提示使用 CLIP 文本编码器进行编码。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/ControlNet%E5%AE%9E%E4%BE%8B.png" alt="ControlNet实例"></p>
+<p>ControlNet结构适用于U-net的每个编码器级别。<em>稳定扩散是一个典型的U型网络结构，这种ControlNet架构可能适用于其他模型。</em></p>
+<p>该论文连接ControlNet的方式很高效，由于锁定的复制参数被冻结，在最初锁定的编码器中并不需要梯度计算来进行微调。</p>
+<p>同时该方法可以加快训练速度并节省 GPU 内存。在单个 NVIDIA A100 PCIE 40GB 上进行测试时，使用 ControlNet 优化稳定扩散在每次训练迭代中仅多约 23% 的 GPU 内存和多 34% 的时间。</p>
+<p>图像扩散模型学习渐进地对图像进行去噪，并从训练域生成样本。去噪过程可以发生在像素空间或从训练数据编码的潜在空间中<strong>（ldm？）</strong>。</p>
+<p>目前的Stable Diffusion广泛采用的方法是latent images。latent空间中的图像已被证明可以稳定训练过程。在处理过程中，Stable Diffusion使用类似于VQ-GAN 的预处理方法将512 × 512图像转换为64 × 64 的latent图像。</p>
+<p>先将512 × 512的输入大小转换为64 × 64的特征空间向量（与Stable Diffusion大小相匹配），再使用卷积核4 × 4和2 × 2步幅的四个卷积层的小型网络E（由ReLU激活，分别使用16、32、64、128个通道，用高斯权重初始化，并与完整模型联合训练），将图像空间$c_i$编码为特征空间向量$c_f$，$c_f$紧接着就会被传递给ControlNet.</p>
+<p>个人理解：感觉事实上就仅仅是应用ControlNet到Diffusion的U-Net上……</p>
+<h3 id="3-3-训练过程"><a href="#3-3-训练过程" class="headerlink" title="3.3 训练过程"></a>3.3 训练过程</h3><p>给定输入图像$z_0$，图像扩散算法逐渐将噪声添加到图像并产生噪声图像$z_t$，<code>t</code>是噪声添加次数。</p>
+<p>给的条件包括时间步长<code>t</code>、文本提示$c_t$ (不同于上文的图像空间) 以及特定于任务的条件$c_f$。然后噪声预测网络 $\epsilon_\theta$ 会预测噪声。（和最初始的diffusion model 没啥区别……）</p>
+<p>训练过程中会随机将50%的文本提示$c_t$替换为空字符串。这种方法增加了ControlNet直接识别输入条件图像中的语义的能力。</p>
+<p>训练过程中，零卷积不会给增加噪声，因此模型始终能够预测高质量的图像。但模型并没有逐渐学习控制条件，而是突然成功地跟随输入条件图像。通常在不到10 K的优化步骤中，称为“突然收敛现象”。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/%E7%AA%81%E7%84%B6%E6%94%B6%E6%95%9B.png" alt="突然收敛"></p>
+<h3 id="3-4-推断"><a href="#3-4-推断" class="headerlink" title="3.4 推断"></a>3.4 推断</h3><p>如何进一步控制ControlNet的额外条件？</p>
+<p><strong>无分类器指导分辨率加权</strong>（？）Stable Diffusion 靠Classifier-Free Guidance (CFG) 生成高质量图像，CFG的公式是 $\epsilon_{prd} = \epsilon_{uc} + β_{cfg}（\epsilon_{c} − \epsilon_{uc}）$ 。</p>
+<p>$\epsilon_{prd}$：模型的最终输出    $\epsilon_{uc}$：无条件输出    $\epsilon_{c}$：条件输出    $β_{cfg}$：用户指定的权重。</p>
+<p>通过ControlNet添加条件图像时，可以同时添加到上面的无条件输出和条件输出部分。</p>
+<p>在一些特殊情况下，即使没有提示词prompt时，将其添加到无条件输出和条件输出将完全删除CFG指导；仅使用条件输出也可以使得到的结果非常好。</p>
+<p>论文给出的解决方案是首先将条件图像添加到条件输出，然后根据每个块的分辨率$w_i = 64/h_i$，将权重$w_i$乘以SD和ControlNet之间的每个连接，其中$h_i$是第i个块的大小，如$h_1$ = 8，$h_2$ = 16，…，$h_{13}$ = 64。</p>
+<p><strong>多个ControlNet</strong>：要应用多个调节图像添加到稳定扩散的单个实例，可以直接将相应ControlNet的输出添加到稳定扩散模型，如下图。这种合成不需要额外的加权或线性插值。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/%E6%B7%BB%E5%8A%A0%E8%BE%93%E5%87%BA.png" alt="多个条件的组合。这里展示了同时使用深度和姿势"></p>
+<p>复现可参考博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45791526/article/details/135454565">Adding Conditional Control to Text-to-Image Diffusion Models——【代码复现】_controlnet代码复现-CSDN博客</a></p>
+<h2 id="四、实验部分"><a href="#四、实验部分" class="headerlink" title="四、实验部分"></a>四、实验部分</h2><p>最终实验结果如下图所示。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/%E5%AE%9E%E9%AA%8C%E8%A1%A8%E6%A0%BC.png" alt="实验结果"></p>
+<p>下图是有提示情况下生成的一系列图像。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/image-20240902160052060.png" alt="with prompts"></p>
+<p>下图是无提示，有条件生成的一系列图像。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/image-20240902160508861.png" alt="with conditions without prompts"></p>
+<p>在测试部分，作者团队提出了4个提示设置来测试现实的可能行为，分别是无提示、提示不充分、改变语义的冲突提示、完美提示。</p>
+<p>作为对照组的轻量级 ControlNet-lite 不够强大，无法解释条件图像，并且在不足和无提示条件下失败。</p>
+<p>ControlNet与轻量级 ControlNet-lite 差异对比如下图：<br><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/image-20240902160934874.png" alt="两种网络的对比差异"></p>
  
       <!-- reward -->
       
@@ -174,30 +254,32 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/MyFirstBlog/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/08/25/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" rel="tag">多模态</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B/" rel="tag">扩散模型</a></li></ul>
+
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/2024/01/01/Code-python/" class="article-nav-link">
+      <a href="/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            常见代码记录-python
+            面试题记录-深度学习
           
         </div>
       </a>
     
     
-      <a href="/2024/01/01/Welcome/" class="article-nav-link">
+      <a href="/2024/07/19/LLMBook/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Welcome!</div>
+        <div class="article-nav-title">书籍阅读-大语言模型</div>
       </a>
     
   </nav>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>面试题记录-深度学习 |  LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-八股文-深度学习"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  面试题记录-深度学习
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2024-09-01T03:15:00.000Z" itemprop="datePublished">2024-09-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B0%B1%E4%B8%9A/">就业</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">6.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">21 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p> 记录深度学习相关的面试题。</p>
+<p>会一直持续更新。</p>
+<span id="more"></span>
+
+<h2 id="1-正定矩阵和半正定矩阵判断"><a href="#1-正定矩阵和半正定矩阵判断" class="headerlink" title="1. 正定矩阵和半正定矩阵判断"></a><strong>1.</strong> 正定矩阵和半正定矩阵判断</h2><p>​    判断矩阵是不是正定矩阵首先需要看主对角线是不是全大于0，如果对角线不是全大于0或者全小于0则这个矩阵一定是不定矩阵。</p>
+<p>​    如果主对角线全大于零，就观察其顺序主子式，如果顺序主子式全大于0，那么这个矩阵就是正定的，如果所有主子式全大于等于0，那么这个矩阵就是半正定的。</p>
+<h2 id="2-L0、L1和L2范数"><a href="#2-L0、L1和L2范数" class="headerlink" title="2. L0、L1和L2范数"></a><strong>2.</strong> L0、L1和L2范数</h2><p>​    L0范数是指向量中非0的元素的个数。</p>
+<p>​    L1范数是指向量中各个元素绝对值之和。其作用也是可以提高模型参数的稀疏性，效果没有L0范数好，但是更容易求解，更常用。</p>
+<p>​    L2范数是指向量各元素的平方和然后求平方根。其作用是减小模型所有参数大小，可以防止模型过拟合，也很常用。</p>
+<p>​    除了L1,L2范数之外，L1，L2损失函数也很常见。</p>
+<p>L1 损失函数也叫平均绝对值误差（MAE）</p>
+<p>优点：对异常的离群点有更好的鲁棒性</p>
+<p>缺点：导数不连续，导致求解困难。</p>
+<p><img src="../images/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L1.jpg" alt="img"> </p>
+<p>L2 损失函数也叫均方损失函数（MSE）。</p>
+<p>优点：使训练更容易，因为它的梯度随着预测值接近真实值而不断减小，不会轻易错过极值点。</p>
+<p>缺点：收敛速度比 L1 慢，因为梯度会随着预测值接近真实值而不断减小，且对异常数据比 L1更敏感。</p>
+<p><img src="../images/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L2.jpg" alt="img"> </p>
+<h2 id="3-特征值和特征向量"><a href="#3-特征值和特征向量" class="headerlink" title="**3.**特征值和特征向量"></a>**3.**特征值和特征向量</h2><p>​    如果把矩阵看作是运动，那么特征值就是运动的速度，特征向量就是运动的方向。</p>
+<p>​    特征向量在一个矩阵的作用下作伸缩运动，伸缩的幅度由特征值确定。特征值大于1，所有属于此特征值的特征向量变长；特征值大于0小于1，特征向量缩短；特征值小于0，特征向量缩过了界，反方向到原点那边去了。 </p>
+<h2 id="4-条件概率和贝叶斯公式"><a href="#4-条件概率和贝叶斯公式" class="headerlink" title="4.条件概率和贝叶斯公式"></a>4.条件概率和贝叶斯公式</h2><p>条件概率描述的就是在给定事件B发生的情况下，事件A发生的概率，我们把它记作P(A|B)。一般说到条件概率概念的时候，事件A和事件B都是同一实验条件下的不同的结果集合，事件A和事件B一般是有交集的，如果A和B互斥，则条件概率为0。</p>
+<p><img src="../images/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/wps3.jpg" alt="img"> </p>
+<p>贝叶斯公式就是对于一个已知事件B发生了，通过考虑到所有的可能情况，探究某一原因导致这一结果发生的概率。贝叶斯公式全盘考虑了这一原因占总原因的比例。</p>
+<p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%B4%9D%E5%8F%B6%E6%96%AF&spm=1001.2101.3001.7020">贝叶斯</a>定理，通过已知的概率计算未知的概率。贝叶斯公式是由结果去反推原因条件，计算后验概率。贝叶斯：条件概率乘先验概率除以全概率得到后验概率。</p>
+<h2 id="5-高斯分布和拉普拉斯分布以及正态分布"><a href="#5-高斯分布和拉普拉斯分布以及正态分布" class="headerlink" title="5. 高斯分布和拉普拉斯分布以及正态分布"></a><strong>5.</strong> 高斯分布和拉普拉斯分布以及正态分布</h2><p>由中心极限定理知，很多独立随机变量均近似服从正态分布，所以现实中很多复杂系统都可以被建模成正态分布的噪声。因此即使在缺乏实数上分布的先验知识，默认选择高斯分布总是合适的。</p>
+<p>拉普拉斯分布是一种连续的概率分布，出现极端大的值的概率，要远远大于正态分布。</p>
+<h2 id="6-线性回归和逻辑回归的区别"><a href="#6-线性回归和逻辑回归的区别" class="headerlink" title="6.线性回归和逻辑回归的区别"></a>6.线性回归和逻辑回归的区别</h2><ol>
+<li><p>线性回归用于预测连续值，但不能解决分类问题。逻辑回归可用于解决分类问题。</p>
+</li>
+<li><p>线性回归利用拟合函数，样本输出值是连续值；逻辑回归利用预测函数，样本输出值只有0和1。</p>
+</li>
+<li><p>线性回归的参数计算方法是最小二乘法，逻辑回归的参数计算方法是最大似然估计。</p>
+</li>
+</ol>
+<p>（最大似然估计计算使数据出现可能性最大的参数，最小二乘法是计算误差损失）</p>
+<h2 id="7-常用的损失函数、分类和回归"><a href="#7-常用的损失函数、分类和回归" class="headerlink" title="7.常用的损失函数、分类和回归"></a>7.常用的损失函数、分类和回归</h2><p>损失函数用于度量模型的预测值与真实值的不一致程度。</p>
+<p>常用损失函数：</p>
+<ol>
+<li>0-1损失：预测值和目标值不相等为1， 否则为0。</li>
+</ol>
+<p>0-1损失函数直接对应分类判断错误的个数，但是它是一个非凸函数，不太适用。感知机就是用的这种损失函数，函数相等这个条件太过严格，因此可以放宽条件，更加适用。</p>
+<ol start="2">
+<li><p>绝对值损失函数：计算预测值与目标值的差的绝对值。</p>
+</li>
+<li><p>log对数损失函数：非常好的表征概率分布，适用很多问题特别是多分类问题，如果需要知道结果属于每个类别的置信度，利用log对数损失函数非常适合。</p>
+</li>
+</ol>
+<p>但是log对数损失函数健壮性不强，对噪声比较敏感。逻辑回归的损失函数就是log对数损失函数。</p>
+<ol start="4">
+<li>hinge损失函数：表示如果被分类正确，损失为0，否则损失就为1-yf（x）。支持向量机就是使用这个损失函数。</li>
+</ol>
+<p>hinge损失函数使分类器可以更专注于整体的误差。 健壮性相对较高，对异常点、噪声不敏感。</p>
+<ol start="5">
+<li>L1 L2 损失函数。</li>
+</ol>
+<p>L1 损失函数也叫平均绝对值误差（MAE）</p>
+<p>优点：对异常的离群点有更好的鲁棒性</p>
+<p>缺点：导数不连续，导致求解困难。</p>
+<p><img src="../images/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L1.jpg" alt="img"> </p>
+<p>L2 损失函数也叫均方损失函数（MSE）。</p>
+<p>优点：使训练更容易，因为它的梯度随着预测值接近真实值而不断减小，不会轻易错过极值点。</p>
+<p>缺点：收敛速度比 L1 慢，因为梯度会随着预测值接近真实值而不断减小，且对异常数据比 L1更敏感。</p>
+<p><img src="../images/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L2.jpg" alt="img"> </p>
+<h2 id="8-激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？"><a href="#8-激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？" class="headerlink" title="8.激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？"></a>8.激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？</h2><p>激活函数作用：在神经网络中引入非线性因素，使模型能够学习和表示复杂的非线性关系。如果没有激活函数，网络只能表示线性变换，无法处理复杂数据。</p>
+<p>常见激活函数：</p>
+<p>Sigmoid 激活函数:  $y=\frac{1}{1+e^{-x}}$ </p>
+<img src="../images/八股文-深度学习/sigmoid.jpg" alt="img" style="zoom:200%;"> 
+
+<p>将取值为 (−∞,+∞) 的数映射到（0,1）之间</p>
+<p>x非常大或非常小时，导数趋近于零，也就是权重的梯度趋近于零，即梯度消失。</p>
+<p>Tanh激活函数：$y=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$</p>
+<img src="../images/八股文-深度学习/tanhjpg" alt="img" style="zoom:200%;"> 
+
+<p>x非常大或非常小时，导数也是趋近于零，梯度很小，权重更新非常缓慢，即梯度消失。</p>
+<p>Relu激活函数：$$ y=\left{ \begin{aligned} x,x&gt;0 \ 0,x&lt;0 \end{aligned} \right. $$</p>
+<img src="../images/八股文-深度学习/ReLU.jpg" alt="img" style="zoom:200%;"> 
+
+<p>输入为正数时，不存在梯度消失问题。且计算速度要快很多。ReLU函数只有线性关系，不管是前向传播还是反向传播，都比 sigmoid 和 tanh 要快很多。但x&lt;0时，梯度为0，会产生梯度消失问题。</p>
+<p>Leak Relu激活函数: $$ y=\left{ \begin{aligned} x,x&gt;0 \ ax,x&lt;0 \end{aligned} \right. $$</p>
+<p>其中，0&lt;a&lt;1。</p>
+<p><img src="../images/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/wps10.jpg" alt="img"> </p>
+<p>LeakReLU激活函数解决了ReLU函数在输入为负的情况下产生的梯度消失问题。</p>
+<p>激活函数有哪些特点:</p>
+<ol>
+<li><p>⾮线性： 当激活函数是⾮线性的，⼀个两层的神经⽹络就可以基本上逼近所有的函数。但如果激活函数是恒等激活函数的时候，即f(x)=x，就不满⾜这个性质，⽽且如果 MLP 使⽤的是恒等激活函数，那么其实整个⽹络跟单层神经⽹络是等价的； </p>
+</li>
+<li><p>可微性：当优化⽅法是基于梯度的时候，就体现了可微性； </p>
+</li>
+<li><p>单调性：当激活函数是单调的时候，单层⽹络能够保证是凸函数；f(x)≈x ：当激活函数满⾜这个性质的时候，如果参数的初始化是随机的较⼩值，那么神经⽹络的训练将会很⾼效；如果不满⾜这个性质，那么就需要详细地去设置初始值； </p>
+</li>
+<li><p>输出值的范围：当激活函数输出值是有限的时候，基于梯度的优化⽅法会更加稳定，因为特征的表⽰受有限权值的影响更显著；当激活函数的输出是⽆限的时候，模型的训练会更加⾼效，不过在这种情况⼩，⼀般需要更⼩的 Learning Rate。</p>
+</li>
+</ol>
+<p>如何选择激活函数：</p>
+<p>​    选择⼀个适合的激活函数需要考虑很多因素，通常的做法是，如果不确定哪⼀个激活函 数效果更好，可以把它们都试试，然后在验证集或者测试集上进⾏评价。然后看哪⼀种表现的更好，就去使⽤它。</p>
+<p>​    如果输出是 0、1 值，二分类问题，则输出层选择 sigmoid 函数，然后其它的所有单元都选择 Relu 函数。</p>
+<p>​    如果在隐藏层上不确定使⽤哪个激活函数，那么通常会使⽤ Relu 激活函数。有时，也会使⽤tanh 激活函数，但 Relu 的⼀个优点是：当是负值的时候，导数等于 0。</p>
+<p>​    sigmoid 激活函数：除了输出层是⼀个⼆分类问题基本不会⽤它。</p>
+<p>​    tanh 激活函数：tanh 是⾮常优秀的，⼏乎适合所有场合。</p>
+<h2 id="9-深度神经网络训练问题"><a href="#9-深度神经网络训练问题" class="headerlink" title="9.深度神经网络训练问题"></a>9.深度神经网络训练问题</h2><ol>
+<li>梯度消失：指通过隐藏层从后向前看，梯度会变的越来越小，说明<strong>前层的学习会显著慢于后层的学习</strong>，所以学习会卡住，除非梯度变大。 梯度消失的原因受到多种因素影响，例如学习率的⼤小，⽹络参数的初始化，激活函数的边 缘效应等。</li>
+</ol>
+<p>在深层神经⽹络中，每⼀个神经元计算得到的梯度都会传递给前⼀层，较浅层的神 经元接收到的梯度受到之前所有层梯度的影响。如果计算得到的梯度值⾮常小，随着层数增多，求出的梯度更新信息将会以指数形式衰减，就会发⽣梯度消失。</p>
+<p>解决方法：选择特殊的激活函数，如ReLu函数；对网络权重进行正则化来限制过拟合；标准化操作Batch Normalization等</p>
+<ol start="2">
+<li><p>梯度爆炸：在深度⽹络或循环神经⽹络等⽹络结构中，梯度可在⽹络更新的过程中不断累积，变成⾮常⼤的梯度，导致⽹络权重值的⼤幅更新，使得⽹络不稳定；在极端情况下，权重值甚⾄会溢出，变为NaN值，再也⽆法更新。 </p>
+</li>
+<li><p>权重矩阵的退化导致模型的有效⾃由度减少:参数空间中学习的退化速度减慢，导致减少了模型的有效维数，⽹络的可⽤⾃由度对学习中梯度范数的贡献不均衡，随着相乘矩阵的数量,即⽹络深度,的增加，矩阵的乘积变得越来越退化。在有硬饱和边界的⾮线性⽹络中比如 ReLU ⽹络，随着深度增加，退化过程会变得越来越快。</p>
+</li>
+</ol>
+<h2 id="10-反向传播的过程以及链式法则"><a href="#10-反向传播的过程以及链式法则" class="headerlink" title="10.反向传播的过程以及链式法则"></a>10.反向传播的过程以及链式法则</h2><p>反向传播就是根据输出的结果与正确结果之间的之间的误差不断调整参数。</p>
+<p>假如当我正在训练一个图片分类网络时，输入一张图片逐层向前计算之后，网络会给出它属于某一类事物的概率，由于每一个神经网络的初始参数是随机赋予的，大部分时间答案都不尽如人意，这时可以根据网络输出与正确答案之间的差距，从最后一层开始逐层向前调整神经网络的参数，如果误差值为负，就提升权重，反之就降低权重，调整的程度受一定的比率即学习率的制约，就像一个旋钮控制参数调整程度的高低，在一次次输入数据和返向调整中，网络就能逐渐给出不错的输出。</p>
+<p>由于强大的调整能力，反向传播容易过拟合。我们可以采用提前停止策略，将数据划分为一定数量的训练集和验证集，用训练集调整参数，用验证集估算误差，如果训练集误差降低的同时验证集误差不断升高，即代表网络出现过拟合情况，此时应当结束训练。</p>
+<p>神经网络的学习本质，就是找到网络中神经元之间的最佳连接权值。BP算法的反向传播部分充分利用了“链式求导”法则。事实上，每个网络层，隐含层和输出层，都可以视为一个拟合的函数，那么对于多层神经网络而言，它的数学本质，就等同于一个多层的复合函数： 它实现了从向量x到向量y的映射，这个复合函数的层数，就等于网络的“深度”。同一条路径上所有边相乘，然后将最终所有抵达的路径加和</p>
+<h2 id="11-卷积核大小选取"><a href="#11-卷积核大小选取" class="headerlink" title="11.卷积核大小选取"></a>11.卷积核大小选取</h2><p>​    在早期的卷积神经⽹络中，⽤到了⼀些较⼤的卷积核，受限于当时的计算能⼒和模型结构的设计，⽆法将⽹络叠加得很深，因此卷积⽹络中的卷积 层需要设置较⼤的卷积核以获取更⼤的感受域。但是这种⼤卷积核反⽽会导致计算量⼤幅增加，不利于训练更深层的模型，相应的计算性能也会降低。</p>
+<p>​    后来的卷积神经⽹络，比如GoogleNet，发现通过堆叠2个3<em>3 卷积核可以获得与 5</em>5卷积核相同的感受视野，同时参数量会更少（ 3<em>3</em>2+1&lt;5<em>5</em>1+1 ）,3*3卷积核被⼴泛应⽤在许多卷积神经⽹络中。因此可以认为，<strong>在⼤多数情况下通过堆叠较⼩的卷积核⽐直接采⽤单个更⼤的卷积核会更加有效</strong>。</p>
+<p>​    但是，这并不是表⽰更⼤的卷积核就没有作⽤，在某些领域应⽤卷积神经⽹络时仍然可以采⽤较⼤的卷积核。譬如在⾃然语⾔处理领域，由于⽂本内容不像图像数据可以对特征进⾏很深层的抽象，往往在该领域的特征提取只需要较浅层的神经⽹络即可。在将卷积神经⽹络应⽤在⾃然语⾔处理领域时，通常都是较为浅层的卷积层组成，但是⽂本特征有时⼜需要有较⼴的感受域让模型能够组合更多的特征（如词组和字符），此时直接采⽤较⼤的卷积核将是更好的选择。 </p>
+<p>​    所以<strong>卷积核的⼤⼩并没有绝对的优劣，需要视具体的应⽤场景⽽定，但是极⼤和极⼩的卷积核都是不合适的</strong>，<strong>单独的1*1的极⼩卷积核只能⽤作分离卷积⽽不能对输⼊的原始特征进⾏有效的组合，极⼤的卷积核通常会组合过多的⽆意义特征从⽽浪费了⼤量的计算资源。</strong> </p>
+<p>​    1*1卷积核的作用：卷积核的作用在于特征的抽取，越是大的卷积核尺寸就意味着更大的感受野，当然随之而来的是更多的参数。采用1*1卷积核来减少模型的参数量。在原始版本的Inception模块中，由于每⼀层⽹络采⽤了更多的卷积核，⼤⼤增加了模型的参数量。此时在每⼀个较⼤卷积核的卷积层前引⼊1*1卷积核，可以通过分离通道与宽⾼卷积来减少模型参数量。1*1卷积核的作⽤主要为以下两点： <strong>实现信息的跨通道交互和整合; 对卷积核通道数进⾏降维和升维，减⼩参数量</strong>。</p>
+<h2 id="12-batch-size的选取"><a href="#12-batch-size的选取" class="headerlink" title="12.batch_size的选取"></a>12.batch_size的选取</h2><p>batch_size太小：</p>
+<ol>
+<li>耗时长，训练效率低。<br>假设batch_size=1，每次用一个数据进行训练，如果数据总量很多时(假设有十万条数据），就需要向模型投十万次数据，完整训练完一遍数据需要很长的时问，训练效率很低；</li>
+<li>训练数据就会非常难收敛，从而导致欠拟合。<br>假设batch_size=1，每次用一个数据进行训练，则由于个体的差异性或者异常值的影响，模型的参数变化也会很大，每一层的梯度都具有很高的随机性，而且需要耗费了大量的时间，从而导致模型非常难收敛。</li>
+</ol>
+<p>batch_size太大：</p>
+<ol>
+<li><p>减少训练时间的同时所需内存容量增加</p>
+</li>
+<li><p>大的batchsize可提高稳定性，使得模型训练曲线会更加平滑。在微调的时候，大的batchsize可能会取得更好的结果。但同时可能导致模型泛化能力下降，每次更新参数都是相同的样本，下降方向基本确定，导致模型的泛化性能下降。</p>
+</li>
+</ol>
+<p>​    应当选择⼀个适中的batch_Size 。当适当增加batch_size值时，内存利⽤率提⾼了，跑完⼀次 epoch（全数据集）所需的迭代次数减少，对于相同数据量的处理速度进⼀步加快。 而且在⼀定范围内，⼀般来说 Batch_Size 越⼤，其确定的下降⽅向越准，引起训练震荡越⼩。 但也不能盲目增大，否则虽然 内存利⽤率提⾼了，但是内存容量可能撑不住了。跑完⼀次 epoch（全数据集）所需的迭代次数减少，要想达到相同的精度，其所花费的时间⼤⼤增加了，从⽽对参数的修正也就显得更加缓慢。</p>
+<h2 id="13-解决过拟合与欠拟合问题"><a href="#13-解决过拟合与欠拟合问题" class="headerlink" title="13.解决过拟合与欠拟合问题"></a>13.解决过拟合与欠拟合问题</h2><p>(1) 解决欠拟合问题：</p>
+<ol>
+<li><p><strong>模型复杂化，为模型增加更多的特征，添加其他特征项：</strong>有时候特征项不够会导致模型欠拟合</p>
+</li>
+<li><p><strong>添加多项式特征：</strong>模型添加二项式或者三项式可以<strong>使模型的泛化能力更强</strong>，比如说FM模型，就是线性模型增加了二阶多项式，保证了模型一定的拟合程度。</p>
+</li>
+<li><p><strong>调整参数与超参数</strong></p>
+</li>
+<li><p><strong>减少正则化系数：</strong>正则化可以<strong>防止过拟合</strong>，因为现在模型欠拟合，所以可以采取减少正则化系数方法防止欠拟合。</p>
+</li>
+</ol>
+<p><strong>(2)</strong> 解决过拟合问题：</p>
+<p>过拟合有很多种解决方法，但是一般要跟据实际情况实际模型进行选择</p>
+<ol>
+<li><p>有时候<strong>由于数据不纯</strong>可能会导致过拟合，所以当遇到这种情况时需要对数据进行重新清洗。</p>
+</li>
+<li><p>过拟合很多时候都是由于<strong>训练样本数量未达到一定数量</strong>。所以面对这种情况我们可以通过<strong>增加训练样本数量</strong>来解决过拟合问题。</p>
+</li>
+<li><p>也可以通过<strong>增加正则化系数</strong>解决过拟合问题。</p>
+</li>
+<li><p>调整参数和超参数</p>
+</li>
+<li><p>dropout方法</p>
+</li>
+<li><p>在决策树结构中，也可以<strong>通过剪枝的方式解决过拟合问题</strong>。</p>
+</li>
+</ol>
+<p>关于正则化系数：正则化通过降低模型的复杂性，缓解过拟合。过拟合发生的情况，拟合函数的系数往往非常大。</p>
+<h2 id="14-Batch-Normalization"><a href="#14-Batch-Normalization" class="headerlink" title="14.Batch Normalization"></a>14.Batch Normalization</h2><p>首先输入数值集合B，可训练参数γ，β。计算集合B的均值和方差，之后将B的均值和方差变换成0和1，最后将B中的元素乘γ再加β，输出结果。γ，β是可训练参数，参与整个网络的BP。</p>
+<p><strong>归一化可以将数据规整到统一区间，减少数据的发散程度，降低网络的学习难度</strong>。BN的精髓在于归一化之后，使用γ，β作为还原参数，<strong>在一定程度上保留原数据的分布。</strong></p>
+<h2 id="15-梯度消失与梯度爆炸"><a href="#15-梯度消失与梯度爆炸" class="headerlink" title="15.梯度消失与梯度爆炸"></a>15.梯度消失与梯度爆炸</h2><p>在梯度下降中， <strong>随着算法反向的反馈， 梯度会越来越小，最终没有变化，此时并没有收敛到比好的解</strong>，</p>
+<p>产生的原因有：一是在<strong>深层网络</strong>中，二是采用了<strong>不合适的损失函数</strong>。</p>
+<p>这就是梯度消失的问题。梯度消失，简单点来说，就是整个曲线太平了。曲线太平了就意味这求导后的值越来越接近0。由于梯度消失现象，会导致靠近输入层的隐藏层权值更新缓慢或者更新停滞。这就导致在训练时，只等价于后面几层的浅层网络的学习。</p>
+<p><strong>梯度爆炸</strong>一般出现在<strong>深层网络</strong>和<strong>权值初始化值太大</strong>的情况下。在深层神经网络或<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&zhida_source=entity&is_preview=1">循环神经网络</a>中，<strong>误差的梯度可在更新中累积相乘</strong>。如果网络层之间的<strong>梯度值大于 1.0</strong>，那么<strong>重复相乘会导致梯度呈指数级增长</strong>，梯度变的非常大，然后导致网络权重的大幅更新，并因此使网络变得不稳定。</p>
+<p>梯度爆炸会伴随一些细微的信号，如：①模型不稳定，导致更新过程中的损失出现显著变化；②训练过程中，在极端情况下，权重的值变得非常大，以至于溢出，导致模型损失变成 NaN等等。</p>
+<p>梯度消失和梯度爆炸问题都是因为网络太深，网络权值更新不稳定造成的，本质上是因为梯度反向</p>
+<p>解决梯度下降问题常见的方案：</p>
+<p>1）权重正则化，通过对网络权重做正则来限制过拟合。常见的是L1正则化与L2正则化</p>
+<p>2）更改激活函数，现在神经网络中，除了最后二分类问题的最后一层会用sigmoid之外，每一层的激活函数一般都是用ReLU。</p>
+<p>3）Batch Normalization，通过对每一层的输出规范为均值和方差一致的方法，消除了权重参数带来的影响，进而解决梯度消失和爆炸的问题，或者可以理解为BN将输出从饱和区拉倒了非饱和区。</p>
+<p>4）残差 shortcut，跨层连接结构，这样的结构在反向传播中具有很大的好处，可以避免梯度消失</p>
+<h2 id="16-各种优化器"><a href="#16-各种优化器" class="headerlink" title="16.各种优化器"></a>16.各种优化器</h2><p>SGD的基本思想是，通过梯度下降的方法，不断调整模型的参数，使模型的损失函数最小化。SGD的优点是<strong>实现简单、效率高</strong>，缺点是<strong>收敛速度慢、容易陷入局部最小值</strong>。</p>
+<p>在PyTorch中，可以使用<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=torch.optim.SGD%E7%B1%BB&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B:,:2796913805%7D">torch.optim.SGD类</a>实现SGD。 </p>
+<p>Adam是一种近似于随机梯度下降的优化器，用于优化模型的参数。Adam的基本思想是，通过维护模型的梯度和梯度平方的一阶动量和<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E4%BA%8C%E9%98%B6%E5%8A%A8%E9%87%8F&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B:,:2796913805%7D">二阶动量</a>，来调整模型的参数。Adam的优点是<strong>计算效率高，收敛速度快</strong>，缺点是<strong>需要调整超参数</strong>。</p>
+<p>超参数：Adam算法有几个需要手动设置的超参数，如学习率（learning rate）、β1和β2（用于计算梯度的一阶和二阶矩估计的衰减率）以及ϵ（用于数值稳定性的小值）。不恰当的超参数设置可能导致性能下降，例如过大的学习率可能导致震荡，而过小的学习率可能导致收敛缓慢。</p>
+<p>比较：</p>
+<p>对于某些数据集和模型，SGD的简单性和随机性可能表现得更好，而Adam的自适应学习率可能在这些情况下过于复杂，导致不稳定的训练过程。</p>
+<p>Adam算法使用梯度的二阶矩估计，可能需要更多的内存来存储历史梯度信息。当训练数据集非常大时，这可能会导致内存限制或计算资源不足的问题。</p>
+<p>过拟合：Adam算法的自适应学习率可能在训练初期过快地收敛，导致在某些情况下更容易过拟合训练数据。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-python/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            面试题记录-python
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2024/08/25/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">论文阅读笔记-ControlNet</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">浙ICP备88888888</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

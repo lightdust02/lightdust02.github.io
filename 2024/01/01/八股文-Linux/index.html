@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.1k</span>
+            <span class="post-count">2.7k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">7 min</span>
+            <span class="post-count">10 min</span>
         </span>
     </span>
 </div>
@@ -216,6 +216,38 @@
 
 
 
+<h2 id="git-常见命令"><a href="#git-常见命令" class="headerlink" title="git 常见命令"></a>git 常见命令</h2><h3 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h3><p>用当前目录作为Git仓库，在当前目录下生成.init文件夹，并且会默认生成一个master分支。</p>
+<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><p>从Git仓库拷贝项目</p>
+<h3 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a><strong>git config</strong></h3><p>配置信息，配置用户名和邮箱地址，便于我们将代码提交到远程仓库</p>
+<h3 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a><strong>git add</strong></h3><p>添加文件到缓存命令</p>
+<p>添加全部文件到缓存：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a><strong>git status</strong></h3><p>查看文件的状态命令</p>
+<h3 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a><strong>git diff</strong></h3><p>  执行 git diff 来查看更新的详细信息。</p>
+<p>​    与git status不同的是，git status只显示更新的状态，而 git diff 可以显示已写入缓存与已修改但尚未写入缓存的改动的区别具体的详细信息。</p>
+<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a><strong>git commit</strong></h3><p>git commit 将缓存区内容添加到仓库中，可以在后面加-m选项，以在命令行中提供提交注释，格式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;第一次版本提交&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-rm"><a href="#git-rm" class="headerlink" title="git rm"></a><strong>git rm</strong></h3><p>从 Git 中移除某个文件，必须要从已跟踪文件清单中移除，然后提交。</p>
+<h3 id="git-mv"><a href="#git-mv" class="headerlink" title="git mv"></a><strong>git mv</strong></h3><p>git mv 命令用于移动或重命名一个文件、目录、软连接，如要将一个test.txt文件重命名为newtest.txt，则可以使用如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git mv test.txt newtest.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Git-分支管理"><a href="#Git-分支管理" class="headerlink" title="Git 分支管理"></a>Git 分支管理</h3><h4 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a><strong>git branch</strong></h4><p>git branch可以查看分支，也可以创建分支，如果没有参数时，git branch会列出你在本地的分支；如果有参数时，git branch就会创建改参数的分支。</p>
+<h4 id="git-checkout"><a href="#git-checkout" class="headerlink" title="**git checkout **"></a>**git checkout **</h4><p>git checkout可以切换分支，命令格式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout branchname</span><br></pre></td></tr></table></figure>
+
+<h4 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a><strong>合并冲突</strong></h4><p>  合并的时候，最大的难点就是冲突了，合并并不仅仅是简单的文件添加、移除的操作，Git 也会合并修改。</p>
+<p>​    如果我们在两个分支中同时修改了同一个文件，这时再合并，就可能会产生冲突。</p>
+<p>​    冲突并不可怕，可怕的是要怎样去解决，下面以一个小的例子来展示一下合并是冲突的解决。4</p>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><h4 id="git-remote-add"><a href="#git-remote-add" class="headerlink" title="git remote add"></a>git remote add</h4><p>git remote add可以添加一个远程仓库，其命令格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add [alias] [url]</span><br></pre></td></tr></table></figure>
+
+<p>参数[alias]为别名， [url]为远程仓库的地址，如：我们可以将<a target="_blank" rel="noopener" href="https://github.com/qtqt/test.git">https://github.com/qtqt/test.git</a> 仓库添加到本地，并命名为test</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add test https://github.com/qtqt/test.git</span><br></pre></td></tr></table></figure>
+
+<h4 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a><strong>git remote</strong></h4><p>git remote可以查看当前有哪些远程仓库。</p>
+<h4 id="git-fetch与git-pull"><a href="#git-fetch与git-pull" class="headerlink" title="git fetch与git pull"></a><strong>git fetch</strong>与<strong>git pull</strong></h4><p><strong>git fetch</strong>可以提取远程仓库的数据，如果有多个远程仓库，我们可以在后面加仓库的别名。</p>
  
       <!-- reward -->
       
@@ -291,20 +323,15 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/01/01/%E5%85%AB%E8%82%A1%E6%96%87-python/" class="article-nav-link">
+      <a href="/2024/01/01/Welcome/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            面试题记录-python
+            Welcome!
           
         </div>
       </a>
     
-    
-      <a href="/2024/01/01/Welcome/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Welcome!</div>
-      </a>
     
   </nav>
 

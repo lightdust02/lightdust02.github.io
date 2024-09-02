@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">3.6k</span>
+            <span class="post-count">4.1k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">12 min</span>
+            <span class="post-count">14 min</span>
         </span>
     </span>
 </div>
@@ -221,6 +221,17 @@
 <p>3H标准即 Helpfulness（有用性）Honesty（诚实性）Harmlessness（无害性）。</p>
 <p>为了解决这一问题，OpenAI 提出了基于人类反馈的强化学习算法（Reinforcement Learning from Human Feedback, RLHF），将人类偏好引入到大模型的对齐过程中。</p>
 <h3 id="涌现能力"><a href="#涌现能力" class="headerlink" title="涌现能力"></a>涌现能力</h3><p>指当模型扩展到一定规模时，模型的特定任务性能突然出现显著跃升的趋势，远超过随机水平。</p>
+<h2 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h2><h3 id="软硬编码"><a href="#软硬编码" class="headerlink" title="软硬编码"></a>软硬编码</h3><p>硬编码：简单来说，<strong>硬编码就是将某些值或参数直接写入代码中，而不是通过外部配置、用户输入或程序运行时动态获取</strong>。</p>
+<p>硬编码有缺乏灵活性、维护困难、可读性差、不利于扩展等一系列问题。<br>以下是一些常用的方法避免硬编码：</p>
+<ul>
+<li>使用配置文件：将需要变动的值写入配置文件，程序在运行时读取配置文件获取这些值。这样，当需要修改值时，只需修改配置文件而无需修改代码。</li>
+<li>使用环境变量：环境变量是一种在程序运行时动态获取值的方式。通过环境变量，我们可以将配置信息与代码分离，提高代码的灵活性和可维护性。</li>
+<li>使用数据库或外部服务：对于需要频繁变动的数据，可以考虑使用数据库或外部服务进行存储和管理。程序通过API接口获取数据，实现与数据的解耦。</li>
+</ul>
+<p> 硬编码与软件设计原则中的一些概念是相悖的。例如，开放封闭原则（OCP）强调软件实体（类、模块、函数等）应该对扩展开放，对修改封闭。而硬编码往往导致软件实体对修改不封闭，因为每次修改硬编码的值都需要直接修改代码。</p>
+<p>​    此外，单一职责原则（SRP）也要求我们将功能拆分到不同的类或模块中，每个类或模块只负责一项职责。硬编码可能会使得某个类或模块承担过多的职责，降低代码的可读性和可维护性。</p>
+<p> 因此，在编写代码时，我们应该尽量避免硬编码，遵循软件设计原则，提高代码的质量和可维护性。</p>
+<p>​    </p>
  
       <!-- reward -->
       
