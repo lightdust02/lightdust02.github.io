@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">3.2k</span>
+            <span class="post-count">3.1k</span>
         </span>
     </span>
 
@@ -146,7 +146,6 @@
 <p>一些方法：MakeAScene分割编码、SpaText映射掩码、GLIGEN学习注意力层的参数。</p>
 <h3 id="2-3-图像到图像"><a href="#2-3-图像到图像" class="headerlink" title="2.3 图像到图像"></a>2.3 图像到图像</h3><p>Conditional GANs 与 Transformer 可以学习不同图像域之间的映射。</p>
 <p>其它示例：Taming Transformer、StyleGANs……</p>
-<p>（其实感觉第二节的行文并不好，并没有讲述已有工作中存在的问题，感觉有单纯罗列问题的意思，而且看作者写的内容，似乎ControlNet是一个已有的架构，而不是作者团队首次提出的。）</p>
 <h2 id="三、介绍ControlNet"><a href="#三、介绍ControlNet" class="headerlink" title="三、介绍ControlNet"></a>三、介绍ControlNet</h2><p>ControlNet：一种神经网络体系架构，<strong>用</strong>（空间局部化的、特定于任务的）<strong>图像条件</strong>来增<strong>强大型预先训练的文本到图像扩散模型。</strong></p>
 <p>3.1节中介绍ControlNet的基本结构，然后在3.2节中描述如何将ControlNet应用于Diffusion稳定扩散。3.3介绍training过程，3.4节说明推理过程中的额外考虑因素，例如多个ControlNet。</p>
 <h3 id="3-1-ControlNet结构"><a href="#3-1-ControlNet结构" class="headerlink" title="3.1 ControlNet结构"></a>3.1 ControlNet结构</h3><p>特定名词：网络块 Network block，神经网络组合起来的一系列特定层，如resnet block，transformer block。</p>
