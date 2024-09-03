@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>面试题记录-python |  LightDust</title>
+      <title>知识点-python |  LightDust</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-八股文-python"
+  id="post-知识点-python"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  面试题记录-python
+  知识点-python
 </h1>
  
 
@@ -72,8 +72,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-python/" class="article-date">
-  <time datetime="2024-09-01T03:15:00.000Z" itemprop="datePublished">2024-09-01</time>
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-python/" class="article-date">
+  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E5%B0%B1%E4%B8%9A/">就业</a>
@@ -108,7 +108,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>记录 Python 相关的面试题。</p>
+  <p>记录 Python 相关知识点。</p>
 <p>会一直持续更新。</p>
 <span id="more"></span>
 
@@ -118,8 +118,10 @@
 <p>math：数学运算</p>
 <p>datetime：处理日期时间</p>
 <p>numpy:矩阵运算，数据处理</p>
-<h2 id="2-Python的GIL与多线程"><a href="#2-Python的GIL与多线程" class="headerlink" title="2. Python的GIL与多线程"></a><strong>2.</strong> Python的GIL与多线程</h2><p>GIL是Python的全局解释器锁，同一进程中假如有多个线程运行，一个线程在运行Python程序的时候会霸占Python解释器（加了一把锁即GIL），使该进程内的其他线程无法运行，等该线程运行完后其他线程才能运行。如果线程运行过程中遇到耗时操作，则解释器锁解开，使其他线程运行。所以在多线程中，线程的运行仍是有先后顺序的，并不是同时进行。<br>    多进程中因为每个进程都能被系统分配资源，相当于每个进程有了一个Python解释器，所以多进程可以实现多个进程的同时运行，缺点是进程系统资源开销大。</p>
-<p>GIL确保每次只能执行一个“线程”。一个线程获取GIL执行相关操作，然后将GIL传递到下一个线程。虽然看起来程序被多线程并行执行，但它们实际上只是轮流使用相同的CPU核心。<br>    所有这些GIL传递都增加了执行的开销。这意味着多线程并不能让程序运行的更快。</p>
+<h2 id="2-Python的GIL与多线程"><a href="#2-Python的GIL与多线程" class="headerlink" title="2. Python的GIL与多线程"></a><strong>2.</strong> Python的GIL与多线程</h2><p>​    GIL是Python的全局解释器锁，同一进程中假如有多个线程运行，一个线程在运行Python程序的时候会霸占Python解释器（加了一把锁即GIL），使该进程内的其他线程无法运行，等该线程运行完后其他线程才能运行。如果线程运行过程中遇到耗时操作，则解释器锁解开，使其他线程运行。所以在多线程中，线程的运行仍是有先后顺序的，并不是同时进行。</p>
+<p>​    多进程中因为每个进程都能被系统分配资源，相当于每个进程有了一个Python解释器，所以多进程可以实现多个进程的同时运行，缺点是进程系统资源开销大。</p>
+<p>​    GIL确保每次只能执行一个“线程”。一个线程获取GIL执行相关操作，然后将GIL传递到下一个线程。虽然看起来程序被多线程并行执行，但它们实际上只是轮流使用相同的CPU核心。</p>
+<p>​    所有这些GIL传递都增加了执行的开销。这意味着多线程并不能让程序运行的更快。</p>
 <h2 id="3-面向对象中-new-和-init-区别？"><a href="#3-面向对象中-new-和-init-区别？" class="headerlink" title="3. 面向对象中__new__和__init__区别？"></a><strong>3.</strong> 面向对象中__new__和__init__区别？</h2><p>1、__new__至少要有一个参数cls，代表当前类，此参数在实例化时由Python解释器自动识别。</p>
 <p>2、__new__必须要有返回值，返回实例化出来的实例，这点在自己实现__new__时要特别注意，可以return父类（通过super(当前类名, cls)）__new__出来的实例，或者直接是object的__new__出来的实例。</p>
 <p>3、__init__有一个参数self，就是这个__new__返回的实例，__init__在__new__的基础上可以完成一些其它初始化的动作，__init__不需要返回值。</p>
@@ -263,7 +265,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-python/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-python/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -274,10 +276,19 @@
    
   <nav class="article-nav">
     
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-Linux/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            知识点-Linux
+          
+        </div>
+      </a>
     
-      <a href="/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+    
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">面试题记录-深度学习</div>
+        <div class="article-nav-title">知识点-深度学习</div>
       </a>
     
   </nav>

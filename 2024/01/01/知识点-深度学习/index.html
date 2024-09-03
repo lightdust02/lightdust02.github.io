@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>面试题记录-深度学习 |  LightDust</title>
+      <title>知识点-深度学习 |  LightDust</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-八股文-深度学习"
+  id="post-知识点-深度学习"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  面试题记录-深度学习
+  知识点-深度学习
 </h1>
  
 
@@ -72,8 +72,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-date">
-  <time datetime="2024-09-01T03:15:00.000Z" itemprop="datePublished">2024-09-01</time>
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E5%B0%B1%E4%B8%9A/">就业</a>
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">6.1k</span>
+            <span class="post-count">6.8k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">21 min</span>
+            <span class="post-count">23 min</span>
         </span>
     </span>
 </div>
@@ -108,7 +108,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p> 记录深度学习相关的面试题。</p>
+  <p> 深度学习相关知识点。</p>
 <p>会一直持续更新。</p>
 <span id="more"></span>
 
@@ -126,6 +126,7 @@
 <p>优点：使训练更容易，因为它的梯度随着预测值接近真实值而不断减小，不会轻易错过极值点。</p>
 <p>缺点：收敛速度比 L1 慢，因为梯度会随着预测值接近真实值而不断减小，且对异常数据比 L1更敏感。</p>
 <p><img src="../images/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L2.jpg" alt="img"> </p>
+<p>除此之外，还有L1正则化与L2正则化，我们在下面提到……。</p>
 <h2 id="3-特征值和特征向量"><a href="#3-特征值和特征向量" class="headerlink" title="**3.**特征值和特征向量"></a>**3.**特征值和特征向量</h2><p>​    如果把矩阵看作是运动，那么特征值就是运动的速度，特征向量就是运动的方向。</p>
 <p>​    特征向量在一个矩阵的作用下作伸缩运动，伸缩的幅度由特征值确定。特征值大于1，所有属于此特征值的特征向量变长；特征值大于0小于1，特征向量缩短；特征值小于0，特征向量缩过了界，反方向到原点那边去了。 </p>
 <h2 id="4-条件概率和贝叶斯公式"><a href="#4-条件概率和贝叶斯公式" class="headerlink" title="4.条件概率和贝叶斯公式"></a>4.条件概率和贝叶斯公式</h2><p>条件概率描述的就是在给定事件B发生的情况下，事件A发生的概率，我们把它记作P(A|B)。一般说到条件概率概念的时候，事件A和事件B都是同一实验条件下的不同的结果集合，事件A和事件B一般是有交集的，如果A和B互斥，则条件概率为0。</p>
@@ -289,6 +290,15 @@
 <p>对于某些数据集和模型，SGD的简单性和随机性可能表现得更好，而Adam的自适应学习率可能在这些情况下过于复杂，导致不稳定的训练过程。</p>
 <p>Adam算法使用梯度的二阶矩估计，可能需要更多的内存来存储历史梯度信息。当训练数据集非常大时，这可能会导致内存限制或计算资源不足的问题。</p>
 <p>过拟合：Adam算法的自适应学习率可能在训练初期过快地收敛，导致在某些情况下更容易过拟合训练数据。</p>
+<h2 id="17-正则化"><a href="#17-正则化" class="headerlink" title="17.正则化"></a>17.正则化</h2><p>正则化（regularization）用于控制模型的复杂度，<strong>防止模型在训练数据上过度拟合（overfitting）</strong>。当模型过拟合时，它会学习到训练数据中的噪声和细微变化，导致在新数据上的性能下降。</p>
+<p>正则化通过在模型的<strong>损失函数中引入额外的惩罚项</strong>，来对模型的参数进行约束，从而<strong>降低模型的复杂度</strong>。</p>
+<p>常见正则化手段有如下几种：</p>
+<p>1）L1正则化：在模型的损失函数中增加权重的 <strong>L1 范数作为惩罚项</strong>来控制模型复杂度的技术。L1 范数是向量中各个元素的绝对值之和。公式如下，其中$λ$是正则化参数，用于控制正则化项的强度。$|w_i|$ 表示模型权重的绝对值。<br>$$<br>L_{L1}=L_{data}+λ\sum_n^{i=1}|w_i|<br>$$<br><em>L1相较于L2易获得稀疏解</em></p>
+<p>2）L2正则化：通过向模型的<strong>损失函数添加一个权重参数的 L2 范数的惩罚项</strong>来实现。公式如下，$||w||^2_2$是权重向量w的 L2 范数的平方，表示为权重向量中各个参数的平方和。<br>$$<br>L_{L2}=L_{data}+λ||w||^2_2<br>$$<br>使用 L2 正则化的损失函数时，优化算法在优化过程中会同时考虑数据损失和正则化项，从而在保持对训练数据的拟合能力的同时，尽可能减小模型参数的大小，降低模型的复杂度。</p>
+<p>3）Dropout：一种在<strong>神经网络中常用的正则化技术</strong>，用于减少过拟合。</p>
+<p>其原理是在网络的训练过程中，随机地将部分神经元的输出置为零（即失活），从而使得网络在每次迭代时都在不同的子网络上训练，以减少神经元之间的复杂依赖关系，从而增强模型的泛化能力。</p>
+<p>在每次训练迭代时，Dropout 方法会以一定的概率（通常为 0.5）随机地将某些神经元的输出置为零，即使得这些神经元在此次迭代中不参与前向传播和反向传播。这样可以阻止网络过度依赖于某些特定的神经元，增强模型的泛化能力。</p>
+<p>而在训练时，通过随机失活神经元来减少过拟合；在测试时，所有的神经元都保持活跃，但是输出值需要按照训练时的概率进行缩放，以保持期望输出的一致性。</p>
  
       <!-- reward -->
       
@@ -353,7 +363,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -364,20 +374,15 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/09/01/%E5%85%AB%E8%82%A1%E6%96%87-python/" class="article-nav-link">
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-python/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            面试题记录-python
+            知识点-python
           
         </div>
       </a>
     
-    
-      <a href="/2024/08/25/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ControlNet/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">论文阅读笔记-ControlNet</div>
-      </a>
     
   </nav>
 
