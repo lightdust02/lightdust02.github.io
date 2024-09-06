@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">4.1k</span>
+            <span class="post-count">5.7k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">14 min</span>
+            <span class="post-count">20 min</span>
         </span>
     </span>
 </div>
@@ -135,7 +135,15 @@
 <p><img src="/images/Pron/ema.png" alt="image-20240325235724569"></p>
 <p>EMA可以近似看成过去 $1/(1−\beta) $ 个时刻  v 值 的平均。</p>
 <p>本质是对变量的一种加权平均。在训练过程中，原始模型的参数会不断更新，而 EMA 模型的参数则通过指数加权平均的方式来跟踪原始模型的参数变化。</p>
-<h3 id="NIAM"><a href="#NIAM" class="headerlink" title="NIAM"></a>NIAM</h3><p>NIAM， Neural Implicit Attentive Model ，是一种与深度学习相关的模型。</p>
+<h2 id="FFN"><a href="#FFN" class="headerlink" title="FFN"></a>FFN</h2><p><strong>前馈神经网络（FFN）</strong> 是每个 Transformer 层中的组成部分，它位于每次多头注意力操作之后，对从 Self-Attention 模块中获取的特征进行进一步处理。</p>
+<p>FFN 由两个线性变换和一个激活函数（通常是 ReLU 或 GELU）组成。前馈神经网络中的非线性激活函数可以增强模型的表达能力。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FeedForward</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim, hidden_dim, dropout = <span class="number">0.</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.net = nn.Sequential(</span><br><span class="line">            nn.Linear(dim, hidden_dim),  <span class="comment"># 第一个线性层</span></span><br><span class="line">            nn.GELU(),                   <span class="comment"># 激活函数</span></span><br><span class="line">            nn.Dropout(dropout),          <span class="comment"># Dropout</span></span><br><span class="line">            nn.Linear(hidden_dim, dim),   <span class="comment"># 第二个线性层</span></span><br><span class="line">            nn.Dropout(dropout)           <span class="comment"># Dropout</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.net(x)</span><br></pre></td></tr></table></figure>
+
+<p>gelu函数图像如下所示：<br><img src="/images/Pron/v2-149a8bc6ee90f65205a8d408f79a0017_1440w.webp" alt="GELU函数"></p>
+<h3 id="NIAM"><a href="#NIAM" class="headerlink" title="NIAM"></a>NIAM</h3><blockquote>
+<p>非常冷门……我怎么会写这个的……</p>
+</blockquote>
+<p>NIAM， Neural Implicit Attentive Model ，是一种与深度学习相关的模型。</p>
 <p>一种基于注意力机制的神经网络模型，旨在处理具有隐式关系的数据。</p>
 <p>隐式关系：不能直接观察到的关系，但可以通过数据间的相关性来推断。NIAM 模型可以自动地学习和捕捉这些隐式关系，从而在各种任务中表现出色，如推荐系统、自然语言处理和图像处理等。</p>
 <h3 id="端到端end-to-end"><a href="#端到端end-to-end" class="headerlink" title="端到端end-to-end"></a>端到端end-to-end</h3><p>指从原始输入数据到最终输出结果的整个过程由一个统一的模型处理，即输入是原始数据，输出是最后的结果。</p>
@@ -144,16 +152,50 @@
 <h4 id="精确度-Precision"><a href="#精确度-Precision" class="headerlink" title="精确度 Precision"></a>精确度 Precision</h4><p>以<strong>预测结果</strong>为判断依据，预测为正例的样本中预测正确的比例<br>$$<br>Precision=\frac{TP}{TP+FP}<br>$$</p>
 <h4 id="召回率-Recall"><a href="#召回率-Recall" class="headerlink" title="召回率 Recall"></a>召回率 Recall</h4><p>以<strong>实际样本</strong>为判断依据，实际为正例的样本中，被预测正确的正例占总实际正例样本的比例。<br>$$<br>Recall=\frac{TP}{TP+FN}<br>$$</p>
 <h4 id="F1值"><a href="#F1值" class="headerlink" title="F1值"></a>F1值</h4><p>中和了精确率和召回率的指标<br>$$<br>F1=\frac{2PR}{R+P}<br>$$</p>
-<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="Q-K-V"><a href="#Q-K-V" class="headerlink" title="Q K V"></a>Q K V</h3><p>Q: Query，查询        K: Key，键    V: Value，值</p>
-<p>注意力机制中，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
+<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="Self-Attention（qkv）"><a href="#Self-Attention（qkv）" class="headerlink" title="Self-Attention（qkv）"></a>Self-Attention（qkv）</h3><p>这就是Self-Attention机制的核心。</p>
+<p>Q: Query，查询，查询其他元素与自己相关的程度。        </p>
+<p>K: Key，键，表示序列中的每个元素特征，用来判断是否与其他元素（即Query）有关。</p>
+<p>V: Value，值，代表序列中每个元素的实际信息。当Query与某个Key的相似度较高时，这个Value就会对Query的输出产生更大的影响。</p>
+<p>在Self-Attention机制中，输入的每个元素都会产生对应的Q、K、V，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
 <p>输入序列被用来计算查询 Q 、键 K 和值 V 。每个查询 Q 与所有键 K 计算得到相关性分数，然后通过 Softmax 函数将这些分数归一化为权重，最终这些权重被应用到相应的值 V 上，从而得到注意力表示。</p>
 <p>Q、K 和 V 的作用可以简单概括如下：</p>
 <ul>
-<li>查询（Q）：确定关注的内容。</li>
-<li>键（K）：提供与查询相关的上下文。</li>
-<li>值（V）：根据查询和键的相关性来计算权重，从而产生最终的注意力表示。</li>
+<li><strong>Query（Q）</strong>：确定关注的内容，是用来“提问”的向量。它表示每个元素希望从其他元素中提取的信息，即当前元素与其他元素的相关性。</li>
+<li><strong>Key（K）</strong>：提供与查询相关的上下文，是用来“回答”的向量。它表示每个元素本身的特征，其他元素的Query会根据这些Key来判断它们是否相关。</li>
+<li><strong>Value（V）</strong>：是序列中的信息内容。Self-Attention 的最终输出就是根据Query和Key的相似度对这些Value进行加权求和后的结果。</li>
 </ul>
-<h2 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h2><h3 id="BEV"><a href="#BEV" class="headerlink" title="BEV:"></a>BEV:</h3><p><strong>BEV</strong>: 鸟瞰视角，Bird’s Eye View，是一种<strong>从上方观看</strong>对象或场景的视角，就像鸟在空中俯视地面一样。在自动驾驶和机器人领域，通过传感器（如 LiDAR 和摄像头）获取的数据通常会被转换成 BEV 表示，以便更好地进行<strong>物体检测、路径规划</strong>等任务。</p>
+<p>假设输入序列的维度是 $b×n×d$，其中 b 表示batch size，n 表示序列长度，d 表示每个元素的特征维度。</p>
+<p>那么，Q K V 的维度均为 $b×n×d_k$。</p>
+<h3 id="Linear-Attention"><a href="#Linear-Attention" class="headerlink" title="Linear-Attention"></a>Linear-Attention</h3><p><strong>Linear-Attention</strong> 是一种优化 Self-Attention 的变体，其核心思想是降低计算复杂度。</p>
+<p>Linear-Attention 中，使用的是 <code>nn.Conv2d</code>从输入特征图中通过卷积层生成 <code>Q</code>、<code>K</code>、<code>V</code>，这表明它主要用于处理图像等二维数据。</p>
+<p>同时，和 Self-Attention 的 $QK^T / \sqrt{d_k}$ 计算不同，Linear-Attention 通过 <code>einsum(&#39;bhdn,bhen-&gt;bhde&#39;, k, v)</code> 和 <code>einsum(&#39;bhde,bhdn-&gt;bhen&#39;, context, q)</code> 来进行计算。</p>
+<ul>
+<li>这里直接通过将 <code>K</code> 应用 <code>softmax</code>，然后将其与 <code>V</code> 通过 <code>einsum</code> 进行乘积，生成上下文信息。</li>
+<li>后续的 <code>Q</code> 通过与上下文信息进行计算，生成输出。</li>
+</ul>
+<h3 id="Cross-Attention"><a href="#Cross-Attention" class="headerlink" title="Cross-Attention"></a>Cross-Attention</h3><p>Cross-Attention 用于处理两个不同输入之间的注意力计算。</p>
+<p>Cross-Attention 在 Transformer 的编码器-解码器结构中有广泛应用，尤其是在任务中需要处理源数据和目标数据之间的依赖时，比如在机器翻译、图像生成等任务中。</p>
+<p>在 Self-Attention 中，<code>Q</code>、<code>K</code> 和 <code>V</code> 来自同一个输入，而在 Cross-Attention 中，<code>Q</code> 和 <code>K</code>、<code>V</code> 可以来自不同的输入，常用于需要融合不同数据源的信息时。</p>
+<p>Cross-Attention 的查询（Q）来自<strong>目标序列</strong>（通常是解码器的输入），而键（K）和值（V）来自源序列（通常是编码器的输出），公式仍然是和上面一致。</p>
+<p>Cross-Attention 在机器翻译、图像生成、多模态等领域应用非常广泛。</p>
+<h3 id="Muti-head-Attention"><a href="#Muti-head-Attention" class="headerlink" title="Muti-head-Attention"></a>Muti-head-Attention</h3><p>多头注意力机制在 Self-Attention 的基础上引入多个头（heads），即将注意力机制复制多次，每个注意力头使用不同的权重矩阵进行计算。这样做的目的是通过不同的子空间进行特征表示，从而捕捉不同层次的信息。</p>
+<p>Q、K、V 通过不同的线性层，得到不同头的查询、键和值</p>
+<p>$Q_i=W_i^QQ, K_i=W_i^KK,V_i=W_i^VV ,i=1,2,…h$ ，W是权重矩阵，h是头的数量。</p>
+<p>然后，每个头都独立进行自注意力计算，得到每个头的注意力输出，公式同Self-Attention。</p>
+<p>再将所有注意力头的输出拼接起来：</p>
+<p>$MultiHead(Q,K,V)=Concat(head_1,head_2,…,head_h)$</p>
+<p>最后再对拼接后的结果进行线性变换，得到最终的多头注意力输出：</p>
+<p>$output=W^o⋅Concat(head_1,head_2,…,head_h)$</p>
+<p> $W^O$  是输出层的权重矩阵。</p>
+<h3 id="spatial-transformer"><a href="#spatial-transformer" class="headerlink" title="spatial_transformer"></a>spatial_transformer</h3><p>空间变换网络（Spatial Transformer Networks，简称STN）是一种深度学习模型，旨在增强网络对几何变换的适应能力。</p>
+<p>在现代深度学习中，空间变换模块常常与自注意力机制结合使用，以便于模型能够关注输入数据的不同部分，并在处理过程中考虑这些部分之间的关系。</p>
+<p>同时，在一些变体中，<code>SpatialTransformer</code> 可以结合条件输入（如上下文信息、标签等），使得生成的空间变换更具针对性和自适应性。</p>
+<p>Diffusion中，SpatialTransformer非常常见。</p>
+<h3 id><a href="#" class="headerlink" title></a></h3><h3 id="Vision-Transformer-ViT"><a href="#Vision-Transformer-ViT" class="headerlink" title="Vision Transformer(ViT)"></a>Vision Transformer(ViT)</h3><p>Vision Transformer（ViT）是将 Transformer 模型应用于图像分类的一种架构，旨在利用 Transformer 强大的全局建模能力来处理图像任务。</p>
+<p>ViT 通过将图像分割成若干个小块<code>patch</code>，将它们看作序列输入到 Transformer 中，以捕捉全局依赖关系。</p>
+<p>然后需要一项关键的内容：<strong>位置编码（Positional Embedding）</strong>，以保留图像的空间位置信息。</p>
+<p>事实上，在最初的NLP领域，位置编码也是很重要的内容。位置编码一般采用正弦和余弦函数来生成<br>$$<br>PE_{pos,2i}=sin\frac{pos}{10000^{\frac{2i}{d_{model}}}}\<br>PE_{pos,2i+1}=cos\frac{pos}{10000^{\frac{2i}{d_{model}}}}<br>$$<br>其中 $d_{model}$ 是编码维度的总大小。</p>
+<h4 id="FFN-1"><a href="#FFN-1" class="headerlink" title="FFN"></a>FFN</h4><h2 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h2><h3 id="BEV"><a href="#BEV" class="headerlink" title="BEV:"></a>BEV:</h3><p><strong>BEV</strong>: 鸟瞰视角，Bird’s Eye View，是一种<strong>从上方观看</strong>对象或场景的视角，就像鸟在空中俯视地面一样。在自动驾驶和机器人领域，通过传感器（如 LiDAR 和摄像头）获取的数据通常会被转换成 BEV 表示，以便更好地进行<strong>物体检测、路径规划</strong>等任务。</p>
 <h3 id="FPN："><a href="#FPN：" class="headerlink" title="FPN："></a>FPN：</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62604038">【目标检测】FPN(Feature Pyramid Network) - 知乎 (zhihu.com)</a></p>
 <blockquote>
 <p>整理完下面这些发现其实只看这一篇文章就够了。</p>
@@ -180,7 +222,12 @@
 </ol>
 <p>CLIP 通过计算文本和图像向量之间的<strong>余弦相似度</strong>来生成预测。这种模型特别适用于<strong>零样本学习</strong>任务，即模型不需要看到新的图像或文本的训练示例就能进行预测。CLIP模型在多个领域表现出色，如图像文本检索、图文生成等。</p>
 <h2 id="Diffusion"><a href="#Diffusion" class="headerlink" title="Diffusion"></a>Diffusion</h2><h3 id="LDM"><a href="#LDM" class="headerlink" title="LDM"></a>LDM</h3><p>Latent Diffusion Model，潜在扩散模型，一种生成模型，结合了扩散模型和潜在空间的思想，用于生成高质量的图像。通过逐步对噪声数据进行去噪，从而生成逼真的图像。</p>
-<p>LDM 将数据投射到一个潜在空间中，然后在这个潜在空间中进行扩散过程，最后再将结果映射回原始数据空间。</p>
+<p>LDM 将数据x投射到一个潜在空间中，然后在这个潜在空间中进行扩散过程得到结果z，最后再将结果z映射回原始数据空间。</p>
+<p>关键函数：ddpm.py中的 decode_first_stage 函数与 encode_first_stage 函数，get_first_stage_encoding函数</p>
+<p>(这个代码不太好懂……慢慢来看)</p>
+<h3 id="kl散度"><a href="#kl散度" class="headerlink" title="kl散度"></a>kl散度</h3><p>简而言之，kl散度用于计算两个分布之间的差异。<br>$$<br>D_{KL}(p∥q)= \sum_{i=1}^{n}p(x_i)log(\frac{p(x_i)}{q(x_i)})<br>$$<br>LDM中，normal_kl一般用于计算两个正态分布之间的差异。</p>
+<p>LDM 会对数据进行潜在空间的编解码，而潜在空间中通常使用高斯分布对数据进行建模，因此对高斯分布进行采样、计算对数似然（nll）以及 KL 散度都是训练 LDM 时非常关键的操作。</p>
+<h3 id="nll"><a href="#nll" class="headerlink" title="nll"></a>nll</h3><p>负对数似然损失（Negative Log-Likelihood，NLL），整个数据集的负对数似然损失就是对所有样本的损失进行求和或平均。<br>$$<br>NLL=\frac{1}{2}\sum_i[log(2\pi)+log(\sigma_i^2)+\frac{(x_i-\mu_i)^2}{\sigma_i^2}]<br>$$</p>
 <h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
 <h3 id="仿射变换："><a href="#仿射变换：" class="headerlink" title="仿射变换："></a>仿射变换：</h3><p>Affine Transformation，线性变换与平移变化的叠加。</p>
 <p>包括<strong>缩放</strong>(Scale)、<strong>平移</strong>(transform)、<strong>旋转</strong>(rotate)、<strong>反射</strong>（reflection）、<strong>错切</strong>(shear mapping）</p>
