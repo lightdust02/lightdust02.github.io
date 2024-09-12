@@ -193,7 +193,8 @@
 <p>我们让12位用户对这20组5个结果分别按照“显示图像的质量”和“对草图的保真度”进行排名。通过这种方式，我们获得了100个结果质量排名和100个条件保真度排名。我们使用平均人类排名（AHR）作为偏好度量。结果证明 ControlNet效果是最好的。</p>
 <p>同时，使用Frechet Inception Distance（FID）[28]来测量使用不同分割条件方法随机生成的512×512图像集的分布距离，结果同样证明 ControlNet效果是最好的。</p>
 <h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>ControlNet是一种神经网络结构，它可以学习大型预训练文本到图像扩散模型的条件控制。</p>
-<p>（写得实在是有点水……会继续补充的……）</p>
+<h2 id="结合代码精讲："><a href="#结合代码精讲：" class="headerlink" title="结合代码精讲："></a>结合代码精讲：</h2><p>注：huggingface社区上的ControlNet与官方源码并不一致，以官方源码为准。</p>
+<p>在官方源码中，比较关键的代码是cldm.py，位于cldm\cldm.py下，主要的类是ControlledUnetModel、ControlNet、ControlLDM类。</p>
  
       <!-- reward -->
       
@@ -270,6 +271,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2024/09/10/%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            深度学习及相关领域中常见网络与模型汇总
+          
+        </div>
+      </a>
     
     
       <a href="/2024/07/19/LLMBook/" class="article-nav-link">

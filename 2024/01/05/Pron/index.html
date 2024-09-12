@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">5.7k</span>
+            <span class="post-count">8.4k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">20 min</span>
+            <span class="post-count">30 min</span>
         </span>
     </span>
 </div>
@@ -112,6 +112,10 @@
 <p>该博文会一直持续更新。</p>
 <span id="more"></span>
 
+
+
+
+
 <h2 id="DeepLearning"><a href="#DeepLearning" class="headerlink" title="DeepLearning"></a>DeepLearning</h2><h3 id="卷积操作："><a href="#卷积操作：" class="headerlink" title="卷积操作："></a>卷积操作：</h3><p>说白了，卷积操作是利用卷积核，通过卷积操作来实现对图像特征的提取。</p>
 <p><img src="/images/Pron/%E5%8D%B7%E7%A7%AF.png" alt="卷积"></p>
 <h4 id="一些名词："><a href="#一些名词：" class="headerlink" title="一些名词："></a>一些名词：</h4><p><img src="/images/Pron/%E4%B8%80%E4%BA%9B%E5%90%8D%E8%AF%8D.png" alt="一些名词"></p>
@@ -124,7 +128,23 @@
 <h3 id="梯度发散："><a href="#梯度发散：" class="headerlink" title="梯度发散："></a>梯度发散：</h3><p>采用一些激活函数（如ReLu）时，会出现随着卷积层层数的增加而导致导数指数级增长，即出现梯度发散现象。可以通过引入shortcut来解决：</p>
 <h3 id="shortcut："><a href="#shortcut：" class="headerlink" title="shortcut："></a>shortcut：</h3><p>翻译为“捷径”，为了解决梯度发散问题，在两层之间增加了（带权的）shortcut 。结构如图所示：</p>
 <p><img src="/images/Pron/shortcut.png" alt="shortcut"></p>
-<p>通过 shortcut 可以直接将浅层的信息传递到深层，可以解决退化问题</p>
+<p>通过 shortcut 可以直接将浅层的信息传递到深层，可以解决退化问题。</p>
+<h3 id="shift操作"><a href="#shift操作" class="headerlink" title="shift操作"></a>shift操作</h3><p>其实就是<strong>数据的平移</strong>或<strong>位移变换</strong>……</p>
+<p><strong>卷积神经网络</strong>中用于<strong>特征图的移位</strong>，例如用于处理时空序列数据的位移。</p>
+<p>在<strong>Transformer模型</strong>中，shift操作用于序列的偏移或位移，以实现特定的自回归或掩码机制。</p>
+<h3 id="消息传递神经网络（MPNN）"><a href="#消息传递神经网络（MPNN）" class="headerlink" title="消息传递神经网络（MPNN）"></a>消息传递神经网络（MPNN）</h3><p>消息传递神经网络（Message Passing Neural Network）是一类图神经网络，它通过在图的节点之间交换信息来学习节点的表示。它们基于以下步骤工作：</p>
+<ol>
+<li><strong>消息传递</strong>：每个节点接收其邻居节点的信息，并根据这些信息生成“消息”。</li>
+<li><strong>聚合</strong>：将所有接收到的消息聚合成单个表示，这可以通过不同的函数实现，如求和、求平均或更复杂的操作。</li>
+<li><strong>更新</strong>：使用聚合的信息来更新节点的状态。</li>
+</ol>
+<p>MPNN的核心思想是通过迭代这些步骤来精炼每个节点的表示，从而捕捉图的结构特征和节点之间的关系。</p>
+<h3 id="门控循环单元（GRU）"><a href="#门控循环单元（GRU）" class="headerlink" title="门控循环单元（GRU）"></a>门控循环单元（GRU）</h3><p>GRU（gated recurrent unit）是循环神经网络（RNN）的一种变体，用于处理序列数据。与传统的RNN相比，GRU通过引入门控机制来解决梯度消失和梯度爆炸的问题，使得网络能够捕捉长距离依赖关系。GRU包含两个门：</p>
+<ol>
+<li><strong>更新门</strong>：决定状态信息应该如何更新。</li>
+<li><strong>重置门</strong>：决定过去的状态信息在计算新状态时应保留多少。</li>
+</ol>
+<p>在每个时间步，GRU可以选择保留旧状态的信息并融入新输入的信息，这使得它在处理具有复杂依赖结构的数据时非常有效。</p>
 <h3 id="softmax"><a href="#softmax" class="headerlink" title="softmax:"></a>softmax:</h3><p>用于解决多分类问题，可以预测每个类别的概率。</p>
 <p><img src="/images/Pron/softmax.png" alt="softmax"></p>
 <p>Softmax 层会对上一层的原始数据归一化，转化为一个 (0 , 1) 之间的数值，这些数值可以被当做概率分布，用来作为多分类的目标预测值。</p>
@@ -135,7 +155,7 @@
 <p><img src="/images/Pron/ema.png" alt="image-20240325235724569"></p>
 <p>EMA可以近似看成过去 $1/(1−\beta) $ 个时刻  v 值 的平均。</p>
 <p>本质是对变量的一种加权平均。在训练过程中，原始模型的参数会不断更新，而 EMA 模型的参数则通过指数加权平均的方式来跟踪原始模型的参数变化。</p>
-<h2 id="FFN"><a href="#FFN" class="headerlink" title="FFN"></a>FFN</h2><p><strong>前馈神经网络（FFN）</strong> 是每个 Transformer 层中的组成部分，它位于每次多头注意力操作之后，对从 Self-Attention 模块中获取的特征进行进一步处理。</p>
+<h3 id="FFN"><a href="#FFN" class="headerlink" title="FFN"></a>FFN</h3><p><strong>前馈神经网络（FFN）</strong> 是每个 Transformer 层中的组成部分，它位于每次多头注意力操作之后，对从 Self-Attention 模块中获取的特征进行进一步处理。</p>
 <p>FFN 由两个线性变换和一个激活函数（通常是 ReLU 或 GELU）组成。前馈神经网络中的非线性激活函数可以增强模型的表达能力。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FeedForward</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim, hidden_dim, dropout = <span class="number">0.</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.net = nn.Sequential(</span><br><span class="line">            nn.Linear(dim, hidden_dim),  <span class="comment"># 第一个线性层</span></span><br><span class="line">            nn.GELU(),                   <span class="comment"># 激活函数</span></span><br><span class="line">            nn.Dropout(dropout),          <span class="comment"># Dropout</span></span><br><span class="line">            nn.Linear(hidden_dim, dim),   <span class="comment"># 第二个线性层</span></span><br><span class="line">            nn.Dropout(dropout)           <span class="comment"># Dropout</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.net(x)</span><br></pre></td></tr></table></figure>
 
@@ -152,7 +172,30 @@
 <h4 id="精确度-Precision"><a href="#精确度-Precision" class="headerlink" title="精确度 Precision"></a>精确度 Precision</h4><p>以<strong>预测结果</strong>为判断依据，预测为正例的样本中预测正确的比例<br>$$<br>Precision=\frac{TP}{TP+FP}<br>$$</p>
 <h4 id="召回率-Recall"><a href="#召回率-Recall" class="headerlink" title="召回率 Recall"></a>召回率 Recall</h4><p>以<strong>实际样本</strong>为判断依据，实际为正例的样本中，被预测正确的正例占总实际正例样本的比例。<br>$$<br>Recall=\frac{TP}{TP+FN}<br>$$</p>
 <h4 id="F1值"><a href="#F1值" class="headerlink" title="F1值"></a>F1值</h4><p>中和了精确率和召回率的指标<br>$$<br>F1=\frac{2PR}{R+P}<br>$$</p>
-<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="Self-Attention（qkv）"><a href="#Self-Attention（qkv）" class="headerlink" title="Self-Attention（qkv）"></a>Self-Attention（qkv）</h3><p>这就是Self-Attention机制的核心。</p>
+<h2 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h2><p>变分自编码器VAE（Variational auto-encoder），可以通过编码解码的步骤，直接比较重建图片和原始图片的差异。VAE以概率的方式描述对潜在空间的观察，在数据生成方面表现出了巨大的应用价值。VAE一经提出就迅速获得了深度生成模型领域广泛的关注。</p>
+<p>VAE 会将给定输入的每个潜在特征表示为概率分布。当从潜在状态解码时，VAE 将<strong>从每个潜在状态分布中随机采样</strong>，生成一个向量作为解码器模型的输入。</p>
+<p>VAE通过编码器将输入数据映射到一个概率分布，通常假设为高斯分布。不同于传统自编码器生成一个确定的隐变量，VAE生成的是一组分布参数（均值μ和方差σ），并使用这些参数从该分布中采样隐变量。解码器从这些隐变量中重构输入数据。</p>
+<p>同时，在损失函数中，VAE引入了交叉熵与KL散度（是不是很熟悉？），KL散度能够确保编码器生成的潜在分布接近标准正态分布，保持潜在空间的连续性和可操作性。这有助于生成新的样本，保证潜在空间的结构合理。</p>
+<p>具体步骤：</p>
+<p>1). 输入数据 X 输入编码器，得到潜在空间的分布参数（均值和标准差）</p>
+<p>2). 使用重参数化技巧从潜在分布中采样潜在变量 z</p>
+<p>3). 将采样的 z 输入解码器，生成数据 </p>
+<p>4). 计算损失函数，包括重构误差和KL散度</p>
+<p>5). 使用反向传播最小化损失函数，更新网络参数。</p>
+<p>相比GAN等生成模型，VAE的训练更稳定，模型结构更为清晰，易于理解。尽管VAE的生成质量通常不如GAN。</p>
+<h2 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h2><p><img src="/images/Pron/image-20240912110124560.png" alt="GAN示意图"></p>
+<p>GAN于2014年提出。具体而言，GAN的核心结构是生成器与判别器。</p>
+<p>生成器的功能是根据真实图像样本<code>X</code>来调整分布，逐步将随机噪声分布<code>z</code>调整为与原始训练数据相似的模拟数据分布，从而实现生成的模拟图像样本<code>X*</code>能够以假乱真。</p>
+<p>判别器则负责检测输入数据的真伪，判断输入数据为真实图像<code>X</code>还是模拟图像<code>X*</code>，并将判断结果作为监督信息反馈给生成器，生成器根据判别器的反馈信息来调整图像的生成，使得模拟图像能够更好地“骗过”生成器。</p>
+<p>在训练过程中，生成器与判别器交替训练，二者相互竞争、相互制约，最终会达到一种动态平衡。生成器得以在判别器的制约下生成更为真实的数据，判别器也能够通过判断生成器产生的伪造数据，不断提升其鉴别能力。</p>
+<p><img src="/images/Pron/image-20240912110753701.png" alt="优化目标函数"></p>
+<p><strong>生成器</strong>通常是一个前馈神经网络，它接收一个随机噪声向量并生成一组样本（例如图像或文本）。生成器学习到的映射是从一个简单分布（如正态分布）到数据分布的转变。</p>
+<p><strong>判别器</strong>也是一个前馈神经网络，接收一组样本并输出一个概率值，表示该样本是真实数据还是生成的数据。判别器的训练目标是最大化其区分真实和伪造样本的能力。</p>
+<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><p>[【论文笔记】Order Matters （AAAI 20） - Yuhan’s blog (yuhan2001.github.io)](<a target="_blank" rel="noopener" href="https://yuhan2001.github.io/2024/05/04/Order">https://yuhan2001.github.io/2024/05/04/Order</a> Matters/)</p>
+<p>一些解读Transformer的文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fengdu78/article/details/104629336">关于Transformer，面试官们都怎么问？-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/82391768https://zhuanlan.zhihu.com/p/82391768">关于Transformer的若干问题整理记录 - Adherer的文章</a></p>
+<h3 id="Self-Attention（qkv）"><a href="#Self-Attention（qkv）" class="headerlink" title="Self-Attention（qkv）"></a>Self-Attention（qkv）</h3><p>Q、K、V 就是Self-Attention机制的核心。</p>
 <p>Q: Query，查询，查询其他元素与自己相关的程度。        </p>
 <p>K: Key，键，表示序列中的每个元素特征，用来判断是否与其他元素（即Query）有关。</p>
 <p>V: Value，值，代表序列中每个元素的实际信息。当Query与某个Key的相似度较高时，这个Value就会对Query的输出产生更大的影响。</p>
@@ -165,7 +208,10 @@
 <li><strong>Value（V）</strong>：是序列中的信息内容。Self-Attention 的最终输出就是根据Query和Key的相似度对这些Value进行加权求和后的结果。</li>
 </ul>
 <p>假设输入序列的维度是 $b×n×d$，其中 b 表示batch size，n 表示序列长度，d 表示每个元素的特征维度。</p>
-<p>那么，Q K V 的维度均为 $b×n×d_k$。</p>
+<p>那么，Q K V 的维度均为 $b×n×d_k$。相关计算公式为 $\frac{QK^T}{\sqrt{d_k}}V$ ，$T$是转置操作，$d_k$是K的维度。</p>
+<p><strong>除以$d_k$：在softmax之前除以$dk$ 可以将 $QK^T$ 的分布的方差纠正回接近1，这样一来，大部分数值都会分布在softmax梯度适当的位置，也就避免了梯度消失的问题。</strong></p>
+<p><strong>大值的点积可能会导致 Softmax 进入梯度消失区域，因为极大的输入值会使 Softmax 函数的梯度接近 0。而通过除以 $\sqrt{d_k}$，可以避免进入这种极端情况，保持梯度稳定</strong></p>
+<p>同时，由于add层（残差神经网络）与norm层（LayerNorm归一化），因此Encoder端和Decoder端每个子模块实际的输出为： $LayerNorm(x+Sublayer(x))$ ，其中 Sublayer(x)) 为子模块的输出。</p>
 <h3 id="Linear-Attention"><a href="#Linear-Attention" class="headerlink" title="Linear-Attention"></a>Linear-Attention</h3><p><strong>Linear-Attention</strong> 是一种优化 Self-Attention 的变体，其核心思想是降低计算复杂度。</p>
 <p>Linear-Attention 中，使用的是 <code>nn.Conv2d</code>从输入特征图中通过卷积层生成 <code>Q</code>、<code>K</code>、<code>V</code>，这表明它主要用于处理图像等二维数据。</p>
 <p>同时，和 Self-Attention 的 $QK^T / \sqrt{d_k}$ 计算不同，Linear-Attention 通过 <code>einsum(&#39;bhdn,bhen-&gt;bhde&#39;, k, v)</code> 和 <code>einsum(&#39;bhde,bhdn-&gt;bhen&#39;, context, q)</code> 来进行计算。</p>
@@ -187,15 +233,32 @@
 <p>最后再对拼接后的结果进行线性变换，得到最终的多头注意力输出：</p>
 <p>$output=W^o⋅Concat(head_1,head_2,…,head_h)$</p>
 <p> $W^O$  是输出层的权重矩阵。</p>
+<p><strong>多头注意力机制保证了transformer可以注意到不同子空间的信息，捕捉到更加丰富的特征信息。</strong></p>
+<p>Decoder端的多头self-attention需要做mask，因为它在预测时，是“看不到未来的序列的”，所以要将当前预测的单词(token)及其之后的单词(token)全部mask掉。</p>
 <h3 id="spatial-transformer"><a href="#spatial-transformer" class="headerlink" title="spatial_transformer"></a>spatial_transformer</h3><p>空间变换网络（Spatial Transformer Networks，简称STN）是一种深度学习模型，旨在增强网络对几何变换的适应能力。</p>
 <p>在现代深度学习中，空间变换模块常常与自注意力机制结合使用，以便于模型能够关注输入数据的不同部分，并在处理过程中考虑这些部分之间的关系。</p>
 <p>同时，在一些变体中，<code>SpatialTransformer</code> 可以结合条件输入（如上下文信息、标签等），使得生成的空间变换更具针对性和自适应性。</p>
 <p>Diffusion中，SpatialTransformer非常常见。</p>
-<h3 id><a href="#" class="headerlink" title></a></h3><h3 id="Vision-Transformer-ViT"><a href="#Vision-Transformer-ViT" class="headerlink" title="Vision Transformer(ViT)"></a>Vision Transformer(ViT)</h3><p>Vision Transformer（ViT）是将 Transformer 模型应用于图像分类的一种架构，旨在利用 Transformer 强大的全局建模能力来处理图像任务。</p>
+<h3 id="Vision-Transformer-ViT"><a href="#Vision-Transformer-ViT" class="headerlink" title="Vision Transformer(ViT)"></a>Vision Transformer(ViT)</h3><p>Vision Transformer（ViT）是将 Transformer 模型应用于图像分类的一种架构，旨在利用 Transformer 强大的全局建模能力来处理图像任务。</p>
 <p>ViT 通过将图像分割成若干个小块<code>patch</code>，将它们看作序列输入到 Transformer 中，以捕捉全局依赖关系。</p>
 <p>然后需要一项关键的内容：<strong>位置编码（Positional Embedding）</strong>，以保留图像的空间位置信息。</p>
 <p>事实上，在最初的NLP领域，位置编码也是很重要的内容。位置编码一般采用正弦和余弦函数来生成<br>$$<br>PE_{pos,2i}=sin\frac{pos}{10000^{\frac{2i}{d_{model}}}}\<br>PE_{pos,2i+1}=cos\frac{pos}{10000^{\frac{2i}{d_{model}}}}<br>$$<br>其中 $d_{model}$ 是编码维度的总大小。</p>
-<h4 id="FFN-1"><a href="#FFN-1" class="headerlink" title="FFN"></a>FFN</h4><h2 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h2><h3 id="BEV"><a href="#BEV" class="headerlink" title="BEV:"></a>BEV:</h3><p><strong>BEV</strong>: 鸟瞰视角，Bird’s Eye View，是一种<strong>从上方观看</strong>对象或场景的视角，就像鸟在空中俯视地面一样。在自动驾驶和机器人领域，通过传感器（如 LiDAR 和摄像头）获取的数据通常会被转换成 BEV 表示，以便更好地进行<strong>物体检测、路径规划</strong>等任务。</p>
+<h4 id="FFN-1"><a href="#FFN-1" class="headerlink" title="FFN"></a>FFN</h4><h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
+<p>BERT 的核心创新之一是双向编码器。在传统的语言模型  LSTM 或 RNN中，模型会顺序从左到右或从右到左预测下一个词。而 BERT 是通过同时考虑句子的左右上下文来学习词汇的含义。这种双向性使得 BERT 能够理解一个词或子词在句子中的更深层次的语义关系。</p>
+<p><strong>Transformer架构</strong>：BERT 基于 Transformer 编码器，依赖于注意力机制（Self-Attention）来捕捉句子中不同词之间的关系。BERT 只使用 Transformer 的 Encoder 部分，它并不生成文本，而是通过理解现有文本进行分类或问答等任务。</p>
+<p>传统语言模型中，单向上下文（仅前向或后向）导致了信息丢失。而BERT 的成功归功于两种新的预训练任务：</p>
+<p>1). <strong>Masked Language Model (MLM)<strong>： 传统的语言模型通过预测下一个词来学习，而 BERT 使用了一种称为 Masked Language Model 的技术。在 MLM 中，</strong>输入的句子会随机遮盖（mask）一些词</strong>（通常是 15%），要求模型预测这些掩盖单词的原始值来实现。模型的目标是<strong>在训练过程中预测出这些被遮盖的词</strong>。</p>
+<p>由于模型在训练时看不到某些词，它被迫通过句子的上下文来推测缺失的词，这有助于模型更好地理解词汇的语义和上下文关系。</p>
+<p>例如： 输入句子：<code>[CLS] The cat sits on the [MASK]. [SEP]</code> 模型的任务是预测 <code>[MASK]</code> 的正确词（如 “mat”）。</p>
+<p>这种训练方式使得BERT能够有效地学习单词的上下文关系和语义信息，从而更好地理解语言。</p>
+<p>2). <strong>Next Sentence Prediction (NSP)<strong>： 除了预测遮盖的词，BERT 还引入了 Next Sentence Prediction 任务。这种任务的目标是</strong>使模型能够理解句子之间的关系</strong>。<strong>预测给定的两句话是否是连续的</strong>。通过这个任务，BERT 可以学会句子间的逻辑关系，从而在处理句子对相关的任务（如问答、自然语言推理等）时表现得更好。</p>
+<p>具体来说，BERT 会接收两个句子，模型需要判断第二句话是否是第一句话的连续句。例如：</p>
+<ul>
+<li>输入：<code>[CLS] The cat is on the mat. [SEP] It is sleeping. [SEP]</code></li>
+<li>输出：True（句子连贯）</li>
+</ul>
+<p>通过这种方式，BERT学习理解句子之间的逻辑和关系，增强对文本的整体理解能力。</p>
+<h2 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h2><h3 id="BEV"><a href="#BEV" class="headerlink" title="BEV:"></a>BEV:</h3><p><strong>BEV</strong>: 鸟瞰视角，Bird’s Eye View，是一种<strong>从上方观看</strong>对象或场景的视角，就像鸟在空中俯视地面一样。在自动驾驶和机器人领域，通过传感器（如 LiDAR 和摄像头）获取的数据通常会被转换成 BEV 表示，以便更好地进行<strong>物体检测、路径规划</strong>等任务。</p>
 <h3 id="FPN："><a href="#FPN：" class="headerlink" title="FPN："></a>FPN：</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62604038">【目标检测】FPN(Feature Pyramid Network) - 知乎 (zhihu.com)</a></p>
 <blockquote>
 <p>整理完下面这些发现其实只看这一篇文章就够了。</p>
@@ -221,6 +284,17 @@
 <li>Image Encoder：用于将图像转换为类似的向量表示-Embedding</li>
 </ol>
 <p>CLIP 通过计算文本和图像向量之间的<strong>余弦相似度</strong>来生成预测。这种模型特别适用于<strong>零样本学习</strong>任务，即模型不需要看到新的图像或文本的训练示例就能进行预测。CLIP模型在多个领域表现出色，如图像文本检索、图文生成等。</p>
+<h3 id="Mamba"><a href="#Mamba" class="headerlink" title="Mamba"></a>Mamba</h3><blockquote>
+<p>Mamba Out!</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/134923301">一文通透想颠覆Transformer的Mamba：从SSM、HiPPO、S4到Mamba_mamba模型-CSDN博客</a></p>
+<h3 id="边缘监测："><a href="#边缘监测：" class="headerlink" title="边缘监测："></a>边缘监测：</h3><h4 id="Canny-Edge"><a href="#Canny-Edge" class="headerlink" title="Canny Edge"></a>Canny Edge</h4><p>一种经典的图像边缘检测算法。其核心思想是通过多阶段处理来提取图像的边缘，步骤包括高斯滤波、计算梯度、非极大值抑制以及双阈值检测。</p>
+<h4 id="HED-Edge"><a href="#HED-Edge" class="headerlink" title="HED Edge"></a>HED Edge</h4><p>一种基于卷积神经网络（CNN）的边缘检测方法，旨在从图像中提取边缘信息。</p>
+<h4 id="MLSD-Edge"><a href="#MLSD-Edge" class="headerlink" title="MLSD Edge"></a>MLSD Edge</h4><p>一种轻量化的线段检测方法，通常用于移动端或资源受限的设备上，专注于检测图像中的直线段。这种方法非常适合用于场景理解、几何建模以及三维重建等任务。</p>
+<h4 id="MIDAS-Depth-and-Normal"><a href="#MIDAS-Depth-and-Normal" class="headerlink" title="MIDAS Depth and Normal"></a>MIDAS Depth and Normal</h4><p>一种基于神经网络的深度估计模型，能够从单张图像推测其深度信息（即每个像素距离相机的远近）。</p>
+<h4 id="Openpose"><a href="#Openpose" class="headerlink" title="Openpose"></a>Openpose</h4><p>一种基于深度学习的人体姿态估计模型，它能够从图像或视频中检测人体的关节点（如头、肩、肘、膝等），并绘制骨架结构。</p>
+<h4 id="Uniformer-Segmentation"><a href="#Uniformer-Segmentation" class="headerlink" title="Uniformer Segmentation"></a><strong>Uniformer Segmentation</strong></h4><p>一种结合 Transformer 和 CNN 的图像分割模型，旨在统一处理局部和全局信息。</p>
+<p>通过 UniFormer 架构，图像分割模型能够更好地捕捉图像的全局上下文信息，同时保持对局部细节的敏感度。这种架构在语义分割任务中表现出色，能够有效地区分不同物体或区域。</p>
 <h2 id="Diffusion"><a href="#Diffusion" class="headerlink" title="Diffusion"></a>Diffusion</h2><h3 id="LDM"><a href="#LDM" class="headerlink" title="LDM"></a>LDM</h3><p>Latent Diffusion Model，潜在扩散模型，一种生成模型，结合了扩散模型和潜在空间的思想，用于生成高质量的图像。通过逐步对噪声数据进行去噪，从而生成逼真的图像。</p>
 <p>LDM 将数据x投射到一个潜在空间中，然后在这个潜在空间中进行扩散过程得到结果z，最后再将结果z映射回原始数据空间。</p>
 <p>关键函数：ddpm.py中的 decode_first_stage 函数与 encode_first_stage 函数，get_first_stage_encoding函数</p>
@@ -255,7 +329,6 @@
 <h3 id="face-landmarks："><a href="#face-landmarks：" class="headerlink" title="face landmarks："></a>face landmarks：</h3><p>直译为面部地标，作为一种匹配标准，用于在真实图像生成训练数据过程中实现寻找。</p>
 <p>mask：相应区域的掩码。可以理解为图像的某种属性。表现在图像上，是表示图像中某区域内的像素情况，可以用数字来表示。</p>
 <h3 id="SBI："><a href="#SBI：" class="headerlink" title="SBI："></a>SBI：</h3><p>Self-Blended Images，自混合图像，混合来自单个原始图像的伪源图像和目标图像。</p>
-<h2 id="自然语言处理："><a href="#自然语言处理：" class="headerlink" title="自然语言处理："></a>自然语言处理：</h2><h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bidirectional Encoder Representations from Transformers，一种基于 Transformer 模型的预训练语言表示模型。用来生成文本的深层双向表示。</p>
 <h2 id="LLM"><a href="#LLM" class="headerlink" title="LLM:"></a>LLM:</h2><p>注：这部分内容几乎全部摘自人大高瓴出版的那本书。</p>
 <h3 id="大语言模型"><a href="#大语言模型" class="headerlink" title="大语言模型"></a>大语言模型</h3><p>大语言模型是指在海量无标注文本数据上进行预训练得到的大型预训练语言模型。</p>
 <p>如 GPT-3 [23]，PaLM [33] 和 LLaMA [34]。</p>
