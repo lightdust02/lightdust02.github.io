@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">8.4k</span>
+            <span class="post-count">8.9k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">30 min</span>
+            <span class="post-count">32 min</span>
         </span>
     </span>
 </div>
@@ -324,6 +324,82 @@
 <li>将图片转化为 YCbCr 格式，然后只计算 Y 分量也就是亮度分量的 PSNR。</li>
 </ul>
 <p>常见的是第二种与第三种。</p>
+<h3 id="一系列评价指标："><a href="#一系列评价指标：" class="headerlink" title="一系列评价指标："></a>一系列评价指标：</h3><p>$\uparrow$ 表示越高效果越好</p>
+<table>
+<thead>
+<tr>
+<th><strong>信息熵</strong></th>
+<th><strong>EN</strong></th>
+<th>衡量图像中信息量的度量，表示图像复杂性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>空间频率</strong></td>
+<td><strong>SF</strong></td>
+<td>衡量图像细节和纹理变化的频率，反映图像的锐度</td>
+</tr>
+<tr>
+<td><strong><a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E6%A0%87%E5%87%86%E5%B7%AE&zhida_source=entity&is_preview=1">标准差</a></strong></td>
+<td><strong>SD</strong></td>
+<td>图像像素强度的标准差，衡量图像的对比度。</td>
+</tr>
+<tr>
+<td><strong>峰值信噪比</strong></td>
+<td><strong>PSNR</strong></td>
+<td>衡量图像重建质量的指标，用于比较原始图像和重建图像之间的差异</td>
+</tr>
+<tr>
+<td><strong>均方误差</strong></td>
+<td><strong>MSE</strong></td>
+<td>衡量图像重建误差的指标，计算原始图像与重建图像之间的均方误差</td>
+</tr>
+<tr>
+<td><strong>互信息</strong></td>
+<td><strong>MI</strong></td>
+<td>衡量两幅图像之间共享信息的量，用于图像配准或融合。</td>
+</tr>
+<tr>
+<td><strong>视觉保真度</strong></td>
+<td><strong>VIF</strong></td>
+<td>根据人眼感知模型评估图像质量的指标，衡量图像保留的视觉信息量。</td>
+</tr>
+<tr>
+<td><strong><a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E5%B9%B3%E5%9D%87%E6%A2%AF%E5%BA%A6&zhida_source=entity&is_preview=1">平均梯度</a></strong></td>
+<td><strong>AG</strong></td>
+<td>衡量图像梯度的平均值，表示图像的清晰度。</td>
+</tr>
+<tr>
+<td><strong>相关系数</strong></td>
+<td><strong>CC</strong></td>
+<td>衡量两幅图像的相似度，常用于图像匹配和重建。</td>
+</tr>
+<tr>
+<td><strong>差异相关和</strong></td>
+<td><strong>SCD</strong></td>
+<td>衡量图像结构的差异，评估图像之间的结构相似性。</td>
+</tr>
+<tr>
+<td><strong>基于梯度的融合性能</strong></td>
+<td><strong>F</strong></td>
+<td>基于图像特征相似性的质量评估指标，考虑边缘和纹理特征。</td>
+</tr>
+<tr>
+<td><strong>结构相似度测量</strong></td>
+<td><strong>SSIM</strong></td>
+<td>衡量两幅图像的结构相似度，考虑亮度、对比度和结构信息。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E5%A4%9A%E5%B0%BA%E5%BA%A6%E7%BB%93%E6%9E%84%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%B5%8B%E9%87%8F&zhida_source=entity&is_preview=1">多尺度结构相似度测量</a></td>
+<td><strong>MS-SSIM</strong></td>
+<td>SSIM 的多尺度扩展版本，综合不同尺度的图像质量。</td>
+</tr>
+<tr>
+<td><strong>基于噪声评估的<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E8%9E%8D%E5%90%88%E6%80%A7%E8%83%BD&zhida_source=entity&is_preview=1">融合性能</a></strong></td>
+<td><strong>Nabf</strong></td>
+<td>一种无参考的图像质量评估指标，基于图像的特征提取</td>
+</tr>
+</tbody></table>
+<p>性能评估指标主要分为四类，分别是<strong>基于信息论的评估指标</strong>，主要包括 EN、MI、PSNR、基于结构相似性的评估指标<strong>，主要包括</strong>SSIM、MS_SSIM、MSE<strong>、</strong>基于图像特征的评估指标<strong>， 主要包括</strong>SF、SD、AG<strong>，</strong>基于人类视觉感知的评估指标<strong>，主要包括</strong>VIF<strong>、</strong>以及基于源图像与生成图像的评估指标<strong>，主要包括</strong>CC、SCD、Qabf、Nabf**。</p>
 <h3 id="空域图像："><a href="#空域图像：" class="headerlink" title="空域图像："></a>空域图像：</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Vulcan_Q/article/details/127876972">(62条消息) 【视觉入门】——空域图像增强(邻域运算部分）：图像卷积、多种滤波器；二值图像分析及形态学图像处理_Vulcan_Q的博客-CSDN博客_空域图像处理</a></p>
 <h3 id="AUC："><a href="#AUC：" class="headerlink" title="AUC："></a>AUC：</h3><p>Area Under Curve，指接收器操作特征曲线下的面积，可以用来衡量分类器的性能。</p>
 <h3 id="face-landmarks："><a href="#face-landmarks：" class="headerlink" title="face landmarks："></a>face landmarks：</h3><p>直译为面部地标，作为一种匹配标准，用于在真实图像生成训练数据过程中实现寻找。</p>
