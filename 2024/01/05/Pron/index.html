@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">8.9k</span>
+            <span class="post-count">9.2k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">32 min</span>
+            <span class="post-count">33 min</span>
         </span>
     </span>
 </div>
@@ -129,9 +129,21 @@
 <h3 id="shortcut："><a href="#shortcut：" class="headerlink" title="shortcut："></a>shortcut：</h3><p>翻译为“捷径”，为了解决梯度发散问题，在两层之间增加了（带权的）shortcut 。结构如图所示：</p>
 <p><img src="/images/Pron/shortcut.png" alt="shortcut"></p>
 <p>通过 shortcut 可以直接将浅层的信息传递到深层，可以解决退化问题。</p>
+<h3 id="numpy操作"><a href="#numpy操作" class="headerlink" title="numpy操作"></a>numpy操作</h3><p>numpy中有很多很有趣的操作：</p>
+<p>array.flatten()：展平array</p>
+<p>np.transpose(a)：转置 a ，等效于 a.T</p>
+<p>多维矩阵问题：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/337829793">【全面理解多维矩阵运算】多维（三维四维）矩阵向量运算-超强可视化 - 知乎 (zhihu.com)</a></p>
 <h3 id="shift操作"><a href="#shift操作" class="headerlink" title="shift操作"></a>shift操作</h3><p>其实就是<strong>数据的平移</strong>或<strong>位移变换</strong>……</p>
 <p><strong>卷积神经网络</strong>中用于<strong>特征图的移位</strong>，例如用于处理时空序列数据的位移。</p>
 <p>在<strong>Transformer模型</strong>中，shift操作用于序列的偏移或位移，以实现特定的自回归或掩码机制。</p>
+<h3 id="detach"><a href="#detach" class="headerlink" title="detach()"></a>detach()</h3><p>返回一个与当前 graph 分离的、不再需要梯度的新张量。</p>
+<h3 id="softmax"><a href="#softmax" class="headerlink" title="softmax:"></a>softmax:</h3><p>用于解决多分类问题，可以预测每个类别的概率。</p>
+<p><img src="/images/Pron/softmax.png" alt="softmax"></p>
+<p>Softmax 层会对上一层的原始数据归一化，转化为一个 (0 , 1) 之间的数值，这些数值可以被当做概率分布，用来作为多分类的目标预测值。</p>
+<p>Softmax 函数一般作为神经网络的最后一层，接受来自上一层网络的输入值，然后将其转化为概率。</p>
+<h3 id="einsum"><a href="#einsum" class="headerlink" title="einsum:"></a>einsum:</h3><p>numpy 中一种优雅的矩阵矩阵计算方法，非常复杂。</p>
+<p>具体参见：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/506843213">https://zhuanlan.zhihu.com/p/506843213</a></p>
 <h3 id="消息传递神经网络（MPNN）"><a href="#消息传递神经网络（MPNN）" class="headerlink" title="消息传递神经网络（MPNN）"></a>消息传递神经网络（MPNN）</h3><p>消息传递神经网络（Message Passing Neural Network）是一类图神经网络，它通过在图的节点之间交换信息来学习节点的表示。它们基于以下步骤工作：</p>
 <ol>
 <li><strong>消息传递</strong>：每个节点接收其邻居节点的信息，并根据这些信息生成“消息”。</li>
@@ -145,12 +157,6 @@
 <li><strong>重置门</strong>：决定过去的状态信息在计算新状态时应保留多少。</li>
 </ol>
 <p>在每个时间步，GRU可以选择保留旧状态的信息并融入新输入的信息，这使得它在处理具有复杂依赖结构的数据时非常有效。</p>
-<h3 id="softmax"><a href="#softmax" class="headerlink" title="softmax:"></a>softmax:</h3><p>用于解决多分类问题，可以预测每个类别的概率。</p>
-<p><img src="/images/Pron/softmax.png" alt="softmax"></p>
-<p>Softmax 层会对上一层的原始数据归一化，转化为一个 (0 , 1) 之间的数值，这些数值可以被当做概率分布，用来作为多分类的目标预测值。</p>
-<p>Softmax 函数一般作为神经网络的最后一层，接受来自上一层网络的输入值，然后将其转化为概率。</p>
-<h3 id="einsum"><a href="#einsum" class="headerlink" title="einsum:"></a>einsum:</h3><p>numpy 中一种优雅的矩阵矩阵计算方法，非常复杂。</p>
-<p>具体参见：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/506843213">https://zhuanlan.zhihu.com/p/506843213</a></p>
 <h3 id="EMA"><a href="#EMA" class="headerlink" title="EMA"></a>EMA</h3><p>EMA 模型，Exponential Moving Average model，通过计算模型参数的指数加权移动平均来平滑参数更新的过程。</p>
 <p><img src="/images/Pron/ema.png" alt="image-20240325235724569"></p>
 <p>EMA可以近似看成过去 $1/(1−\beta) $ 个时刻  v 值 的平均。</p>
@@ -308,6 +314,12 @@
 <p><img src="/images/Pron/affine.png" alt="affine transformations"></p>
 <h3 id="DCT变换："><a href="#DCT变换：" class="headerlink" title="DCT变换："></a><strong>DCT变换</strong>：</h3><p>Discrete Cosine Transform，离散余弦变换。</p>
 <p>离散余弦变换经常被信号处理和图像处理使用，<strong>用于对信号和图像(包括静止图像和运动图像)进行有损数据压缩</strong>。这是由于离散余弦变换具有很强的”能量集中”特性:大多数的自然信号(包括声音和图像)的能量都集中在离散余弦变换后的低频部分，而且当信号具有接近马尔科夫过程的统计特性时，离散余弦变换的去相关性接近于K-L变换 (Karhunen-Loève 变换，具有最优的去相关性) 的性能。</p>
+<h3 id="全变分模型（Total-Variation-TV）"><a href="#全变分模型（Total-Variation-TV）" class="headerlink" title="全变分模型（Total Variation, TV）"></a>全变分模型（Total Variation, TV）</h3><p>图像处理领域中常用的一种正则化方法，尤其在图像去噪、图像修复和图像重建问题中广泛应用。</p>
+<p>核心思想是通过最小化图像的全变分来保留图像中的边缘细节，同时去除噪声或平滑不必要的纹理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">total_variation</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Anisotropic TV.&quot;&quot;&quot;</span></span><br><span class="line">    dx = torch.mean(torch.<span class="built_in">abs</span>(x[:, :, :, :-<span class="number">1</span>] - x[:, :, :, <span class="number">1</span>:]))</span><br><span class="line">    dy = torch.mean(torch.<span class="built_in">abs</span>(x[:, :, :-<span class="number">1</span>, :] - x[:, :, <span class="number">1</span>:, :]))</span><br><span class="line">    <span class="keyword">return</span> dx + dy</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="量化："><a href="#量化：" class="headerlink" title="量化："></a><strong>量化</strong>：</h3><p>将图像像素点对应亮度的连续变换区间转换为单个特定值的过程，即<strong>将原始灰度图像的空间坐标幅度值离散化</strong>。量化等级越多，图像层次越丰富，灰度分辨率越高，图像的质量也越好；量化等级越少，图像层次欠丰富，灰度分辨率越低。</p>
 <p>量化后，图像就被表示成一个整数矩阵，每个像素具有两个属性：位置和灰度。位置由行，列表示。灰度表示该像素位置上亮暗程度的整数。此数字矩阵M*N就作为计算机处理的对象了，灰度级一般为0-255（8bit量化）。如果量化等级为2，则将使用两种灰度级表示原始图像的像素（0-255），灰度值小于128的取0，大于等于128的取128；如果量化等级为4，则将使用四种灰度级表示原始图像的像素，新图像将分层为四种颜色，0-64区间取0,64-128区间取64,128-192区间的取128,192-255区间取192，依次类推。</p>
 <p><a target="_blank" rel="noopener" href="http://t.zoukankan.com/wj-1314-p-12191084.html">OpenCV计算机视觉学习（12）——图像量化处理&amp;图像采样处理（K-Means聚类量化，局部马赛克处理） - 走看看 (zoukankan.com)</a></p>
@@ -515,9 +527,9 @@
       </a>
     
     
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/" class="article-nav-link">
+      <a href="/2024/01/03/BAOYAN/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">计算机网络相关知识点</div>
+        <div class="article-nav-title">2023计算机保研全历程</div>
       </a>
     
   </nav>
