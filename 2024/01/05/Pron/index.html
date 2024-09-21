@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">9.2k</span>
+            <span class="post-count">9.6k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">33 min</span>
+            <span class="post-count">34 min</span>
         </span>
     </span>
 </div>
@@ -129,6 +129,14 @@
 <h3 id="shortcut："><a href="#shortcut：" class="headerlink" title="shortcut："></a>shortcut：</h3><p>翻译为“捷径”，为了解决梯度发散问题，在两层之间增加了（带权的）shortcut 。结构如图所示：</p>
 <p><img src="/images/Pron/shortcut.png" alt="shortcut"></p>
 <p>通过 shortcut 可以直接将浅层的信息传递到深层，可以解决退化问题。</p>
+<h3 id="dim"><a href="#dim" class="headerlink" title="dim:"></a>dim:</h3><p>在深度学习中的卷积操作中，1D通常用于处理序列数据，2D用于处理图像数据，3D则用于处理体积数据（如视频或医学影像中的三维扫描）。</p>
+<p>具体而言：</p>
+<p><strong>1D</strong>: 输入为一维信号（如时间序列）。</p>
+<p><strong>2D</strong>: 输入为二维的空间数据（如常见的图片，形状为 <code>[batch_size, channels, height, width]</code>），即经典的<code>[N C H W]</code></p>
+<blockquote>
+<p>注意，有的2D数据格式会是[N H W C]，这就需要在代码中做出调整。</p>
+</blockquote>
+<p><strong>3D</strong>: 输入为三维的体积数据（如视频，形状为 <code>[batch_size, channels, depth, height, width]</code>），即经典的<code>[N C D H W]</code></p>
 <h3 id="numpy操作"><a href="#numpy操作" class="headerlink" title="numpy操作"></a>numpy操作</h3><p>numpy中有很多很有趣的操作：</p>
 <p>array.flatten()：展平array</p>
 <p>np.transpose(a)：转置 a ，等效于 a.T</p>
@@ -308,7 +316,14 @@
 <h3 id="kl散度"><a href="#kl散度" class="headerlink" title="kl散度"></a>kl散度</h3><p>简而言之，kl散度用于计算两个分布之间的差异。<br>$$<br>D_{KL}(p∥q)= \sum_{i=1}^{n}p(x_i)log(\frac{p(x_i)}{q(x_i)})<br>$$<br>LDM中，normal_kl一般用于计算两个正态分布之间的差异。</p>
 <p>LDM 会对数据进行潜在空间的编解码，而潜在空间中通常使用高斯分布对数据进行建模，因此对高斯分布进行采样、计算对数似然（nll）以及 KL 散度都是训练 LDM 时非常关键的操作。</p>
 <h3 id="nll"><a href="#nll" class="headerlink" title="nll"></a>nll</h3><p>负对数似然损失（Negative Log-Likelihood，NLL），整个数据集的负对数似然损失就是对所有样本的损失进行求和或平均。<br>$$<br>NLL=\frac{1}{2}\sum_i[log(2\pi)+log(\sigma_i^2)+\frac{(x_i-\mu_i)^2}{\sigma_i^2}]<br>$$</p>
-<h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
+<h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="上采样与下采样："><a href="#上采样与下采样：" class="headerlink" title="上采样与下采样："></a>上采样与下采样：</h3><p>上采样（Upsampling）会增加数据的空间分辨率，通过插值或其他方法填充更多的样本点。它可以用于恢复或生成更高分辨率的图像。</p>
+<p>上采样会<strong>放大图像数据，增加图像的空间分辨率</strong>，使得输出图像的尺寸大于输入图像的尺寸。</p>
+<p>上采样一般通过插值、转置卷积实现。</p>
+<p>下采样（Downsampling）是指减少数据的空间分辨率，通常通过减少样本的数量来实现。它可以用于降低计算负担，减少模型的内存占用，或者在某些情况下减少噪声。</p>
+<p>下采样会<strong>缩小图像数据，减少图像的空间分辨率</strong>，使得输出图像的尺寸小于输入图像的尺寸。</p>
+<p>下采样一般通过池化与卷积实现。</p>
+<p>Unet中先是下采样，再是上采样。</p>
+<h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
 <h3 id="仿射变换："><a href="#仿射变换：" class="headerlink" title="仿射变换："></a>仿射变换：</h3><p>Affine Transformation，线性变换与平移变化的叠加。</p>
 <p>包括<strong>缩放</strong>(Scale)、<strong>平移</strong>(transform)、<strong>旋转</strong>(rotate)、<strong>反射</strong>（reflection）、<strong>错切</strong>(shear mapping）</p>
 <p><img src="/images/Pron/affine.png" alt="affine transformations"></p>
