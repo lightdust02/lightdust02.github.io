@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.2k</span>
+            <span class="post-count">1.7k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">4 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -115,6 +115,10 @@
 
 <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>提出了一种基于传统扩散模型 DDPM 的新型融合算法。在 DDPM 采样框架下将融合任务转化为条件生成问题，并进一步分解为无条件生成子问题和最大似然子问题。</p>
 <p>该方法将inference solution 集成到 diffusion sample 中，从原图像生成具有自然图像生成先验和跨模态信息的高质量融合图像，而所需要的只是一个<strong>无条件的预训练生成模型</strong>，<strong>无需微调</strong>。</p>
+<p>传统DDPM模型中的过程是 $f_t → f_{0|t} → f_{t−1}$ ，而本文会在 $f_{0|t}$ 到 $f_{t−1}$ 之间通过<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=EM%E7%AE%97%E6%B3%95&zhida_source=entity&is_preview=1">EM算法</a>增加一个中间量 $\hat{f}_{0|t}$ 来解决<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E6%9C%80%E5%A4%A7%E5%8C%96%E4%BC%BC%E7%84%B6&zhida_source=entity&is_preview=1">最大似然</a>问题。这个过程是为了解决本文另一个核心，即条件生成问题。具体则是将图像融合损失函数优化问题转化为<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6&zhida_source=entity&is_preview=1">最大似然</a>问题。</p>
+<p>本文DDFM的融合思想：</p>
+<p>首先通过自然图像预训练的DDPM模型进行无条件生成，得到初步结果（目的使融合结果符合自然图像的生成先验）。</p>
+<p>随后对初步生成结果进行条件生成（似然修正），将融合问题转化为一个含隐变量的<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1&zhida_source=entity&is_preview=1">极大似然估计</a>问题（公式8转换为公式13），再通过EM算法来解决该极大似然估计问题，完成条件生成。以上两步，构成 $f_t → f_{t−1}$ 的单次迭代，而最终经过T次迭代后，得到融合图像 $f_0$ 。</p>
 <h2 id="一、介绍："><a href="#一、介绍：" class="headerlink" title="一、介绍："></a>一、介绍：</h2><p>图像融合：集成多个源图像。以创建更高质量图像。</p>
 <p>Infrared-Visible image Fusion（IVF，可见光图像融合）和 Medical Image Fusion（MMF，医学图像融合）在Medical Image Fusion（MMIF，多模态图像融合）中特别具有挑战性。IVF希望在保留<strong>红外图像的热辐射</strong>和<strong>可见光图像的详细纹理信息</strong>，从而避免可见光图像对照明条件敏感以及红外图像噪声和低分辨率的限制。而MIF可以通过融合多种医学成像模式来辅助诊断和治疗，以精确检测异常位置。</p>
 <p>目前，基于GAN的多模态融合方法仍然占据主要地位。GAN的方法仍存在训练不稳定、模型崩溃等问题。同时，GAN的黑箱模型很难理解其内部机制和行为。</p>
@@ -138,10 +142,20 @@
 <h2 id="三、模型的结构（重点，理解公式）"><a href="#三、模型的结构（重点，理解公式）" class="headerlink" title="三、模型的结构（重点，理解公式）"></a>三、模型的结构（重点，理解公式）</h2><p>论文给出的公式如下所示，使用 i、v、f 分别表示红外、可见光、融合图像，其中融合图像与可见光图像均为RGB彩图。期望 f 的后验分布可以通过 i 和 v 建模，这样f就可以通过后验分布中采样得到了：</p>
 <p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/6289224e3fd3f2c462b447eb207272d8.png" alt="论文模型"></p>
 <p>而score函数计算公式如下所示：</p>
-<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/v2-a26dadfd983bfecb73fd4c3c85bcfac5_1440w.webp" alt="score函数"></p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/image-20240926142209831.png" alt="image-20240926142209831"></p>
 <p>上式中的第一项表示<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?q=%E6%97%A0%E6%9D%A1%E4%BB%B6%E6%89%A9%E6%95%A3%E9%87%87%E6%A0%B7&zhida_source=entity&is_preview=1">无条件扩散采样</a>的score函数，可以通过预先训练的 DDPM 轻松推到出来。</p>
 <p>我们很容易发现（6）式其实就是（2）式更换了一下相应的参数而已。</p>
-<p>DDFM的结构包括无条件扩散采样模块UDS以及一个似然矫正 EM 模块。UDS模块就是传统的扩散模型采样模块。</p>
+<p>（7）式的得到是由于$i,v$ 在 $f_t$ 的梯度上为0。</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/image-20240926142347934.png" alt="从拉普拉斯变换到贝叶斯框架"></p>
+<p>DDFM的具体结构包括无条件扩散采样模块UDS以及一个似然矫正 EM 模块，如下图所示：</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/image-20240926142438814.png" alt="DDFM框架"></p>
+<p>在这其中，UDS模块就是传统的扩散模型采样模块，没什么可说的。关键则是EM采样模块。这里涉及到较多难以理解的数学公式，具体整理如下：</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/image-20240926143039055.png" alt="公式整理1"></p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/image-20240926143112057.png" alt="公式整理2"></p>
+<h2 id="四、实验部分"><a href="#四、实验部分" class="headerlink" title="四、实验部分"></a>四、实验部分</h2><p>数据集：TNO, RoadScene, MSRS, M3FD，均为常见的图像融合数据集。<br>没有训练数据集，直接使用预先训练的DDPM模型。选择了<em>Diffusion models beat gans on image synthesis</em> 中提出的预训练模型，该模型在ImageNet [45]上训练</p>
+<p>评价指标：EN 、SD 、MI 、VIF 、Qabf 、SSIM，均为图像处理中常用指标。</p>
+<p>同时，还与一系列SOTA的方法进行了比较，包括基于GAN的生成式方法组、判别式方法组。</p>
+<p>最后是消融实验，同样利用上述六个指标来评估实验组的融合性能。消融实验证明，所有实验组的融合结果均不能与DDFM的融合结果相媲美，进一步证明了该方法的有效性和合理性。 </p>
  
       <!-- reward -->
       
