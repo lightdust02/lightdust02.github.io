@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">10.3k</span>
+            <span class="post-count">10.4k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">34 min</span>
+            <span class="post-count">35 min</span>
         </span>
     </span>
 </div>
@@ -152,26 +152,33 @@
 <li>数据段</li>
 </ol>
 <h2 id="进程的基本操作"><a href="#进程的基本操作" class="headerlink" title="进程的基本操作"></a>进程的基本操作</h2><p>以Unix系统举例：</p>
-<ol>
-<li><p>进程的创建：fork()。新创建的子进程几乎但不完全与父进程相同。子进程得到与父进程用户级虚拟地址空间相同的(但是独立的)一份副本，包括代码和数据段、堆、共享库以及用户栈。子进程还获得与父进程任何打开文件描述符相同的副本，这就意味着当父进程调用 fork 时，子进程可以读写父进程中打开的任何文件。父进程和新创建的子进程之间最大的区别在于它们有不同的 PID。fork函数是有趣的（也常常令人迷惑）， 因为它只被调用一次，却会返回两次：一次是在调用进程（父进程）中，一次是在新创建的子进程中。在父进程中，fork 返回子进程的 PID。在子进程中，fork 返回 0。因为子进程的 PID 总是为非零，返回值就提供一个明 确的方法来分辨程序是在父进程还是在子进程中执行。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">pid_t</span> <span class="title">fork</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li><p>回收子进程：当一个进程由于某种原因终止时，内核并不是立即把它从系统中清除。相反，进程被保持在一种已终止的状态中，直到被它的父进程回收（reaped）。当父进程回收已终止的子进程时，内核将子进程的退出状态传递给父进程，然后抛弃已终止的进程。一个进程可以通过调用 waitpid 函数来等待它的子进程终止或者停止。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">pid_t</span> <span class="title">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statusp, <span class="type">int</span> options)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li><p>加载并运行程序：execve 函数在当前进程的上下文中加载并运行一个新程序。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *argv[], <span class="type">const</span> <span class="type">char</span> *envp[])</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li><p>进程终止：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">exit</span><span class="params">(<span class="type">int</span> status)</span></span>;</span><br></pre></td></tr></table></figure></li>
-</ol>
+<p>进程的创建：fork()。新创建的子进程几乎但不完全与父进程相同。</p>
+<p>子进程得到与父进程<strong>用户级虚拟地址空间相同的(但是独立的)一份副本，包括代码和数据段、堆、共享库以及用户栈</strong>。子进程还获得与父进程任何打开文件描述符相同的副本，这就意味着当父进程调用 fork 时，子进程可以读写父进程中打开的任何文件。</p>
+<p>父进程和新创建的子进程之间最大的区别在于它们有不同的 PID。fork函数是有趣的（也常常令人迷惑）， 因为它只被调用一次，却会返回两次：一次是在调用进程（父进程）中，一次是在新创建的子进程中。</p>
+<p>在父进程中，fork 返回子进程的 PID。在子进程中，fork 返回 0。因为子进程的 PID 总是为非零，返回值就提供一个明确的方法来分辨程序是在父进程还是在子进程中执行。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">pid_t</span> <span class="title">fork</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>回收子进程：当一个进程由于某种原因终止时，内核并不是立即把它从系统中清除。相反，进程被保持在一种已终止的状态中，直到被它的父进程回收（reaped）。当父进程回收已终止的子进程时，内核将子进程的退出状态传递给父进程，然后抛弃已终止的进程。一个进程可以通过调用 waitpid 函数来等待它的子进程终止或者停止。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">pid_t</span> <span class="title">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statusp, <span class="type">int</span> options)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>加载并运行程序：execve 函数在当前进程的上下文中加载并运行一个新程序。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *argv[], <span class="type">const</span> <span class="type">char</span> *envp[])</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>进程终止：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">exit</span><span class="params">(<span class="type">int</span> status)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="进程间通信方法"><a href="#进程间通信方法" class="headerlink" title="进程间通信方法"></a>进程间通信方法</h2><p>进程间通信<strong>（IPC，InterProcess Communication）</strong>是指在不同进程之间传播或交换信息。</p>
 <p>每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程中都看不到，所以进程之间要交换数据必须通过内核，<strong>在内核中开辟一块缓冲区，进程A把数据从用户空间拷到内核缓冲区，进程B再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信</strong>。</p>
 <p>不同进程间的通信本质：进程之间可以看到一份公共资源；而提供这份资源的形式或者提供者不同，造成了通信方式不同。</p>
 <p>进程间通信方法主要包括以下几种：</p>
 <ol>
-<li>管道 pipe：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
-<li>命名管道 FIFO：有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。</li>
-<li>消息队列 MessageQueue：消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
-<li>共享存储 SharedMemory：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。<strong>共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的</strong>。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</li>
-<li>信号量 Semaphore：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</li>
+<li>管道 pipe：管道是一种半双工的通信方式，数据只能单向流动，速度慢，容量有限，只有父子进程能通讯；</li>
+<li>命名管道 FIFO：半双工的通信方式，任何进程间都能通讯，但速度慢；</li>
+<li>消息队列 MessageQueue：消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。容量受系统限制，且要注意第一次读的时候，要考虑上一次没有读完数据的问题；</li>
+<li>共享存储 SharedMemory：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。<strong>共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的</strong>。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。能够很容易控制容量，但要保持同步，比如一个进程在写的时候，另一个进程要注意读写的问题；</li>
+<li>信号量 Semaphore：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。<strong>不能传递复杂消息，只能用来同步。</strong>用于实现进程间的互斥与同步，而不是用于存储进程间通信数据。</li>
 <li>套接字 Socket：套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</li>
 <li>信号 ( signal ) ： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</li>
 </ol>
@@ -268,10 +275,8 @@
 <li>执行→阻塞 正在执行的进程因等待某种事件发生而无法继续执行时，便从执行状态变成阻塞状态。</li>
 <li>阻塞→就绪 处于阻塞状态的进程，若其等待的事件已经发生，于是进程由阻塞状态转变为就绪状态。</li>
 </ol>
-<h2 id="什么是孤儿进程？僵尸进程"><a href="#什么是孤儿进程？僵尸进程" class="headerlink" title="什么是孤儿进程？僵尸进程?"></a>什么是孤儿进程？僵尸进程?</h2><ol>
-<li>孤儿进程： 父进程退出，子进程还在运行的这些子进程都是孤儿进程，孤儿进程将被init进程（1号进程）所收养，并由init进程对他们完成状态收集工作。</li>
-</ol>
-<p>2。 僵尸进程： 进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait 获waitpid 获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中的这些进程是僵尸进程。</p>
+<h2 id="什么是孤儿进程？僵尸进程"><a href="#什么是孤儿进程？僵尸进程" class="headerlink" title="什么是孤儿进程？僵尸进程?"></a>什么是孤儿进程？僵尸进程?</h2><p>孤儿进程： 父进程退出，子进程还在运行的这些子进程都是孤儿进程，孤儿进程将被init进程（1号进程）所收养，并由init进程对他们完成状态收集工作。</p>
+<p>僵尸进程： 进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait 获waitpid 获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中的这些进程是僵尸进程。</p>
 <h2 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h2><ol>
 <li>是进程划分的任务，是一个进程内可调度的实体，是CPU调度的基本单位，用于保证程序的实时性，实现进程内部的并发。</li>
 <li>线程是操作系统可识别的最小执行和调度单位。每个线程都独自占用一个虚拟处理器：独自的寄存器组，指令计数器和处理器状态。</li>
@@ -414,6 +419,32 @@
 <li>优先级继承(priority inheritance) 优先级继承是指将低优先级任务的优先级提升到等待它所占有的资源的最高优先级任务的优先级.当高优先级任务由于等待资源而被阻塞时,此时资源的拥有者的优先级将会自动被提升。</li>
 <li>优先级天花板(priority ceilings)优先级天花板是指将申请某资源的任务的优先级提升到可能访问该资源的所有任务中最高优先级任务的优先级.(这个优先级称为该资源的优先级天花板)。</li>
 </ol>
+<h2 id="中断和系统调用的区别？"><a href="#中断和系统调用的区别？" class="headerlink" title="中断和系统调用的区别？"></a>中断和系统调用的区别？</h2><p>系统调用：应用程序主动向操作系统发出的服务请求</p>
+<p>中断： 来自硬件设备的处理请求</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>系统调用</th>
+<th>中断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>源头</td>
+<td>应用程序</td>
+<td>外设</td>
+</tr>
+<tr>
+<td>响应方式</td>
+<td>同步或者异步</td>
+<td>异步</td>
+</tr>
+<tr>
+<td>处理机制</td>
+<td>等待或者持续</td>
+<td>持续，对用户是透明的</td>
+</tr>
+</tbody></table>
  
       <!-- reward -->
       

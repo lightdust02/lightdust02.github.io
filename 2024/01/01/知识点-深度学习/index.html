@@ -114,7 +114,7 @@
 
 
 
-<h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="1-正定矩阵和半正定矩阵判断"><a href="#1-正定矩阵和半正定矩阵判断" class="headerlink" title="1. 正定矩阵和半正定矩阵判断"></a><strong>1.</strong> 正定矩阵和半正定矩阵判断</h2><p>​    判断矩阵是不是正定矩阵首先需要看主对角线是不是全大于0，如果对角线不是全大于0或者全小于0则这个矩阵一定是不定矩阵。</p>
+<h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="1-正定矩阵和半正定矩阵判断"><a href="#1-正定矩阵和半正定矩阵判断" class="headerlink" title="1. 正定矩阵和半正定矩阵判断"></a><strong>1.</strong> 正定矩阵和半正定矩阵判断</h2><p>​    判断矩阵是不是正定矩阵首先需要看主对角线是不是全大于0，如果对角线不是全大于0或者全小于0则这个矩阵一定是不正定矩阵。</p>
 <p>​    如果主对角线全大于零，就观察其顺序主子式，如果顺序主子式全大于0，那么这个矩阵就是正定的，如果所有主子式全大于等于0，那么这个矩阵就是半正定的。</p>
 <h2 id="2-L0、L1和L2范数"><a href="#2-L0、L1和L2范数" class="headerlink" title="2. L0、L1和L2范数"></a><strong>2.</strong> L0、L1和L2范数</h2><p>​    L0范数是指向量中非0的元素的个数。</p>
 <p>​    L1范数是指向量中各个元素绝对值之和。其作用也是可以提高模型参数的稀疏性，效果没有L0范数好，但是更容易求解，更常用。</p>
@@ -123,16 +123,16 @@
 <p>L1 损失函数也叫平均绝对值误差（MAE）</p>
 <p>优点：对异常的离群点有更好的鲁棒性</p>
 <p>缺点：导数不连续，导致求解困难。</p>
-<p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L1.jpg" alt="L1"> </p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L1.jpg" alt="L1"> </p>
 <p>L2 损失函数也叫均方损失函数（MSE）。</p>
 <p>优点：使训练更容易，因为它的梯度随着预测值接近真实值而不断减小，不会轻易错过极值点。</p>
 <p>缺点：收敛速度比 L1 慢，因为梯度会随着预测值接近真实值而不断减小，且对异常数据比 L1更敏感。</p>
-<p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L2.jpg" alt="L2"> </p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L2.jpg" alt="L2"> </p>
 <p>除此之外，还有L1正则化与L2正则化，我们在下面提到……。</p>
 <h2 id="3-特征值和特征向量"><a href="#3-特征值和特征向量" class="headerlink" title="**3.**特征值和特征向量"></a>**3.**特征值和特征向量</h2><p>​    如果把矩阵看作是运动，那么特征值就是运动的速度，特征向量就是运动的方向。</p>
 <p>​    特征向量在一个矩阵的作用下作伸缩运动，伸缩的幅度由特征值确定。特征值大于1，所有属于此特征值的特征向量变长；特征值大于0小于1，特征向量缩短；特征值小于0，特征向量缩过了界，反方向到原点那边去了。 </p>
 <h2 id="4-条件概率和贝叶斯公式"><a href="#4-条件概率和贝叶斯公式" class="headerlink" title="4.条件概率和贝叶斯公式"></a>4.条件概率和贝叶斯公式</h2><p>条件概率描述的就是在给定事件B发生的情况下，事件A发生的概率，我们把它记作P(A|B)。一般说到条件概率概念的时候，事件A和事件B都是同一实验条件下的不同的结果集合，事件A和事件B一般是有交集的，如果A和B互斥，则条件概率为0。</p>
-<p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/bys.png" alt="img"> </p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/bys.png" alt="img"> </p>
 <p>贝叶斯公式就是对于一个已知事件B发生了，通过考虑到所有的可能情况，探究某一原因导致这一结果发生的概率。贝叶斯公式全盘考虑了这一原因占总原因的比例。</p>
 <p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%B4%9D%E5%8F%B6%E6%96%AF&spm=1001.2101.3001.7020">贝叶斯</a>定理，通过已知的概率计算未知的概率。贝叶斯公式是由结果去反推原因条件，计算后验概率。贝叶斯：条件概率乘先验概率除以全概率得到后验概率。</p>
 <h2 id="5-高斯分布和拉普拉斯分布以及正态分布"><a href="#5-高斯分布和拉普拉斯分布以及正态分布" class="headerlink" title="5. 高斯分布和拉普拉斯分布以及正态分布"></a><strong>5.</strong> 高斯分布和拉普拉斯分布以及正态分布</h2><p>由中心极限定理知，很多独立随机变量均近似服从正态分布，所以现实中很多复杂系统都可以被建模成正态分布的噪声。因此即使在缺乏实数上分布的先验知识，默认选择高斯分布总是合适的。</p>
@@ -169,33 +169,33 @@
 <p>L1 损失函数也叫平均绝对值误差（MAE）</p>
 <p>优点：对异常的离群点有更好的鲁棒性</p>
 <p>缺点：导数不连续，导致求解困难。</p>
-<p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L1.jpg" alt="L1"> </p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L1.jpg" alt="L1"> </p>
 <p>L2 损失函数也叫均方损失函数（MSE）。</p>
 <p>优点：使训练更容易，因为它的梯度随着预测值接近真实值而不断减小，不会轻易错过极值点。</p>
 <p>缺点：收敛速度比 L1 慢，因为梯度会随着预测值接近真实值而不断减小，且对异常数据比 L1更敏感。</p>
-<p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L2.jpg" alt="L2"> </p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/L2.jpg" alt="L2"> </p>
 <h2 id="8-激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？"><a href="#8-激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？" class="headerlink" title="8.激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？"></a>8.激活函数作用？常见的激活函数有哪些？激活函数有哪些特点？如何选择激活函数？</h2><p>激活函数作用：在神经网络中引入非线性因素，使模型能够学习和表示复杂的非线性关系。如果没有激活函数，网络只能表示线性变换，无法处理复杂数据。</p>
 <p>常见激活函数：</p>
 <p>Sigmoid 激活函数:  $y=\frac{1}{1+e^{-x}}$ </p>
-<img src="../images/知识点-深度学习/sigmoid.jpg" alt="img" style="zoom:200%;"> 
+<img src="/images/知识点-深度学习/sigmoid.jpg" alt="img" style="zoom:200%;"> 
 
 <p>将取值为 (−∞,+∞) 的数映射到（0,1）之间</p>
 <p>x非常大或非常小时，导数趋近于零，也就是权重的梯度趋近于零，即梯度消失。</p>
 <p>Tanh激活函数：$y=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$</p>
-<img src="../images/知识点-深度学习/tanhjpg" alt="img" style="zoom:200%;"> 
+<img src="/images/知识点-深度学习/tanhjpg" alt="img" style="zoom:200%;"> 
 
 <p>x非常大或非常小时，导数也是趋近于零，梯度很小，权重更新非常缓慢，即梯度消失。</p>
 <p>Relu激活函数：$$ y=\left{ \begin{aligned} x,x&gt;0 \ 0,x&lt;0 \end{aligned} \right. $$</p>
-<img src="../images/知识点-深度学习/ReLU.jpg" alt style="zoom:200%;"> 
+<img src="/images/知识点-深度学习/ReLU.jpg" alt style="zoom:200%;"> 
 
 <p>输入为正数时，不存在梯度消失问题。且计算速度要快很多。ReLU函数只有线性关系，不管是前向传播还是反向传播，都比 sigmoid 和 tanh 要快很多。但x&lt;0时，梯度为0，会产生梯度消失问题。</p>
 <p>Leak Relu激活函数: $$ y=\left{ \begin{aligned} x,x&gt;0 \ ax,x&lt;0 \end{aligned} \right. $$</p>
 <p>其中，0&lt;a&lt;1。</p>
-<p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/wps10.jpg" alt="LeakReLU函数图像"> </p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/wps10.jpg" alt="LeakReLU函数图像"> </p>
 <p>LeakReLU激活函数解决了ReLU函数在输入为负的情况下产生的梯度消失问题。</p>
 <p>SiLU激活函数：即 $f(x)=x*sigmoid(x)$</p>
 <p>$y=\frac{x}{1+e^{-x}}$ </p>
-<p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/image-20240915121202017.png" alt="SiLU函数图像"></p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/image-20240915121202017.png" alt="SiLU函数图像"></p>
 <p><strong>SiLU函数在接近零时具有更平滑的曲线</strong>，并且由于其使用了sigmoid函数，可以<strong>使网络的输出范围在0和1之间</strong>。这使得SiLU在一些应用中比ReLU表现更好。</p>
 <p>激活函数有哪些特点:</p>
 <ol>
@@ -308,7 +308,7 @@
 <h1 id="Transformer相关"><a href="#Transformer相关" class="headerlink" title="Transformer相关"></a>Transformer相关</h1><h2 id="18-Transformer相比于RNN-LSTM的优势？"><a href="#18-Transformer相比于RNN-LSTM的优势？" class="headerlink" title="18.Transformer相比于RNN/LSTM的优势？"></a>18.Transformer相比于RNN/LSTM的优势？</h2><p>1).  Transformer 不依赖于序列中的时间顺序，可以并行处理整个序列（Self-Attention机制）。在计算时，所有的位置都可以同时访问输入数据。这让它在大规模数据和训练时能够充分利用硬件资源，加快训练速度。而 RNN 和 LSTM 是顺序模型，它们按时间步长逐个处理输入，因此无法并行处理序列。这种顺序计算限制了其速度。</p>
 <p>2). 由于其自注意力（Self-Attention）机制，Transformer 可以直接通过注意力权重在序列中的任意位置建立联系，不论序列长度。通过全局的注意力机制，可以有效捕捉长距离依赖关系，可以同等关注远近的依赖。</p>
 <p>而虽然 LSTM 相较于普通 RNN 具有更好的处理长程依赖的能力，但它依然依赖于序列的时间步长。这意味着如果要捕捉长距离依赖关系，信息需要逐步传播，并可能会因为梯度消失问题导致远程依赖信息衰减。</p>
-<h2 id="19-Transformer中为什么用LayerNorm而不是BatchNorm？"><a href="#19-Transformer中为什么用LayerNorm而不是BatchNorm？" class="headerlink" title="19.Transformer中为什么用LayerNorm而不是BatchNorm？"></a>19.Transformer中为什么用LayerNorm而不是BatchNorm？</h2><p><img src="../images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/norm.jpg" alt="两种Norm对比"></p>
+<h2 id="19-Transformer中为什么用LayerNorm而不是BatchNorm？"><a href="#19-Transformer中为什么用LayerNorm而不是BatchNorm？" class="headerlink" title="19.Transformer中为什么用LayerNorm而不是BatchNorm？"></a>19.Transformer中为什么用LayerNorm而不是BatchNorm？</h2><p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/norm.jpg" alt="两种Norm对比"></p>
 <p>1).  <strong>LayerNorm</strong> 是对 <strong>单个样本的每一层特征</strong> 进行归一化，而不是像 BatchNorm 那样需要对 <strong>同一批数据的多个样本</strong> 进行归一化。因此，LayerNorm 不依赖批量样本的大小，可以更好地处理 <strong>变长序列数据</strong>，如自然语言中的句子长度。在 Transformer 模型中，输入序列的长度可能会变化，LayerNorm 的计算对这种动态长度序列不敏感，因此在自然语言处理中更加适用。</p>
 <p>2). LayerNorm 则是对每个输入序列的特征进行独立归一化，不需要小批次的均值和方差，因此它可以用于 <strong>单个样本的在线推理</strong> 和 <strong>批次较小的任务</strong>。</p>
 <h2 id="20-Transformer的巨大优势？"><a href="#20-Transformer的巨大优势？" class="headerlink" title="20.Transformer的巨大优势？"></a>20.Transformer的巨大优势？</h2><p>Transformer是被很多公司、组织证明过的非常有用的东西。其它别的都没有得到过大规模的工业级的验证。</p>
@@ -394,20 +394,15 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-python/" class="article-nav-link">
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            知识点-python
+            知识点-概率论与数理统计
           
         </div>
       </a>
     
-    
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">知识点-概率论与数理统计</div>
-      </a>
     
   </nav>
 
