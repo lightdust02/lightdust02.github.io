@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">10.4k</span>
+            <span class="post-count">10.6k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">35 min</span>
+            <span class="post-count">36 min</span>
         </span>
     </span>
 </div>
@@ -224,8 +224,8 @@
 <li><p>阻塞所有的信号，保护对共享全局数据结构的访问。 如果处理程序和主程序或其他处理程序共享一个全局数据结构，那么在访问(读或者写)该数据结构时，你的处理程序和主程序应该暂时阻塞所有的信号。这条规则的原因是从主程序访问一个数据结构d 通常需要一系列的指令，如果指令序列被访问d 的处理程序中断，那么处理程序可能会发现d 的状态不一致，得到不可预知的结果。在访问d 时暂时阻塞信号保证了处理程序不会中断该指令序列。</p>
 </li>
 <li><p>用volatile 声明全局变量。 考虑一个处理程序和一个main 函数，它们共享一个全局变量g 。处理程序更新g，main 周期性地读g， 对于一个优化编译器而言，main 中g的值看上去从来没有变化过，因此使用缓存在寄存器中g 的副本来满足对g 的每次引用是很安全的。如果这样，main 函数可能永远都无法看到处理程序更新过的值。可以用volatile 类型限定符来定义一个变量，告诉编译器不要缓存这个变量。例如：volatile 限定符强迫编译器毎次在代码中引用g时，都要从内存中读取g的值。一般来说，和其他所有共享数据结构一样，应该暂时阻塞信号，保护每次对全局变量的访问。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">volatile int g;</span><br></pre></td></tr></table></figure></li>
-<li><p>用sig_atomic_t声明标志。在常见的处理程序设计中，处理程序会写全局标志来记录收到了信号。主程序周期性地读这个标志，响应信号，再清除该标志。对于通过这种方式来共享的标志，C 提供一种整型数据类型sig_atomic_t对它的读和写保证会是原子的（不可中断的）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">int</span> g;</span><br></pre></td></tr></table></figure></li>
+<li><p>用<code>sig_atomic_t</code>声明标志。在常见的处理程序设计中，处理程序会写全局标志来记录收到了信号。主程序周期性地读这个标志，响应信号，再清除该标志。对于通过这种方式来共享的标志，C 提供一种整型数据类型<code>sig_atomic_t</code>对它的读和写保证会是原子的（不可中断的）。</p>
 </li>
 <li><p>信号的一个与直觉不符的方面是未处理的信号是不排队的。因为 pending 位向量中每种类型的信号只对应有一位，所以每种类型最多只能有一个未处理的信号。关键思想是如果存在一个未处理的信号就表明至少有一个信号到达了。</p>
 </li>
@@ -243,12 +243,12 @@
 <li>其它需要完全屏蔽中断的原子操作过程中。</li>
 </ol>
 <h2 id="进程的调度策略"><a href="#进程的调度策略" class="headerlink" title="进程的调度策略"></a>进程的调度策略</h2><ol>
-<li>先到先服务调度算法</li>
-<li>短作业优先调度算法</li>
-<li>优先级调度算法</li>
-<li>时间片轮转调度算法</li>
-<li>高响应比优先调度算法</li>
-<li>多级队列调度算法</li>
+<li>先到先服务调度算法，FCFS按照请求的顺序进行调度。非抢占式，开销小</li>
+<li>短作业优先调度算法，SJF按估计运行时间最短的顺序进行调度。非抢占式，吞吐量高，开销可能较大</li>
+<li>优先级调度算法，为每个进程分配一个优先级，按优先级进行调度。</li>
+<li>时间片轮转调度算法，将所有就绪进程按 FCFS 的原则排成一个队列，用完时间片的进程排到队列最后</li>
+<li>高响应比优先调度算法，响应比 = 1+ 等待时间/处理时间。同时考虑了等待时间的长短和估计需要的执行时间长短，很好的平衡了长短进程。非抢占，吞吐量高</li>
+<li>多级队列调度算法，设置多个就绪队列1、2、3…，优先级递减，时间片递增。只有等到优先级更高的队列为空时才会调度当前队列中的进程</li>
 <li>多级反馈队列调度算法</li>
 </ol>
 <h2 id="进程调度策略的基本设计指标"><a href="#进程调度策略的基本设计指标" class="headerlink" title="进程调度策略的基本设计指标"></a>进程调度策略的基本设计指标</h2><ol>
@@ -263,9 +263,7 @@
 </li>
 </ol>
 <h2 id="进程的状态与状态转换"><a href="#进程的状态与状态转换" class="headerlink" title="进程的状态与状态转换"></a>进程的状态与状态转换</h2><p>进程在运行时有三种基本状态：就绪态、运行态和阻塞态。</p>
-<ol>
-<li>运行（running）态：进程占有处理器正在运行的状态。进程已获得CPU，其程序正在执行。在单处理机系统中，只有一个进程处于执行状态； 在多处理机系统中，则有多个进程处于执行状态。</li>
-</ol>
+<p>1.运行（running）态：进程占有处理器正在运行的状态。进程已获得CPU，其程序正在执行。在单处理机系统中，只有一个进程处于执行状态； 在多处理机系统中，则有多个进程处于执行状态。</p>
 <p>2.就绪（ready）态：进程具备运行条件，等待系统分配处理器以便运行的状态。 当进程已分配到除CPU以外的所有必要资源后，只要再获得CPU，便可立即执行，进程这时的状态称为就绪状态。在一个系统中处于就绪状态的进程可能有多个，通常将它们排成一个队列，称为就绪队列。</p>
 <p>3.阻塞（wait）态：又称等待态或睡眠态，指进程不具备运行条件，正在等待某个时间完成的状态。</p>
 <p>各状态之间的转换：</p>
@@ -275,6 +273,7 @@
 <li>执行→阻塞 正在执行的进程因等待某种事件发生而无法继续执行时，便从执行状态变成阻塞状态。</li>
 <li>阻塞→就绪 处于阻塞状态的进程，若其等待的事件已经发生，于是进程由阻塞状态转变为就绪状态。</li>
 </ol>
+<p><img src="https://img-blog.csdnimg.cn/6c01c29f0f6e4cd48ee48eaa4b1553ec.png" alt="img"></p>
 <h2 id="什么是孤儿进程？僵尸进程"><a href="#什么是孤儿进程？僵尸进程" class="headerlink" title="什么是孤儿进程？僵尸进程?"></a>什么是孤儿进程？僵尸进程?</h2><p>孤儿进程： 父进程退出，子进程还在运行的这些子进程都是孤儿进程，孤儿进程将被init进程（1号进程）所收养，并由init进程对他们完成状态收集工作。</p>
 <p>僵尸进程： 进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait 获waitpid 获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中的这些进程是僵尸进程。</p>
 <h2 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h2><ol>
@@ -303,7 +302,7 @@
 <li>进程适应于多核、多机分布；线程适用于多核。</li>
 </ol>
 <h2 id="进程和线程的基本API"><a href="#进程和线程的基本API" class="headerlink" title="进程和线程的基本API"></a>进程和线程的基本API</h2><p>进程API以Unix系统为例，线程相关的API属于Posix线程(Pthreads)标准接口。</p>
-<p>进程原语线程原语描述<code>fork``pthread_create</code>创建新的控制流<code>exit``pthread_exit</code>从现有的控制流中退出<code>waitpid``pthread_join</code>从控制流中得到退出状态<code>atexit``pthread_cancel_push</code>注册在退出控制流时调用的函数<code>getpid``pthread_self</code>获取控制流的ID<code>abort``pthread_cancel</code>请求控制流的非正常退出。</p>
+<p>进程原语线程原语描述<code>fork</code>、<code>pthread_create</code>创建新的控制流<code>exit</code>、<code>pthread_exit</code>从现有的控制流中退出<code>waitpid</code>、<code>pthread_join</code>从控制流中得到退出状态<code>atexit</code>、<code>pthread_cancel_push</code>注册在退出控制流时调用的函数<code>getpid</code>、<code>pthread_self</code>获取控制流的ID<code>abort</code>、<code>pthread_cancel</code>请求控制流的非正常退出。</p>
 <h2 id="多线程模型"><a href="#多线程模型" class="headerlink" title="多线程模型"></a>多线程模型</h2><ol>
 <li>多对一模型。将多个用户级线程映射到一个内核级线程上。该模型下，线程在用户空间进行管理，效率较高。缺点就是一个线程阻塞，整个进程内的所有线程都会阻塞。几乎没有系统继续使用这个模型。</li>
 <li>一对一模型。将内核线程与用户线程一一对应。优点是一个线程阻塞时，不会影响到其它线程的执行。该模型具有更好的并发性。缺点是内核线程数量一般有上限，会限制用户线程的数量。更多的内核线程数目也给线程切换带来额外的负担。linux和Windows操作系统家族都是使用一对一模型。</li>

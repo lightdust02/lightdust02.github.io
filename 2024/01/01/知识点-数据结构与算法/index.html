@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Welcome! |  LightDust</title>
+      <title>知识点-深度学习 |  LightDust</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-Welcome"
+  id="post-知识点-数据结构与算法"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Welcome!
+  知识点-深度学习
 </h1>
  
 
@@ -72,15 +72,19 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/01/01/Welcome/" class="article-date">
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="article-date">
   <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
-</a>   
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B0%B1%E4%B8%9A/">就业</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">114</span>
+            <span class="post-count">1.2k</span>
         </span>
     </span>
 
@@ -89,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -104,14 +108,83 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Welcome to my blog ! Hope you can like it!  :)</p>
-<p>该文章将持续记录自己的学习情况以及一系列一直在更新的文章。</p>
+  <p>数据结构与算法相关知识点。</p>
+<p>会一直持续更新。</p>
 <span id="more"></span>
 
-<h2 id="一些进行长期更新的文章："><a href="#一些进行长期更新的文章：" class="headerlink" title="一些进行长期更新的文章："></a>一些进行长期更新的文章：</h2><h3 id="技术、科研类："><a href="#技术、科研类：" class="headerlink" title="技术、科研类："></a>技术、科研类：</h3><p>科研向概念积累：<a href="https://lightdust02.github.io/2024/01/05/Pron/">常见概念-科研向 | LightDust (lightdust02.github.io)</a></p>
-<p>Python 代码积累：<a href="https://lightdust02.github.io/2024/01/01/Code-python/">常见代码记录-python | LightDust (lightdust02.github.io)</a></p>
-<h3 id="与技术、科研无关："><a href="#与技术、科研无关：" class="headerlink" title="与技术、科研无关："></a>与技术、科研无关：</h3><p>本科回顾：<a href="https://lightdust02.github.io/2024/07/05/%E6%9C%AC%E7%A7%91%E6%80%BB%E7%BB%93/">本科总结 | LightDust (lightdust02.github.io)</a></p>
-<h2 id="每日学习动态更新"><a href="#每日学习动态更新" class="headerlink" title="每日学习动态更新"></a>每日学习动态更新</h2> 
+<h2 id="1-时间复杂度中的O"><a href="#1-时间复杂度中的O" class="headerlink" title="1.时间复杂度中的O"></a>1.时间复杂度中的O</h2><p>O: 最坏情况下的时间复杂度</p>
+<h2 id="2-数据的逻辑结构"><a href="#2-数据的逻辑结构" class="headerlink" title="2.数据的逻辑结构"></a>2.数据的逻辑结构</h2><p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/image-20240926160435531.png" alt="数据逻辑结构"></p>
+<h2 id="3-数据的存储结构"><a href="#3-数据的存储结构" class="headerlink" title="3.数据的存储结构"></a>3.数据的存储结构</h2><p><strong>顺序存储</strong>：把逻辑上相邻的元素存储在物理位置上也相邻的存储单元中，元素之间的关系由存储单元的邻接关系来体现。</p>
+<p>优点：可以<strong>随机存取，快；存储密度大</strong></p>
+<p>缺点：<strong>删除，插入</strong>操作<strong>耗时</strong>在移动元素上，只能使用相邻的一整块存储单元，可能产生较多的<strong>外部碎片</strong></p>
+<p><strong>链式存储</strong>：不要求逻辑上相邻的元素在物理位置上也相邻，借助指示元素存储地址的指针来表示元素之间的逻辑关系。</p>
+<p>优点：<strong>删除，插入快，外部碎片少</strong>，能充分利用所有存储单元</p>
+<p>缺点：<strong>不能随机存取</strong></p>
+<p><strong>索引存储</strong>：在存储元素信息的同时，还建立附加的索引表。</p>
+<p><strong>散列存储</strong>：根据元素的关键字直接计算出该元素的存储地址，又称哈希(Hash) 存储。</p>
+<h2 id="4-头指针与头结点"><a href="#4-头指针与头结点" class="headerlink" title="4. 头指针与头结点"></a>4. 头指针与头结点</h2><p>头指针：<strong>指向第一个节点存储位置的指针</strong>，具有标识作用，头指针是链表的<strong>必要</strong>元素，无论链表是否为空，头指针都存在。</p>
+<p>头结点：<strong>放在第一个元素节点之前</strong>，<strong>便于</strong>在第一个元素节点之前进行<strong>插入和删除</strong>的操作。</p>
+<p>头结点<strong>不是</strong>链表的<strong>必须</strong>元素，可有可无，头结点的数据域也可以不存储任何信息。</p>
+<h2 id="5-查找单链表中倒数第K个结点"><a href="#5-查找单链表中倒数第K个结点" class="headerlink" title="5.查找单链表中倒数第K个结点"></a>5.查找单链表中倒数第K个结点</h2><ol>
+<li><p>建立两个指针：fast、slow</p>
+</li>
+<li><p>先让fast走k步</p>
+</li>
+<li><p>再让fast和slow一起走，直到fast走到末尾后一位，slow指向的就是倒数第k个节点</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">listNode* <span class="title">get_kth_from_end</span><span class="params">(listNode *head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">listNode *fast = head; <span class="comment">// 先走的指针</span></span><br><span class="line">listNode *slow = head; <span class="comment">// 后走的指针</span></span><br><span class="line"><span class="keyword">while</span> (k--) fast = fast-&gt;next; <span class="comment">// 先让fast走k步</span></span><br><span class="line"><span class="keyword">while</span> (fast != <span class="literal">NULL</span>) &#123; <span class="comment">// 再让fast和slow一起走，直到fast走到末尾后一位</span></span><br><span class="line">slow = slow-&gt;next;</span><br><span class="line">fast = fast-&gt;next;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-单链表的头插法与尾插法"><a href="#6-单链表的头插法与尾插法" class="headerlink" title="6.单链表的头插法与尾插法"></a>6.单链表的头插法与尾插法</h2><p>头插法：在插入时，新的结点插入到当前链表的表头。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s-&gt;next=L-&gt;next;		</span><br><span class="line">L-&gt;next=s;				</span><br></pre></td></tr></table></figure>
+
+<p>尾插法：插入时，新的结点插入到当前链表的表尾，为此必须增加一个尾指针<code>r</code>，使其始终指向当前链表的尾结点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r-&gt;next=s;			<span class="comment">//r的指针域指向s</span></span><br><span class="line">r=s;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-单链表逆序"><a href="#7-单链表逆序" class="headerlink" title="7.单链表逆序"></a>7.单链表逆序</h2><ol>
+<li><p>建立两个指针：p、q</p>
+</li>
+<li><p>p 用于遍历链表中的每个节点</p>
+</li>
+<li><p>q 用于头插法创建新的逆序链表</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">reverse</span><span class="params">(listNode* head)</span> </span>&#123;</span><br><span class="line">listNode *p, *q;</span><br><span class="line">p = head-&gt;next;</span><br><span class="line">head-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">while</span> (p) &#123; <span class="comment">// p用于遍历每个节点</span></span><br><span class="line">q = p;</span><br><span class="line">p = p-&gt;next; <span class="comment">// 在该节点的next指针改变前更新p</span></span><br><span class="line">q-&gt;next = head-&gt;next; <span class="comment">// 类似头插法</span></span><br><span class="line">head-&gt;next = q; <span class="comment">// 类似头插法</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="8-判断链表有没有环"><a href="#8-判断链表有没有环" class="headerlink" title="8.判断链表有没有环"></a>8.判断链表有没有环</h2><p>快慢指针法：从头开始设置两个指针，快指针每次走2 步，慢指针每次走1 步。</p>
+<p>如果快指针先碰到尾，则无环。否则两个指针之后一定会重合，则有环。</p>
+<h2 id="9-栈与队列"><a href="#9-栈与队列" class="headerlink" title="9.栈与队列"></a>9.栈与队列</h2><p><strong>栈：</strong></p>
+<p>定义：只允许在<strong>表尾（栈顶）进行插入和删除</strong>的线性表，“<strong>先进后出</strong>”</p>
+<p>顺序栈：数组（存放栈中元素）、栈顶指针</p>
+<p>链栈：栈顶指针</p>
+<p><strong>队列：</strong></p>
+<p>定义：只允许在表的一端（<strong>队尾）插入</strong>，在另一端（<strong>队首）删除</strong>的线性表，“<strong>先进先出</strong>”</p>
+<p>顺序队列：数组（存放队列中元素）、头指针、尾指针</p>
+<p>链式队列：队首指针、队尾指针</p>
+<p>两个栈模拟一个队列：队列是先进先出，栈的是先进后出。同一组数据连续执行两次先进后出之后再出栈，就可以实现队列的先进先出。</p>
+<h2 id="10-区分循环队列是队空还是队满"><a href="#10-区分循环队列是队空还是队满" class="headerlink" title="10.区分循环队列是队空还是队满"></a>10.区分循环队列是队空还是队满</h2><p><strong>如何区分循环队列是队空还是队满</strong></p>
+<p>一般情况，队空和队满的判断条件都是Q.front == Q.rear</p>
+<p>front：指向第一个数</p>
+<p>rear：指向最后一个数的<strong>下一个</strong>位置，即将要入队的位置</p>
+<p>队空：Q.front == Q.rear</p>
+<p>队满：(Q.rear+1) % MaxSize == Q.front</p>
+<p>元素个数：(Q.rear-Q.front+MaxSize) % MaxSize</p>
+<p>怎么区分？</p>
+<p>方法一：<strong>牺牲一个单元</strong>（即最后一个单元不存数据）来区分队空和队满</p>
+<p>方法二：队列结构体中增加一个Q.size表示元素个数</p>
+<h2 id="11-栈在括号匹配中的算法思想"><a href="#11-栈在括号匹配中的算法思想" class="headerlink" title="11.栈在括号匹配中的算法思想"></a>11.栈在括号匹配中的算法思想</h2><p>设置一个空栈，顺序读入括号。</p>
+<p>若是左括号，则进栈</p>
+<p>若是右括号：</p>
+<p>​    若栈空，则匹配失败，右括号多余</p>
+<p>​    否则，弹出一个栈顶的左括号</p>
+<p>读完所有括号后若栈空，则表达式中括号匹配正确否则，匹配失败，左括号多余</p>
+ 
       <!-- reward -->
       
     </div>
@@ -175,7 +248,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/Welcome/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -186,19 +259,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/01/01/MyFirstBlog/" class="article-nav-link">
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-python/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            MyFirstBlog
+            知识点-python
           
         </div>
       </a>
     
     
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-Linux/" class="article-nav-link">
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">知识点-Linux</div>
+        <div class="article-nav-title">知识点-深度学习</div>
       </a>
     
   </nav>
