@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">7.9k</span>
+            <span class="post-count">8.5k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">27 min</span>
+            <span class="post-count">29 min</span>
         </span>
     </span>
 </div>
@@ -305,13 +305,15 @@
 <p>其原理是在网络的训练过程中，<strong>随机地将部分神经元的输出置为零（即失活）</strong>，从而使得网络在每次迭代时都在不同的子网络上训练，以减少神经元之间的复杂依赖关系，从而增强模型的泛化能力。</p>
 <p>在每次训练迭代时，Dropout 方法会以一定的概率（通常为 0.5）随机地将某些神经元的输出置为零，即使得这些神经元在此次迭代中不参与前向传播和反向传播。这样可以阻止网络过度依赖于某些特定的神经元，增强模型的泛化能力。</p>
 <p>而在训练时，通过随机失活神经元来减少过拟合；在测试时，所有的神经元都保持活跃，但是输出值需要按照训练时的概率进行缩放，以保持期望输出的一致性。</p>
-<h1 id="Transformer相关"><a href="#Transformer相关" class="headerlink" title="Transformer相关"></a>Transformer相关</h1><h2 id="18-Transformer相比于RNN-LSTM的优势？"><a href="#18-Transformer相比于RNN-LSTM的优势？" class="headerlink" title="18.Transformer相比于RNN/LSTM的优势？"></a>18.Transformer相比于RNN/LSTM的优势？</h2><p>1).  Transformer 不依赖于序列中的时间顺序，可以并行处理整个序列（Self-Attention机制）。在计算时，所有的位置都可以同时访问输入数据。这让它在大规模数据和训练时能够充分利用硬件资源，加快训练速度。而 RNN 和 LSTM 是顺序模型，它们按时间步长逐个处理输入，因此无法并行处理序列。这种顺序计算限制了其速度。</p>
+<h1 id="Transformer相关"><a href="#Transformer相关" class="headerlink" title="Transformer相关"></a>Transformer相关</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681195398">Transformer面试题(转) - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/667048896">万字秋招算法岗深度学习八股文大全 - 知乎 (zhihu.com)</a></p>
+<h2 id="1-Transformer相比于RNN-LSTM的优势？"><a href="#1-Transformer相比于RNN-LSTM的优势？" class="headerlink" title="1.Transformer相比于RNN/LSTM的优势？"></a>1.Transformer相比于RNN/LSTM的优势？</h2><p>1).  Transformer 不依赖于序列中的时间顺序，可以并行处理整个序列（Self-Attention机制）。在计算时，所有的位置都可以同时访问输入数据。这让它在大规模数据和训练时能够充分利用硬件资源，加快训练速度。而 RNN 和 LSTM 是顺序模型，它们按时间步长逐个处理输入，因此无法并行处理序列。这种顺序计算限制了其速度。</p>
 <p>2). 由于其自注意力（Self-Attention）机制，Transformer 可以直接通过注意力权重在序列中的任意位置建立联系，不论序列长度。通过全局的注意力机制，可以有效捕捉长距离依赖关系，可以同等关注远近的依赖。</p>
 <p>而虽然 LSTM 相较于普通 RNN 具有更好的处理长程依赖的能力，但它依然依赖于序列的时间步长。这意味着如果要捕捉长距离依赖关系，信息需要逐步传播，并可能会因为梯度消失问题导致远程依赖信息衰减。</p>
-<h2 id="19-Transformer中为什么用LayerNorm而不是BatchNorm？"><a href="#19-Transformer中为什么用LayerNorm而不是BatchNorm？" class="headerlink" title="19.Transformer中为什么用LayerNorm而不是BatchNorm？"></a>19.Transformer中为什么用LayerNorm而不是BatchNorm？</h2><p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/norm.jpg" alt="两种Norm对比"></p>
+<h2 id="2-Transformer中为什么用LayerNorm而不是BatchNorm？"><a href="#2-Transformer中为什么用LayerNorm而不是BatchNorm？" class="headerlink" title="2.Transformer中为什么用LayerNorm而不是BatchNorm？"></a>2.Transformer中为什么用LayerNorm而不是BatchNorm？</h2><p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/norm.jpg" alt="两种Norm对比"></p>
 <p>1).  <strong>LayerNorm</strong> 是对 <strong>单个样本的每一层特征</strong> 进行归一化，而不是像 BatchNorm 那样需要对 <strong>同一批数据的多个样本</strong> 进行归一化。因此，LayerNorm 不依赖批量样本的大小，可以更好地处理 <strong>变长序列数据</strong>，如自然语言中的句子长度。在 Transformer 模型中，输入序列的长度可能会变化，LayerNorm 的计算对这种动态长度序列不敏感，因此在自然语言处理中更加适用。</p>
 <p>2). LayerNorm 则是对每个输入序列的特征进行独立归一化，不需要小批次的均值和方差，因此它可以用于 <strong>单个样本的在线推理</strong> 和 <strong>批次较小的任务</strong>。</p>
-<h2 id="20-Transformer的巨大优势？"><a href="#20-Transformer的巨大优势？" class="headerlink" title="20.Transformer的巨大优势？"></a>20.Transformer的巨大优势？</h2><p>Transformer是被很多公司、组织证明过的非常有用的东西。其它别的都没有得到过大规模的工业级的验证。</p>
+<h2 id="3-Transformer的巨大优势？"><a href="#3-Transformer的巨大优势？" class="headerlink" title="3.Transformer的巨大优势？"></a>3.Transformer的巨大优势？</h2><p>Transformer是被很多公司、组织证明过的非常有用的东西。其它别的都没有得到过大规模的工业级的验证。</p>
 <ul>
 <li>被广泛证明过，从最早的 Bert 开始Transformer 的 Encoder 与 Decoder 架构就证明它在大算力下的优势：并行且可以有序列数据的相关性。但是很遗憾，最先发现并且不遗余力的推行“规模就是智能”这事的，结果大家看到了 ChatGPT 、 GPT4、 DALL-E 、 SORA、 Whipser这些都是指导思想下的产物。</li>
 <li>可扩展性，很多时候你只要找到了一个稳定的方式，你就可以简单的堆模型的单层并行变大，或者把模型加几层，那你的效果就会持续变好。而这个特性，CNN 、 RNN 好像没有那么容易，还记得 CNN 时代，从几层到十几层，到 100 多层它的架构基本上都不太一样，这是不太适合工作生产的。</li>
@@ -319,6 +321,22 @@
 <li>结果是端到端的，从输入到输出的整个过程都是可以在一个统一的框架内完成，简化了模型设计与训练。特别受欢迎的一种工作方式！</li>
 <li>适应性广，过去的 CNN 、 RNN 都是针对单一数据的，而这次的 Transformer 架构，已经证明了在 自然语言/文本数据、序列数据、图像、语音、视频等各类数据，各种任务上都有了极其优异的表现，基本上都是 SOTA 级别的。</li>
 </ul>
+<h2 id="4-讲一讲Self-Attention"><a href="#4-讲一讲Self-Attention" class="headerlink" title="4.讲一讲Self-Attention"></a>4.讲一讲Self-Attention</h2><p>Q、K、V 就是Self-Attention机制的核心。</p>
+<p>Q: Query，查询，查询其他元素与自己相关的程度。        </p>
+<p>K: Key，键，表示序列中的每个元素特征，用来判断是否与其他元素（即Query）有关。</p>
+<p>V: Value，值，代表序列中每个元素的实际信息。当Query与某个Key的相似度较高时，这个Value就会对Query的输出产生更大的影响。</p>
+<p>在Self-Attention机制中，输入的每个元素都会产生对应的Q、K、V，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
+<p>输入序列被用来计算查询 Q 、键 K 和值 V 。每个查询 Q 与所有键 K 计算得到相关性分数，然后通过 Softmax 函数将这些分数归一化为权重，最终这些权重被应用到相应的值 V 上，从而得到注意力表示。</p>
+<p>Q、K 和 V 的作用可以简单概括如下：</p>
+<ul>
+<li><strong>Query（Q）</strong>：确定关注的内容，是用来“提问”的向量。它表示每个元素希望从其他元素中提取的信息，即当前元素与其他元素的相关性。</li>
+<li><strong>Key（K）</strong>：提供与查询相关的上下文，是用来“回答”的向量。它表示每个元素本身的特征，其他元素的Query会根据这些Key来判断它们是否相关。</li>
+<li><strong>Value（V）</strong>：是序列中的信息内容。Self-Attention 的最终输出就是根据Query和Key的相似度对这些Value进行加权求和后的结果。</li>
+</ul>
+<p>假设输入序列的维度是 $b×n×d$，其中 b 表示batch size，n 表示序列长度，d 表示每个元素的特征维度。</p>
+<p>那么，Q K V 的维度均为 $b×n×d_k$。相关计算公式为 $\frac{QK^T}{\sqrt{d_k}}V$ ，$T$是转置操作，$d_k$是K的维度。</p>
+<h3 id="除以-d-k-："><a href="#除以-d-k-：" class="headerlink" title="除以$d_k$："></a><strong>除以$d_k$：</strong></h3><p><strong>在softmax之前除以$dk$ 可以将 $QK^T$ 的分布的方差纠正回接近1，这样一来，大部分数值都会分布在softmax梯度适当的位置，也就避免了梯度消失的问题。</strong></p>
+<p><strong>大值的点积可能会导致 Softmax 进入梯度消失区域，因为极大的输入值会使 Softmax 函数的梯度接近 0。而通过除以 $\sqrt{d_k}$，可以避免进入这种极端情况，保持梯度稳定。</strong></p>
  
       <!-- reward -->
       
@@ -394,20 +412,15 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="article-nav-link">
+      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            知识点-深度学习
+            知识点-概率论与数理统计
           
         </div>
       </a>
     
-    
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">知识点-概率论与数理统计</div>
-      </a>
     
   </nav>
 

@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.5k</span>
+            <span class="post-count">2.8k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">9 min</span>
+            <span class="post-count">10 min</span>
         </span>
     </span>
 </div>
@@ -201,7 +201,18 @@
 <p>通常分为两个阶段，第一阶段从根对象出发，遍历所有可达对象的”活动对象“并打上标记，第二阶段是清除阶段，释放所有未标记对象的空间。</p>
 <p>(3) 分代收集</p>
 <p>对于新对象进行高频率的检查，老对象则采用低频率检查，因而往往新对象更容易成为垃圾。主要目的是为了减少垃圾回收的开销。</p>
-<h2 id="21"><a href="#21" class="headerlink" title="21."></a><strong>21.</strong></h2> 
+<h2 id="21-内存管理"><a href="#21-内存管理" class="headerlink" title="21. 内存管理"></a><strong>21.</strong> 内存管理</h2><p>(1)内存分配：</p>
+<p>Python<strong>使用内存池（memory pools）来管理内存</strong>，用于减少内存碎片和分配/释放开销。</p>
+<p>(2)引用计数：</p>
+<p>Python<strong>使用引用计数机制来跟踪每个对象的引用次数</strong>。当对象被创建时，引用计数初始化为1，如果有新的引用指向该对象，则计数增加；当引用被删除时，计数减少。</p>
+<p>当对象的引用计数降为0时，意味着没有任何引用指向该对象，对象将立即被释放。</p>
+<p>(3)垃圾回收（Garbage Collection, GC）：</p>
+<p>引用计数是一种有效的内存管理方式，但无法处理循环引用的情况。为了解决这个问题，Python<strong>实现了一个垃圾回收器，使用引用计数和分代回收策略</strong>来跟踪和回收垃圾对象。</p>
+<p>(4)循环垃圾收集：</p>
+<p>为了处理循环引用，Python的垃圾回收器会<strong>定期执行循环检测</strong>。这个过程不是实时的，而是周期性地执行，以寻找并回收循环引用中涉及的对象。</p>
+<p>(5)手动内存管理：</p>
+<p>虽然Python的内存管理是自动的，但有时开发者可能需要手动管理内存。<strong>Python提供了gc模块，允许开发者启用或禁用垃圾回收，强制执行垃圾回收</strong>，以及获取关于对象的引用信息。</p>
+ 
       <!-- reward -->
       
     </div>
