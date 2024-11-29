@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">8.5k</span>
+            <span class="post-count">9.9k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">29 min</span>
+            <span class="post-count">34 min</span>
         </span>
     </span>
 </div>
@@ -307,6 +307,8 @@
 <p>而在训练时，通过随机失活神经元来减少过拟合；在测试时，所有的神经元都保持活跃，但是输出值需要按照训练时的概率进行缩放，以保持期望输出的一致性。</p>
 <h1 id="Transformer相关"><a href="#Transformer相关" class="headerlink" title="Transformer相关"></a>Transformer相关</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681195398">Transformer面试题(转) - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/667048896">万字秋招算法岗深度学习八股文大全 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/362131975/answer/2182682685">(95 封私信 / 76 条消息) transformer的细节到底是怎么样的？ - 知乎</a></p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/v2-6da4c9720ec88860295bd63e19344820_1440w.webp" alt="Transformer结构图"></p>
 <h2 id="1-Transformer相比于RNN-LSTM的优势？"><a href="#1-Transformer相比于RNN-LSTM的优势？" class="headerlink" title="1.Transformer相比于RNN/LSTM的优势？"></a>1.Transformer相比于RNN/LSTM的优势？</h2><p>1).  Transformer 不依赖于序列中的时间顺序，可以并行处理整个序列（Self-Attention机制）。在计算时，所有的位置都可以同时访问输入数据。这让它在大规模数据和训练时能够充分利用硬件资源，加快训练速度。而 RNN 和 LSTM 是顺序模型，它们按时间步长逐个处理输入，因此无法并行处理序列。这种顺序计算限制了其速度。</p>
 <p>2). 由于其自注意力（Self-Attention）机制，Transformer 可以直接通过注意力权重在序列中的任意位置建立联系，不论序列长度。通过全局的注意力机制，可以有效捕捉长距离依赖关系，可以同等关注远近的依赖。</p>
 <p>而虽然 LSTM 相较于普通 RNN 具有更好的处理长程依赖的能力，但它依然依赖于序列的时间步长。这意味着如果要捕捉长距离依赖关系，信息需要逐步传播，并可能会因为梯度消失问题导致远程依赖信息衰减。</p>
@@ -335,8 +337,36 @@
 </ul>
 <p>假设输入序列的维度是 $b×n×d$，其中 b 表示batch size，n 表示序列长度，d 表示每个元素的特征维度。</p>
 <p>那么，Q K V 的维度均为 $b×n×d_k$。相关计算公式为 $\frac{QK^T}{\sqrt{d_k}}V$ ，$T$是转置操作，$d_k$是K的维度。</p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/v2-3173490f0b8fb89b22a22b65d2851c7f_1440w.webp" alt="Q^K示意图。对于权重矩阵的第1行来说，0.7表示的就是“我”与“我”的注意力值；0.2表示的就是“我”与”是”的注意力值；0.1表示的就是“我”与“谁”的注意力值。"></p>
 <h3 id="除以-d-k-："><a href="#除以-d-k-：" class="headerlink" title="除以$d_k$："></a><strong>除以$d_k$：</strong></h3><p><strong>在softmax之前除以$dk$ 可以将 $QK^T$ 的分布的方差纠正回接近1，这样一来，大部分数值都会分布在softmax梯度适当的位置，也就避免了梯度消失的问题。</strong></p>
-<p><strong>大值的点积可能会导致 Softmax 进入梯度消失区域，因为极大的输入值会使 Softmax 函数的梯度接近 0。而通过除以 $\sqrt{d_k}$，可以避免进入这种极端情况，保持梯度稳定。</strong></p>
+<p><strong>大值的点积可能会导致 Softmax 进入梯度消失区域，因为极大的输入值会使 Softmax 函数的梯度较小，接近 0。而通过除以 $\sqrt{d_k}$，可以避免进入这种极端情况，保持梯度稳定。</strong></p>
+<h2 id="5-多头注意力机制"><a href="#5-多头注意力机制" class="headerlink" title="5.多头注意力机制"></a>5.多头注意力机制</h2><p>从上面的计算结果还可以看到一点就是，<strong>模型在对当前位置的信息进行编码时，会过度的将注意力集中于自身的位置</strong>而可能忽略了其它位置。因此采取的一种解决方案就是采用多头注意力机制（MultiHeadAttention）。同时，使用多头注意力机制还能够给予注意力层的输出包含有不同子空间中的编码表示信息，从而增强模型的表达能力。</p>
+<p>一个比较经典的问题是，在相同维度下使用单头和多头的区别是什么？</p>
+<p>以图1-10中示例为例，此时的自注意力中使用了两个头，每个头的维度为$d_q$，即采用了多头的方式。另外一种做法就是，只是用一个头，但是其维度为$2d_q$，即采用单头的方式。那么在这两种情况下有什么区别呢？</p>
+<p>当模型的维度$d_m$确定时，一定程度上，h越大整个模型的表达能力越强，越能提高模型对于注意力权重的合理分配。</p>
+<h2 id="7-词嵌入问题"><a href="#7-词嵌入问题" class="headerlink" title="7.词嵌入问题"></a>7.词嵌入问题</h2><p>在Transformer模型中，首先第一步要做的同样是将文本以这样的方式进行向量化表示：将各个词（或者字）通过一个Embedding层映射到低维稠密的向量空间，并且将其称之为Token Embedding，也就是深度学习中常说的词嵌入（Word Embedding）</p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/v2-9e4cb60bd2ed3e1aca137928bf34a537_1440w.webp" alt="词嵌入"></p>
+<p>但是，<strong>仅仅只使用自注意力机制会丢失文本原有的序列信息。序列在交换位置前和交换位置后计算得到的结果在本质上并没有任何区别，仅仅只是交换了对应的位置。</strong>因此，基于这样的原因，Transformer在原始输入文本进行Token Embedding后，又额外的加入了一个Positional Embedding来刻画数据在时序上的特征。</p>
+<p>Transformer 模型本身是基于自注意力机制（Self-Attention）的，它不像循环神经网络（RNN）那样自然地包含序列顺序信息。因此，为了使模型能够理解输入序列中各个元素的相对位置或绝对位置，需要引入位置编码（Position Embedding）。</p>
+<h3 id="为什么需要-Position-Embedding？"><a href="#为什么需要-Position-Embedding？" class="headerlink" title="为什么需要 Position Embedding？"></a>为什么需要 Position Embedding？</h3><ol>
+<li><strong>自注意力机制的特性</strong>：自注意力机制在计算注意力权重时，会考虑序列中所有元素之间的关系，但它本身并不区分元素的顺序。换句话说，自注意力机制对输入序列的排列是不变的。</li>
+<li><strong>序列顺序的重要性</strong>：在很多任务中，序列的顺序是非常重要的，例如在自然语言处理任务中，词语的顺序决定了句子的语义。</li>
+</ol>
+<h1 id="Bert相关"><a href="#Bert相关" class="headerlink" title="Bert相关"></a>Bert相关</h1><h2 id="1-bert的具体网络结构"><a href="#1-bert的具体网络结构" class="headerlink" title="1. bert的具体网络结构"></a>1. bert的具体网络结构</h2><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
+<p>BERT 的核心创新之一是双向编码器。在传统的语言模型  LSTM 或 RNN中，模型会顺序从左到右或从右到左预测下一个词。而 BERT 是通过同时考虑句子的左右上下文来学习词汇的含义。这种双向性使得 BERT 能够理解一个词或子词在句子中的更深层次的语义关系。</p>
+<p><strong>Transformer架构</strong>：BERT 基于 Transformer 编码器，依赖于注意力机制（Self-Attention）来捕捉句子中不同词之间的关系。BERT 只使用 Transformer 的 Encoder 部分，它并不生成文本，而是通过理解现有文本进行分类或问答等任务。</p>
+<p>传统语言模型中，单向上下文（仅前向或后向）导致了信息丢失。而BERT 的成功归功于两种新的预训练任务：</p>
+<p>1). <strong>Masked Language Model (MLM)<strong>： 传统的语言模型通过预测下一个词来学习，而 BERT 使用了一种称为 Masked Language Model 的技术。在 MLM 中，</strong>输入的句子会随机遮盖（mask）一些词</strong>（通常是 15%），要求模型预测这些掩盖单词的原始值来实现。模型的目标是<strong>在训练过程中预测出这些被遮盖的词</strong>。</p>
+<p>由于模型在训练时看不到某些词，它被迫通过句子的上下文来推测缺失的词，这有助于模型更好地理解词汇的语义和上下文关系。</p>
+<p>例如： 输入句子：<code>[CLS] The cat sits on the [MASK]. [SEP]</code> 模型的任务是预测 <code>[MASK]</code> 的正确词（如 “mat”）。</p>
+<p>这种训练方式使得BERT能够有效地学习单词的上下文关系和语义信息，从而更好地理解语言。</p>
+<p>2). <strong>Next Sentence Prediction (NSP)<strong>： 除了预测遮盖的词，BERT 还引入了 Next Sentence Prediction 任务。这种任务的目标是</strong>使模型能够理解句子之间的关系</strong>。<strong>预测给定的两句话是否是连续的</strong>。通过这个任务，BERT 可以学会句子间的逻辑关系，从而在处理句子对相关的任务（如问答、自然语言推理等）时表现得更好。</p>
+<p>具体来说，BERT 会接收两个句子，模型需要判断第二句话是否是第一句话的连续句。例如：</p>
+<ul>
+<li>输入：<code>[CLS] The cat is on the mat. [SEP] It is sleeping. [SEP]</code></li>
+<li>输出：True（句子连贯）</li>
+</ul>
+<p>通过这种方式，BERT学习理解句子之间的逻辑和关系，增强对文本的整体理解能力。</p>
  
       <!-- reward -->
       

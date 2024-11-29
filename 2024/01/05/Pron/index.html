@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">9.6k</span>
+            <span class="post-count">11.6k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">34 min</span>
+            <span class="post-count">42 min</span>
         </span>
     </span>
 </div>
@@ -116,6 +116,10 @@
 
 
 
+<h2 id="常见参数"><a href="#常见参数" class="headerlink" title="常见参数"></a>常见参数</h2><p>dim：通道数</p>
+<p>num_heads：Transformer中注意力头数量</p>
+<p>input_resolution：输入分辨率</p>
+<p>mlp_ratio：mlp 中隐藏层维度与输入层维度比例</p>
 <h2 id="DeepLearning"><a href="#DeepLearning" class="headerlink" title="DeepLearning"></a>DeepLearning</h2><h3 id="卷积操作："><a href="#卷积操作：" class="headerlink" title="卷积操作："></a>卷积操作：</h3><p>说白了，卷积操作是利用卷积核，通过卷积操作来实现对图像特征的提取。</p>
 <p><img src="/images/Pron/%E5%8D%B7%E7%A7%AF.png" alt="卷积"></p>
 <h4 id="一些名词："><a href="#一些名词：" class="headerlink" title="一些名词："></a>一些名词：</h4><p><img src="/images/Pron/%E4%B8%80%E4%BA%9B%E5%90%8D%E8%AF%8D.png" alt="一些名词"></p>
@@ -174,6 +178,8 @@
 <p>FFN 由两个线性变换和一个激活函数（通常是 ReLU 或 GELU）组成。前馈神经网络中的非线性激活函数可以增强模型的表达能力。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FeedForward</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim, hidden_dim, dropout = <span class="number">0.</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.net = nn.Sequential(</span><br><span class="line">            nn.Linear(dim, hidden_dim),  <span class="comment"># 第一个线性层</span></span><br><span class="line">            nn.GELU(),                   <span class="comment"># 激活函数</span></span><br><span class="line">            nn.Dropout(dropout),          <span class="comment"># Dropout</span></span><br><span class="line">            nn.Linear(hidden_dim, dim),   <span class="comment"># 第二个线性层</span></span><br><span class="line">            nn.Dropout(dropout)           <span class="comment"># Dropout</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.net(x)</span><br></pre></td></tr></table></figure>
 
+
+
 <p>gelu函数图像如下所示：<br><img src="/images/Pron/v2-149a8bc6ee90f65205a8d408f79a0017_1440w.webp" alt="GELU函数"></p>
 <h3 id="NIAM"><a href="#NIAM" class="headerlink" title="NIAM"></a>NIAM</h3><blockquote>
 <p>非常冷门……我怎么会写这个的……</p>
@@ -206,15 +212,33 @@
 <p><img src="/images/Pron/image-20240912110753701.png" alt="优化目标函数"></p>
 <p><strong>生成器</strong>通常是一个前馈神经网络，它接收一个随机噪声向量并生成一组样本（例如图像或文本）。生成器学习到的映射是从一个简单分布（如正态分布）到数据分布的转变。</p>
 <p><strong>判别器</strong>也是一个前馈神经网络，接收一组样本并输出一个概率值，表示该样本是真实数据还是生成的数据。判别器的训练目标是最大化其区分真实和伪造样本的能力。</p>
+<h2 id="ImageNet"><a href="#ImageNet" class="headerlink" title="ImageNet"></a>ImageNet</h2><p><strong>ImageNet</strong> 是一个用于计算机视觉研究的<strong>大规模图像数据库</strong>。ImageNet 数据集包含超过<strong>1400 万张图像</strong>，这些图像涵盖了 20,000 多个类别，大部分图像都经过人工标注，每张图像都附带类别标签，有些还标注了图像中的物体边界框。</p>
+<p>在图像超分辨率（Super-Resolution, SR）等图像处理任务中，使用 ImageNet 预训练模型具有以下优势：</p>
+<ul>
+<li><strong>泛化性强</strong>：因为 ImageNet 数据集涵盖了丰富的图像类别，预训练模型在不同任务中表现出很强的泛化能力。</li>
+<li><strong>特征提取</strong>：预训练的卷积神经网络能够提取高质量的视觉特征，减少超分模型的训练时间。</li>
+</ul>
+<p>在图像超分中，训练超分模型通常需要大量高质量的图像数据，但构建大型数据集并进行高效训练是一个耗时且计算资源密集的过程。因此，许多研究者利用 <strong>ImageNet 预训练权重</strong> 来提升模型性能</p>
 <h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><p>[【论文笔记】Order Matters （AAAI 20） - Yuhan’s blog (yuhan2001.github.io)](<a target="_blank" rel="noopener" href="https://yuhan2001.github.io/2024/05/04/Order">https://yuhan2001.github.io/2024/05/04/Order</a> Matters/)</p>
 <p>一些解读Transformer的文章：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fengdu78/article/details/104629336">关于Transformer，面试官们都怎么问？-CSDN博客</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/82391768https://zhuanlan.zhihu.com/p/82391768">关于Transformer的若干问题整理记录 - Adherer的文章</a></p>
+<h3 id="一系列常见操作"><a href="#一系列常见操作" class="headerlink" title="一系列常见操作"></a>一系列常见操作</h3><h4 id="Proj-in"><a href="#Proj-in" class="headerlink" title="Proj_in"></a>Proj_in</h4><p>在Self-Attention部分，经常能看到 Proj_in ，投影操作。</p>
+<p>投影操作用于将输入图像的特征维度从 <code>in_channels</code> 转换为 <code>inner_dim</code>。通过这种转换，可以将原始的图像数据嵌入到一个更丰富的特征空间，使其能够参与到更高维度的计算中。这个转换有助于捕捉更细致的特征</p>
+<h4 id="上下文信息-context"><a href="#上下文信息-context" class="headerlink" title="上下文信息 context"></a>上下文信息 context</h4><p>在 transformer 结构中，<code>x</code> 通常代表当前层级（或模块）的输入特征，它通常是图像特征或编码特征。而 <code>context</code> 则表示上下文信息，通常用于指导或辅助主输入特征的计算。具体来说：</p>
+<ul>
+<li><code>x</code> 表示输入的图像特征，是网络的主输入。它包含了图像中的空间特征，例如像素信息、纹理等。</li>
+<li><code>context</code> 则提供了额外的上下文特征。在跨模态任务（如图像-文本跨模态任务）中，<code>context</code> 可能来自于文本信息；在同模态任务中，<code>context</code> 可以是先前网络层生成的特征，或是不同区域的图像特征。这里的设计使用 <code>context</code> 来辅助输入特征的增强，这种方式可以提高模型在不同模态或特征组合中的表现能力。</li>
+</ul>
+<p>通过将 <code>x</code> 和 <code>context</code> 输入到 transformer block，可以将 <code>context</code> 的信息结合到 <code>x</code> 中，从而产生更丰富的输出特征。</p>
+<h4 id="重要参数"><a href="#重要参数" class="headerlink" title="重要参数"></a>重要参数</h4><p><strong><code>n_heads</code>（注意力头数量）</strong>：表示在 transformer 中，输入数据将被分成多少个不同的注意力头来进行平行计算。多头注意力通过并行多个注意力头，可以学习数据的不同特征，同时增强注意力机制的表达能力。这样可以让模型更全面地捕捉到不同位置和特征之间的关系。</p>
+<p><strong><code>d_head</code>（每个注意力头的特征维度）</strong>：表示每个头中查询、键和值的特征维度。这个参数控制了单个注意力头中特征向量的长度。通过调整 <code>d_head</code>，可以控制注意力计算的精度和每个头所学习的特征细节。</p>
+<p><strong><code>inner_dim</code>（特征维度）</strong>：<code>inner_dim</code> 是通过 <strong><code>n_heads * d_head</code></strong> 计算得到的，即总的特征维度。这个维度表示所有注意力头的特征合并后的总特征数量。</p>
 <h3 id="Self-Attention（qkv）"><a href="#Self-Attention（qkv）" class="headerlink" title="Self-Attention（qkv）"></a>Self-Attention（qkv）</h3><p>Q、K、V 就是Self-Attention机制的核心。</p>
 <p>Q: Query，查询，查询其他元素与自己相关的程度。        </p>
 <p>K: Key，键，表示序列中的每个元素特征，用来判断是否与其他元素（即Query）有关。</p>
 <p>V: Value，值，代表序列中每个元素的实际信息。当Query与某个Key的相似度较高时，这个Value就会对Query的输出产生更大的影响。</p>
-<p>在Self-Attention机制中，输入的每个元素都会产生对应的Q、K、V，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
+<p>在Self-Attention机制中，输入的每个元素都会产生对应的 Q、K、V，通过将查询 Q 与键 K 进行相关性计算，然后将这些相关性作为权重应用到值 V 上。</p>
 <p>输入序列被用来计算查询 Q 、键 K 和值 V 。每个查询 Q 与所有键 K 计算得到相关性分数，然后通过 Softmax 函数将这些分数归一化为权重，最终这些权重被应用到相应的值 V 上，从而得到注意力表示。</p>
 <p>Q、K 和 V 的作用可以简单概括如下：</p>
 <ul>
@@ -250,7 +274,7 @@
 <p> $W^O$  是输出层的权重矩阵。</p>
 <p><strong>多头注意力机制保证了transformer可以注意到不同子空间的信息，捕捉到更加丰富的特征信息。</strong></p>
 <p>Decoder端的多头self-attention需要做mask，因为它在预测时，是“看不到未来的序列的”，所以要将当前预测的单词(token)及其之后的单词(token)全部mask掉。</p>
-<h3 id="spatial-transformer"><a href="#spatial-transformer" class="headerlink" title="spatial_transformer"></a>spatial_transformer</h3><p>空间变换网络（Spatial Transformer Networks，简称STN）是一种深度学习模型，旨在增强网络对几何变换的适应能力。</p>
+<h3 id="Spatial-transformer"><a href="#Spatial-transformer" class="headerlink" title="Spatial_transformer"></a>Spatial_transformer</h3><p>空间变换网络（Spatial Transformer Networks，简称STN）是一种深度学习模型，旨在增强网络对几何变换的适应能力。</p>
 <p>在现代深度学习中，空间变换模块常常与自注意力机制结合使用，以便于模型能够关注输入数据的不同部分，并在处理过程中考虑这些部分之间的关系。</p>
 <p>同时，在一些变体中，<code>SpatialTransformer</code> 可以结合条件输入（如上下文信息、标签等），使得生成的空间变换更具针对性和自适应性。</p>
 <p>Diffusion中，SpatialTransformer非常常见。</p>
@@ -258,7 +282,7 @@
 <p>ViT 通过将图像分割成若干个小块<code>patch</code>，将它们看作序列输入到 Transformer 中，以捕捉全局依赖关系。</p>
 <p>然后需要一项关键的内容：<strong>位置编码（Positional Embedding）</strong>，以保留图像的空间位置信息。</p>
 <p>事实上，在最初的NLP领域，位置编码也是很重要的内容。位置编码一般采用正弦和余弦函数来生成<br>$$<br>PE_{pos,2i}=sin\frac{pos}{10000^{\frac{2i}{d_{model}}}}\<br>PE_{pos,2i+1}=cos\frac{pos}{10000^{\frac{2i}{d_{model}}}}<br>$$<br>其中 $d_{model}$ 是编码维度的总大小。</p>
-<h4 id="FFN-1"><a href="#FFN-1" class="headerlink" title="FFN"></a>FFN</h4><h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
+<h3 id="FFN-1"><a href="#FFN-1" class="headerlink" title="FFN"></a>FFN</h3><h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
 <p>BERT 的核心创新之一是双向编码器。在传统的语言模型  LSTM 或 RNN中，模型会顺序从左到右或从右到左预测下一个词。而 BERT 是通过同时考虑句子的左右上下文来学习词汇的含义。这种双向性使得 BERT 能够理解一个词或子词在句子中的更深层次的语义关系。</p>
 <p><strong>Transformer架构</strong>：BERT 基于 Transformer 编码器，依赖于注意力机制（Self-Attention）来捕捉句子中不同词之间的关系。BERT 只使用 Transformer 的 Encoder 部分，它并不生成文本，而是通过理解现有文本进行分类或问答等任务。</p>
 <p>传统语言模型中，单向上下文（仅前向或后向）导致了信息丢失。而BERT 的成功归功于两种新的预训练任务：</p>
@@ -303,6 +327,105 @@
 <p>Mamba Out!</p>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/134923301">一文通透想颠覆Transformer的Mamba：从SSM、HiPPO、S4到Mamba_mamba模型-CSDN博客</a></p>
+<h3 id="RRDB"><a href="#RRDB" class="headerlink" title="RRDB"></a>RRDB</h3><p><img src="/images/Pron/image-20241118144746361.png" alt="RRDB结构图"></p>
+<p>2018年提出。RRDB（Residual in Residual Dense Block）是 ESRGAN（Enhanced Super-Resolution Generative Adversarial Network）中的一个核心模块，用于高质量图像超分辨率任务。它基于传统的残差网络（ResNet）和密集网络（DenseNet）的思想，进一步提升了模型的性能和稳定性。</p>
+<p>RRDB 的主要特点是 <strong>“残差中的残差结构”</strong>，整体结构如下：</p>
+<ul>
+<li><strong>外层残差结构</strong>：<ul>
+<li>RRDB 是一个残差块（Residual Block），整个块的输入会直接通过跳跃连接（skip connection）加到输出上。</li>
+<li>跳跃连接缓解了深度网络中的梯度消失问题，增强了训练稳定性。</li>
+</ul>
+</li>
+<li><strong>内部残差结构</strong>：<ul>
+<li>每个 RRDB 内包含多个密集块（Dense Block），每个密集块通过 <strong>密集连接</strong> 提高了信息流动效率。</li>
+<li>在这些 Dense Block 之间存在递归式的残差连接（即 “残差中的残差”），这是一种更深层次的信息融合方式。</li>
+</ul>
+</li>
+<li><strong>无批归一化（Batch Normalization）</strong>：<ul>
+<li>ESRGAN 中去除了传统的 Batch Normalization（BN）层，因为研究表明 BN 会导致生成模型的失真，从而影响图像质量。</li>
+</ul>
+</li>
+</ul>
+<p>一个典型的 RRDB 由以下部分组成：</p>
+<p><strong>1 Dense Block</strong></p>
+<ul>
+<li>每个 Dense Block 包括多个卷积层（通常为 3-5 层），每一层接收前面所有层的输出作为输入。</li>
+<li>公式表示： $x_{l+1} = H_l([x_0, x_1, …, x_l])$,，其中，$x_0, x_1, …, x_l$ 表示前面所有层的特征图拼接，$H_l$ 是第 l层的卷积操作。</li>
+</ul>
+<p><strong>2 残差连接</strong></p>
+<ul>
+<li>Dense Block 的输出与输入通过残差连接相加： $y = x + G(x)$  其中 $G(x)$ 是 Dense Block 的输出。</li>
+</ul>
+<p><strong>3 残差中的残差</strong></p>
+<ul>
+<li>多个 Dense Block 被串联起来，每个 Dense Block 都有自己的残差连接。</li>
+<li>整个 RRDB 的输入会通过外层残差连接加到输出上：$y = x + G_{\text{RRDB}}(x)$, 其中 $G_{\text{RRDB}}(x)$ 是多个 Dense Block 的组合输出。</li>
+</ul>
+<p><strong>4 无归一化</strong></p>
+<ul>
+<li>RRDB 中直接使用 ReLU 激活函数而不使用 BN 层，这样可以避免生成模型中 BN 引入的偏移问题。</li>
+</ul>
+<h3 id="SwinIR"><a href="#SwinIR" class="headerlink" title="SwinIR"></a>SwinIR</h3><p>2021年提出，<strong>SwinIR  (Swin Transformer for Image Restoration)</strong> 是一种基于 Swin Transformer 的高效模型，专门用于图像超分辨率（Super-Resolution）、去噪（Denoising）、去模糊（Deblurring）等图像恢复任务。它通过 Transformer 的强大建模能力捕获图像中的长程依赖关系，同时通过滑动窗口机制提高效率，是近年来图像恢复领域的代表性模型之一。</p>
+<p><img src="/images/Pron/image-20241118154419267.png" alt="SwinIR结构图"></p>
+<ol>
+<li><p><strong>浅层特征提取模块</strong>（Shallow Feature Extractor）。</p>
+</li>
+<li><p>深层特征提取模块</p>
+<p>（Deep Feature Extractor）：</p>
+<ul>
+<li>使用了多个 Swin Transformer 块（STL）。</li>
+</ul>
+</li>
+<li><p>重建模块</p>
+<p>（Reconstruction Module）：</p>
+<ul>
+<li>将提取的特征映射为最终输出图像。</li>
+</ul>
+</li>
+</ol>
+<p><strong>2.2 模块细节</strong></p>
+<p><strong>(1) 浅层特征提取模块</strong></p>
+<ul>
+<li>通过一个卷积层提取输入图像的初始特征。</li>
+</ul>
+<p>$F_0 = H_{\text{conv}}(I_{\text{LR}})$</p>
+<p>其中，$I_{\text{LR}}$ 是低分辨率输入图像，$F_0$ 是提取的初始特征。</p>
+<hr>
+<p><strong>(2) 深层特征提取模块</strong></p>
+<ul>
+<li>SwinIR 的核心部分，包含多个 Swin Transformer Layer。</li>
+<li>每个 Swin Transformer Layer 的基本单元包括：<ul>
+<li><strong>窗口多头自注意力机制（Window-based Multi-head Self-Attention, W-MSA）</strong>：对局部窗口中的像素进行自注意力计算。</li>
+<li><strong>滑动窗口机制（Shifted Window Mechanism, SW-MSA）</strong>：通过移动窗口位置，实现跨窗口的全局信息交互。</li>
+</ul>
+</li>
+</ul>
+<p>多层 Swin Transformer 层堆叠后，可以有效捕获局部和全局信息。</p>
+<hr>
+<p><strong>(3) 重建模块</strong></p>
+<ul>
+<li>最后的卷积层对深层特征进行处理，生成高分辨率或恢复后的图像。</li>
+<li>在超分辨率任务中，通常使用 $PixelShuffle$ 来实现图像上采样。</li>
+</ul>
+<hr>
+<h3 id><a href="#" class="headerlink" title></a></h3><p><strong>1 Swin Transformer 的窗口机制</strong></p>
+<ul>
+<li><p><strong>局部窗口自注意力（W-MSA）</strong>：输入图像被划分为多个固定大小的窗口（如 $8\times8$），在每个窗口内计算自注意力。</p>
+</li>
+<li><p>$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$</p>
+<p>这样可以减少计算开销，使其与图像分辨率呈线性关系。</p>
+</li>
+<li><p><strong>滑动窗口机制（Shifted Window Mechanism）</strong>：</p>
+<ul>
+<li>为了解决窗口之间的独立性问题，SwinIR 将窗口在某些层中移动一部分像素，使得特征能够跨窗口交互。</li>
+</ul>
+</li>
+</ul>
+<p><strong>2 SwinIR 的信息交互</strong></p>
+<ul>
+<li>Swin Transformer 提取的局部窗口特征通过滑动窗口实现全局特征的逐层融合，进而捕获图像中的长程依赖和纹理信息。</li>
+<li>在深层模块中，交替堆叠 W-MSA 和 SW-MSA，使得 SwinIR 的感受野逐渐扩大。</li>
+</ul>
 <h3 id="边缘监测："><a href="#边缘监测：" class="headerlink" title="边缘监测："></a>边缘监测：</h3><h4 id="Canny-Edge"><a href="#Canny-Edge" class="headerlink" title="Canny Edge"></a>Canny Edge</h4><p>一种经典的图像边缘检测算法。其核心思想是通过多阶段处理来提取图像的边缘，步骤包括高斯滤波、计算梯度、非极大值抑制以及双阈值检测。</p>
 <h4 id="HED-Edge"><a href="#HED-Edge" class="headerlink" title="HED Edge"></a>HED Edge</h4><p>一种基于卷积神经网络（CNN）的边缘检测方法，旨在从图像中提取边缘信息。</p>
 <h4 id="MLSD-Edge"><a href="#MLSD-Edge" class="headerlink" title="MLSD Edge"></a>MLSD Edge</h4><p>一种轻量化的线段检测方法，通常用于移动端或资源受限的设备上，专注于检测图像中的直线段。这种方法非常适合用于场景理解、几何建模以及三维重建等任务。</p>
@@ -319,10 +442,10 @@
 <h3 id="nll"><a href="#nll" class="headerlink" title="nll"></a>nll</h3><p>负对数似然损失（Negative Log-Likelihood，NLL），整个数据集的负对数似然损失就是对所有样本的损失进行求和或平均。<br>$$<br>NLL=\frac{1}{2}\sum_i[log(2\pi)+log(\sigma_i^2)+\frac{(x_i-\mu_i)^2}{\sigma_i^2}]<br>$$</p>
 <h2 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h2><h3 id="上采样与下采样："><a href="#上采样与下采样：" class="headerlink" title="上采样与下采样："></a>上采样与下采样：</h3><p>上采样（Upsampling）会增加数据的空间分辨率，通过插值或其他方法填充更多的样本点。它可以用于恢复或生成更高分辨率的图像。</p>
 <p>上采样会<strong>放大图像数据，增加图像的空间分辨率</strong>，使得输出图像的尺寸大于输入图像的尺寸。</p>
-<p>上采样一般通过插值、转置卷积实现。</p>
+<p>上采样一般通过插值、转置卷积、PixelShuffle实现。</p>
 <p>下采样（Downsampling）是指减少数据的空间分辨率，通常通过减少样本的数量来实现。它可以用于降低计算负担，减少模型的内存占用，或者在某些情况下减少噪声。</p>
 <p>下采样会<strong>缩小图像数据，减少图像的空间分辨率</strong>，使得输出图像的尺寸小于输入图像的尺寸。</p>
-<p>下采样一般通过池化与卷积实现。</p>
+<p>下采样一般通过池化与空洞卷积实现。</p>
 <p>Unet中先是下采样，再是上采样。</p>
 <h3 id="噪声："><a href="#噪声：" class="headerlink" title="噪声："></a>噪声：</h3><p>图像噪声是指存在于图像数据中的<strong>不必要的或多余的干扰信息</strong>。</p>
 <h3 id="仿射变换："><a href="#仿射变换：" class="headerlink" title="仿射变换："></a>仿射变换：</h3><p>Affine Transformation，线性变换与平移变化的叠加。</p>

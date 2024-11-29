@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>论文阅读笔记-DDFM |  LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-论文阅读-合集"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  论文阅读笔记-DDFM
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/09/27/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E5%90%88%E9%9B%86/" class="article-date">
+  <time datetime="2024-09-27T09:35:00.000Z" itemprop="datePublished">2024-09-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">3.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">12 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>阅读一系列论文时的笔记。</p>
+<span id="more"></span>
+
+<h1 id="High-Quality-Facial-Geometry-and-Appearance-Capture-at-Home"><a href="#High-Quality-Facial-Geometry-and-Appearance-Capture-at-Home" class="headerlink" title="High-Quality Facial Geometry and Appearance Capture at Home"></a>High-Quality Facial Geometry and Appearance Capture at Home</h1><p>该论文发表于2023年8月，收录于CVPR 202中。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/685905562">CVPR 2024 | 清华大学提出 CoRA，低成本高质量的全脸重建方法 - 知乎 (zhihu.com)</a></p>
+<p>[yxuhan/CoRA: <a target="_blank" rel="noopener" href="https://github.com/yxuhan/CoRA">CVPR 2024] High-Quality Facial Geometry and Appearance Capture at Home. (github.com)</a></p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>提出了一种新的<strong>高质量人脸采集方法</strong>，该方法具有易于使用的系统和建立包括皮肤、嘴巴内部、头发和眼睛的完整人脸的能力。在昏暗场景下，从捕获的单个协同定位的智能手机手电筒序列中重建面部几何形状和外观。</p>
+<p>应用一个组合的光照模型来表示真实的光照，并利用一个可变形的人脸反照率模型作为在解开漫反射和镜面反射之前的反射率。</p>
+<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>需求：低成本但高质量的面部捕捉，连接广泛的日常用户到数字世界。</p>
+<p>最近的一些方法原理：利用日常生活中的高频光源，这是恢复高质量反射率的关键。</p>
+<p>提出：新的低成本、高质量的人脸几何形状和外观捕获方法。</p>
+<p>​    首先，提出了一种新的混合人脸表示方法：针对不同的人脸区域，即眼球和其他人脸区域的反射率差异，采用不同的模型进行表示。</p>
+<ul>
+<li>眼球：采用两个具有预定义镜面反射率的球面网格，使用眼球先验信息可显著提高重建质量。</li>
+<li>其他面部信息：采用神经场NerF，并采用神经字段来将BRDF (bidirectional reflectance distribution function，双向反射分布函数) 的参数建模为类似于先前工作的反射率</li>
+<li>结合：设计了一种新的网格感知体绘制技术，将眼球网格无缝地集成到神经SDF场的体绘制过程中。</li>
+</ul>
+<p>​    这一捕获设置既不需要偏振滤光片和暗室等特殊设备，也不需要太阳光等室外光源，更加人性化。但提出了一个新的挑战，从观察到的颜色解开反射。为此，我们涉及照明和外观先验来限制优化。    </p>
+<p>​    首先，应用一个组合照明模型来复杂地表示，然后使用AlbedoMM提供的反射率先验。训练后，我们将混合人脸表示导出到与常见CG软件兼容的3D软件上。</p>
+<h2 id="二、相关工作"><a href="#二、相关工作" class="headerlink" title="二、相关工作"></a>二、相关工作</h2><p>人脸捕捉：</p>
+<ul>
+<li><p>使用 Light Stage 捕捉密集捕捉人脸的一次一光；</p>
+</li>
+<li><p>提出利用偏振球面梯度照明来捕获面部的法线和反照率图</p>
+</li>
+<li><p>上一个技术的扩展，以支持多视图捕获</p>
+</li>
+<li><p>使用单镜头系统捕获高质量的面部几何形状</p>
+<p>上述的方法对于广大日常用户而言既不方便，成本也不低。</p>
+</li>
+</ul>
+<p>​    重点介绍BRDF：BRDF是一种从未知低频光下捕获的多视角图像中学习面部几何形状和新型神经BRDF。为了使人脸捕捉结果尽可能接近专业水平，最近的方法提出利用日常生活中的高频光源，如阳光或智能手机手电筒。该方法解决了面部几何形状和反射率从一个单一的自拍视频的主题旋转下的太阳或两个共同定位的序列与不同的偏振方向捕捉在暗室。</p>
+<p>​    而本文仅使用一个共位序列进行人脸捕获，更易于日常用户使用。提出了一种新的混合表示方法，将神经SDF场和网格相结合，重建出完整的高质量的人脸几何形状和外观。</p>
+<p>NeRF：神经场。最近，一些工作将神经场扩展到逆向渲染，其中几何和反射率被建模为神经场并从捕获的图像中学习。这些工作中，最相关的是 WildLight [12]。它从两个序列中解决几何和反射率问题，一个序列打开手电筒，另一个序列关闭。与 WildLight 类似，我们采用神经 SDF 场来表示几何形状，并采用神经反射场来模拟BRDF的参数。我们的工作只需要一个手电筒开启序列即可进行训练。</p>
+<p>此外，由于我们关注的是人脸而不是常见物体，因此我们可以利用面部先验。我们提出了一种混合表示来利用眼球先验来帮助重建，并使用从 AlbedoMM [49] 派生的反射约束来规范神经反射场。</p>
+<p>（2024.11.18更新）</p>
+<blockquote>
+<p>鸽了……这篇文章和目前的研究方向几乎完全无关，属实没有必要读……</p>
+</blockquote>
+<h1 id="RDDM"><a href="#RDDM" class="headerlink" title="RDDM"></a>RDDM</h1><p>CVPR2024</p>
+<h2 id="摘要-1"><a href="#摘要-1" class="headerlink" title="摘要"></a>摘要</h2><p>提出了残差去噪扩散模型（residual denoising diffusion models，RDDM），是一种新的双扩散过程，将传统的单去噪扩散过程分解为残差扩散和噪声扩散。</p>
+<p>残差扩散表示从目标图像到退化输入图像的定向扩散，并明确指导图像恢复的逆生成过程，而噪声扩散表示扩散过程中的随机扰动。残差优先考虑确定性，而噪声强调多样性，使RDDM能够有效地统一具有不同确定性或多样性要求的任务，例如图像生成和恢复。</p>
+<p>提出了一个部分路径无关的生成过程，以更好地理解反向过程。且该RDDM使用通用的UNet，训练只有一个L1损失和批量大小为1，与最先进的图像恢复方法竞争。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>问题：反向过程 -&gt; 不必要    前向过程 -&gt; 不可解释</p>
+<p>提出的RDDM，可以解决图像恢复中单个去噪过程的不可解释性。RDDM中，扩散过程分解为残差扩散和噪声扩散。残差扩散优先考虑确定性并表示从目标图像到条件输入图像的定向扩散，而噪声扩散强调多样性并表示扩散过程中的随机扰动。因此，我们的RDDM可以<strong>统一需要不同确定性或多样性的不同任务</strong>，例如，图像生成和恢复。与基于去噪的图像恢复扩散模型相比，RDDM中的残差清楚地指示了正向扩散方向，并明确地指导了图像恢复的反向生成过程。</p>
+<p><strong>新前向过程：</strong>允许残差和噪声同时扩散。</p>
+<p>目标图像逐渐扩散为纯噪声图像，用于图像生成或图像恢复。使用系数来控制噪声和图像的混合比，并采用两个独立的系数来控制残差和噪声的扩散速度。这种独立的扩散性质在逆生成过程中也是明显的。</p>
+<p>且 RDDM与广泛使用的去噪扩散模型兼容，即，通过变换系数表，我们的采样过程与DDPM 和DDIM 的采样过程一致。此外，我们的RDDM原生支持条件输入，使网络训练只有一个0.01的损失和批量大小为1，以竞争最先进的图像恢复方法。</p>
+<p><strong>残差优先考虑确定性，而噪声强调多样性。</strong></p>
+<ul>
+<li>新的双扩散框架通过引入残差来解决图像恢复的单个去噪过程的不可解释性。我们的残差扩散表示从目标图像到条件输入图像的定向扩散。</li>
+<li>部分路径独立的生成过程，将残差和噪声分离，突出了它们分别在控制方向残差偏移（确定性）和随机扰动（多样性）方面的作用。</li>
+<li>一个自动目标选择算法，来选择是否预测残差或噪声未知的新任务。</li>
+</ul>
+<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><p>关于DDPM的工作原理。这里不再赘述。</p>
+<h2 id="残差扩散模型"><a href="#残差扩散模型" class="headerlink" title="残差扩散模型"></a>残差扩散模型</h2><p>原扩散模型中的 $I_T=\epsilon$  用  $I_T=I_{in}+\epsilon$  代替，其中 $I_{in}$ 是退化图像（例如，阴影、低亮度或模糊图像）用于图像恢复。从 $I_0$ 到$I_T = I_{in} + \epsilon$ 的修改的前向过程涉及逐渐地将$I_0$降级到$I_{in}$，并且注入噪声$\epsilon$。这自然会导致双扩散过程：从$I_0$到$I_{in}$的残差扩散和加上 $\epsilon$ 的噪声扩散。</p>
+<p>本文提出了三种抽样方法：残差预测（SM-Res）、噪声预测（SM-N）、残差和噪声预测（SM-Res-N）。</p>
+<h3 id="公式合集："><a href="#公式合集：" class="headerlink" title="公式合集："></a>公式合集：</h3><p>$I_t=I_{t-1}+I_{res}^t$，其中$I_{res}^t$表示从$I_{t-1}$到$I_t$的具有随机扰动的噪声偏移。其中$I_{res}=I_{in}-I_0$，并准备了两个独立的系数表$α_t$和$β_t$分别控制残差和噪声扩散。<strong>这个公式是RDDM的基础，非常重要。</strong></p>
+<p>具体而言，这个公式可以经过DDPM过程中的化简，得到如下结果：<br>$$<br>I_t=I_{t-1}+I_{res}^t\<br>I_t=I_{t-1}+α_tI_{res}+β_t\epsilon_{t-1}\<br>……\<br>I_t=I_{0}+\overlineα_tI_{res}+\overlineβ_t\epsilon<br>$$</p>
+<p>前向过程从原始图像$I_0$到$I_t$，在这个过程中，残差$I_{res}$和噪声$\epsilon$被逐渐添加到$I_0$，然后被合成到$I_t$，而从$I_t$到$I_0$的逆过程又会涉及到在正向过程中注入的残差和噪声的估计。$  p_\theta (I_{t-1}|I_t):=q_\sigma(I_{t-1}|I_t,I_{res}^\theta,I_0^\theta)$</p>
+<p>我们可以把公式再度修改，用$I_{in}$去替换$I_0$：$I_t=I_{in}+(\overlineα_t-1)I_{res}+\overlineβ_t\epsilon$</p>
+<p>而在反向生成过程（从$I_t$到$I_{t−1}$）中，$I_t$和$I_{in}$是已知的，因此$I_{res}$和可以用上面的方程表示。</p>
+<h3 id="两个超参数："><a href="#两个超参数：" class="headerlink" title="两个超参数："></a>两个超参数：</h3><p>损失函数：</p>
+<p><img src="/images/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E5%90%88%E9%9B%86/image-20241012162248226.png" alt="image-20241012162248226"><br>$$<br>L_{res}(\theta):=E[\lambda_{res}||I_{res}-I_{res}^\theta(I_t,t,I_{in})||^2]\<br>L_{\epsilon}(\theta):=E[\lambda_{\epsilon}||\epsilon-\epsilon_{\theta}(I_t,t,I_{in})||^2]\<br>$$</p>
+<p>两个超参数分别是  $\lambda_{res}$ 和 $\lambda_{\epsilon}$  。简而言之，这两个超参数取值为0或1，和损失函数有关。</p>
+<p>超参数取值为1，则代表该超参数由神经网络预测，取0则意味着该值由上述公式转换得到。</p>
+<p>具体而言，$\lambda_{res}$取1，$\lambda_{\epsilon}$取0 命名为 SM-Res，$I_{res}^\theta$由网络预测，$\epsilon$由公式变换得到。</p>
+<p>$\lambda_{res}$取0，$\lambda_{\epsilon}$取1 命名为 SM-N，$I_{res}^\theta$由网络预测，$\epsilon$由公式变换得到。</p>
+<p>$\lambda_{res}$取1，$\lambda_{\epsilon}$取1 命名为 SM-Res-N。$I_{res}^\theta$ 和  $\epsilon$ 均由网络预测得到。</p>
+<p>表1表明，SM-Res显示了较好的图像恢复结果，但提供了较差的FID生成。另一方面，SM-N产生了更好的 FID 和起始分数 IS。</p>
+<p><strong>残差预测优先考虑确定性，而噪声预测强调多样性。</strong>在我们的实验中，我们将SM-N用于图像生成，SMRes用于低照度，SM-Res-N用于其他图像恢复任务。对于未知的新任务，我们经验性地建议对那些需要更大多样性的任务使用 SM-N，对需要更高确定性的任务使用 SM-Res。</p>
+<p>那么，和原有的DDPM or DDIM 相比如何？相比之下，RDDM引入了残差估计，同时还包含了用于生成和恢复的噪声。残差和噪声具有平等和独立的地位，这反映在正向过程中（等式7），逆过程（Eq.13）和损失函数（方程第15段）。这种独立性意味着噪声扩散甚至可以被去除，仅保留残余扩散来模拟图像插值过程。</p>
+<h2 id="双扩散框架"><a href="#双扩散框架" class="headerlink" title="双扩散框架"></a>双扩散框架</h2><p>作者团队介绍了一个解耦的正向扩散过程，并提出了一个部分路径无关的生成过程，将同步采样解耦为首先去除残差，然后去除噪声（见图6（d）和图17）。这种解耦的对偶扩散框架揭示了去残差和去噪在DDPM生成过程中的作用。</p>
+<p>在反向生成过程中（从 T 到 0），估计的残差res变得越来越准确，而估计的噪声也应该逐渐减弱。</p>
+<p>这个双扩散框架的提出意味着残余扩散和噪声扩散是彼此独立的。<strong>这里结合论文不太好理解，建议去看代码。</strong></p>
+<p>对应于解耦的前向扩散过程，也应该有一个路径无关的反向生成过程。</p>
+<p>为了开发一个与路径无关的生成过程，作者团队基于以上两个关键发现改进了生成过程。</p>
+<p>将这种生成属性称为部分路径无关，并研究了两个反向路径，深入了解提出的部分路径独立性的影响。</p>
+<p>结合代码来看，实际上，整个过程简单而言，就是多加了一个 Unet框架，然后在 <code>p_sample_loop</code>框架中又多加了一个更新公式：第一段更新是基于预测的残差更新图像，而第二段则是基于预测的噪声更新图像。</p>
+<p>对应地，在训练过程中，优化器、加速器等都要同时应用到两个 Unet 上，这两个 Unet 一个控制残差，另一个控制噪声。</p>
+<p>可以根据需要调整我们想要的目标图像：是残差更新 or 噪声更新？<strong>残差预测优先考虑确定性，而噪声预测强调多样性。</strong></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/09/27/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E5%90%88%E9%9B%86/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E8%84%B8%E7%94%9F%E6%88%90/" rel="tag">人脸生成</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" rel="tag">多模态</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2024/11/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-%E8%B6%85%E5%88%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            论文阅读笔记-图像超分与复原
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2024/09/14/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">论文阅读笔记-DDFM</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">浙ICP备88888888</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
