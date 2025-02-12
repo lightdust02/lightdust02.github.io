@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>南京大学软件分析复习笔记 |  LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-NJU软件分析"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  南京大学软件分析复习笔记
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/02/05/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/" class="article-date">
+  <time datetime="2025-02-05T08:35:00.000Z" itemprop="datePublished">2025-02-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E4%B8%9A/">课业</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">7.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">27 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>个人应对软件分析2024年期末考试的复习笔记。</p>
+<span id="more"></span>
+
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/panhewu9919/article/details/106007155">【课程笔记】南大软件分析课程—16课时完整版_南大软件分析课程10——基于datalog的程序分析-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.wohin.me/posts/nju-program-analysis-01/">南大软分课程笔记｜01 介绍</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhang971105/article/details/109538402">https://blog.csdn.net/zhang971105/article/details/109538402</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/panhewu9919/article/details/106007155">https://blog.csdn.net/panhewu9919/article/details/106007155</a></p>
+<h2 id="软件分析概述"><a href="#软件分析概述" class="headerlink" title="软件分析概述"></a>软件分析概述</h2><h3 id="静态分析（Static-Analysis）和动态测试（Dynamic-Testing）的区别是什么？"><a href="#静态分析（Static-Analysis）和动态测试（Dynamic-Testing）的区别是什么？" class="headerlink" title="静态分析（Static Analysis）和动态测试（Dynamic Testing）的区别是什么？"></a>静态分析（Static Analysis）和动态测试（Dynamic Testing）的区别是什么？</h3><p>静态测试是指测试不运行的部分：只是检查和审阅,如规范测试、软件模型测试、文档测试等。不用执行程序。</p>
+<p>动态测试是通常意义上的测试，也就是运行和使用软件。需要构造测试实例、执行程序、分析程序的输出结果。</p>
+<h3 id="完全性（Soundness）、正确性（Completeness）、假积极（False-Positives）和假消极（False-Negatives）分别是什么含义？"><a href="#完全性（Soundness）、正确性（Completeness）、假积极（False-Positives）和假消极（False-Negatives）分别是什么含义？" class="headerlink" title="完全性（Soundness）、正确性（Completeness）、假积极（False Positives）和假消极（False Negatives）分别是什么含义？"></a>完全性（Soundness）、正确性（Completeness）、假积极（False Positives）和假消极（False Negatives）分别是什么含义？</h3><ul>
+<li><strong>完全性（Soundness）</strong>：真相一定包含在 <em>S</em> 给出的答案中；（范围更广，比较宽松，存在误报）</li>
+<li><strong>正确性（Completeness）</strong>：<em>S</em> 给出的答案一定包含在真相中；（范围更小，比较严格，可能漏报）</li>
+<li><strong>假积极（False Positives）</strong>：实际为 False，预测为 True。</li>
+<li><strong>假消极（False Negatives）</strong>：实际为 True，预测为 False。</li>
+</ul>
+<p>一个完美的静态分析给出的答案应当既是对的，也是全的。</p>
+<p>sound的结果：over-approximate，牺牲 soundness 会产生漏报 false negatives</p>
+<p>complete的结果：under-approximate。牺牲 completeness 会产生误报 false positives</p>
+<h3 id="为什么静态分析通常需要尽可能保证完全性？"><a href="#为什么静态分析通常需要尽可能保证完全性？" class="headerlink" title="为什么静态分析通常需要尽可能保证完全性？"></a>为什么静态分析通常需要尽可能保证完全性？</h3><p>宁可有误报，也不漏掉一个正确结果。Soundness对编译器优化、程序验证等领域十分重要。</p>
+<h3 id="抽象与过近似"><a href="#抽象与过近似" class="headerlink" title="抽象与过近似"></a>抽象与过近似</h3><p>在程序中，变量很可能是不确定的（unknown）或非法、未定义（undefined）的。</p>
+<p>因此abstract domain包含五类符号：+ − O ⊤ ⊥，<strong>其中 ⊤ 表示unknown，⊥ 表示undefined</strong>。</p>
+<p>Over-approximation 部分的 control flows 则指的是，在实际场景中进行控制流相关的静态分析时，由于无法枚举所有路径，我们通常采用 flow merging（一种over-approximation的方式）来处理。</p>
+<h2 id="程序的中间表示"><a href="#程序的中间表示" class="headerlink" title="程序的中间表示"></a>程序的中间表示</h2><h3 id="编译器（Compiler）和静态分析器（Static-Analyzer）的关系是什么？"><a href="#编译器（Compiler）和静态分析器（Static-Analyzer）的关系是什么？" class="headerlink" title="编译器（Compiler）和静态分析器（Static Analyzer）的关系是什么？"></a>编译器（Compiler）和静态分析器（Static Analyzer）的关系是什么？</h3><p>编译器会进行编译过程，通常包括词法分析、语法分析、语义分析等过程，最终生成机器码。</p>
+<p>静态分析使用的是 Translator 生成的IR进行分析。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-315f72c169dd989b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="三地址码（3-Address-Code-3AC）是什么，它的常用形式有哪些？"><a href="#三地址码（3-Address-Code-3AC）是什么，它的常用形式有哪些？" class="headerlink" title="三地址码（3-Address Code, 3AC）是什么，它的常用形式有哪些？"></a>三地址码（3-Address Code, 3AC）是什么，它的常用形式有哪些？</h3><p>三地址码的一个要求是，在一个指令的右边至多只有一个操作符。</p>
+<p>例如，对于<code>c = a + b + 3</code>这样的语句，3AC 需要引入一个中间变量来将其变成两个指令：<code>t1 = a + b</code>和<code>c = t1 + 3</code>。</p>
+<p>常见形式如下所示：</p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/Xnip2023-03-02_16-40-13.png" alt="Xnip2023-03-02_16-40-13"></p>
+<h3 id="如何在-IR-的基础上-构建-BasicBlock"><a href="#如何在-IR-的基础上-构建-BasicBlock" class="headerlink" title="如何在 IR 的基础上 构建 BasicBlock"></a>如何在 IR 的基础上 构建 BasicBlock</h3><h4 id="控制流分析-Control-Flow-Graph"><a href="#控制流分析-Control-Flow-Graph" class="headerlink" title="控制流分析 Control Flow Graph"></a>控制流分析 Control Flow Graph</h4><p>控制流图（Control Flow Graph，CFG）是静态分析的基础结构，CFG的每个节点可以是一个3AC，也可以是一个基本块（Basic Block，BB）</p>
+<p>BB 指的是一个连续、最长的3AC序列，该序列具有以下特性：</p>
+<ul>
+<li>控制流只能从该序列的起始指令进入。</li>
+<li>控制流只能从该序列的最后一条指令退出。</li>
+</ul>
+<h4 id="构建BasicBlock"><a href="#构建BasicBlock" class="headerlink" title="构建BasicBlock"></a><strong>构建BasicBlock</strong></h4><ol>
+<li>确定3AC序列中的leaders。leaders包括具有以下特性的指令：<ol>
+<li>3AC序列中的第一条指令。</li>
+<li>所有有条件跳转或无条件跳转的所有目标指令。</li>
+<li>所有有条件跳转或无条件跳转后面的一条指令。</li>
+</ol>
+</li>
+<li>划分BB。BB包含leader指令及其后面紧邻的所有非leader指令。</li>
+</ol>
+<p><strong>简而言之：</strong></p>
+<p><strong>BB开头：第一个3AC / goto的目标 /goto的下一个语句</strong></p>
+<p><strong>BB结尾：goto语句 / goto的目标的上一个语句</strong></p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/Xnip2023-03-02_19-23-56.png" alt="Xnip2023-03-02_19-23-56"></p>
+<h3 id="在基块的基础上构建控制流图（Control-Flow-Graph-CFG）"><a href="#在基块的基础上构建控制流图（Control-Flow-Graph-CFG）" class="headerlink" title="在基块的基础上构建控制流图（Control Flow Graph, CFG）"></a>在基块的基础上构建控制流图（Control Flow Graph, CFG）</h3><p>根据上面的方法，我们就可以构建CFG。特性如下：</p>
+<ul>
+<li>CFG的节点均为BB。</li>
+<li>从 块A 到 块B 之间有一个有向边，当且仅当”从A到B一个有条件或无条件跳转“，或“B是A后面的紧邻块且A最后一条指令不是无条件跳转”。</li>
+<li>将原来3AC序列中的所有 “跳转到某指令标签处” 改为 “跳转到某基本块处” 。</li>
+</ul>
+<h2 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h2><h3 id="may-must"><a href="#may-must" class="headerlink" title="may / must"></a>may / must</h3><p>may analysis：输出<strong>可能正确</strong>的信息（需做<strong>over-approximation</strong>优化，才能成为Safe-approximation安全的近似，可以有<strong>误报-completeness</strong>），<strong>大多数静态分析都是may analysis</strong></p>
+<p>must analysis：输出<strong>必须正确</strong>的信息（需做<strong>under-approximation</strong>优化，才能成为Safe-approximation安全的近似，可以有<strong>漏报-soundness</strong>）</p>
+<h3 id="可达性（Reaching-Definitions）分析、活跃变量（Live-Variables）分析和可用表达式（Avaliable-Expressions）分析分别是什么含义？"><a href="#可达性（Reaching-Definitions）分析、活跃变量（Live-Variables）分析和可用表达式（Avaliable-Expressions）分析分别是什么含义？" class="headerlink" title="可达性（Reaching Definitions）分析、活跃变量（Live Variables）分析和可用表达式（Avaliable Expressions）分析分别是什么含义？"></a>可达性（Reaching Definitions）分析、活跃变量（Live Variables）分析和可用表达式（Avaliable Expressions）分析分别是什么含义？</h3><p>不同的数据流分析 有 不同的数据<strong>抽象表达</strong> 和 不同的<strong>安全近似策略</strong>，如 不同的 <strong>转换规则</strong> 和 <strong>控制流</strong>处理。</p>
+<h4 id="可达性分析-Reaching-Definitions-Analysis"><a href="#可达性分析-Reaching-Definitions-Analysis" class="headerlink" title="可达性分析 Reaching Definitions Analysis"></a>可达性分析 Reaching Definitions Analysis</h4><p>p处对变量v的定义在q可达：<strong>从p到q有一条路径，而且这条路径上没有其他对v的定义语句。</strong></p>
+<p>定义可达性分析可以用来检测源代码中的未定义变量。</p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20230306112148922.png" alt="image-20230306112148922"></p>
+<h4 id="活跃变量分析-Live-Variable-Analysis"><a href="#活跃变量分析-Live-Variable-Analysis" class="headerlink" title="活跃变量分析 Live Variable Analysis"></a>活跃变量分析 Live Variable Analysis</h4><p>变量v在p点是存活的，当且仅当 ：</p>
+<ol>
+<li>变量v在p点之后有被使用，</li>
+<li>从p点开始到被使用前，过程中不能出现变量v的重定义。</li>
+</ol>
+<p>存活变量分析可用于寄存器分配，如果寄存器满了，就需要替换掉不会被用到的变量。</p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/live-var-analysis-algorithm.png" alt="live-var-analysis-algorithm"></p>
+<h4 id="可用表达式分析-Available-Expressions-Analysis"><a href="#可用表达式分析-Available-Expressions-Analysis" class="headerlink" title="可用表达式分析 Available Expressions Analysis"></a>可用表达式分析 Available Expressions Analysis</h4><p><code>x op y</code>表达式在p点是可用的，当且仅当：</p>
+<ol>
+<li>首先，从entry到 p 的路径要经过<code>x op y</code>的表达式计算。</li>
+<li>其次，最后一次使用<code>x op y</code>之后，p点之前，没有重定义操作数x、y。</li>
+</ol>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20230310170528845.png" alt="image-20230310170528845"></p>
+<h3 id="上述三种数据流分析（Data-Flow-Analysis）有哪些不同点？又有什么相似的地方？"><a href="#上述三种数据流分析（Data-Flow-Analysis）有哪些不同点？又有什么相似的地方？" class="headerlink" title="上述三种数据流分析（Data Flow Analysis）有哪些不同点？又有什么相似的地方？"></a>上述三种数据流分析（Data Flow Analysis）有哪些不同点？又有什么相似的地方？</h3><table>
+<thead>
+<tr>
+<th></th>
+<th align="left">Reach Definitions</th>
+<th align="left">Live Variables</th>
+<th align="left">Available Expressions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Domain</strong></td>
+<td align="left">set of definitions</td>
+<td align="left">set of variables</td>
+<td align="left">set of experssions</td>
+</tr>
+<tr>
+<td><strong>Direction</strong></td>
+<td align="left">forwards</td>
+<td align="left"><strong>backwards</strong></td>
+<td align="left">forwards</td>
+</tr>
+<tr>
+<td><strong>May/Must</strong></td>
+<td align="left">may</td>
+<td align="left">may</td>
+<td align="left"><strong>must</strong></td>
+</tr>
+<tr>
+<td><strong>Boundary</strong></td>
+<td align="left">OUT[entry]=∅​</td>
+<td align="left"><strong>IN[exit]=∅</strong></td>
+<td align="left">OUT[entry]=∅</td>
+</tr>
+<tr>
+<td><strong>Initialization</strong></td>
+<td align="left">OUT[B]=∅</td>
+<td align="left"><strong>IN[B]=∅</strong></td>
+<td align="left">OUT[B]=∪</td>
+</tr>
+<tr>
+<td><strong>Transfer Function</strong></td>
+<td align="left">OUT=gen∪(IN−kill)</td>
+<td align="left"><strong>IN=gen∪(OUT−kill)</strong></td>
+<td align="left">OUT=gen∪(IN−kill)</td>
+</tr>
+<tr>
+<td><strong>Meet</strong></td>
+<td align="left">⋃</td>
+<td align="left">⋃</td>
+<td align="left"><strong>⋂</strong></td>
+</tr>
+</tbody></table>
+<h3 id="如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？"><a href="#如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？" class="headerlink" title="如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？"></a>如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？</h3><p>数据流迭代算法，目的是通过迭代计算，最终得到一个稳定的不变的解。其本质是通过不断迭代，直到相邻两次迭代的<strong>k-元组</strong>值一样，算法结束。</p>
+<h3 id="从函数的角度理解迭代算法"><a href="#从函数的角度理解迭代算法" class="headerlink" title="从函数的角度理解迭代算法"></a>从函数的角度理解迭代算法</h3><p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/6349402-67adb219d8749c57.png" alt="img"></p>
+<p>$X_i=X_{i+1}=F(X_i)$，我们称满足 X=F(X) 的X是一个不动点（fixed point），并称上述迭代算法到达了一个不动点。</p>
+<h3 id="格和全格的定义是什么？"><a href="#格和全格的定义是什么？" class="headerlink" title="格和全格的定义是什么？"></a>格和全格的定义是什么？</h3><p>偏序：二元关系    自反性    对称性    传递性</p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207204433313.png" alt="image-20241207204433313"></p>
+<p>上下界：</p>
+<p><strong>定义</strong>：给定偏序集(P, <img src="https://math.jianshu.com/math?formula=%5Csqsubseteq" alt="\sqsubseteq">)，且有P的子集S⊆P：</p>
+<ul>
+<li>∀<em>x</em>∈<em>S</em>, <em>x</em>⊑<em>u</em>, 其中<em>u</em>∈<em>P</em>，则u是子集S的上界 （<strong>注意，u并不一定属于S集</strong>）</li>
+<li>∀<em>x</em>∈<em>S</em>, <em>l</em>⊑<em>x</em>, 其中<em>l</em>∈<em>P</em>，则l是S的下界</li>
+</ul>
+<p>最小上界 lub，最大下界 glb</p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207204549622.png" alt="image-20241207204549622"></p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207205340172.png" alt="image-20241207205340172"></p>
+<p>格的定义：给定一个偏序集 (P,≼) ，∀ a,b∈P，如果a⌊⌋b和a⌈⌉b均存在，那么(P,≼) 称为格。</p>
+<p>偏序集中的<strong>任意两个元素</strong>构成的集合均<strong>存在最小上界和最大下界</strong>，那么该偏序集就是格。</p>
+<p><strong>格上的元素，都能找到其最大下界与最小上界</strong></p>
+<p>完全格：对于给定偏序集(P,≼)，它的任意子集S的最小上界 LUB 和最大下界 GLB 都存在，则(P,≼)才能被称为完全格。</p>
+<h3 id="如何理解不动点定理？"><a href="#如何理解不动点定理？" class="headerlink" title="如何理解不动点定理？"></a>如何理解不动点定理？</h3><p>目标问题：迭代算法一定会停止（到达不动点）吗？</p>
+<p>（1）单调性</p>
+<p><strong>定义</strong>：函数 f: L <img src="https://math.jianshu.com/math?formula=%5Crightarrow" alt="\rightarrow"> L，满足 ∀x,y∈L ，x⊑y ⇒ f(x) ⊑ f(y)，则为单调的。</p>
+<p>（2）不动点定理</p>
+<p><strong>定义</strong>：给定一个<strong>完全格(L,⊑)<strong>，如果 f : L→L 是</strong>单调</strong>的，并且<strong>L有限。</strong></p>
+<p>那么我们能得到最小不动点，通过迭代：f(⊥) , f(f(⊥)) , … , f^k(⊥)直到找到最小的一个不动点。</p>
+<p>同理我们能得到最大不动点，通过迭代：f(⊤) , f(f(⊤)) , … , f^k(⊤)直到找到最大的一个不动点。</p>
+<p>CFG上每个节点的 OUT 都对应一个完全（有限）格L，整个 CFG 上所有节点的OUT就构成了一个乘积格</p>
+<p>数据流分析可以视作在格上不断迭代应用transfer functions和meet/join操作。</p>
+<p>join function 是单调的，我们的迭代算法一定能达到不动点（问题1），且一定能够到达最小（最大）不动点（问题2）</p>
+<h4 id="在最坏情况下，需要经过多少次迭代才能达到不动点："><a href="#在最坏情况下，需要经过多少次迭代才能达到不动点：" class="headerlink" title="在最坏情况下，需要经过多少次迭代才能达到不动点："></a>在最坏情况下，需要经过多少次迭代才能达到不动点：</h4><p>假设每次迭代只在一个节点OUT对应的格上走了一步。</p>
+<p><strong>格的高度是h（格上从top到bottom的最长路径），CFG有 k 个节点，最多需要 i=h∗k 次迭代达到不动点。</strong></p>
+<h3 id="使用格来总结可能性分析与必然性分析？"><a href="#使用格来总结可能性分析与必然性分析？" class="headerlink" title="使用格来总结可能性分析与必然性分析？"></a>使用格来总结可能性分析与必然性分析？</h3><p>无论是 must 还是 may 分析，都是从unsafe result向safe result方向移动，从准确到不准确。</p>
+<p><strong>must</strong> 分析在这个乘积格上来看就是不断从⊤Unknown 往下走，越过truth，迭代算法<strong>到最大不动点</strong></p>
+<p><strong>may</strong>分析就是不断从⊥Undef 往上走，越过truth，我们的迭代算法会达到<strong>最小不动点</strong>。</p>
+<p><img src="https://blog.wohin.me/posts/nju-program-analysis-06/image-20230316155147853.png" alt="image-20230316155147853"></p>
+<h4 id="（1）may分析"><a href="#（1）may分析" class="headerlink" title="（1）may分析"></a>（1）may分析</h4><p>以 Reaching Definitions分析为例：</p>
+<ol>
+<li>从<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp"> 开始，<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp"> 表示所有定义都不可达，是<strong>不安全</strong>的结果（因为这个分析的应用目的是为了查错，查看变量是否需要初始化。首先在Entry中给每个变量一个假定义，标记所有变量为都为未初始化状态，<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp">表示所有的假定义都无法到达，说明所有变量在中间都进行了赋值，那就不需要对任何变量进行初始化，这是不安全的，可能导致未初始化错误）。</li>
+<li><img src="https://math.jianshu.com/math?formula=%5Ctop" alt="\top">表示所有Entry中的假定义都可达，从查错角度来说，需要对每个变量都进行初始化，非常<strong>安全</strong>！但是这句话没有用，我都要初始化的话还做这个分析干嘛？</li>
+<li>Truth：表明最准确的验证结果，假设{a,c}是truth，那么包括其以上的都是safe的，以下的都是unsafe，就是上图的阴影和非阴影。</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-15add7829213a329.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/606/format/webp" alt="img"></p>
+<ol>
+<li>从<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp"> 到<img src="https://math.jianshu.com/math?formula=%5Ctop" alt="\top"> ，得到的<strong>最小不动点</strong>最准确，离Truth最近。上面还有多个不动点，越往上越不准。</li>
+</ol>
+<h4 id="（2）must分析"><a href="#（2）must分析" class="headerlink" title="（2）must分析"></a>（2）must分析</h4><p>以available expressions分析为例：</p>
+<ol>
+<li>从<img src="https://math.jianshu.com/math?formula=%5Ctop" alt="\top">开始，表示所有表达式可用。如果用在表达式计算优化中，那么有很多已经被重定义的表达式也被优化了（实际上不能被优化），那么该优化就是错误的，<strong>不安全</strong>！</li>
+<li><img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp">表示没有表达式可用，都不需要优化，很<strong>安全</strong>！但没有用。</li>
+<li>从<img src="https://math.jianshu.com/math?formula=%5Ctop" alt="\top">到<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp">，就是从不安全到安全，存在一个Truth，代表准确的结果。</li>
+<li>从<img src="https://math.jianshu.com/math?formula=%5Ctop" alt="\top">到<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp">，达到一个<strong>最大不动点</strong>，离truth最近的最优解。</li>
+</ol>
+<p>迭代算法转化到lattice上，may/must分析分别初始化为最小值<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp">和最大值<img src="https://math.jianshu.com/math?formula=%5Ctop" alt="\top">，最后求最小上界/最大下界。</p>
+<h3 id="迭代算法提供的解决方案与-MOP-相比而言精确度如何"><a href="#迭代算法提供的解决方案与-MOP-相比而言精确度如何" class="headerlink" title="迭代算法提供的解决方案与 MOP 相比而言精确度如何"></a>迭代算法提供的解决方案与 MOP 相比而言精确度如何</h3><p><strong>MOP准确性</strong>：有些路径不会被执行，所以不准确；若路径包含循环，或者路径爆炸，所以实操性不高，只能作为理论的一种衡量方式。</p>
+<p>Meet-Over-All-Paths（MOP）。</p>
+<p>我们定义<em>P</em>为从Entry到某个语句Si的某一条路径（可能还会有别的路径），转换函数FP是从Entry到Si经过的所有的转换函数（fS1, … ,fSi−1）构成的复合转换函数，那么有：</p>
+<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241211221853066.png" alt="image-20241211221853066"></p>
+<p>MOP 在每条路径末尾计算数据流的值，然后将它们 join/meet起来，寻找它们的 lub / glb。</p>
+<p>MOP可能是不精确的。有些路径不会被执行，所以不准确；若路径包含循环，或者路径爆炸，所以实操性不高</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-e5ea51c1769af60f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>即 $IN = F(X.Y), MOP=F(X).F(Y)$</p>
+<p>迭代算法的精确度小于等于MOP</p>
+<p>当转换函数F 具有分配性（distributive）时，MOP=Ours，两者精确度才相同。</p>
+<h3 id="常量传播（Constant-Propagation）分析"><a href="#常量传播（Constant-Propagation）分析" class="headerlink" title="常量传播（Constant Propagation）分析"></a>常量传播（Constant Propagation）分析</h3><p><strong>问题描述</strong>：在程序点p处的变量x，判断x是否一定指向常量值。</p>
+<p><strong>类别</strong>：<strong>must分析</strong>，因为要考虑经过p点所有路径上，x的值必须都一样，才算作一定指向常量。</p>
+<p><strong>表示</strong>：CFG每个节点的OUT是pair（x, v）的集合，表示变量x是否指向常数v。</p>
+<h4 id="数据流分析框架（D-L-F）"><a href="#数据流分析框架（D-L-F）" class="headerlink" title="数据流分析框架（D, L, F）"></a>数据流分析框架（D, L, F）</h4><p>（1）D：forward更直观</p>
+<p>（2）L：lattice</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-aa2283607e0a4ac1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/662/format/webp" alt="img"></p>
+<p><strong>变量值域</strong>：所有实数。must分析，所以<img src="https://math.jianshu.com/math?formula=%5Ctop" alt="\top">是UNDEF未定义（unsafe），<img src="https://math.jianshu.com/math?formula=%5Cperp" alt="\perp"> 是NAC非常量（safe）。</p>
+<p><strong>meet操作</strong>：must分析， <img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap">。在每个路径汇聚点PC，对流入的所有变量进行meet操作，但并非常见的交和并，所以<strong>不满足分配律</strong>。</p>
+<ul>
+<li>NAC <img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap"> v = NAC</li>
+<li>UNDEF <img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap"> v = v  未初始化的变量不是我们分析的目标。</li>
+<li>c <img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap"> v = ?                  （ c <img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap"> c = c          c1 <img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap"> c2 =NAC ）</li>
+</ul>
+<p>（3）<strong>F转换函数</strong></p>
+<p>OUT[s] = gen U (IN[s] - {(x, _})</p>
+<p>输出 = BB中新被赋值的 U 输入 - BB中相关变量值已经不是f常量的部分。</p>
+<p>对所有的赋值语句进行分析（不是赋值语句则不管，用val(x)表示x指向的值）：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-4820506ea9d042aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>（4）<strong>性质</strong>：不满足分配律</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-cce112ee1d3ca003.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>可以发现，MOP更准确。F(X<img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap">Y) <img src="https://math.jianshu.com/math?formula=%5Csqsubseteq" alt="\sqsubseteq"> F(X) <img src="https://math.jianshu.com/math?formula=%5Csqcap" alt="\sqcap"> F(Y)，但是是单调的。</p>
+<hr>
+<h3 id="Worklist算法"><a href="#Worklist算法" class="headerlink" title="Worklist算法"></a>Worklist算法</h3><p><strong>本质</strong>：对迭代算法进行优化，采用队列来存储需要处理的基本块，减少大量的冗余的计算。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-2a279d0c8acb99c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h2 id="过程间分析-Inter-procedural-Analysis"><a href="#过程间分析-Inter-procedural-Analysis" class="headerlink" title="过程间分析 Inter-procedural Analysis"></a>过程间分析 Inter-procedural Analysis</h2><p><strong>过程间分析</strong>：Inter-procedural Analysis，考虑函数调用，又称为全程序分析（Whole Program Analysis），需要构建调用图，加入Call edges和Return edges。</p>
+<h3 id="如何通过类层级结构分析（Class-Hierarchy-Analysis-CHA）来构建调用图（Call-Graph）"><a href="#如何通过类层级结构分析（Class-Hierarchy-Analysis-CHA）来构建调用图（Call-Graph）" class="headerlink" title="如何通过类层级结构分析（Class Hierarchy Analysis, CHA）来构建调用图（Call Graph）"></a>如何通过类层级结构分析（Class Hierarchy Analysis, CHA）来构建调用图（Call Graph）</h3><p><strong>算法</strong>：遍历每个函数中的每个调用指令，调用CHA的Resolve()找到对应的目标函数和调用边，函数+调用边=调用图。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-9c7b9362e9f20993.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><strong>示例</strong>：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-7632d67dab5469b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="过程间控制流分析-ICFG"><a href="#过程间控制流分析-ICFG" class="headerlink" title="过程间控制流分析  ICFG"></a>过程间控制流分析  ICFG</h3><p><strong>定义</strong>：过程间控制流图ICFG = CFG + (Call edges + Return edges)。</p>
+<ul>
+<li>Call edges：连接调用点和目标函数入口</li>
+<li>Return edges：从return语句连到Return site（Call site后面一条语句）</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-22674e8d71a6b979.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<hr>
+<h3 id="过程间数据流分析-IDFA"><a href="#过程间数据流分析-IDFA" class="headerlink" title="过程间数据流分析  IDFA"></a>过程间数据流分析  IDFA</h3><p><strong>说明</strong>：对ICFG进行数据流分析，没有标准的一套算法。</p>
+<p><strong>对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Intra</strong>procedural</th>
+<th><strong>Inter</strong>procecdural</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>程序表示</strong></td>
+<td>CFG</td>
+<td>ICFG = CFGs + call &amp; return edges</td>
+</tr>
+<tr>
+<td><strong>转换规则</strong></td>
+<td>Node transfer</td>
+<td>Node transfer + edge transfer</td>
+</tr>
+</tbody></table>
+<p><strong>常量传播数据流分析</strong>：</p>
+<ul>
+<li>Node transfer：与过程内分析相同，对每个调用点，将等号左边部分去掉。</li>
+<li>Call edge transfer：传参</li>
+<li>Return edge transfer：传返回值</li>
+</ul>
+<p><strong>常量传播示例</strong>：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-da4875fba6057e82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><strong>说明</strong>：黄色背景边必须有，从<code>b = addOne(a)</code>到<code>c=b-3</code>，a通过此边传递，b通过addOne()传递。若a也通过addOne()传递，会额外消耗系统资源。</p>
+<h2 id="指针分析"><a href="#指针分析" class="headerlink" title="指针分析"></a>指针分析</h2><h3 id="什么是指针分析（Pointer-Analysis）"><a href="#什么是指针分析（Pointer-Analysis）" class="headerlink" title="什么是指针分析（Pointer Analysis）"></a>什么是指针分析（Pointer Analysis）</h3><p><strong>目标</strong>：分析程序指针可以指向哪些内存。对于Java等面向对象语言，主要分析指针指向哪个对象。</p>
+<p><strong>说明</strong>：指针分析属于<strong>may analysis</strong>，分析的结果是某指针所有可能指向哪些对象，<strong>是个over-approximation集合。</strong></p>
+<p><strong>示例</strong>：面向对象语言中的指针指向问题。对于setB()函数，this指向<code>new A()</code>，因为是调用者是a.setB()；setB()中的b是x传过来的，所以b指向new B()，A.b指向 new B()。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-87dab1c2cc333ced.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="指针分析的关键因素-key-factors"><a href="#指针分析的关键因素-key-factors" class="headerlink" title="指针分析的关键因素 key factors"></a>指针分析的关键因素 key factors</h3><p><strong>指标</strong>：精度（precision）&amp; 效率（efficiency）。</p>
+<p><strong>影响因素</strong>：本课程，我们主要分析分配点的堆抽象技术、上下文敏感/不敏感、流不敏感、全程序分析。</p>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>问题</th>
+<th>选项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Heap abstraction</td>
+<td>如何建模堆内存？</td>
+<td>• <strong>Allocation-site</strong>        • Storeless</td>
+</tr>
+<tr>
+<td>Context sensitivity</td>
+<td>如何建模调用上下文？</td>
+<td>• <strong>Context-sensitive</strong>     • <strong>Context-insensitive</strong></td>
+</tr>
+<tr>
+<td>Flow sensitivity</td>
+<td>如何建模控制流？</td>
+<td>• Flow-sensitive     • <strong>Flow-insensitive</strong> <strong>流不敏感</strong></td>
+</tr>
+<tr>
+<td>Analysis scope</td>
+<td>分析哪部分程序？</td>
+<td>• <strong>Whole-program</strong>    • Demand-driven</td>
+</tr>
+</tbody></table>
+<p><strong><code>Allocation-Site</code>原理</strong>：将动态对象抽象成它们的创建点（<code>Allocation-Site</code>），来表示在该点创建的所有动态对象。<code>Allocation-Site</code>个数是有限的。</p>
+<p><strong>示例</strong>：循环创建了3个对象，我们用O2来抽象表示这3个动态对象。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-2dd1f20fe8e1c510.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>（1）堆抽象（内存建模）</p>
+<p><strong>问题</strong>：程序动态执行时，堆对象个数理论上是无穷无尽的，但静态分析无法处理这个问题。所以为保证指针分析可以终止，我们采用堆抽象技术，将无穷的具体对象抽象成有限的抽象对象。也即，将有共性的对象抽象成1个静态对象，从而限制静态分析对象的个数。</p>
+<p>我们只学习<code>Allocation-Site</code>技术，最常见也最常被使用。</p>
+<p><strong><code>Allocation-Site</code>原理</strong>：将动态对象抽象成它们的创建点（<code>Allocation-Site</code>），来表示在该点创建的所有动态对象。<code>Allocation-Site</code>个数是有限的。</p>
+<p><strong>示例</strong>：循环创建了3个对象，我们用O2来抽象表示这3个动态对象。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-2dd1f20fe8e1c510.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>（2）上下文敏感 Context Sensitivity</p>
+<p><strong>问题</strong>：考虑是否区分不同call-site对同一函数的调用。</p>
+<ul>
+<li><p>Context-sensitive：根据某函数调用上下文的不同，多次分析同一函数。</p>
+</li>
+<li><p>Context-insensitive：每个函数只分析一次。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-65b1ee6e4016e60c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+</li>
+</ul>
+<p>（3）流敏感 Flow Sensitivity</p>
+<p><strong>问题</strong>：考虑语句顺序（控制流）的影响  vs 把程序当做无序语句的集合。</p>
+<p><strong>方法</strong>：流敏感会在每个程序点都保存一份指针指向关系映射，而流不敏感则对整个程序保存一份指向关系映射。</p>
+<p><strong>说明</strong>：目前流敏感对Java提升不大，不过在C中很有效，本课程分析的是Java，所以重点讨论流不敏感技术。</p>
+<p><strong>指针分析示例</strong>：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-e85d34895238f3f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>（4）分析范围 Analysis Scope</p>
+<p><strong>问题</strong>：分析程序的哪一部分？</p>
+<ul>
+<li>Whole-program 全程序：分析全程序的指向关系。</li>
+<li>Demand-driven 需求驱动：只分析影响特定域的指针的指向关系。</li>
+</ul>
+<p>作者：bsauce<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9d15edf2604e">https://www.jianshu.com/p/9d15edf2604e</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h3 id="指针分析的过程中具体都分析些什么"><a href="#指针分析的过程中具体都分析些什么" class="headerlink" title="指针分析的过程中具体都分析些什么"></a>指针分析的过程中具体都分析些什么</h3><p>哪些语句会影响指针指向，那就只分析这些语句。</p>
+<p><strong>Java指针类型</strong>：</p>
+<ol>
+<li><strong>Local variable: x</strong></li>
+<li>Static field: C.f   （有时称为全局变量）——不分析</li>
+<li><strong>Instance field: x.f</strong>    （对象的field）</li>
+<li>Array element: array[i]  ——不分析，因为静态分析无法确定下标，所以将array中所有成员映射到一个field中，等价于<strong>Instance field</strong>，所以不重复分析。</li>
+</ol>
+<p><strong>影响指针指向的语句</strong>：</p>
+<ol>
+<li>New:      x = new T()</li>
+<li>Assign：x = y</li>
+<li>Store：  x.f = y</li>
+<li>Load：   y = x.f</li>
+<li>Call：     r = x.k(a,…)<ul>
+<li>Static call：    C.foo()</li>
+<li>Special call： super.foo() / x.<init>() / this.privateFoo()</init></li>
+<li><strong>Virtual call</strong>：x.foo()</li>
+</ul>
+</li>
+</ol>
+<h3 id="指针分析的规则（Pointer-Analysis-Rules）是什么？"><a href="#指针分析的规则（Pointer-Analysis-Rules）是什么？" class="headerlink" title="指针分析的规则（Pointer Analysis Rules）是什么？"></a>指针分析的规则（Pointer Analysis Rules）是什么？</h3><p><strong>前4种语句</strong>：New / Assign / Store / Load。</p>
+<p><strong>指针分析的域和相应的记法</strong>：变量/函数/对象/实例域/指针，用pt表示程序中的指向关系（映射）。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-f474630b520e6f1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><strong>规则</strong>：采用推导形式，横线上面是条件，横线下面是结论。</p>
+<ul>
+<li><p>New：创建对象，将<code>new T()</code>对应的对象oi加入到x的指针集。</p>
+</li>
+<li><p>Assign：将y的指针集加入到x对应的指针集。</p>
+</li>
+<li><p>Store：让oi的field指向oj。</p>
+</li>
+<li><p>Load：Store的反操作。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-7f802d0eb62c05a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+</li>
+</ul>
+<h3 id="如何理解指针流图（Pointer-Flow-Graph）？"><a href="#如何理解指针流图（Pointer-Flow-Graph）？" class="headerlink" title="如何理解指针流图（Pointer Flow Graph）？"></a>如何理解指针流图（Pointer Flow Graph）？</h3><p><strong>问题</strong>：当一个指针的指向集发生变化，必须更新与它相关的其他指针。如何表示这种传递关系？PFG。</p>
+<p><strong>PFG</strong>：用指针流图PFG来表示指针之间的关系，PFG是<strong>有向图</strong>。</p>
+<ul>
+<li>Nodes：Pointer = V U (O x F)    节点n表示一个变量或抽象对象的域。</li>
+<li>Edges：Pointer X Pointer   边x -&gt; y 表示指针x指向的对象may会流入指针y。</li>
+</ul>
+<p><strong>Edges添加规则</strong>：根据程序语句 + 对应的规则。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-13b23cd53b403d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1194/format/webp" alt="img"></p>
+<h3 id="指针分析算法（Pointer-Analysis-Algorithms）的基本过程是什么？"><a href="#指针分析算法（Pointer-Analysis-Algorithms）的基本过程是什么？" class="headerlink" title="指针分析算法（Pointer Analysis Algorithms）的基本过程是什么？"></a>指针分析算法（Pointer Analysis Algorithms）的基本过程是什么？</h3><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5cbc5bb5c4da">【课程笔记】南大软件分析课程7——指针分析基础（课时9/10） - 简书</a></p>
+<h4 id="过程内PTA算法"><a href="#过程内PTA算法" class="headerlink" title="过程内PTA算法"></a>过程内PTA算法</h4><p><img src="https://upload-images.jianshu.io/upload_images/6349402-b35b8859776cf4ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="如何理解方法调用（Method-Call）中指针分析的规则？"><a href="#如何理解方法调用（Method-Call）中指针分析的规则？" class="headerlink" title="如何理解方法调用（Method Call）中指针分析的规则？"></a>如何理解方法调用（Method Call）中指针分析的规则？</h3><h3 id="怎样理解过程间的指针分析算法（Inter-procedural-Pointer-Analysis-Algorithm）？"><a href="#怎样理解过程间的指针分析算法（Inter-procedural-Pointer-Analysis-Algorithm）？" class="headerlink" title="怎样理解过程间的指针分析算法（Inter-procedural Pointer Analysis Algorithm）？"></a>怎样理解过程间的指针分析算法（Inter-procedural Pointer Analysis Algorithm）？</h3><h4 id="call"><a href="#call" class="headerlink" title="call"></a>call</h4><p><strong>call语句规则</strong>：主要分为4步。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-917f444d5ffb37da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<ol>
+<li><strong>找目标函数m</strong>：Dispatch(oi, k)——找出pt(x)，也即oi类型对象中的k函数。</li>
+<li><strong>receiver object</strong>：把x指向的对象（<code>pt(x)</code>）传到m函数的this变量，即mthis</li>
+<li><strong>传参数</strong>：pt(aj), 1&lt;=j&lt;=n  传给m函数，即p(mpj), 1&lt;=j&lt;=n。**建立PFG边**，a1-&gt;mp1，…，an-&gt;mpn。</li>
+<li><strong>传返回值</strong>：pt(mret)传给pt(r)。<strong>建立PFG边</strong>，r&lt;-mret。</li>
+</ol>
+<p><strong>问题</strong>：为什么PFG中不添加x-&gt;mthis边？因为mthis只和自己这个对象相关，而可能有pt(x)={new A, new B, new C}，指定对象的x只流向对应的对象，是无法跨对象传递的。</p>
+<h4 id="（2）过程间PTA算法"><a href="#（2）过程间PTA算法" class="headerlink" title="（2）过程间PTA算法"></a>（2）过程间PTA算法</h4><p><strong>问题</strong>：由于指针分析和CG构造互相影响，所以每次迭代只分析可达的函数和语句。然后不断发现和分析新的可达函数。</p>
+<p><strong>可达示例</strong>：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-64404bccf794b5b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/676/format/webp" alt="img"></p>
+<p><strong>算法</strong>：黄色背景的代码是和过程内分析不同的地方。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-e37185e99bf23ba3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="即时调用图构建（On-the-fly-Call-Graph-Construction）的含义是什么？"><a href="#即时调用图构建（On-the-fly-Call-Graph-Construction）的含义是什么？" class="headerlink" title="即时调用图构建（On-the-fly Call Graph Construction）的含义是什么？"></a>即时调用图构建（On-the-fly Call Graph Construction）的含义是什么？</h3><h3 id="上下文敏感（Context-Sensitivity-C-S-）是什么？"><a href="#上下文敏感（Context-Sensitivity-C-S-）是什么？" class="headerlink" title="上下文敏感（Context Sensitivity, C.S.）是什么？"></a>上下文敏感（Context Sensitivity, C.S.）是什么？</h3><p><strong>概念</strong>：</p>
+<ul>
+<li>call-site sensitivity (call-string)：根据调用点位置的不同来区分上下文，<code>3：id(n1)</code> / <code>4：id(n2)</code>。</li>
+<li>Cloning-Based Context Sensitivity：每种上下文对应一个节点，标记调用者行数。克隆多少数据，后面会讨论。</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-be36d319318695e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="上下文敏感堆（C-S-Heap）是什么？"><a href="#上下文敏感堆（C-S-Heap）是什么？" class="headerlink" title="上下文敏感堆（C.S. Heap）是什么？"></a>上下文敏感堆（C.S. Heap）是什么？</h3><p><img src="https://upload-images.jianshu.io/upload_images/6349402-ce553616e9cd1b57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><strong>堆抽象上下文不敏感</strong>：如果不区分<code>8 X x = new X();</code>调用的堆抽象的上下文，导致只有1个o8.f，把两个上下文调用产生的o8.f指向集合都合并了，得出了o8.f的错误指向的结果。</p>
+<p><strong>堆抽象上下文敏感</strong>：用不同的调用者来区分堆抽象，如<code>3:o8</code>、<code>4:o8</code>是不同的堆抽象。所以说，既要根据上下文的不同来区分局部变量，也要区分堆抽象，例如：<code>3:p</code>是给变量加上下文，<code>3:o8</code>是给堆抽象加上下文。</p>
+<h3 id="为什么-C-S-和-C-S-Heap-能够提高分析精度？"><a href="#为什么-C-S-和-C-S-Heap-能够提高分析精度？" class="headerlink" title="为什么 C.S. 和 C.S. Heap 能够提高分析精度？"></a>为什么 C.S. 和 C.S. Heap 能够提高分析精度？</h3><h3 id="上下文敏感的指针分析有哪些规则？"><a href="#上下文敏感的指针分析有哪些规则？" class="headerlink" title="上下文敏感的指针分析有哪些规则？"></a>上下文敏感的指针分析有哪些规则？</h3><p><strong>标记</strong>：根据调用者的行数来区分不同上下文，只要区分了函数、变量、堆对象，就能够区分实例域、上下文敏感的指针（变量+对象域）。C—上下文（暂时用调用点的行数表示），O—对象，F—对象中的域。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-ef1f63da3fd47124.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><strong>规则</strong>：跟之前区别不大，只是增加了个上下文标记，注意load表示和之前有区别。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-3cc7f3f7e845ee97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="如何理解上下文敏感的指针分析算法（Algorithm-for-Context-sensitive-Pointer-Analysis）？"><a href="#如何理解上下文敏感的指针分析算法（Algorithm-for-Context-sensitive-Pointer-Analysis）？" class="headerlink" title="如何理解上下文敏感的指针分析算法（Algorithm for Context-sensitive Pointer Analysis）？"></a>如何理解上下文敏感的指针分析算法（Algorithm for Context-sensitive Pointer Analysis）？</h3><p><img src="https://upload-images.jianshu.io/upload_images/6349402-f0ab082b31e7021e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="常见的上下文敏感性变体（Context-Sensitivity-Variants）有哪些？"><a href="#常见的上下文敏感性变体（Context-Sensitivity-Variants）有哪些？" class="headerlink" title="常见的上下文敏感性变体（Context Sensitivity Variants）有哪些？"></a>常见的上下文敏感性变体（Context Sensitivity Variants）有哪些？</h3><ul>
+<li><p>Call-Site Sensitivity</p>
+</li>
+<li><p>Object Sensitivity</p>
+<ul>
+<li>用抽象对象（由对象allocation sites表示）列表来构成上下文，而非call sites构成。</li>
+</ul>
+</li>
+<li><p>Type Sensitivity</p>
+<ul>
+<li>使用包含allocation site的“类型”和堆上下文作为callee object。</li>
+</ul>
+</li>
+</ul>
+<h3 id="常见的几种上下文变体之间的差别和联系是什么？"><a href="#常见的几种上下文变体之间的差别和联系是什么？" class="headerlink" title="常见的几种上下文变体之间的差别和联系是什么？"></a>常见的几种上下文变体之间的差别和联系是什么？</h3><p>准确性来说，object &gt; type &gt; call-site。</p>
+<p>就效率来说，type &gt; object &gt; call-site。</p>
+<h2 id="静态分析与安全"><a href="#静态分析与安全" class="headerlink" title="静态分析与安全"></a>静态分析与安全</h2><h3 id="信息流安全（Information-Flow-Security）的概念是什么？"><a href="#信息流安全（Information-Flow-Security）的概念是什么？" class="headerlink" title="信息流安全（Information Flow Security）的概念是什么？"></a>信息流安全（Information Flow Security）的概念是什么？</h3><p><strong>访问控制</strong>：关注信息访问。</p>
+<p><strong>信息流安全</strong>：关注信息传播。</p>
+<p><strong>信息流</strong>：<code>x-&gt;y</code>表示x的值流向y。</p>
+<p><strong>信息等级</strong>：对不同变量进行分级，即安全等级，H-高密级，L-低密级。</p>
+<p><strong>安全策略</strong>：非干涉策略，高密级变量H的信息不能影响（流向）低密级变量L。</p>
+<h3 id="如何理解机密性（Confidentiality）与完整性（Integrity）？"><a href="#如何理解机密性（Confidentiality）与完整性（Integrity）？" class="headerlink" title="如何理解机密性（Confidentiality）与完整性（Integrity）？"></a>如何理解机密性（Confidentiality）与完整性（Integrity）？</h3><p><strong>机密性</strong>—信息泄露，读保护；</p>
+<p><strong>完整性</strong>—信息篡改，写保护。</p>
+<p><strong>完整性错误类型</strong>：命令注入、SQL注入、XSS攻击、… 。都属于注入错误。</p>
+<p><strong>完整性更宽泛的定义</strong>：准确性、完整性、一致性。准确性表示关键数据不被不可信数据破坏；完整性表示系统存储了所有的数据；一致性表示发送的数据和接收的数据是一致的。</p>
+<h3 id="什么是显式流（Explicit）和隐蔽信道（Covert-Channels）？"><a href="#什么是显式流（Explicit）和隐蔽信道（Covert-Channels）？" class="headerlink" title="什么是显式流（Explicit）和隐蔽信道（Covert Channels）？"></a>什么是显式流（Explicit）和隐蔽信道（Covert Channels）？</h3><p><strong>显示流</strong>：直接的数值传递。由于显示流能泄露更多信息，所以本课程关注显示流的信息泄露。</p>
+<p><strong>隐式信息流—侧信道</strong>：程序可能会以一些意想不到的方式泄露数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Eg1 隐式流</span></span><br><span class="line"><span class="keyword">if</span> (secret_H &lt; <span class="number">0</span>) </span><br><span class="line">  public_L = <span class="number">1</span>; </span><br><span class="line"><span class="keyword">else</span> Public_L = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// Eg2 终止信道</span></span><br><span class="line"><span class="keyword">while</span>(secret_H &lt; <span class="number">0</span>) &#123; ... &#125;;</span><br><span class="line"><span class="comment">// Eg3 时间信道</span></span><br><span class="line"><span class="keyword">if</span> (secret_H &lt; <span class="number">0</span>)</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i&lt; <span class="number">1000000</span>; ++i) &#123; ... &#125;;</span><br><span class="line"><span class="comment">// Eg4 异常</span></span><br><span class="line"><span class="keyword">if</span> (secret_H &lt; <span class="number">0</span>)</span><br><span class="line">  throw new Exception(<span class="string">&quot;...&quot;</span>);</span><br><span class="line"><span class="comment">// Eg5 如果访问数组越界，则可以推断secret可以为负数</span></span><br><span class="line"><span class="type">int</span> sa_H[] = getSecretArray();</span><br><span class="line">sa_H[secret_H] = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>covert channels</strong>：信道指的是传递信息的机制，原本目的不是为了传递信息的信道。</p>
+<h3 id="如何使用污点分析（Taint-Analysis）来检测不想要的信息流？"><a href="#如何使用污点分析（Taint-Analysis）来检测不想要的信息流？" class="headerlink" title="如何使用污点分析（Taint Analysis）来检测不想要的信息流？"></a>如何使用污点分析（Taint Analysis）来检测不想要的信息流？</h3><h2 id="基于-Datalog-的程序分析"><a href="#基于-Datalog-的程序分析" class="headerlink" title="基于 Datalog 的程序分析"></a>基于 Datalog 的程序分析</h2><h3 id="Datalog-语言的基本语法和语义是什么？"><a href="#Datalog-语言的基本语法和语义是什么？" class="headerlink" title="Datalog 语言的基本语法和语义是什么？"></a>Datalog 语言的基本语法和语义是什么？</h3><p><strong>Datalog</strong>（Data + Logic）：是声明式逻辑编程语言，可读性强，最初用于数据库。现在可用于程序分析、大数据、云计算。特点—没有副作用、没有控制流、没有函数、非图灵完备（精简了许多功能）。</p>
+<h4 id="1）Data（谓词、原子）"><a href="#1）Data（谓词、原子）" class="headerlink" title="(1）Data（谓词、原子）"></a>(1）Data（谓词、原子）</h4><p><strong>谓词Predicate</strong>：看作一系列陈述的集合，陈述某事情是不是事实（真假）。如Age，表示一些人的年龄。</p>
+<p><strong>事实fact</strong>：特定值的组合。Eg，(“Xiaoming”, 18)。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-9e04a85e169b7f94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><strong>原子Atom</strong>：<code>P(X1, X2, ... , Xn)</code>。P表示谓词名，Xi表示参数（又叫term，可以是变量或常量）。Eg，<code>Age(&quot;Xiaoming&quot;, 18)</code> == true ；<code>Age(&quot;Alan&quot;, 23)</code> == false。</p>
+<h4 id="（2）Logic（Rule）"><a href="#（2）Logic（Rule）" class="headerlink" title="（2）Logic（Rule）"></a>（2）Logic（Rule）</h4><p><strong>Rule</strong>：表示逻辑推导规则，若<code>Body</code>都为true，则<code>Head</code>为true。<code>H &lt;- B1, B2, ... ,Bn</code>。H是<code>Head</code>，Bi是<code>Body</code>。   </p>
+<p>Eg，<code>Adult(person) &lt;- Age(person, age), age &gt;= 18</code>。</p>
+<p><strong>Rule要求</strong>：规则中的值要有限，如<code>A(x) &lt;- B(y), x &gt; y</code>；规则不能有悖论，如<code>A(x) &lt;- B(x), !A(x)</code>。</p>
+<p><strong>Datalog中逻辑或</strong>：A或B都可推导出C，可写成<code>C&lt;-A. C&lt;-B</code>或者<code>C&lt;-A;B</code>。</p>
+<p><strong>Datalog中逻辑非</strong>：<code>!B(...)</code>。</p>
+<h4 id="（3）Datalog谓词分类"><a href="#（3）Datalog谓词分类" class="headerlink" title="（3）Datalog谓词分类"></a>（3）Datalog谓词分类</h4><ul>
+<li><strong>EDB（extensional database）外延数据库</strong>：<strong>谓词需预先定义，关系不可变</strong>，可被当做<strong>输入</strong>。</li>
+<li><strong>IDB（intensional database）内涵数据库</strong>：<strong>谓词是根据规则建立的，关系是根据规则推导的</strong>，可被看作是是<strong>输出</strong>。</li>
+</ul>
+<p><strong>说明</strong>：<code>H &lt;- B1, B2, ... ,Bn</code>，H只能是IDB，Bi可以是EDB或IDB。</p>
+<p><strong>递归性</strong>：Datalog支持递归，也即能够推导出自身。Eg，<code>Reach(from, to) &lt;- Edge(from, to)</code>；<code>Reach(from, to) &lt;- Reach(from, node), Edge(node, to)</code>。</p>
+<h4 id="（4）Datalog程序运行"><a href="#（4）Datalog程序运行" class="headerlink" title="（4）Datalog程序运行"></a>（4）Datalog程序运行</h4><p><strong>Datalog程序运行</strong>：输入EDB+rules到Datalog引擎，输出IDB。</p>
+<p>常用Datalog引擎——LogicBlox, Soufflé, XSB, Datomic, Flora-2。</p>
+<p><strong>Datalog程序性质</strong>：单调性、终止性。</p>
+<h3 id="如何用-Datalog-来实现指针分析？"><a href="#如何用-Datalog-来实现指针分析？" class="headerlink" title="如何用 Datalog 来实现指针分析？"></a>如何用 Datalog 来实现指针分析？</h3><p><strong>EDB</strong>：程序句法上可获得的指针相关信息。如<code>New</code> / <code>Assign</code> / <code>Store</code> / <code>Load</code>语句。V-变量，F-域，O-对象。</p>
+<ul>
+<li>New(x: <strong>V</strong>,o: <strong>O</strong>)            &lt;- <code>i: x = new T()</code></li>
+<li>Assign(x : <strong>V</strong>, y : <strong>V</strong>)        &lt;- <code>x=y</code></li>
+<li>Store(x : <strong>V</strong>, f : <strong>F</strong>, y : <strong>V</strong>)  &lt;- <code>x.f = y</code></li>
+<li>Load(y : <strong>V</strong>, x : <strong>V</strong>, f : <strong>F</strong>)  &lt;- <code>y = x.f</code></li>
+</ul>
+<p><strong>IDB</strong>：指针分析结果。</p>
+<ul>
+<li>VarPointsTo(v: <strong>V</strong>, o : <strong>O</strong>)  ，如VarPointsTo(x,oi)表示oi ∈ 𝑝𝑡(𝑥)</li>
+<li>FieldPointsTo(oi : <strong>O</strong>, f: <strong>V</strong>, oj : <strong>O</strong>)  ，如FieldsPointsTo(𝑜i, 𝑓, 𝑜j)表示𝑜j ∈ 𝑝𝑡(𝑜i.𝑓)</li>
+</ul>
+<p><strong>Rules</strong>：指针分析规则（与之前相同）。先分析上下文不敏感。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-0403a80a9389407f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h4 id="（2）上下文不敏感PTA示例"><a href="#（2）上下文不敏感PTA示例" class="headerlink" title="（2）上下文不敏感PTA示例"></a>（2）上下文不敏感PTA示例</h4><p><img src="https://upload-images.jianshu.io/upload_images/6349402-563eb0719e190b82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><strong>步骤</strong>：其实指令处理顺序不固定。</p>
+<ol>
+<li>首先将EDB（指令）表示成表格数据形式。</li>
+<li>处理<code>New</code>指令</li>
+<li>处理<code>Assign</code>指令</li>
+<li>处理<code>Store</code>指令</li>
+<li>处理<code>Load</code>指令</li>
+</ol>
+<h4 id="（3）上下文敏感—全程序指针分析"><a href="#（3）上下文敏感—全程序指针分析" class="headerlink" title="（3）上下文敏感—全程序指针分析"></a>（3）上下文敏感—全程序指针分析</h4><p><strong>call指令规则</strong>：S—指令，M—方法。共3条rule。</p>
+<ol>
+<li><p>首先找到调用的目标函数m，传递this指针。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-e653ed9282f936c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+</li>
+<li><p>传递参数</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-5e0ea4d063c70eb1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>10-3-4-call规则2.png</p>
+</li>
+<li><p>传返回值</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-3d9f57ea6cf2b658.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+</li>
+</ol>
+<p><strong>全程序指针分析</strong>：引入程序入口函数m。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-df5311d563ad7164.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="如何用-Datalog-来实现污点分析？"><a href="#如何用-Datalog-来实现污点分析？" class="headerlink" title="如何用 Datalog 来实现污点分析？"></a>如何用 Datalog 来实现污点分析？</h3><p><strong>EDB谓词-输入</strong>：</p>
+<ul>
+<li>Source(m : <strong>M</strong>)         ——产生污点源的函数</li>
+<li>Sink(m : <strong>M</strong>)              ——<code>sink</code>函数</li>
+<li>Taint(l : <strong>S</strong>, t : <strong>T</strong>)        ——关联某<code>callsite</code> l和它产生的污点数据t</li>
+</ul>
+<p><strong>IDB谓词-输出</strong>：</p>
+<ul>
+<li>TaintFlow(t : <strong>T</strong>, m : <strong>M</strong>)     ——表示污点数据t会流向<code>sink</code>函数m</li>
+</ul>
+<p><strong>规则</strong>：处理<code>source</code>和<code>sink</code>函数。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6349402-359f06eb38f1f762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2025/02/05/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/" rel="tag">软件分析</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/02/05/NJU%E7%BD%91%E5%AE%89%E6%9C%9F%E6%9C%AB/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            南京大学网络安全与检测技术复习笔记
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2024/12/19/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title"></div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2025
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">浙ICP备88888888</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

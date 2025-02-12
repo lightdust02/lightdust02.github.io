@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-522024330092_王正荧_DisEX2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+     
+    <div class="article-meta">
+      <a href="/2024/12/19/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/" class="article-date">
+  <time datetime="2024-12-19T07:53:17.688Z" itemprop="datePublished">2024-12-19</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">5.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">21 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <div align="center"><font size="10">分布式系统 第二次作业</font></div>
+
+<div align="center"><font size="5">学号：522024330092</font></div>
+<div align="center"><font size="5">姓名：王正荧</font></div>
+
+
+
+<h1 id="一、本次作业要求："><a href="#一、本次作业要求：" class="headerlink" title="一、本次作业要求："></a>一、本次作业要求：</h1><p>本次作业实际上是MIT6.824的 LAB2A、B、C的三部分内容，每部分内容如下：</p>
+<p>Part 1：需要我们完成Raft算法中最基本的 Election 功能，以及Heartbeat部分</p>
+<p>Part 2：需要我们完成Leader与Follower，以及日志相关内容。这需要完成 AppendEntry RPC 的构建</p>
+<p>Part 3：实现持久化。要求 Raft 保持在重启后仍存在的持久状态。通过完成Persist()，并在合适的地方Persist。</p>
+<p>这个实验的难度特别大，想要明白其原理需要好好下一番功夫。</p>
+<h1 id="二、认识Raft算法"><a href="#二、认识Raft算法" class="headerlink" title="二、认识Raft算法"></a>二、认识Raft算法</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/383555591">分布式一致性算法 Raft - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32052223">Raft算法详解 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43460956/article/details/134869695">MIT 6.824 Lab 2 Raft详细实现思路及过程_mit6.824-CSDN博客</a></p>
+<p>本实验完全围绕着Raft展开。因此，我们首先需要对Raft算法有详细的了解。</p>
+<p>Raft算法是2014年论文《In Search of Understandable Consensus Algorithm》所提出的一种分布式算法。</p>
+<p>一系列分布式算法所要考虑的关键问题都是“一致性”，而 Raft 算法将一致性分解为多个子问题：Leader选举（Leader Election）、日志同步Log Replication）、安全性（Safety）、日志压缩（Log Compaction）、成员变更（Membership Change）等。</p>
+<h2 id="状态与状态转换"><a href="#状态与状态转换" class="headerlink" title="状态与状态转换"></a>状态与状态转换</h2><p>首先，Raft会将系统中的角色分为领导者（Leader）、跟从者（Follower）和候选人（Candidate）三个类型：</p>
+<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/3.jpg" alt="Leader与Follower"></p>
+<ul>
+<li><p><strong>Leader</strong>：负责接受客户端请求，并向 Follower 同步请求日志，当日志同步到大多数节点上后，会告诉 Follower提交日志。<strong>系统在任意时刻最多只有一个Leader。</strong></p>
+</li>
+<li><p><strong>Follower</strong>：接受并持久化 Leader 同步的日志，在 Leader 告之日志可以提交之后，提交日志。</p>
+</li>
+<li><p><strong>Candidate</strong>：临时角色，仅存在于 Leader 选举过程中。</p>
+</li>
+</ul>
+<p>这三种角色之间通过选举Election来实现角色状态转换，原论文中给出的示意图如下图。</p>
+<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/v2-7f64a2df8f8817932ed047d35878bca9_1440w.jpg" alt="img"></p>
+<p>具体是怎么实现的呢？</p>
+<h3 id="Follower："><a href="#Follower：" class="headerlink" title="Follower："></a>Follower：</h3><ul>
+<li><p>默认节点。</p>
+</li>
+<li><p>在<strong>开始阶段</strong>或<strong>和 leader 通信超时</strong>，Follower 会发起选举，变成 Candidate，然后去竞选 leader。</p>
+</li>
+<li><p> 如果收到其他 Candidate 的竞选投票请求，按照先来先得 &amp; 每个任期只能投票一次 的投票原则投票;</p>
+</li>
+</ul>
+<h3 id="Candidate："><a href="#Candidate：" class="headerlink" title="Candidate："></a>Candidate：</h3><ul>
+<li>Follower 发起选举后，会立刻变为 Candidate，会向其他节点所要选票vote。Candidate 的票会投给自己，不会向其他节点投票</li>
+<li>如果获得超过<strong>半数</strong>的投票，Candidate 会立刻变成 Leader，然后立刻与其他节点通信，表明自己的 Leader 的地位；</li>
+<li>如果选举超时，重新发起选举；</li>
+<li>如果遇到更高任期 Term 的 Leader 的通信请求，则转化为 Follower</li>
+</ul>
+<h3 id="Leader："><a href="#Leader：" class="headerlink" title="Leader："></a>Leader：</h3><ul>
+<li>Leader 节点接受客户端的数据请求，负责日志同步。</li>
+<li>遇到更高任期 Term 的 Candidate 的通信请求，说明 Candidate 正在竞选 Leader，此时之前任期的 Leader 转化为 Follower，且完成投票；</li>
+</ul>
+<h3 id="Term："><a href="#Term：" class="headerlink" title="Term："></a>Term：</h3><p>上面介绍三个角色的内容时，我们提到了Term。<strong>Term</strong>是 Raft 算法中非常重要的概念，用于标识时间顺序。</p>
+<p>每个 Term 代表的是一个选举周期。在每一个Term中，集群中的节点都会选举，产生Leader。</p>
+<p>如果选举成功，该Term 将持续到Leader失效或发现更高 Term 的心跳消息。如果选举失败，Term将结束，新的Term将开始。</p>
+<p>Leader在其 Term 内，会周期性向其他 Follower 节点发送 Heartbeat 。Follower 如果发现心跳超时，会认为 Leader 节点宕机或不存在。在等待一定时间后，Follower 就会发起选举，变成 Candidate，然后去竞选 Leader。</p>
+<p>在一个 Term 的选举过程中，一个 Candidate 可能发生如下三种情况：</p>
+<ol>
+<li><p>获取超过半数投票，赢得选举：</p>
+<p>当 Candidate 获得选票超过半数时，代表自己赢得了选举，会立刻转化为 Leader。此时，它会马上向其他节点发送请求，从而确认自己的 Leader 地位，阻止新一轮的选举；多个 Candidate 竞选 Leader 时：一个任期内，follower 只会投一次票，且投票先来显得；</p>
+</li>
+<li><p>投票未超过半数，选举失败：</p>
+<p>一个 Candidate 没有获得超过半数的投票时，说明多个 Candidate 竞争投票导致过于分散，或者出现了丢包。则认为当期任期选举失败，任期 Term，会发起新一轮选举；</p>
+<p>我们观察这个机制，会发现一个问题：上述机制可能出现多个 Candidate 竞争投票，导致每个 Candidate 一直得不到超过半数的票，会导致选举投票循环。为了解决这个问题， Raft 会给每个 Candidate 在固定时间内随机的一个超时时间（一般为 150-300ms）。这么做可以尽量避免新的一次选举出现多个 Candidate 竞争投票的现象。</p>
+</li>
+<li><p>收到其他 Leader 通信请求：</p>
+<p>如果 Candidate 收到其他声称自己是 Leader 的请求的时候，通过任期 TermId 来判断是否处理。</p>
+<p>如果请求的任期 TermId 不小于 Candidate 当前任期 TermId，那么 Candidate 会承认该 Leader 的合法地位并转化为 Follower；否则，拒绝这次请求，并继续保持 Candidate；</p>
+</li>
+</ol>
+<h2 id="日志条目"><a href="#日志条目" class="headerlink" title="日志条目"></a>日志条目</h2><p>在Leader选出后，就开始接收客户端的请求。Leader把请求作为日志条目加入到它的日志中，然后并行的向其他服务器发起 AppendEntries RPC 来复制日志条目。当这条日志被复制到大多数服务器上，Leader将这条日志应用到它的状态机并向客户端返回执行结果。</p>
+<p>日志复制这部分内容仍会出现一系列问题。在正常情况下，Leader 和 Follower 的日志复制能够保证整个集群的一致性，但是遇到 Leader 崩溃的时候，Leader 和 Follower 日志可能出现了不一致的状态，此时 Follower 相比 Leader 就会缺少部分日志。</p>
+<p>为了解决数据不一致性，Raft 算法规定 <strong>Follower 强制复制 Leader 的日志</strong>，即 Follower 不一致的日志都会被 Leader 的日志覆盖，最终 Follower 和 Leader 的日志会保持一致。除此之外还有其他的安全性问题，这里不一一赘述了。</p>
+<p>这实际上是 Part 2 需要实现的内容，需要在框架中实现追加新日志条目的代码。</p>
+<p>在 Part 3 中还包括持久化的实现。在该实验中，要求从Persister对象保存和恢复持久状态，从 Persister 初始化的状态，并且在状态改变时使用 Persister 对象来保存自己的持久状态。</p>
+<p>总之，Raft算法可归纳如下：</p>
+<ul>
+<li>选出 Leader，Leader 节点负责接收外部的数据更新/删除请求；</li>
+<li>然后将日志复制到其他 Follower 节点，同时通过安全性的准则来保证整个日志复制的一致性；</li>
+<li>如果遇到 Leader 故障，Followers 会重新发起选举出新的 Leader；</li>
+</ul>
+<p>那么，在本次实验中，我们如何实现这一系列内容呢？论文中提出的 API 如下图所示：</p>
+<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/raft-figure2.png" alt="raft-figure2"></p>
+<h1 id="三、整个实验的实现"><a href="#三、整个实验的实现" class="headerlink" title="三、整个实验的实现"></a>三、整个实验的实现</h1><h3 id="三个角色功能的实现"><a href="#三个角色功能的实现" class="headerlink" title="三个角色功能的实现"></a>三个角色功能的实现</h3><p>原论文中已经给出了一系列我们在Raft结构体中需要准备的一系变量，包括currentTerm、voteFor、Log等一系列变量。每个变量具体作用我已列在注释中。</p>
+<p>除此之外，由于一个节点自己本身具有状态属性，所以还为其设定了状态 state 变量，用以表明其目前的角色。</p>
+<p>当节点参加选举时，需要统计其选票数目，所以还需要 votes 变量，用以确定其目前的选票数目。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Raft <span class="keyword">struct</span> &#123;</span><br><span class="line">	mu        sync.Mutex  <span class="comment">// 互斥锁，用于保护Raft节点的状态</span></span><br><span class="line">	peers     []*labrpc.ClientEnd  <span class="comment">// 其他Raft节点的RPC客户端</span></span><br><span class="line">	persister *Persister  <span class="comment">// 持久化存储接口</span></span><br><span class="line">	me        <span class="type">int</span>         <span class="comment">// 当前节点的索引, index into peers[]</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Your data here.</span></span><br><span class="line">	<span class="comment">// Look at the paper&#x27;s Figure 2 for a description of what</span></span><br><span class="line">	<span class="comment">// state a Raft server must maintain.</span></span><br><span class="line">	currentTerm <span class="type">int</span>         <span class="comment">// 当前任期</span></span><br><span class="line">	votedFor    <span class="type">int</span>         <span class="comment">// 当前任期内投票给的Candidate ID</span></span><br><span class="line">	log         []LogEntry  <span class="comment">// 日志条目</span></span><br><span class="line"></span><br><span class="line">	commitIndex <span class="type">int</span>  <span class="comment">// 已提交的最大日志条目索引</span></span><br><span class="line">	lastApplied <span class="type">int</span>  <span class="comment">// 已应用到状态机的最大日志条目索引</span></span><br><span class="line"></span><br><span class="line">	nextIndex  []<span class="type">int</span>  <span class="comment">// 每个节点的下一个要发送的日志条目索引</span></span><br><span class="line">	matchIndex []<span class="type">int</span>  <span class="comment">// 每个节点已复制的最大日志条目索引</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// others in Raft</span></span><br><span class="line">	state <span class="type">int</span>         <span class="comment">// 当前节点的状态（Leader、Candidate、Follower）</span></span><br><span class="line">	votes <span class="type">int</span>         <span class="comment">// 当前任期内收到的投票数</span></span><br><span class="line">	timer *time.Timer <span class="comment">// 选举超时定时器</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>GetState函数用于确定目前的 Term 以及 确定当前节点是否为 Leader。事实上实现起来也很容易，只需要返回当前节点的 term 并判断其state是否为 Leader即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// return currentTerm and whether this server</span></span><br><span class="line"><span class="comment">// believes it is the leader.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> GetState() (<span class="type">int</span>, <span class="type">bool</span>) &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> term <span class="type">int</span></span><br><span class="line">	<span class="keyword">var</span> isleader <span class="type">bool</span></span><br><span class="line">	<span class="comment">// Your code here.</span></span><br><span class="line">	term = rf.currentTerm</span><br><span class="line">	isleader = (rf.state == Leader)	<span class="comment">// 判断节点是不是Leader</span></span><br><span class="line">	<span class="keyword">return</span> term, isleader</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Make函数则用来开启整个选举的过程。首先，针对当前节点，需要进行一系列初始化操作，具体如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Make</span><span class="params">(peers []*labrpc.ClientEnd, me <span class="type">int</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">	persister *Persister, applyCh <span class="keyword">chan</span> ApplyMsg)</span></span> *Raft &#123;</span><br><span class="line">	rf := &amp;Raft&#123;&#125;</span><br><span class="line">	rf.peers = peers</span><br><span class="line">	rf.persister = persister</span><br><span class="line">	rf.me = me</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Your initialization code here.</span></span><br><span class="line">	num_peers := <span class="built_in">len</span>(peers)  <span class="comment">// 获取 peers 数目</span></span><br><span class="line">	rf.votedFor = <span class="number">-1</span> <span class="comment">// 初始化，不投票</span></span><br><span class="line">	<span class="comment">// 初始化日志、日志条目索引、最大日志条目索引</span></span><br><span class="line">	rf.log = <span class="built_in">make</span>([]LogEntry, <span class="number">1</span>)</span><br><span class="line">	rf.nextIndex = <span class="built_in">make</span>([]<span class="type">int</span>, n)</span><br><span class="line">	rf.matchIndex = <span class="built_in">make</span>([]<span class="type">int</span>, n)</span><br><span class="line">	rf.state = Follower <span class="comment">// 注意，初始化状态为 Follower</span></span><br><span class="line">	rf.timer = time.NewTimer(randTime())	</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>初始化之后，需要模拟投票的情形。这部分内容较为复杂，我用另一个函数 ticker() 来进行模拟。</p>
+<p>ticker所模拟的就是我们（二）中提到的，在投票阶段，三种角色需要做的事情：</p>
+<p>Follower 角色需要转换为 Candidate 并参与竞选，同时timer.Reset设置为0，意味着当前作为 Follower 的节点失效，立刻进行角色的转换。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> ticker() &#123;</span><br><span class="line">	<span class="keyword">for</span> rf.me != <span class="number">-1</span> &#123;</span><br><span class="line">		&lt;-rf.timer.C</span><br><span class="line">		<span class="keyword">switch</span> rf.state &#123;</span><br><span class="line">		<span class="comment">// Follower上锁后，转换为Candidate并重置计时器</span></span><br><span class="line">		<span class="keyword">case</span> Follower:</span><br><span class="line">			rf.mu.Lock()</span><br><span class="line">			rf.state = Candidate</span><br><span class="line">			rf.timer.Reset(<span class="number">0</span>)</span><br><span class="line">			rf.mu.Unlock()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Candidate 角色需要参与竞选，把任期增加后，自己给自己投一票，并向他的 n 个 peers 发起投票请求 sendRequestVote。等待 n 个节点回应完毕后，即进行票数统计，计算是否转换为 Leader。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Candidiate状态，发起投票请求</span></span><br><span class="line">		<span class="keyword">case</span> Candidate:</span><br><span class="line">			rf.mu.Lock()</span><br><span class="line">			rf.currentTerm++    <span class="comment">// 增加当前任期</span></span><br><span class="line">			rf.votedFor = rf.me <span class="comment">//把票投给自己</span></span><br><span class="line">			rf.persist()</span><br><span class="line">			rf.votes = <span class="number">1</span></span><br><span class="line">			rf.timer.Reset(randTime())</span><br><span class="line">			num_logs := <span class="built_in">len</span>(rf.log)</span><br><span class="line">			num_peers := <span class="built_in">len</span>(rf.peers)</span><br><span class="line">			rf.mu.Unlock()</span><br><span class="line"></span><br><span class="line">			ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">bool</span>)</span><br><span class="line">			<span class="comment">// 随机遍历n个节点</span></span><br><span class="line">			<span class="keyword">for</span> _, i := <span class="keyword">range</span> rand.Perm(num_peers) &#123;</span><br><span class="line">				rf.mu.Lock()</span><br><span class="line">				<span class="comment">// 如果当前节点仍是Candidate，则向节点i发起投票请求</span></span><br><span class="line">				<span class="keyword">if</span> rf.me != <span class="number">-1</span> &amp;&amp; rf.state == Candidate &amp;&amp; i != rf.me &#123;</span><br><span class="line">					<span class="comment">// 准备参数，向节点 i 发送投票请求</span></span><br><span class="line">					args := RequestVoteArgs&#123;rf.currentTerm, rf.me,</span><br><span class="line">						num_logs - <span class="number">1</span>, rf.log[num_logs<span class="number">-1</span>].Term&#125;</span><br><span class="line">					reply := RequestVoteReply&#123;&#125;</span><br><span class="line">					<span class="keyword">go</span> rf.sendRequestVote(i, args, &amp;reply, ch)</span><br><span class="line">				&#125;</span><br><span class="line">				rf.mu.Unlock()</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			wait(num_peers, ch) <span class="comment">// 等待peers中n个节点的回应</span></span><br><span class="line"></span><br><span class="line">			rf.mu.Lock()</span><br><span class="line">			<span class="comment">// 收到的选票数目大于一半的peers，则成功竞选</span></span><br><span class="line">			<span class="keyword">if</span> rf.me != <span class="number">-1</span> &amp;&amp; rf.state == Candidate &amp;&amp; <span class="number">2</span>*rf.votes &gt; num_peers &#123;</span><br><span class="line">				rf.state = Leader</span><br><span class="line">				rf.timer.Reset(<span class="number">0</span>)</span><br><span class="line">				<span class="comment">// 更新 nextIndex</span></span><br><span class="line">				<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; num_peers; i++ &#123;</span><br><span class="line">					rf.nextIndex[i] = num_logs</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			rf.mu.Unlock()</span><br></pre></td></tr></table></figure>
+
+<p>Leader则需要不断地向Follower发送函数，来确保自己的Leader地位，同时，Leader还承担着更新日志条目的功能， Leader需要检查并更新 commitIndex，确保日志复制到大多数节点后才可以提交。具体实现如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> Leader:</span><br><span class="line">	rf.mu.Lock()</span><br><span class="line">	<span class="comment">// 定期触发心跳超时的逻辑，确保Follower不会触发选举。</span></span><br><span class="line">	rf.timer.Reset(heartbeatTime)</span><br><span class="line">	<span class="comment">// 日志条目数量</span></span><br><span class="line">	num_logs := <span class="built_in">len</span>(rf.log)</span><br><span class="line">	num_peers := <span class="built_in">len</span>(rf.peers)</span><br><span class="line">	rf.mu.Unlock()</span><br><span class="line"></span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">bool</span>)</span><br><span class="line">	<span class="keyword">for</span> _, i := <span class="keyword">range</span> rand.Perm(num_peers) &#123;</span><br><span class="line">		rf.mu.Lock()</span><br><span class="line">		<span class="keyword">if</span> rf.me != <span class="number">-1</span> &amp;&amp; rf.state == Leader &amp;&amp; i != rf.me &#123;</span><br><span class="line">			<span class="comment">// 准备相应参数，注意，nil意味着发送心跳函数</span></span><br><span class="line">			args := AppendEntriesArgs&#123;rf.currentTerm, rf.me,</span><br><span class="line">				rf.nextIndex[i] - <span class="number">1</span>, rf.log[rf.nextIndex[i]<span class="number">-1</span>].Term,</span><br><span class="line">				<span class="literal">nil</span>, rf.commitIndex&#125;</span><br><span class="line">			<span class="comment">// Leader 有新的日志条目需要发送给 Follower，Follower的nextIndex小于日志条目</span></span><br><span class="line">			<span class="keyword">if</span> rf.nextIndex[i] &lt; num_logs &#123;</span><br><span class="line">				args.Entries = <span class="built_in">make</span>([]LogEntry, num_logs-rf.nextIndex[i])</span><br><span class="line">				<span class="built_in">copy</span>(args.Entries, rf.log[rf.nextIndex[i]:num_logs])</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// 向一系列异步发送Append请求</span></span><br><span class="line">			reply := AppendEntriesReply&#123;&#125;</span><br><span class="line">			<span class="keyword">go</span> rf.sendAppendEntries(i, args, &amp;reply, ch)</span><br><span class="line">		&#125;</span><br><span class="line">		rf.mu.Unlock()</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	wait(num_peers, ch) <span class="comment">// 等待所有发收成功或超时</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="RequestVote-相关"><a href="#RequestVote-相关" class="headerlink" title="RequestVote 相关"></a>RequestVote 相关</h3><p>RequestVote是在选举过程中，当前节点向自己的 peers 发送请求所需要的。对方节点通过 RequestVote 函数回应相关操作，包括是否投票、是否转换为 Leader 等一系列操作。而当前节点则需要 sendRequestVote 函数来接收 RequestVote 这一回应，以此进行下一步行为。</p>
+<p>首先需要定义一系列 RequestVote相关的结构体，这个在Raft论文的那张图中也给出了相关变量及其作用。同时需要 RequestVoteReply 结构来表明对方节点的回应。具体如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> RequestVoteArgs <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Your data here.</span></span><br><span class="line">	Term         <span class="type">int</span> <span class="comment">// Candidate 任期</span></span><br><span class="line">	CandidateId  <span class="type">int</span> <span class="comment">// Candidate ID</span></span><br><span class="line">	LastLogIndex <span class="type">int</span> <span class="comment">// 最后日志条目索引</span></span><br><span class="line">	LastLogTerm  <span class="type">int</span> <span class="comment">// 最后日志条目任期</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// example RequestVote RPC reply structure.</span></span><br><span class="line"><span class="keyword">type</span> RequestVoteReply <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Your data here.</span></span><br><span class="line">	Term        <span class="type">int</span>  <span class="comment">// 当前任期</span></span><br><span class="line">	VoteGranted <span class="type">bool</span> <span class="comment">// 是否投票给Candidate</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sendRequestVote函数是当前节点发送给其他 n 个 peers的。对方节点通过 <code>RequestVote</code>表达自己的回应<code>reply</code>（是否投票，自己任期比当前节点高，自己应当是 Leader ），当前节点根据 <code>reply</code>做出相应的决策。具体细节如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> sendRequestVote(server <span class="type">int</span>, args RequestVoteArgs, reply *RequestVoteReply, ch <span class="keyword">chan</span> <span class="type">bool</span>) &#123;</span><br><span class="line">	ok := rf.peers[server].Call(<span class="string">&quot;Raft.RequestVote&quot;</span>, args, reply) <span class="comment">// 接收对方节点的回应</span></span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	rf.mu.Lock()</span><br><span class="line">	<span class="comment">// 对方任期比当前节点高，则转换为对方节点的Follower</span></span><br><span class="line">	<span class="keyword">if</span> reply.Term &gt; rf.currentTerm &#123;</span><br><span class="line">		rf.currentTerm = reply.Term</span><br><span class="line">		rf.votedFor = <span class="number">-1</span></span><br><span class="line">		rf.persist()</span><br><span class="line">		rf.state = Follower</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 当前节点是 Candidate，且对方节点愿意投票给当前节点</span></span><br><span class="line">	<span class="keyword">if</span> rf.state == Candidate &amp;&amp; reply.VoteGranted &#123;</span><br><span class="line">		rf.votes += <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	rf.mu.Unlock()</span><br><span class="line">	ch &lt;- <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应地，对方节点需要 RequestVote 函数，判断是否投票给当前节点。这部分需要判断自己任期与当前节点对比，并判断日志情况。具体实现细节如下所示。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> RequestVote(args RequestVoteArgs, reply *RequestVoteReply) &#123;</span><br><span class="line">	<span class="comment">// Your code here.</span></span><br><span class="line">	rf.mu.Lock()</span><br><span class="line">	<span class="keyword">defer</span> rf.mu.Unlock()</span><br><span class="line">	reply.Term = rf.currentTerm</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">if</span> args.Term &gt; rf.currentTerm &#123;</span><br><span class="line">		rf.currentTerm = args.Term <span class="comment">// 将currentTerm提升到最新的term</span></span><br><span class="line">		rf.votedFor = <span class="number">-1</span>           <span class="comment">// 不投票给其他人</span></span><br><span class="line">		rf.persist()</span><br><span class="line">		rf.state = Follower</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 满足基本条件且日志一样新，就投票给当前节点</span></span><br><span class="line">    <span class="comment">// 比较内容：1、对方任期更高 2、还没投票或已经支持了Candidate 3、Candidate日志是否比自己的更新</span></span><br><span class="line">	<span class="keyword">if</span> args.Term &gt;= rf.currentTerm &amp;&amp;</span><br><span class="line">		(rf.votedFor == <span class="number">-1</span> || rf.votedFor == args.CandidateId) &amp;&amp;</span><br><span class="line">		(args.LastLogTerm &gt; rf.log[<span class="built_in">len</span>(rf.log)<span class="number">-1</span>].Term ||</span><br><span class="line">			args.LastLogTerm == rf.log[<span class="built_in">len</span>(rf.log)<span class="number">-1</span>].Term &amp;&amp;</span><br><span class="line">				args.LastLogIndex &gt;= <span class="built_in">len</span>(rf.log)<span class="number">-1</span>) &#123;</span><br><span class="line">		rf.votedFor = args.CandidateId</span><br><span class="line">		rf.persist()</span><br><span class="line">		rf.timer.Reset(randTime()) <span class="comment">// 重置选举计时</span></span><br><span class="line">		reply.VoteGranted = <span class="literal">true</span> 	<span class="comment">//	愿意投票给当前节点</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="AppendEntry-heartbeat相关"><a href="#AppendEntry-heartbeat相关" class="headerlink" title="AppendEntry + heartbeat相关"></a>AppendEntry + heartbeat相关</h3><p>在这里，我设置了与AppendEntry结构体相关的功能有两个：</p>
+<ol>
+<li><strong>维持心跳</strong>： 确保Leader和Follower之间的连接没有断开，从而阻止Follower进入Candidate状态。</li>
+<li><strong>日志同步</strong>： 将 Leader的日志条目发送给 Follower，从而保持日志的一致性。</li>
+</ol>
+<p>因此，我们需要AppendEntry相关的结构体来完成上述功能。具体实现如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> AppendEntriesArgs <span class="keyword">struct</span> &#123;</span><br><span class="line">	Term         <span class="type">int</span>        <span class="comment">// 当前任期</span></span><br><span class="line">	LeaderId     <span class="type">int</span>        <span class="comment">// Leader的ID</span></span><br><span class="line">	PrevLogIndex <span class="type">int</span>        <span class="comment">// 前一个日志条目的索引</span></span><br><span class="line">	PrevLogTerm  <span class="type">int</span>        <span class="comment">// 前一个日志条目的任期</span></span><br><span class="line">	Entries      []LogEntry <span class="comment">// 要追加的日志条目</span></span><br><span class="line">	LeaderCommit <span class="type">int</span>        <span class="comment">// Leader的commitIndex</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> AppendEntriesReply <span class="keyword">struct</span> &#123;</span><br><span class="line">	Term    <span class="type">int</span></span><br><span class="line">	Success <span class="type">bool</span> <span class="comment">// 是否追加日志相关</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和上面的 RequestVote 类似，AppendEntry 这部分内容也包含 ApplyEntries 与 sendApplyEntries两部分内容，ApplyEntries用于</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply) &#123;</span><br><span class="line">	rf.mu.Lock()</span><br><span class="line">	<span class="keyword">defer</span> rf.mu.Unlock()</span><br><span class="line">	<span class="comment">// 确定，对方节点是 Leader</span></span><br><span class="line">	reply.Term = rf.currentTerm</span><br><span class="line">	<span class="keyword">if</span> args.Term == rf.currentTerm &#123;</span><br><span class="line">		rf.state = Follower</span><br><span class="line">		rf.timer.Reset(randTime()) <span class="comment">// 重置选举计时，防止超时后重新发起选举</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> args.Term &gt; rf.currentTerm &#123;</span><br><span class="line">		rf.currentTerm = args.Term <span class="comment">// 将currentTerm提升到最新的term</span></span><br><span class="line">		rf.votedFor = <span class="number">-1</span></span><br><span class="line">		rf.persist()</span><br><span class="line">		rf.state = Follower</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 日志条目是否匹配</span></span><br><span class="line">	<span class="comment">// 比较 Leader指定的Index和Term是否能找到</span></span><br><span class="line">	<span class="keyword">if</span> args.Term &gt;= rf.currentTerm &amp;&amp;</span><br><span class="line">		args.PrevLogIndex &lt; <span class="built_in">len</span>(rf.log) &amp;&amp;</span><br><span class="line">		args.PrevLogTerm == rf.log[args.PrevLogIndex].Term &#123;</span><br><span class="line">		<span class="comment">// 2、修改Follower的日志</span></span><br><span class="line">		<span class="keyword">if</span> args.PrevLogIndex+<span class="number">1</span> != <span class="built_in">len</span>(rf.log) || args.Entries != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="comment">// 删除不相关的日志，并追加args.Entries</span></span><br><span class="line">			rf.log = <span class="built_in">append</span>(rf.log[:args.PrevLogIndex+<span class="number">1</span>], args.Entries...)</span><br><span class="line">			rf.persist()</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 更新日志相关</span></span><br><span class="line">		<span class="keyword">if</span> args.LeaderCommit &gt; rf.commitIndex &#123;</span><br><span class="line">			<span class="comment">// Follower更新为LeaderCommit或自己的日志长度</span></span><br><span class="line">			<span class="comment">// Leader的日志可能还没有全发送给Follower，因此这里需要比较大小</span></span><br><span class="line">			<span class="keyword">if</span> args.LeaderCommit &lt; <span class="built_in">len</span>(rf.log) &#123;</span><br><span class="line">				rf.commitIndex = args.LeaderCommit</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				rf.commitIndex = <span class="built_in">len</span>(rf.log)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		reply.Success = <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>sendAppendEntries 的功能也与 sendRequestVote 类似，Leader节点会通过该函数不断地向对方节点发送请求，在接受对方的节点的回应的同时，作出相应的举措。</p>
+<p><strong>但同时，该函数充当了”心跳函数“的功能，告知它们当前 Leader 节点仍然活跃，从而防止 Follower 超时触发选举。</strong>具体如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> sendAppendEntries(server <span class="type">int</span>, args AppendEntriesArgs, reply *AppendEntriesReply, ch <span class="keyword">chan</span> <span class="type">bool</span>) &#123;</span><br><span class="line">	ok := rf.peers[server].Call(<span class="string">&quot;Raft.AppendEntries&quot;</span>, args, reply)</span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	rf.mu.Lock()</span><br><span class="line">	<span class="comment">// 对方的Term比自己的大，则转变为对方的Follower</span></span><br><span class="line">	<span class="keyword">if</span> reply.Term &gt; rf.currentTerm &#123;</span><br><span class="line">		rf.currentTerm = reply.Term <span class="comment">// 将currentTerm提升到最新的term</span></span><br><span class="line">		rf.votedFor = <span class="number">-1</span></span><br><span class="line">		rf.persist()</span><br><span class="line">		rf.state = Follower</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 更新成功，更新nextIndex和matchIndex</span></span><br><span class="line">	<span class="keyword">if</span> rf.state == Leader &amp;&amp; reply.Success &#123;</span><br><span class="line">		rf.nextIndex[server] = args.PrevLogIndex + <span class="built_in">len</span>(args.Entries) + <span class="number">1</span></span><br><span class="line">		rf.matchIndex[server] = rf.nextIndex[server] - <span class="number">1</span></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> rf.state == Leader &amp;&amp; !reply.Success &#123;</span><br><span class="line">		<span class="comment">// 日志匹配失败</span></span><br><span class="line">		rf.nextIndex[server]--</span><br><span class="line">		<span class="keyword">for</span> rf.nextIndex[server] &gt;= <span class="number">0</span> &amp;&amp; rf.log[rf.nextIndex[server]].Term == reply.Term &#123;</span><br><span class="line">			rf.nextIndex[server]-- <span class="comment">// 跳过相同term的索引，从不同的开始重新sendAppendEntries</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	rf.mu.Unlock()</span><br><span class="line">	ch &lt;- <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，如何判断 sendAppendEntries在这部分发挥的作用呢？</p>
+<ul>
+<li>如果 <code>args.Entries</code> 为空，说明这次调用是心跳。</li>
+<li>如果 <code>args.Entries</code> 不为空，说明这次调用是日志复制。</li>
+</ul>
+<p>具体见ticker() 中的 case Leader 部分，如下所示，最初 args.Entries 初始化为 nil，而如果 Follower的nextIndex（即rf.nextIndex[i]）小于 num_logs，那么就意味着需要更新日志，sendAppendEntries充当复制日志的作用；否则意味着不需要更新日志，sendAppendEntries 的作用只是发送心跳信号。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">args := AppendEntriesArgs&#123;rf.currentTerm, rf.me,</span><br><span class="line">						rf.nextIndex[i] - <span class="number">1</span>, rf.log[rf.nextIndex[i]<span class="number">-1</span>].Term,</span><br><span class="line">						<span class="literal">nil</span>, rf.commitIndex</span><br><span class="line">					&#125;</span><br><span class="line"><span class="comment">// Leader 有新的日志条目需要发送给 Follower，Follower的nextIndex小于日志条目</span></span><br><span class="line"><span class="keyword">if</span> rf.nextIndex[i] &lt; num_logs &#123;</span><br><span class="line">						args.Entries = <span class="built_in">make</span>([]LogEntry, num_logs-rf.nextIndex[i])</span><br><span class="line">						<span class="built_in">copy</span>(args.Entries, rf.log[rf.nextIndex[i]:num_logs])</span><br><span class="line">					&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，还需要注意的是，Leader接收到日志后，还需要发送给上层的状态机。为此，我们需要再次建立一个函数 RecordLog，将接收到的日志发送到上层。具体如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> RecordLog(applyCh <span class="keyword">chan</span> ApplyMsg) &#123;</span><br><span class="line">	<span class="comment">// 一直监听</span></span><br><span class="line">	<span class="keyword">for</span> rf.me != <span class="number">-1</span> &#123;</span><br><span class="line">		time.Sleep(checkTimeout)</span><br><span class="line">		rf.mu.Lock()</span><br><span class="line">		<span class="comment">// 持续监控commitIndex和lastApplied之间的差距</span></span><br><span class="line">		<span class="keyword">for</span> rf.me != <span class="number">-1</span> &amp;&amp; rf.commitIndex &gt; rf.lastApplied &#123;</span><br><span class="line">			rf.lastApplied++</span><br><span class="line">			<span class="comment">// 通过applyCh将对应日志条目发送出去</span></span><br><span class="line">			applyCh &lt;- ApplyMsg&#123;Index: rf.lastApplied, Command: rf.log[rf.lastApplied].Command&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		rf.mu.Unlock()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><p>持久化涉及到Persist结构体。raft.go中我们需要自行补充Persist结构体中的内容。实现难度并不大，简单来说，persist函数实现了加密功能，而readPersist函数则是对数据进行解码。具体如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> persist() &#123;</span><br><span class="line">	<span class="comment">// Your code here.</span></span><br><span class="line">	w := <span class="built_in">new</span>(bytes.Buffer)</span><br><span class="line">	e := gob.NewEncoder(w)</span><br><span class="line">	<span class="comment">// 对关键信息编码</span></span><br><span class="line">	e.Encode(rf.currentTerm)</span><br><span class="line">	e.Encode(rf.votedFor)</span><br><span class="line">	e.Encode(rf.log)</span><br><span class="line">	<span class="comment">// 编码后数据，持久化存储</span></span><br><span class="line">	data := w.Bytes()</span><br><span class="line">	rf.persister.SaveRaftState(data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// restore previously persisted state.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span></span> readPersist(data []<span class="type">byte</span>) &#123;</span><br><span class="line">	<span class="comment">// Your code here.</span></span><br><span class="line">	<span class="comment">// 获得解码数据解码</span></span><br><span class="line">	r := bytes.NewBuffer(data)</span><br><span class="line">	d := gob.NewDecoder(r)</span><br><span class="line">	d.Decode(&amp;rf.currentTerm)</span><br><span class="line">	d.Decode(&amp;rf.votedFor)</span><br><span class="line">	d.Decode(&amp;rf.log)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一个问题是，我们需要在哪些地方使用persist()函数呢？</p>
+<p>事实上，特别简单。</p>
+<p>我们观察persist() 函数，可以发现，persist()操作作用的变量只有三个：currentTerm、voteFor 和 log，因此，<strong>只要在我们的整个代码中，这三个变量发生改变时，应用持久化函数rf.persist()即可。</strong>如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// currentTerm与voteFor变量发生了改变，因此需要persist()记录。</span></span><br><span class="line">		rf.currentTerm = reply.Term </span><br><span class="line">		rf.votedFor = <span class="number">-1</span></span><br><span class="line">		rf.persist()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这就是整个代码的逻辑。</p>
+<p>Part 1 通过截图如下所示：</p>
+<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201160820389.png" alt="Pass Part1"></p>
+<p>Part 2 通过截图如下所示：</p>
+<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201154729594.png" alt="Pass Part2"></p>
+<p>Part 3 通过截图如下所示：</p>
+<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201155551150.png" alt="Pass Part3"></p>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>这个实验难度比较大，但也是通过这个实验，我明白了Raft的原理，感觉还是特别有意思的。收获很大。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/12/19/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/02/05/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            南京大学软件分析复习笔记
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2024/12/17/NJU%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title"></div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2025
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">浙ICP备88888888</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

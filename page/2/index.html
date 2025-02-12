@@ -138,6 +138,330 @@
     
     
     <article
+  id="post-本科总结"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/07/05/%E6%9C%AC%E7%A7%91%E6%80%BB%E7%BB%93/"
+    >本科总结</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/07/05/%E6%9C%AC%E7%A7%91%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2024-07-05T08:45:26.000Z" itemprop="datePublished">2024-07-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a> / <a class="article-category-link" href="/categories/%E6%9D%82%E9%A1%B9/%E9%9A%8F%E7%AC%94/">随笔</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>此文记录了我对本科四年经历的回顾与以及复盘，同时对未来的生活进行展望与思考。</p>
+<p>本文与编程无关。会长久更新，可能补充一些自己想到的东西。</p> 
+      <a class="article-more-link" href="/2024/07/05/%E6%9C%AC%E7%A7%91%E6%80%BB%E7%BB%93/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
+  id="post-书籍阅读-D2L"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/07/04/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/"
+    >书籍阅读-D2L</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/07/04/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/" class="article-date">
+  <time datetime="2024-07-04T08:35:00.000Z" itemprop="datePublished">2024-07-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>阅读李沐老师写的动手学深度学习，在这里进行笔记记录。</p>
+<p>主要记录 Pytorch 代码，会长期更新。</p> 
+      <a class="article-more-link" href="/2024/07/04/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-D2L/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag">计算机视觉</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
+  id="post-tmp"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+     
+    <div class="article-meta">
+      <a href="/2024/06/09/tmp/" class="article-date">
+  <time datetime="2024-06-08T16:43:20.000Z" itemprop="datePublished">2024-06-09</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Transformer-with-ATD"><a href="#Transformer-with-ATD" class="headerlink" title="Transformer with ATD"></a>Transformer with ATD</h1><p>CVPR 2024</p>
+<p>（有点晦涩，不太好理解……）</p>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>Transformer目前基于窗口的自注意力机制接受区有限。为了解决这些问题，我们在 SR Transformer 中引入了一组辅助的自适应令牌词典（Adaptive Token Dictionary），并建立了一种 ATDSR 方法。引入的令牌字典（Token Dictionary）可以从训练数据中学习先验信息，并通过自适应细化步骤将学习到的先验信息适应于特定的测试图像。该求精策略不仅可以为所有输入标记提供全局信息，而且可以对图像标记进行分类。在类别划分的基础上，我们进一步提出了一种基于类别的自注意机制，旨在<strong>利用距离较远但相似的标记</strong>来增强输入特征。</p>
+<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>问题：SR Transformer能够集成多种信息，但在<strong>高 SR 精度和增加的计算复杂度之间</strong>难以取得平衡。</p>
+<p>已有的基于窗口的方法会<strong>约束感受野并影响性能</strong>。而扩大窗口会<strong>缓解问题却又加剧了维度灾难</strong>。</p>
+<p>需要有效的方法来<strong>有效地实现长距离依赖建模</strong>，而不受本地窗口的约束</p>
+<p>解决方法：引入“Token Dictionary”，增强图像处理中的交叉注意和自注意计算。优点如下：</p>
+<ol>
+<li>使用<strong>交叉注意力</strong>将外部先验信息整合到图像分析中。</li>
+<li>使用<strong>全局信息</strong>来建立远程连接。这是通过使用激活的标记来细化字典来实现全局信息的使用，以建立远程连接。这是通过使用激活的标记来细化字典来实现的，以通过注意力的反向形式来全局地总结特定于图像的信息。</li>
+<li>允许<strong>使用图像的所有相似部分来增强图像token</strong>，不受局部窗口分区的限制。</li>
+</ol>
+<p>亮点：</p>
+<ul>
+<li><p>引入 Token Dictionary，利用一组辅助Token<strong>提供先验信息的每个图像Token和总结的先验信息</strong>。</p>
+</li>
+<li><p>利用Token Dictionary 将图像 Token <strong>分组到类别</strong>中，并突破局部窗口的边界，以基于类别的自注意方式利用长程先验。</p>
+</li>
+<li><p>结合所提出的 Token Dictionary 的交叉注意和基于类别的自注意，有效地利用长程依赖。</p>
+</li>
+<li><p>这几种方法的结合<strong>无缝集成了局部、全局和外部信息</strong></p>
+</li>
+</ul>
+<h2 id="二、相关工作"><a href="#二、相关工作" class="headerlink" title="二、相关工作"></a>二、相关工作</h2><p>CNN：SRCNN、VDSR、EDSR、RDN、CSNLN、NLSA</p>
+<p>ViT：IPT、SwinIR、CAT 表明基于Transformer的方法在图像SR领域的适应性和影响力越来越大</p>
+<p>提出了两种类型的注意力：令牌字典交叉注意力（ATD-CA）以利用外部先验、自适应基于类别的多头自注意力（AC-MSA）来建模长距离依赖关系。与基于窗口的注意力协同时，该方法<strong>集成了局部、全局和外部信息。</strong></p>
+<h2 id="三、方法"><a href="#三、方法" class="headerlink" title="三、方法"></a>三、方法</h2><p>动机：讨论了基于字典学习的超分辨率方法如何利用学习到的字典为图像超分辨率提供补充信息，然后分析了注意操作，并讨论了它与基于字典学习的超分辨率方法中的系数计算和信号重构过程的相似性。我们讨论了这两种方法如何激励我们引入一个辅助标记字典，以增强图像处理中的交叉和自注意计算。</p>
+<p>在深度学习时代到来之前，字典学习在为图像SR提供先验信息方面发挥着重要作用。</p>
+<p>传统方法将图像划分为小块来建模图像局部先验。将$x ∈ R^d$表示为低分辨率（LR）图像中的矢量化图像块。为了估计相应的高分辨率（HR）patch $y ∈ R^d$，学者通过解决稀疏表示问题来分解信号：</p>
+<p><img src="../images/tmp/image-20241203161052414-1733822472887.png" alt="image-20241203161052414"></p>
+<p>$D_L ∈ R^{d×M}$和$D_H ∈ R^{d×M}$是学习的LR和HR字典，M是字典中的 atoms 数目。</p>
+<p>Transformer中的核心是自注意力操作，利用 Token 之间的相似性作为权重来相互增强图像特征。问题是复杂程度会随着 token数目呈二次方级增长。已经提出移位窗口（shift-window），锚注意力（anchor attention）和移位交叉注意力（shifted crossed attention）等不同策略。</p>
+<p>高级交叉、自注意力与令牌字典：</p>
+<p>字典学习的思想可以很容易地融入到 Transformer 框架中，以打破局部窗口的限制。具体地，可以在令牌字典学习方式中采用耦合字典学习的类似思想。</p>
+<p>TDCA 介绍了如何建立一个特征字典，从训练数据集中学习典型结构，<strong>并利用交叉注意操作将学习到的补充信息提供给所有的图像特征</strong>。</p>
+<p>此外，通过使用激活的标记细化字典，我们可以将学习的外部字典调整为图像特定的字典，以更好地适应图像内容，并将汇总的全局信息传播到所有图像标记。</p>
+<p>特征字典的另一个优点在于其与图像特征的相似性矩阵。根据最接近的字典项目的索引，我们能够<strong>将图像令牌分组到类别中</strong>。本文提出了一种基于类别的自注意模型，该模型不需要利用同一局部窗口中的图像标记来增强图像特征，而是采用了基于类别的自注意模型（3.4)使我们能够从整个图像中的类似标记中获益。</p>
+<h3 id="ATD-CA"><a href="#ATD-CA" class="headerlink" title="ATD-CA"></a>ATD-CA</h3><p><img src="../images/tmp/image-20241203162941275-1733822472888.png" alt="TDCA示意图"></p>
+<p>核心：引入一个额外的字典$D∈R^{M×d}$，初始化为网络参数，以在训练阶段总结外部先验。</p>
+<p>使用学习到的标记字典D来生成Key字典$K_D$和Value字典$V_D$，并使用输入特征$X ∈ R^{N×d}$来生成Query标记：</p>
+<p><img src="../images/tmp/image-20241203164220023-1733822472888.png" alt="类似于Self-Attention中的计算公式"></p>
+<p>其中$W^Q ∈ R^{d×d/r}$、$W^K ∈ R^{d×d/r}$和$W^V ∈ R^{d×d}$分别是查询标记、键字典标记和值字典标记的线性变换。我</p>
+<p>将查询标记和关键字典标记的特征维数降为1/r，以减小模型规模和复杂度。</p>
+<p>用 Key Dictionary和 Value Dictionary 通过交叉注意力计算来增强查询标记：</p>
+<p><img src="../images/tmp/image-20241203182905764-1733822472888.png" alt="image-20241203182905764"></p>
+<p><strong>A 是注意力图。</strong></p>
+<p>TDCA 先在关键字字典中选择相似的标记，获得注意力图，这类似于等式（1）中的稀疏表示过程。然后TDCA利用相似度值对值字典中对应的标记进行组合，相当于用HR字典原子和表示系数重构HR补丁。</p>
+<p><strong>作用：将外部先验信息嵌入到学习的字典中，以增强输入图像的特征</strong>。</p>
+<h3 id="自适应字典细化"><a href="#自适应字典细化" class="headerlink" title="自适应字典细化"></a>自适应字典细化</h3><p>多层感知器 MLP 将每层中的图像特征投影到不同的特征空间，因此需要为每层学习不同的令牌字典。</p>
+<p><strong>问题：大量的附加参数。</strong></p>
+<p>解决方法：一种自适应细化策略，基于相似性图和相反的注意力形式更新的特征，来细化前一层的令牌字典。</p>
+<p>为输入特征和令牌字典设置层索引 l ，$X^l$和$D^l$分别表示第l层的输入特征和令牌字典。</p>
+<p>只为初始层$D^1$建立一个令牌字典作为网络参数，整合外部先验知识。下面的层中，每个字典$D^l$都是基于前一层的$D^{l−1}$来细化的。对于字典 $d^l_i$  中的每个记号，i=1，…，M，在增强特征$X^{l+1}$中选择对应的相似令牌。</p>
+<p>更具体地，将$a^l_i$表示为注意力映射$A^l$的第$i$列，包含$d^l_i$与所有N个查询令牌$X^l$之间的注意力权重。因此，基于每个$a^l_i$，选择相应的增强令牌$X^{l+1}$来重构新的令牌字典元素$d^l_i$，并将它们组合形成$D^l$。</p>
+<p><img src="../images/tmp/image-20241203171052134-1733822472888.png" alt="image-20241203171052134"></p>
+<p>Norm 是归一化层。这种细化也可以被视为注意力的一种反向形式。(4) 将更新后的特征信息汇总到令牌字典中。</p>
+<p>然后，基于参数σ，自适应地组合$xD^l$和$D^l$获得$D^{l+1}$。</p>
+<p>以这种方式，细化的令牌字典能够<strong>整合输入图像的外部先验和特定内部先验</strong>。</p>
+<p><strong>我们不需要将图像划分为窗口</strong>，并且X（1）表示所有图像标记。从初始令牌字典D（1）开始，它将外部先验引入网络，我们的自适应细化策略<strong>逐渐从整个图像中选择相关令牌来细化字典</strong>。字典的简化可以跨越自注意力窗口的边界，总结整个图像的典型局部结构，从而利用全局信息改善图像特征</p>
+<p>类信息被隐式地嵌入在细化的令牌字典中。<strong>注意力图A包含特征和标记字典之间的相似关系，像素$x_j$和标记字典原子$d_i$之间的相似性越高，表示$x_j$属于$d_i$类的概率越高。</strong>这在某种程度上类似于图像分类任务。</p>
+<h3 id="基于类别的自适应注意力"><a href="#基于类别的自适应注意力" class="headerlink" title="基于类别的自适应注意力"></a>基于类别的自适应注意力</h3><p>基于窗口的注意力计算（以 SwinIR 为代表）：严重限制了感受野的范围。且与内容无关的划分策略可能导致不相关的标记被分组到同一窗口中。</p>
+<p>为更好地利用自注意力，<strong>自适应特征分割</strong>可能是一个合适的选择。</p>
+<p>TDCA获得的输入特征和令牌字典之间的注意力映射中<strong>隐式地包含了每个像素的类信息</strong>，我们可以对输入特征进行分类。根据字典令牌相似度图A，将每个像素分类不同的类别分类：$θ_1，θ_2，· · ·，θ_M$:</p>
+<p><img src="../images/tmp/image-20241203185145341-1733822472888.png" alt="image-20241203185145341"></p>
+<p>如果像素 $A_{ji}$在 $A_{j1},A_{j2},…A_{jM}$中最高，这表明像素 $x_j$更可能与字典中的第 i 个令牌 $d_i$属于同一类别，则将像素 $x_j$ 归为  $\theta^i $ 类。</p>
+<p>每个类别都可以被看作是一个不规则形状的窗口，其中包含了相同类别的令牌。</p>
+<p>但每个类别的令牌数量可能不同，这导致并行效率低和计算负担显著。为解决不平衡分类问题，作者将 θ 进一步划分为子类 ϕ ：<br><img src="../images/tmp/image-20241203190520554-1733822472888.png" alt="image-20241203190520554"></p>
+<p>其中，类别 $\theta^i$ 包含了 $n_i$ 个令牌。将每个类别扁平化并串联成 Φ，再划分子类别 $[\phi^1,\phi^2,…\phi^j,…$]。划分后，所有子类具有相同的固定大小 $n_s$  。如下图</p>
+<p><img src="../images/tmp/image-20241203191524870-1733822472888.png" alt="image-20241203191524870"></p>
+<p><img src="../images/tmp/image-20241203195050556-1733822472888.png" alt="左1是输入图像。右4张的白色部分表示单个关注类别"></p>
+<p>AC-MSA 可以被表示如下：</p>
+<p><img src="../images/tmp/image-20241203191551896-1733822472888.png" alt="image-20241203191551896"></p>
+<p>其中 Categorize运算为式 6 和式 7 的组合。将每个子类别视为一个注意力组，并在每个组内执行多头自注意力。</p>
+<p>最后用 UnCategorizeUnCategorize 反分类操作将每个像素返回他原来的位置。</p>
+<p>子类别划分<strong>限制了每个注意力组的大小</strong>，只对感受野有轻微影响，这是因为式 7 中划分子集时的排序操作产生了随机打乱的效果，因此每个子类别都可以看作该类别的随机样本，某个子类别的令牌仍然可以遍布整个特征图，<strong>保持全局感受野。</strong></p>
+<h3 id="组合在一起"><a href="#组合在一起" class="headerlink" title="组合在一起"></a>组合在一起</h3><p>有了我们提出的 ATD-CA ，自适应字典细化  ADR 和 自适应基于类别的多头自注意 AC-MSA ，我们能够建立我们的自适应令牌字典 ATD 网络用于图像超分辨率。</p>
+<p>给定一个输入的低分辨率图像，首先使用3×3卷积层来提取浅层特征。然后将浅特征馈送到一系列 ATD 块中。</p>
+<p>每个 ATD 块包含若干 ATD Transformer 层。我们将令牌字典交叉注意ATD-CA、基于自适应类别的多头自注意AC-MSA 和常用的基于移位窗口的多头自注意 Windows-Attention 组合起来，以形成Transformer层。三个注意力模块并行工作，以利用输入特征的外部、全局和局部特征。然后，通过求和运算来组合特征。</p>
+<p>除了attention模块之外，我们的Transformer层还使用了LayerNorm和FFN层，这两个层在其他基于transformer的架构中经常使用。令牌字典从每个ATD块中的可学习参数开始参与了每一层Transformer的令牌字典交叉关注，并利用自适应字典细化策略来适应下一层的输入特征。</p>
+<p>ATD块之后，利用一个额外的卷积层进行 pixel-shuffle 生成最终的HR估计。</p>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><p>六个ATD块，每个ATD块包括 channel_number 为210的六个Transformer层。</p>
+<p>每个ATD块为我们的外部标记字典$D^1$建立128个标记，使用缩减率r = 10.5将通道数减少到20用于相似性计算。</p>
+<p><img src="../images/tmp/image-20241209110443190-1733822472888.png" alt="image-20241209110443190"></p>
+<h1 id="CFAT"><a href="#CFAT" class="headerlink" title="CFAT"></a>CFAT</h1><p>CVPR    2024    三角形注意力窗口</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>基于 Transformer 的模型通过利用其固有的捕捉复杂上下文特征的能力，彻底改变了图像超分辨率（SR）领域。</p>
+<p>目前，在Transformer结构中使用的重叠矩形移位窗口技术（HAT + SwinIR）是超分辨率模型中的一种常见做法，以提高图像放大的质量和鲁棒性。</p>
+<p><strong>问题：基于Transformer的结构与模型容易在边界处遭受失真并且具有有限的独特移位模式。</strong></p>
+<p>为克服这些缺点，我们提出了一种<strong>非重叠三角形窗口</strong>技术，与矩形窗口同步工作，减轻边界层畸变，并允许模型访问更多独特的筛选模式。</p>
+<p>提出了一种<strong>基于三角-矩形窗的局部注意+基于通道+全局注意相结合</strong>的复合融合注意Transformer（Composite Fusion Attention Transformer，CFAT）。CFAT能够在更多的图像像素上激活注意机制，并捕获长距离、多尺度特征提高SR性能。</p>
+<p>大量实验结果和消融研究证明了CFAT在SR域的有效性。我们提出的模型显示，与其他最先进的SR架构相比，性能显著提高了0.7 dB。</p>
+<h2 id="一、介绍-1"><a href="#一、介绍-1" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>“尽管进行了广泛和一致的研究，SR模型仍然难以完全消除恢复图像中的视觉伪影。”</p>
+<p>2014年初，深度神经网络的发展增强了SR能力，CNN作为主架[10]。这些方法[9，19，44，45]经常伴随着大量的计算和存储需求，而不管它们的有效性如何。</p>
+<p>基于Transformer的技术在众多新兴模型中脱颖而出，成为最成功的SR方法，展示了近年来最先进的性能。它们天生就擅长利用图像特性之间的长期依赖关系。SwinIR[25]、Swin 2SR [8]、ESRT[28]、HST[21]、HAT[6]和ART[43]等领先方法都主张上述益处。它们主要依赖于分层注意机制，确保从LR对应项重建HR输出的精度得到提高。SwinIR [27]率先将移位窗口技术应用于图像恢复[25]领域，主要关注图像超分辨率。Swin2SR 重新定义了SwinIR，以在有效解决数据和培训相关挑战后提高性能。</p>
+<p>问题：密集和稀疏注意力层之间的快速内部切换（每个层针对特定的感受野定制）对整体性能造成了限制。</p>
+<p>HAT ：将全局通道注意力与基于局部窗口的自注意力相结合，优于其他突出的超分辨率架构。</p>
+<p>重叠移位窗口技术的引入有效地解决了与重复图像块相关的问题，而通道注意力的引入大大增强了超分辨率性能。ACT ：将CNN和Transformer定位在两个不同的流中，以同时利用全局和局部特征。两个分支上的和谐互补特征通过基于跨尺度令牌注意力（CSTA）的通道分裂融合块彼此交换相关信息。</p>
+<p><strong>问题：现有技术的基于Transformer的方法使用基于矩形移位窗口的自注意机制，但是</strong></p>
+<p><strong>1. 由于边界像素的的参与有限，每一层重复使用矩形窗口注意力很容易导致边界级失真。</strong></p>
+<p><strong>2. 矩形窗口的对称结构限制了覆盖整个图像块的独特移位模式的范围。</strong></p>
+<p><strong>边界级失真的存在和移动矩形窗口技术中有限范围的移动模式（即上述两点）会阻碍其有效性，从而超越超分辨率扩展到其他计算机视觉任务。</strong></p>
+<p>解决方案：提出了一种开创性的三角窗技术。有助于提高超分辨率任务和所有主要使用矩形窗口技术的计算机视觉应用的性能。本文将三角形窗口与传统的矩形窗口中的一个Transformer框架称为 Composite Fusion Attention Transformer（CFAT）。将基于通道的全局注意力单元与上述基于三角-矩形窗口的局部自注意力相结合，提高单图像SR的性能。</p>
+<p>注：上述注意力对属于非重叠注意力类别，并且有效地利用了局部和全局图像特征。</p>
+<p>每个单元块的末尾放置了一个重叠的交叉融合注意块（OCFAB），称为密集窗口注意块（DWAB），以充分利用图像的重叠特征。</p>
+<p>CFAT具有以下几个独特的优点：</p>
+<p>i）基于窗口的自注意技术消除了传统基于矩形窗口的自注意过程中出现的边界水平失真问题</p>
+<p>ii）三角形窗口提供了更广泛的移位模式，从而扩展了空间特征并增强了整体性能。</p>
+<p>iii)  OCFAB利用重叠的空间图像特征，从而进一步增强性能</p>
+<p>提出的  CFAT网络在多个基准数据集上提供了好的 SR结果，明显优于最近的基于Transformer的SR技术。本文的主要贡献可以概括为：</p>
+<ol>
+<li>在计算机视觉任务中引入了三角窗机制。该方法克服了传统矩形窗方法的边界失真和唯一移动模式等限制，提高了图像的信噪比。</li>
+<li>这种窗口机制不仅在超分辨率任务中是有益的，而且在其他矩形窗口技术的计算机视觉应用中也有益的。</li>
+<li>提出一种CFAT，分别通过重叠和非重叠的空间和信道注意利用局部和全局图像特征。</li>
+<li>基于多个基准SR数据集的综合评价表明，该方法的性能高于其它。</li>
+</ol>
+<h2 id="三、方法-1"><a href="#三、方法-1" class="headerlink" title="三、方法"></a>三、方法</h2><p><img src="../images/tmp/image-20241205165705605-1733822472888.png" alt="CFAT总体结构"></p>
+<p>shallow Feature extraction：简单的 3×3 卷积来提取特征 $F_{sh}$</p>
+<h3 id="中间部分"><a href="#中间部分" class="headerlink" title="中间部分"></a>中间部分</h3><p>密集窗口注意块（DWAB）和稀疏窗口注意块（SWAB）与卷积层组合，形成深度提取器模块。</p>
+<p>DWAB 的每部分实现了非重叠和重叠的密集窗口注意力，结合了多个非重叠的注意单元，称为密集混合窗口注意块（D-HWAB），最初获得深层特征，</p>
+<p>在最后放置一个重叠的注意单元，称为重叠交叉融合注意块（OCFAB）获得不同的特征。</p>
+<p>最后的3 × 3卷积层可以使特征更丰富，更有效。</p>
+<p><img src="../images/tmp/image-20241206180304564-1733822472888.png" alt="image-20241206180304564"></p>
+<p>其中$f^n_{nop}、f_{op}、f_{conv}$分别代表非重叠、重叠和卷积操作。</p>
+<p>密集混合窗口注意力模块 D-HWAB：底层模块交替结合了组合移位矩形和新颖的三角形Transformer单元。在这两个单元中执行的多头自注意（MSA）被称为移位密集矩形窗口MSA（(SD) RW-MSA）和移位密集三角形窗口MSA（(SD) TW-MSA），都执行非重叠的自我注意。</p>
+<p>在两个Transformer单元中，来自通道智能注意力块（CWAB）的通道注意力特征与来自（SD）RW-MSA和（SD）TW-MSA的空间注意力特征的组合提高了整体性能。</p>
+<p><img src="../images/tmp/image-20241206180953896-1733822472888.png" alt="image-20241206180953896"></p>
+<p>其中，$F_{DA}$、$f^x_{rect}$和$f^x_{tri}$分别是密集注意力特征、矩形和三角形窗口密集注意力。</p>
+<p>矩形Transformer单元的输出特征表示为</p>
+<p><img src="../images/tmp/image-20241209102106841-1733822472888.png" alt="image-20241209102106841"></p>
+<p>其中，$F_{in}、F_{int}、F_{out}$分别是输入、中间和输出要素。$f^{rect}<em>{MSA}、f^1</em>{LN}、f^2_{LN}和f_{CA}$分别是(SD)RW-MSA、First LayerNorm、Second LayerNorm和CWAB中的特征变换。</p>
+<p>类似地，三角transformer单元的输出特征可以表示为：，和上面矩形的非常类似。</p>
+<p><img src="../images/tmp/image-20241209102433824-1733822472888.png" alt="image-20241209102433824"></p>
+<p>其中，$f^{tri}<em>MSA$是 (SD)TWMSA的特征变换。等式4中的α和等式6中的β是两个超参数，分别限制矩形和三角形Transformer单元的$F</em>{out}$中的信道注意力的主导性。</p>
+<h4 id="重叠交叉融合注意块（OCFAB）"><a href="#重叠交叉融合注意块（OCFAB）" class="headerlink" title="重叠交叉融合注意块（OCFAB）"></a>重叠交叉融合注意块（OCFAB）</h4><p>Overlaping Cross Fusion Attention Block (OCFAB)，该块将相邻窗口之间的特征重叠，在它们之间建立交叉注意，进一步提高性能。这种潜在的注意被称为重叠交叉融合注意（OCFA）。OCFAB 通过称为展开操作的滑动窗口方法来实现，使用大小为$R_0$的核、R的跨距和kR 2个零的填充以使大小兼容于重叠。将H×W×C维的输入特征划分为大小为$R_0$的$\frac{HW}{R^2}$个重叠窗口。这里，$R_0$由：$R_0=(1+K)R$ 确定。k 是调节重叠比率的常数，R表示重叠之前的窗口的大小。在MSA期间，查询由线性图层计算，而键和值则由线性图层生成，然后执行展开操作。</p>
+<h4 id="Channe-Wise-Attention-Block（CWAB）"><a href="#Channe-Wise-Attention-Block（CWAB）" class="headerlink" title="Channe-Wise Attention Block（CWAB）"></a>Channe-Wise Attention Block（CWAB）</h4><p>大多数研究表明，在执行 squeeze-excitation channel attention 时，使用标准卷积的做法。</p>
+<p>这里使用逐深度逐点卷积，有助于在不增加计算负担的情况下降低 squeeze 因子。</p>
+<p>设计了一个具有GELU激活功能的 CWAB，该激活功能夹在两个深度方向的逐点卷积层之间，并在最后跟随一个通道方向的注意模块。</p>
+<h3 id="稀疏窗口注意块-SWAB"><a href="#稀疏窗口注意块-SWAB" class="headerlink" title="稀疏窗口注意块 SWAB"></a>稀疏窗口注意块 SWAB</h3><p>与DWAB类似，SWAB在稀疏窗口而不是密集窗口上促进非重叠和重叠窗口注意。该模块还包括如图2所示的四个操作：（i）非重叠矩形稀疏窗口注意力（ii）非重叠三角形稀疏窗口注意力（iii）重叠交叉融合注意力（iv）卷积操作。后两者与第3.3.1节中讨论的相同，但前两者在矩形和三角形窗口形成方面与DWAB略有不同。</p>
+<p>首先从维度 H×W×C 的输入中准备稀疏窗口，通过在连续的输入特征之间保持一个规则的间隙（称为间隔大小 I）准备稀疏窗口。</p>
+<p>在此基础上，按照标准的矩形和三角形窗口技术实现了各自注意力机制。</p>
+<p>第4节提供了关于三角稀疏注意力的更多细节。在实现矩形稀疏注意时，我们遵循类似的过程。</p>
+<h3 id="长尾问题"><a href="#长尾问题" class="headerlink" title="长尾问题"></a>长尾问题</h3><p>最后阶段，通过深度特征（$F_{dp}$）通过夹在一对卷积层之间的像素 pixel-shuffle 层来获得放大的输入信号（$I_{SR}$）。这由$I_{SR} = f_T（F_{dp}）$表示。</p>
+<h2 id="四、三角形窗口设计"><a href="#四、三角形窗口设计" class="headerlink" title="四、三角形窗口设计"></a>四、三角形窗口设计</h2><p>考虑尺寸为H ×W × C的输入图像$I_{in}$ ，首先将该输入划分为HW上三角窗$M^2$个尺寸为M×M的矩形窗。然后每个矩形 patch 再次被分割成四个三角形窗口。</p>
+<p>图中M取为32，提供了四个线性维数为16 * 16的三角形掩码。这四个三角形窗口分别称为上、右、下和左三角形窗口。相应的矩形窗口也显示在该图中。</p>
+<p>相对于矩形窗口的优点：计算机视觉中，像素的属性取决于其自身及其相邻像素。在自注意期间，矩形窗口的边缘像素没有像内部像素那样被有效地探测，从而导致边界处的明显失真，会降低模型性能。单独实现时，上述问题在矩形和三角形窗口中都可以明显地看到。</p>
+<p>将基于矩形窗口的MSA与我们提出的三角形MSA串联起来。矩形和三角形 Transformer 的这种替代配置减轻了彼此的edge-level distortion。</p>
+<p>许多研究证实，移位矩形窗口与非移位版本相结合，可极大增强SR性能。然而，我们可以观察到，由于其等距几何形状，重复发生时在移动矩形窗口时存在限制。从图中可以看出，三角形窗口的覆盖长度在x维度上大于矩形窗口。<strong>由于这种扩展的覆盖，三角形窗口比矩形窗口允许更多的不相同移位</strong>。</p>
+<p><img src="../images/tmp/image-20241209093937826-1733822472888.png" alt="image-20241209093937826"></p>
+<p>矩形窗口具有不相同的0和8的移位模式，而三角形窗口具有0、8、16和24。三角形窗口中更多独特的移位模式的可用性通过减轻边界处的边缘相关伪影、对齐，有助于提高定位精度的特征并提供对非中心图像模式的更大适应性，比矩形窗口进一步增强了模型的性能。</p>
+<p>由于矩形和三角形窗口之间存在结构异质性，如上图所示，DWAB或SWAB内部参与三角形和矩形自我注意交替连接的空间特征彼此不同。这些来自连续三角形和矩形注意的多样化激活特征<strong>利用更多样化的空间特征参与 HR 重建</strong>。进一步提高了性能。</p>
+<p><strong>计算成本：简而言之，引入三角形窗口可以有效减轻复杂度</strong></p>
+<p>推理过程：在 Transformer 中使用的 MSA 的第一步计算输入$x ∈ R^{HW×C}$的查询矩阵$q = xw_q$，关键字$k = xw_k$和值$v = xw_v$，以及对应的三个可训练参数矩阵$wq ∈ R^{C×C_q}$，$w_k ∈ R^{C×C_k}$和$w_v ∈ R^{C×C_v}$。在我们的例子中，我们考虑$C=Cq=Ck=Cv$和H、W远大于C。</p>
+<p>为了数学上的方便，我们假设num_heads 等于1。MSA的近似计算复杂度为</p>
+<p><img src="../images/tmp/image-20241209095222844-1733822472888.png" alt="image-20241209095222844"></p>
+<p>这个等式证实了部署 ViT 的高计算成本。目前只能用矩形窗口技术降低复杂度。</p>
+<p>然而，我们的三角形窗口技术，不仅减少了计算负担，而且单独工作比矩形产生更好的结果。</p>
+<p>本文我们介绍了两种变体的注意力有关的建议三角形窗口：（i）密集三角形注意力和（ii）稀疏三角形注意力。密集三角形注意力的1D标记大小为L2，其中L是矩形窗口标记L × L的三角形窗口等价物。不</p>
+<p>稀疏三角形注意的有效序列长度与密集三角形注意相同，但感受野更宽。</p>
+<p>引入间隔长度S控制注意机制中三角形窗口中的稀疏度。S可以与卷积运算中的步幅进行比较。稀疏TW-MSA在参数S方面的计算成本是</p>
+<p><img src="../images/tmp/image-20241209095851177-1733822472888.png" alt="image-20241209095851177"></p>
+<h2 id="五、实验"><a href="#五、实验" class="headerlink" title="五、实验"></a>五、实验</h2><p>执行几何数据扩充，每个训练样本由其翻转或旋转（90 °、180 °和270 °）等效样本替换。</p>
+<p>将增强的输入样本裁剪成64×64个面片。</p>
+<p>配置CFAT时，将3个DWAB和3个SWAB以交替顺序放置。每个DWAB和SWAB单元中分别保持4个D-HWAB和4个S-HWAB。这里，每个D-HWAB和SHWAB单元表示唯一的移位大小，即，0、8、16和24的整数。</p>
+<p>采用180个信道，对于(SD)RWMSA、(S)TW-MSA和OCFA的所有单元，注意头和窗口大小被设置为6和16。</p>
+<p>消融研究中讨论了其他高参数值。batch_size 为32。adam优化器进行训练，β1 = 0.9和β2 = 0.999。权重衰减被设置为零。总迭代次数设置为250 K。初始学习速率被设置为2e-4，在[112.5K，175 K，200 K，225 K]次迭代之后，该速率被减小到一半。</p>
+<p>使用 L1损失进行模型训练。采用预先训练好的×2模型，并微调到×4分辨率。</p>
+<p>还推出了一种更紧凑的CFAT，即CFAT-S，具有144个通道，在CWAB中具有逐深度逐点卷积。</p>
+<p>实验使用基于Python 3.10.11的PyTorch 2.0.1深度学习框架，在Ubuntu 20.04.2机器上进行，该机器具有A100-PCIE-40 GB GPU，支持Nvidia CUDA 10.1.243和CuDNN 8.1.0</p>
+<p><img src="../images/tmp/image-20241209105541232-1733822472888.png" alt="image-20241209105541232"></p>
+<h1 id="关于idea"><a href="#关于idea" class="headerlink" title="关于idea"></a>关于idea</h1><p>有一些论文可以参考。目前拟参考论文：</p>
+<p>StableSR：IJCV 2024    将Diffusion先验嵌入到SR</p>
+<p>SinSR：    CVPR 2024    单步基于扩散的图像SR</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
   id="post-Python人脸合成"
   class="article article-type-post"
   itemscope
@@ -545,178 +869,6 @@
 </article>
 
     
-    <article
-  id="post-Code-python"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/01/01/Code-python/"
-    >常见代码记录-python</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/01/01/Code-python/" class="article-date">
-  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>记录在科研过程中遇到的 Python 中一些常见代码。</p>
-<p>该博文会一直持续更新。</p> 
-      <a class="article-more-link" href="/2024/01/01/Code-python/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-MyFirstBlog"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/01/01/MyFirstBlog/"
-    >MyFirstBlog</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/01/01/MyFirstBlog/" class="article-date">
-  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>Hello, My name is <strong>LightDust</strong> (not lightdust). </p>
-<p>This is my first blog.</p>
-<p>Next I will be posting a series of content on my blog. Including my notes, my summarizes, my life records and so on. </p>
-<p>If you are interested in my blog, then come along with me!</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-知识点-C++"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-C++/"
-    >知识点-C++</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-C++/" class="article-date">
-  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%B0%B1%E4%B8%9A/">就业</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>记录 C++ 相关知识点。</p>
-<p>会一直持续更新。</p> 
-      <a class="article-more-link" href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-C++/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
   </article>
   
 
@@ -734,7 +886,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2023-2024
+        2023-2025
         <i class="ri-heart-fill heart_icon"></i> LightDust
       </li>
     </ul>

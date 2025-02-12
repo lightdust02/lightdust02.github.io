@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">11.6k</span>
+            <span class="post-count">14.6k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">42 min</span>
+            <span class="post-count">53 min</span>
         </span>
     </span>
 </div>
@@ -124,6 +124,90 @@
 <p><img src="/images/Pron/%E5%8D%B7%E7%A7%AF.png" alt="卷积"></p>
 <h4 id="一些名词："><a href="#一些名词：" class="headerlink" title="一些名词："></a>一些名词：</h4><p><img src="/images/Pron/%E4%B8%80%E4%BA%9B%E5%90%8D%E8%AF%8D.png" alt="一些名词"></p>
 <h3 id="空洞卷积："><a href="#空洞卷积：" class="headerlink" title="空洞卷积："></a>空洞卷积：</h3><p><img src="/images/Pron/%E7%A9%BA%E6%B4%9E%E5%8D%B7%E7%A7%AF.png" alt="空洞卷积"></p>
+<p>空洞卷积（也称为膨胀卷积或Atrous卷积）是一种在卷积核中引入空洞（Dilation Rate）的卷积操作。空洞卷积通过在卷积核的元素之间插入空洞，扩大卷积核的感受野，而不增加参数量。</p>
+<p><strong>作用</strong>:</p>
+<ul>
+<li><strong>扩大感受野</strong>:<ul>
+<li>空洞卷积通过引入空洞，可以在不增加参数量和计算量的情况下，扩大卷积核的感受野。</li>
+<li>例如，一个3×3的卷积核，如果Dilation Rate为2，则其感受野相当于5×5的卷积核。</li>
+</ul>
+</li>
+<li><strong>保持分辨率</strong>:<ul>
+<li>空洞卷积可以在不进行下采样的情况下，保持输入特征图的空间分辨率，同时扩大感受野。</li>
+</ul>
+</li>
+</ul>
+<p><strong>应用场景</strong>:</p>
+<ul>
+<li><strong>语义分割</strong>:<ul>
+<li>在语义分割任务中，空洞卷积被广泛使用，因为它可以在不降低分辨率的情况下，扩大感受野，从而捕捉更多的上下文信息。</li>
+<li>例如，DeepLab系列模型中使用了空洞卷积来提高分割精度。</li>
+</ul>
+</li>
+<li><strong>目标检测</strong>:<ul>
+<li>在目标检测任务中，空洞卷积可以用于扩大感受野，从而更好地捕捉目标的上下文信息。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1×1卷积核"><a href="#1×1卷积核" class="headerlink" title="1×1卷积核"></a>1×1卷积核</h3><p>1×1卷积核（也称为点卷积）在深度学习中具有多种重要作用，尤其是在卷积神经网络（CNN）中。</p>
+<p><strong>具体作用</strong>:</p>
+<ul>
+<li><strong>通道降维/升维</strong>:<ul>
+<li>1×1卷积核可以在不改变图像空间分辨率的情况下，对输入特征图的通道数进行降维或升维。</li>
+<li>例如，如果输入特征图的通道数为256，使用1×1卷积核可以将通道数减少到64（降维），或者增加到512（升维）。</li>
+<li>这种操作可以减少计算量，同时保留空间信息。</li>
+</ul>
+</li>
+<li><strong>跨通道信息融合</strong>:<ul>
+<li>1×1卷积核可以在不同通道之间进行信息融合，从而增强特征的表达能力。</li>
+<li>通过1×1卷积，模型可以学习到跨通道的线性组合，从而提取更丰富的特征。</li>
+</ul>
+</li>
+<li><strong>非线性映射</strong>:<ul>
+<li>在1×1卷积之后，通常会接一个非线性激活函数（如ReLU），从而引入非线性映射，增强模型的表达能力。</li>
+</ul>
+</li>
+</ul>
+<p><strong>应用场景</strong>:</p>
+<ul>
+<li><strong>GoogleNet中的 Inception模块</strong>:<ul>
+<li>在GoogleNet中，1×1卷积核被广泛用于Inception模块中，用于减少计算量和通道数，同时增强特征表达。</li>
+</ul>
+</li>
+<li><strong>ResNet中的瓶颈结构</strong>:<ul>
+<li>在ResNet中，1×1卷积核用于瓶颈结构（Bottleneck），通过降维和升维操作，减少计算量并提高模型的效率。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="反卷积（Deconvolution）"><a href="#反卷积（Deconvolution）" class="headerlink" title="反卷积（Deconvolution）"></a>反卷积（Deconvolution）</h3><p>反卷积（也称为转置卷积或上采样卷积）是一种用于将低分辨率特征图上采样为高分辨率特征图的卷积操作。反卷积通过在输入特征图中插入零值（Zero Padding），然后进行卷积操作，从而实现上采样。</p>
+<p><strong>作用</strong>:</p>
+<ul>
+<li><strong>上采样</strong>:<ul>
+<li>反卷积的主要作用是将低分辨率的特征图上采样为高分辨率的特征图。</li>
+<li>例如，在图像生成任务中，反卷积可以用于将低分辨率的特征图恢复为原始分辨率的图像。</li>
+</ul>
+</li>
+<li><strong>恢复空间分辨率</strong>:<ul>
+<li>在某些任务中（如语义分割），反卷积用于恢复输入图像的空间分辨率，从而生成与输入图像相同分辨率的输出。</li>
+</ul>
+</li>
+</ul>
+<p><strong>应用场景</strong>:</p>
+<ul>
+<li><strong>图像生成</strong>:<ul>
+<li>在图像生成任务中（如GAN的生成器），反卷积用于将低分辨率的特征图上采样为高分辨率的图像。</li>
+</ul>
+</li>
+<li><strong>语义分割</strong>:<ul>
+<li>在语义分割任务中，反卷积用于将低分辨率的特征图恢复为原始分辨率的分割图。</li>
+</ul>
+</li>
+<li><strong>超分辨率重建</strong>:<ul>
+<li>在超分辨率重建任务中，反卷积用于将低分辨率的图像上采样为高分辨率的图像。</li>
+</ul>
+</li>
+</ul>
 <h3 id="channels："><a href="#channels：" class="headerlink" title="channels："></a>channels：</h3><p>也被称为通道。</p>
 <p>灰度图都是<code>1 channel</code>，彩色图都是<code>3 channels(R、G、B)</code>。</p>
 <p><strong>卷积核中</strong>的 <code>in_channels</code> 与需要进行卷积操作的数据的 <code>channels</code>一致。</p>
@@ -176,7 +260,7 @@
 <p>本质是对变量的一种加权平均。在训练过程中，原始模型的参数会不断更新，而 EMA 模型的参数则通过指数加权平均的方式来跟踪原始模型的参数变化。</p>
 <h3 id="FFN"><a href="#FFN" class="headerlink" title="FFN"></a>FFN</h3><p><strong>前馈神经网络（FFN）</strong> 是每个 Transformer 层中的组成部分，它位于每次多头注意力操作之后，对从 Self-Attention 模块中获取的特征进行进一步处理。</p>
 <p>FFN 由两个线性变换和一个激活函数（通常是 ReLU 或 GELU）组成。前馈神经网络中的非线性激活函数可以增强模型的表达能力。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FeedForward</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim, hidden_dim, dropout = <span class="number">0.</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.net = nn.Sequential(</span><br><span class="line">            nn.Linear(dim, hidden_dim),  <span class="comment"># 第一个线性层</span></span><br><span class="line">            nn.GELU(),                   <span class="comment"># 激活函数</span></span><br><span class="line">            nn.Dropout(dropout),          <span class="comment"># Dropout</span></span><br><span class="line">            nn.Linear(hidden_dim, dim),   <span class="comment"># 第二个线性层</span></span><br><span class="line">            nn.Dropout(dropout)           <span class="comment"># Dropout</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.net(x)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FeedForward</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim, hidden_dim, dropout = <span class="number">0.</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.net = nn.Sequential(</span><br><span class="line">            nn.Linear(dim, hidden_dim),   <span class="comment"># 第一个线性层</span></span><br><span class="line">            nn.GELU(),                    <span class="comment"># 激活函数</span></span><br><span class="line">            nn.Dropout(dropout),          <span class="comment"># Dropout</span></span><br><span class="line">            nn.Linear(hidden_dim, dim),   <span class="comment"># 第二个线性层</span></span><br><span class="line">            nn.Dropout(dropout)           <span class="comment"># Dropout</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.net(x)</span><br></pre></td></tr></table></figure>
 
 
 
@@ -193,7 +277,7 @@
 <h4 id="精确度-Precision"><a href="#精确度-Precision" class="headerlink" title="精确度 Precision"></a>精确度 Precision</h4><p>以<strong>预测结果</strong>为判断依据，预测为正例的样本中预测正确的比例<br>$$<br>Precision=\frac{TP}{TP+FP}<br>$$</p>
 <h4 id="召回率-Recall"><a href="#召回率-Recall" class="headerlink" title="召回率 Recall"></a>召回率 Recall</h4><p>以<strong>实际样本</strong>为判断依据，实际为正例的样本中，被预测正确的正例占总实际正例样本的比例。<br>$$<br>Recall=\frac{TP}{TP+FN}<br>$$</p>
 <h4 id="F1值"><a href="#F1值" class="headerlink" title="F1值"></a>F1值</h4><p>中和了精确率和召回率的指标<br>$$<br>F1=\frac{2PR}{R+P}<br>$$</p>
-<h2 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h2><p>变分自编码器VAE（Variational auto-encoder），可以通过编码解码的步骤，直接比较重建图片和原始图片的差异。VAE以概率的方式描述对潜在空间的观察，在数据生成方面表现出了巨大的应用价值。VAE一经提出就迅速获得了深度生成模型领域广泛的关注。</p>
+<h2 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h2><p>变分自编码器 VAE（Variational auto-encoder），可以通过编码解码的步骤，直接比较重建图片和原始图片的差异。VAE以概率的方式描述对潜在空间的观察，在数据生成方面表现出了巨大的应用价值。VAE一经提出就迅速获得了深度生成模型领域广泛的关注。</p>
 <p>VAE 会将给定输入的每个潜在特征表示为概率分布。当从潜在状态解码时，VAE 将<strong>从每个潜在状态分布中随机采样</strong>，生成一个向量作为解码器模型的输入。</p>
 <p>VAE通过编码器将输入数据映射到一个概率分布，通常假设为高斯分布。不同于传统自编码器生成一个确定的隐变量，VAE生成的是一组分布参数（均值μ和方差σ），并使用这些参数从该分布中采样隐变量。解码器从这些隐变量中重构输入数据。</p>
 <p>同时，在损失函数中，VAE引入了交叉熵与KL散度（是不是很熟悉？），KL散度能够确保编码器生成的潜在分布接近标准正态分布，保持潜在空间的连续性和可操作性。这有助于生成新的样本，保证潜在空间的结构合理。</p>
@@ -205,13 +289,22 @@
 <p>5). 使用反向传播最小化损失函数，更新网络参数。</p>
 <p>相比GAN等生成模型，VAE的训练更稳定，模型结构更为清晰，易于理解。尽管VAE的生成质量通常不如GAN。</p>
 <h2 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h2><p><img src="/images/Pron/image-20240912110124560.png" alt="GAN示意图"></p>
-<p>GAN于2014年提出。具体而言，GAN的核心结构是生成器与判别器。</p>
+<p>GAN于 2014 年提出。具体而言，GAN的核心结构是生成器与判别器。</p>
 <p>生成器的功能是根据真实图像样本<code>X</code>来调整分布，逐步将随机噪声分布<code>z</code>调整为与原始训练数据相似的模拟数据分布，从而实现生成的模拟图像样本<code>X*</code>能够以假乱真。</p>
 <p>判别器则负责检测输入数据的真伪，判断输入数据为真实图像<code>X</code>还是模拟图像<code>X*</code>，并将判断结果作为监督信息反馈给生成器，生成器根据判别器的反馈信息来调整图像的生成，使得模拟图像能够更好地“骗过”生成器。</p>
 <p>在训练过程中，生成器与判别器交替训练，二者相互竞争、相互制约，最终会达到一种动态平衡。生成器得以在判别器的制约下生成更为真实的数据，判别器也能够通过判断生成器产生的伪造数据，不断提升其鉴别能力。</p>
 <p><img src="/images/Pron/image-20240912110753701.png" alt="优化目标函数"></p>
 <p><strong>生成器</strong>通常是一个前馈神经网络，它接收一个随机噪声向量并生成一组样本（例如图像或文本）。生成器学习到的映射是从一个简单分布（如正态分布）到数据分布的转变。</p>
 <p><strong>判别器</strong>也是一个前馈神经网络，接收一组样本并输出一个概率值，表示该样本是真实数据还是生成的数据。判别器的训练目标是最大化其区分真实和伪造样本的能力。</p>
+<p>GAN 的问题：</p>
+<ul>
+<li><p><strong>模式崩溃（Mode Collapse）</strong>: 生成器可能只生成少数几种样本，而无法覆盖数据分布的所有模式。</p>
+</li>
+<li><p><strong>训练不稳定</strong>: 生成器和判别器之间的对抗可能导致训练不稳定，难以收敛。</p>
+</li>
+<li><p><strong>计算成本高</strong>: GAN的训练通常需要大量的计算资源，尤其是在生成高分辨率图像时。</p>
+</li>
+</ul>
 <h2 id="ImageNet"><a href="#ImageNet" class="headerlink" title="ImageNet"></a>ImageNet</h2><p><strong>ImageNet</strong> 是一个用于计算机视觉研究的<strong>大规模图像数据库</strong>。ImageNet 数据集包含超过<strong>1400 万张图像</strong>，这些图像涵盖了 20,000 多个类别，大部分图像都经过人工标注，每张图像都附带类别标签，有些还标注了图像中的物体边界框。</p>
 <p>在图像超分辨率（Super-Resolution, SR）等图像处理任务中，使用 ImageNet 预训练模型具有以下优势：</p>
 <ul>
@@ -282,7 +375,77 @@
 <p>ViT 通过将图像分割成若干个小块<code>patch</code>，将它们看作序列输入到 Transformer 中，以捕捉全局依赖关系。</p>
 <p>然后需要一项关键的内容：<strong>位置编码（Positional Embedding）</strong>，以保留图像的空间位置信息。</p>
 <p>事实上，在最初的NLP领域，位置编码也是很重要的内容。位置编码一般采用正弦和余弦函数来生成<br>$$<br>PE_{pos,2i}=sin\frac{pos}{10000^{\frac{2i}{d_{model}}}}\<br>PE_{pos,2i+1}=cos\frac{pos}{10000^{\frac{2i}{d_{model}}}}<br>$$<br>其中 $d_{model}$ 是编码维度的总大小。</p>
-<h3 id="FFN-1"><a href="#FFN-1" class="headerlink" title="FFN"></a>FFN</h3><h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
+<h4 id="Patch-embed-与-Patch-unembed"><a href="#Patch-embed-与-Patch-unembed" class="headerlink" title="Patch_embed 与 Patch_unembed"></a>Patch_embed 与 Patch_unembed</h4><p><code>PatchEmbed</code> 和 <code>PatchUnembed</code> 是两个关键的函数，分别用于将输入图像划分为多个小块（patches）以及将处理后的特征重新组合回图像。</p>
+<p>这两个函数在 ViT 的架构中起到了桥梁的作用，帮助模型在图像和特征表示之间进行转换。</p>
+<p><code>PatchEmbed</code> 的主要作用是将输入的图像划分为多个 patches ，并将这些 patches 展平为向量，然后通过线性变换将它们映射到嵌入空间。这个过程可以理解为将图像从像素空间转换为特征空间。</p>
+<p><strong>输入：图像</strong>：形状为 <code>(batch_size, channels, height, width)</code>，例如 <code>(b, c, H, W)</code>。</p>
+<p><strong>输出：嵌入特征</strong>：形状为 <code>(batch_size, num_patches, embed_dim)</code>，例如 <code>(b, N, C)</code>，其中 <code>N</code> 是图像被划分为的 patches 数量，<code>C</code> 是嵌入维度。</p>
+<p>步骤如下所示：</p>
+<ol>
+<li><strong>图像划分</strong>：<ul>
+<li>将输入图像划分为多个大小为 <code>patch_size x patch_size</code> 的小块（patches）。</li>
+<li>例如，如果输入图像大小为 <code>(H, W)</code>，patch 大小为 <code>(P, P)</code>，则 patches 的数量为 <code>(H/P) * (W/P)</code>。</li>
+</ul>
+</li>
+<li><strong>展平 patches</strong>：<ul>
+<li>将每个 patch 展平为一个向量。</li>
+<li>例如，一个 <code>(P, P, C)</code> 的 patch 会被展平为 <code>(P*P*C)</code> 的向量。</li>
+</ul>
+</li>
+<li><strong>线性变换</strong>：<ul>
+<li>使用一个线性层（全连接层）将展平后的 patches 映射到嵌入维度 <code>embed_dim</code>。</li>
+<li>例如，如果展平后的 patch 向量维度为 <code>(P*P*C)</code>，则线性层将其映射为 <code>(embed_dim)</code>。</li>
+</ul>
+</li>
+<li><strong>输出</strong>：<ul>
+<li>最终输出为形状为 <code>(batch_size, num_patches, embed_dim)</code> 的嵌入特征</li>
+</ul>
+</li>
+</ol>
+<p><code>PatchUnembed</code> 的主要作用是将处理后的特征（通常是 Transformer 的输出）重新组合回图像空间。这个过程可以理解为将特征表示转换回像素空间，以便进行后续的图像重建或输出。</p>
+<p><strong>输入：特征</strong>：形状为 <code>(batch_size, num_patches, embed_dim)</code>，例如 <code>(b, N, C)</code>。</p>
+<p><strong>输出：图像</strong>：形状为 <code>(batch_size, channels, height, width)</code>，例如 <code>(b, 3, H, W)</code>。</p>
+<p>核心步骤如下：</p>
+<ol>
+<li><strong>特征重塑</strong>：<ul>
+<li>将输入特征从 <code>(batch_size, num_patches, embed_dim)</code> 重塑为 <code>(batch_size, embed_dim, H/P, W/P)</code>，其中 <code>H/P</code> 和 <code>W/P</code> 是 patches 的数量。</li>
+</ul>
+</li>
+<li><strong>反向线性变换</strong>：<ul>
+<li>使用一个反向线性层（通常是转置卷积或插值）将特征映射回原始图像的通道数和分辨率。</li>
+</ul>
+</li>
+<li><strong>输出</strong>：<ul>
+<li>最终输出为形状为 <code>(batch_size, channels, height, width)</code> 的图像。</li>
+</ul>
+</li>
+</ol>
+<h4 id="windows-partition"><a href="#windows-partition" class="headerlink" title="windows_partition"></a>windows_partition</h4><p>我经常会将 <code>windows_partition</code> 与 <code>Patch_embed</code> 相弄混，因此特地记录一下。</p>
+<p><code>window_partition</code> 的功能是将输入的特征图划分为多个固定大小的窗口 windows，以便在每个窗口内进行局部注意力计算。这个函数通常用于 <strong>窗口注意力机制（Window Attention）</strong>，例如在 SwinTransformer 中，窗口注意力机制通过将输入特征划分为多个窗口来减少计算复杂度。</p>
+<p><strong>输入：</strong></p>
+<ul>
+<li><strong>特征图</strong>：形状为 <code>(batch_size, height, width, channels)</code>，例如 <code>(b, H, W, C)</code>。</li>
+<li><strong>窗口大小</strong>：一个整数或元组，表示窗口的高度和宽度，例如 <code>window_size = 16</code>。</li>
+</ul>
+<p><strong>输出</strong></p>
+<ul>
+<li><strong>窗口特征</strong>：形状为 <code>(num_windows * batch_size, window_size, window_size, channels)</code>，例如 <code>(nw * b, P, P, C)</code>，其中 <code>nw</code> 是窗口的数量。</li>
+</ul>
+<p><strong>核心步骤</strong></p>
+<ol>
+<li><strong>窗口划分</strong>：<ul>
+<li>将输入特征图划分为多个大小为 <code>window_size x window_size</code> 的窗口。</li>
+<li>例如，如果输入特征图大小为 <code>(H, W)</code>，窗口大小为 <code>(P, P)</code>，则窗口的数量为 <code>(H/P) * (W/P)</code>。</li>
+</ul>
+</li>
+<li><strong>重塑和排列</strong>：<ul>
+<li>将划分后的窗口重塑为一个新的张量，形状为 <code>(num_windows * batch_size, window_size, window_size, channels)</code>。</li>
+<li>例如，如果输入特征图大小为 <code>(H, W)</code>，窗口大小为 <code>(P, P)</code>，则输出形状为 <code>(nw * b, P, P, C)</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="FFN-1"><a href="#FFN-1" class="headerlink" title="FFN"></a>FFN</h3><p>前馈神经网络是一种最简单的神经网络结构，数据从输入层流向输出层，中间经过一个或多个隐藏层，且信息流动是单向的（没有循环或反馈）。</p>
+<h3 id="Bert："><a href="#Bert：" class="headerlink" title="Bert："></a>Bert：</h3><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
 <p>BERT 的核心创新之一是双向编码器。在传统的语言模型  LSTM 或 RNN中，模型会顺序从左到右或从右到左预测下一个词。而 BERT 是通过同时考虑句子的左右上下文来学习词汇的含义。这种双向性使得 BERT 能够理解一个词或子词在句子中的更深层次的语义关系。</p>
 <p><strong>Transformer架构</strong>：BERT 基于 Transformer 编码器，依赖于注意力机制（Self-Attention）来捕捉句子中不同词之间的关系。BERT 只使用 Transformer 的 Encoder 部分，它并不生成文本，而是通过理解现有文本进行分类或问答等任务。</p>
 <p>传统语言模型中，单向上下文（仅前向或后向）导致了信息丢失。而BERT 的成功归功于两种新的预训练任务：</p>
@@ -579,6 +742,75 @@
 <p>​    此外，单一职责原则（SRP）也要求我们将功能拆分到不同的类或模块中，每个类或模块只负责一项职责。硬编码可能会使得某个类或模块承担过多的职责，降低代码的可读性和可维护性。</p>
 <p> 因此，在编写代码时，我们应该尽量避免硬编码，遵循软件设计原则，提高代码的质量和可维护性。</p>
 <p>​    </p>
+<h2 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h2><h3 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h3><h4 id="Lifetime"><a href="#Lifetime" class="headerlink" title="Lifetime"></a>Lifetime</h4><ol>
+<li><strong>什么是Lifetime？</strong></li>
+</ol>
+<p>在Rust中，<strong>Lifetime</strong>（生命周期）是用来管理引用有效性的概念。Rust的所有权系统确保内存安全，而Lifetime则是这个系统的一部分，用于确保引用不会在它们所指向的数据被释放后仍然存在。</p>
+<p>简单来说，Lifetime标记了引用的有效范围，确保引用不会“悬空”（即指向已经被释放的内存）。</p>
+<ol start="2">
+<li><strong>为什么需要Lifetime？</strong></li>
+</ol>
+<p>Rust的所有权系统要求编译器在编译时就能确定所有引用的有效性。如果没有Lifetime，编译器无法确定某个引用是否在它所指向的数据被释放后仍然存在，这会导致潜在的内存安全问题。</p>
+<p>例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">r</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">5</span>;</span><br><span class="line">        r = &amp;x; <span class="comment">// 错误：x的生命周期太短</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;r: &#123;&#125;&quot;</span>, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>r</code>引用了<code>x</code>，但<code>x</code>的生命周期在内部块结束时已经结束，因此<code>r</code>会变成一个悬空引用。Rust编译器会通过Lifetime检查来阻止这种情况。</p>
+<ol start="3">
+<li><strong>如何使用Lifetime？</strong></li>
+</ol>
+<p>Lifetime是通过在函数签名或结构体定义中显式标记来使用的。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">longest</span>&lt;<span class="symbol">&#x27;a</span>&gt;(x: &amp;<span class="symbol">&#x27;a</span> <span class="type">str</span>, y: &amp;<span class="symbol">&#x27;a</span> <span class="type">str</span>) <span class="punctuation">-&gt;</span> &amp;<span class="symbol">&#x27;a</span> <span class="type">str</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x.<span class="title function_ invoke__">len</span>() &gt; y.<span class="title function_ invoke__">len</span>() &#123;</span><br><span class="line">        x</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        y</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>&#39;a</code>是一个Lifetime参数，表示<code>x</code>和<code>y</code>的引用必须至少在<code>&#39;a</code>的生命周期内有效。返回值的Lifetime也必须是<code>&#39;a</code>，以确保返回的引用不会悬空。</p>
+<ol start="4">
+<li><strong>Lifetime的自动推断</strong></li>
+</ol>
+<p>在许多情况下，Rust编译器可以自动推断Lifetime，而不需要显式标记。只有在编译器无法确定Lifetime时，才需要手动标记。</p>
+<ol start="5">
+<li><strong>Lifetime与所有权的关系</strong></li>
+</ol>
+<p>Lifetime是Rust所有权系统的一部分，但它只与引用相关。所有权本身不需要Lifetime，因为所有权是明确的（要么拥有数据，要么不拥有）。</p>
+<p>总之，<strong>Rust的 Lifetime</strong> 用于确保引用的有效性，防止悬空引用，是Rust所有权系统的一部分。</p>
+<hr>
+<h3 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h3><h4 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h4><p> <strong>什么是defer？</strong></p>
+<p>在Golang中，<strong>defer</strong>是一种延迟执行的机制。通过<code>defer</code>关键字，可以将一个函数调用推迟到当前函数返回之前执行。</p>
+<ol start="2">
+<li><strong>为什么需要defer？</strong></li>
+</ol>
+<p><code>defer</code>通常用于资源管理，例如关闭文件、释放锁、释放内存等。它确保在函数退出时，无论函数是正常返回还是因错误退出，资源都能被正确释放。</p>
+<p>例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> fmt.Println(<span class="string">&quot;World&quot;</span>)</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br><span class="line">World</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>defer</code>推迟了<code>fmt.Println(&quot;World&quot;)</code>的执行，直到<code>main</code>函数返回之前才执行。</p>
+<ol start="3">
+<li><strong>defer的执行顺序</strong></li>
+</ol>
+<p>多个<code>defer</code>语句按照<strong>后进先出（LIFO）</strong>的顺序执行。例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> fmt.Println(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">    <span class="keyword">defer</span> fmt.Println(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">    <span class="keyword">defer</span> fmt.Println(<span class="string">&quot;3&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>defer与错误处理</strong></li>
+</ol>
+<p><code>defer</code>常用于错误处理，确保在函数因错误退出时，资源仍能被正确释放。例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    file, err := os.Open(<span class="string">&quot;example.txt&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;Error:&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> file.Close() <span class="comment">// 确保文件在函数返回前关闭</span></span><br><span class="line">    <span class="comment">// 读取文件内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，无论函数是否因错误退出，<code>file.Close()</code>都会在函数返回前执行。</p>
+<ol start="5">
+<li><strong>defer的注意事项</strong></li>
+</ol>
+<p><code>defer</code>语句中的表达式是在<code>defer</code>语句执行时计算的，而不是在函数返回时计算的。例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    i := <span class="number">0</span></span><br><span class="line">    <span class="keyword">defer</span> fmt.Println(i) <span class="comment">// 这里的i是0</span></span><br><span class="line">    i = <span class="number">10</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;End&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">End</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>总之，<strong>Golang的defer</strong>：用于延迟执行函数调用，通常用于资源管理，确保在函数退出时执行清理操作。</p>
  
       <!-- reward -->
       
@@ -733,7 +965,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2023-2024
+        2023-2025
         <i class="ri-heart-fill heart_icon"></i> LightDust
       </li>
     </ul>

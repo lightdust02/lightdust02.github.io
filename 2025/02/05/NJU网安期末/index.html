@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>南京大学网络安全与检测技术复习笔记 |  LightDust</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-NJU网安期末"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  南京大学网络安全与检测技术复习笔记
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/02/05/NJU%E7%BD%91%E5%AE%89%E6%9C%9F%E6%9C%AB/" class="article-date">
+  <time datetime="2025-02-05T08:35:00.000Z" itemprop="datePublished">2025-02-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E4%B8%9A/">课业</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">13k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">47 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>个人应对网络安全与检测技术2024年期末考试的复习笔记。</p>
+<span id="more"></span>
+
+
+
+<h1 id="考试形式"><a href="#考试形式" class="headerlink" title="考试形式"></a>考试形式</h1><p>线下;有限条件的开卷</p>
+<p>纸质材料:参考教材等书籍不限</p>
+<p>电子材料</p>
+<p>课件</p>
+<p>所有材料必须下载到本地，不得本地部署ai大模型。</p>
+<h1 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h1><h3 id="基本安全属性的理解"><a href="#基本安全属性的理解" class="headerlink" title="基本安全属性的理解"></a>基本安全属性的理解</h3><ul>
+<li>Confidentiality机密性、Integrity 完整性、Availability 可用性</li>
+</ul>
+<p><strong>Confidentiality（机密性）</strong></p>
+<ul>
+<li><strong>定义</strong>：保证信息在传输、存储和处理过程中不被未经授权的主体访问或获取。</li>
+<li><strong>目标</strong>：防止数据泄露。</li>
+<li>实现方法<ul>
+<li><strong>加密技术</strong>（如 AES、RSA）</li>
+<li><strong>访问控制</strong>（如基于角色的访问控制 RBAC）</li>
+<li><strong>隐私保护技术</strong>（如差分隐私）</li>
+</ul>
+</li>
+<li><strong>示例</strong>：用户的密码在数据库中使用哈希算法存储，防止管理员直接读取密码。</li>
+</ul>
+<p><strong>Integrity（完整性）</strong></p>
+<ul>
+<li><strong>定义</strong>：确保信息在传输、存储和处理过程中未被未授权的篡改、伪造或破坏。</li>
+<li><strong>目标</strong>：防止数据被篡改或伪造，确保数据的真实性和准确性。</li>
+<li>实现方法<ul>
+<li><strong>数字签名</strong>（如 RSA 签名）</li>
+<li><strong>消息认证码（MAC）</strong></li>
+<li><strong>校验和</strong>（如 SHA-256）</li>
+</ul>
+</li>
+<li><strong>示例</strong>：文件传输时通过哈希值校验，验证文件是否被篡改。</li>
+</ul>
+<p><strong>Availability（可用性）</strong></p>
+<ul>
+<li><strong>定义</strong>：确保系统或服务在需要时可以被合法用户访问和使用。</li>
+<li><strong>目标</strong>：防止系统因攻击、故障或资源枯竭而不可用。</li>
+<li>实现方法<ul>
+<li><strong>分布式架构</strong>（如负载均衡和容灾备份）</li>
+<li><strong>抗 DDoS 防护</strong>（如流量清洗）</li>
+<li><strong>服务监控</strong>（如实时故障修复）</li>
+</ul>
+</li>
+<li><strong>示例</strong>：银行的在线支付系统能在高并发的双十一期间正常运行。</li>
+</ul>
+<h3 id="Threats-and-Attacks"><a href="#Threats-and-Attacks" class="headerlink" title="Threats and Attacks"></a>Threats and Attacks</h3><ul>
+<li><p>两种攻击模型：Passive、Active</p>
+</li>
+<li><p>能够初步完成威胁模型(Threatmodel)的分析</p>
+</li>
+</ul>
+<h4 id="两种攻击模型"><a href="#两种攻击模型" class="headerlink" title="两种攻击模型"></a><strong>两种攻击模型</strong></h4><ol>
+<li><p><strong>Passive Attacks（被动攻击）</strong></p>
+<ul>
+<li><p><strong>特点</strong>：攻击者仅窃听或监控通信，不直接改变信息。</p>
+</li>
+<li><p><strong>目标</strong>：窃取机密信息。</p>
+</li>
+<li><p>示例</p>
+<ul>
+<li><strong>窃听</strong>：攻击者监听网络数据包，试图提取敏感信息。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>流量分析</strong>：观察通信流量模式，从中推测用户行为。</p>
+<ul>
+<li><p>防御方法</p>
+<ul>
+<li>数据加密（如 TLS 加密传输）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>使用匿名通信（如 Tor 网络）。</p>
+</li>
+</ul>
+<ol start="2">
+<li><p><strong>Active Attacks（主动攻击）</strong></p>
+<ul>
+<li><p><strong>特点</strong>：攻击者通过篡改、伪造或干扰通信，改变信息内容或破坏系统功能。</p>
+</li>
+<li><p><strong>目标</strong>：篡改信息、伪造身份、拒绝服务等。</p>
+</li>
+<li><p>示例</p>
+<ul>
+<li><strong>中间人攻击（MITM）</strong>：攻击者拦截并篡改双方通信内容。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><strong>拒绝服务攻击（DoS/DDoS）</strong>：使目标系统无法响应合法用户请求。</p>
+<ul>
+<li><p>防御方法</p>
+<ul>
+<li>数据完整性校验（如 HMAC）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>系统冗余和防火墙设置。</p>
+</li>
+</ul>
+<h4 id="威胁模型（Threat-Model）"><a href="#威胁模型（Threat-Model）" class="headerlink" title="威胁模型（Threat Model）"></a><strong>威胁模型（Threat Model）</strong></h4><p><strong>威胁模型</strong>用于系统化分析潜在安全威胁和攻击路径，常包括以下步骤：</p>
+<ol>
+<li><p>定义目标：明确系统的核心资产及其安全需求。</p>
+<ul>
+<li>如用户数据需要机密性，服务需要可用性。</li>
+</ul>
+</li>
+<li><p>识别威胁：分析系统可能面临的威胁。</p>
+<ul>
+<li><p>使用 STRIDE 模型：</p>
+<ul>
+<li><strong>S</strong>poofing（身份伪造）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>T</strong>ampering（数据篡改）<ul>
+<li><strong>R</strong>epudiation（抵赖）</li>
+</ul>
+</li>
+<li><strong>I</strong>nformation Disclosure（信息泄露）<ul>
+<li><strong>D</strong>enial of Service（拒绝服务）</li>
+<li><strong>E</strong>levation of Privilege（权限提升）</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><p>评估攻击路径：评估威胁的可能性和影响。</p>
+<ul>
+<li>建立数据流图，分析系统中数据流的潜在漏洞。</li>
+</ul>
+</li>
+<li><p>设计防御措施：为每个威胁提供缓解方案。</p>
+<ul>
+<li>如使用 TLS 防止窃听，使用防火墙缓解 DDoS。</li>
+</ul>
+</li>
+</ol>
+<h3 id="安全原则-Security-Principles"><a href="#安全原则-Security-Principles" class="headerlink" title="安全原则 Security Principles"></a>安全原则 Security Principles</h3><ul>
+<li>能够理解各安全原则的基本含义，识别出遵从/违背安全原则的设计</li>
+</ul>
+<p>安全原则是设计安全系统时应遵循的指导规则，以减少漏洞并提高系统的安全性。常见原则包括：</p>
+<ol>
+<li><strong>最小权限原则（Principle of Least Privilege, PoLP）</strong><ul>
+<li><strong>定义</strong>：系统中每个用户或进程只应拥有完成任务所需的最小权限。</li>
+<li><strong>示例</strong>：普通用户无法访问管理员权限的文件。</li>
+<li><strong>违反后果</strong>：权限过大可能导致恶意操作或滥用。</li>
+</ul>
+</li>
+<li><strong>默认拒绝原则（Default Deny）</strong><ul>
+<li><strong>定义</strong>：系统应默认拒绝所有访问请求，仅允许明确授权的请求。</li>
+<li><strong>示例</strong>：防火墙默认禁止所有入站流量，需明确配置规则开放特定端口。</li>
+</ul>
+</li>
+<li><strong>分层防御原则（Defense in Depth）</strong><ul>
+<li><strong>定义</strong>：通过多个独立的安全层防御攻击，即使某一层被攻破，系统仍有其他防线保护。</li>
+<li><strong>示例</strong>：同时使用防火墙、入侵检测系统（IDS）和加密技术保护网络。</li>
+</ul>
+</li>
+<li><strong>安全设计原则（Secure by Design）</strong><ul>
+<li><strong>定义</strong>：从设计阶段开始就考虑安全性，避免依赖事后补丁。</li>
+<li><strong>示例</strong>：设计 API 时限制输入范围，避免 SQL 注入攻击。</li>
+</ul>
+</li>
+<li><strong>开闭原则（Open Design Principle）</strong><ul>
+<li><strong>定义</strong>：安全性不应依赖系统实现的保密性，而是依赖公开的、经过验证的加密算法等机制。</li>
+<li><strong>示例</strong>：AES 是公开的标准加密算法，但仍然安全。</li>
+</ul>
+</li>
+</ol>
+<p><strong>遵从与违背安全原则的示例</strong></p>
+<p><strong>遵从案例：</strong></p>
+<ul>
+<li>银行系统实现最小权限原则，普通员工无法访问高权限管理操作。</li>
+<li>防火墙默认关闭所有入站流量，只有明确规则开放的端口可以访问。</li>
+</ul>
+<p><strong>违背案例：</strong></p>
+<ul>
+<li>应用程序使用硬编码的默认管理员密码，违背了“安全设计原则”。</li>
+<li>用户所有操作都运行在管理员权限下，违背了“最小权限原则”。</li>
+</ul>
+<h1 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h1><h3 id="了解基本的密码学术语及对应关系"><a href="#了解基本的密码学术语及对应关系" class="headerlink" title="了解基本的密码学术语及对应关系"></a>了解基本的密码学术语及对应关系</h3><ul>
+<li>明文、密文、密钥、加密、解密、</li>
+</ul>
+<p><strong>明文（Plaintext）</strong><br>指未经加密的原始信息，是加密算法的输入。<br><strong>示例</strong>：明文消息：<code>Hello World</code></p>
+<p><strong>密文（Ciphertext）</strong><br>加密后的信息，由加密算法和密钥将明文转换而来，无法直接被理解。<br><strong>示例</strong>：密文消息：<code>7E4A89B3F21C</code></p>
+<p><strong>密钥（Key）</strong><br>加密和解密过程中使用的关键参数，是保护信息安全的核心。密钥的保密性决定了整个系统的安全性。<br><strong>示例</strong>：对称加密密钥：<code>0xA1B2C3D4E5F6</code></p>
+<p><strong>加密（Encryption）</strong><br>将明文转换为密文的过程，以保护数据机密性。<br><strong>公式</strong>：$C = E_k(M)$</p>
+<p>其中 C 是密文，M 是明文，k 是密钥，E 是加密算法。</p>
+<p><strong>解密（Decryption）</strong><br>将密文还原为明文的过程，需要使用正确的密钥和算法。<br><strong>公式</strong>：$M = D_k(C)$</p>
+<p>其中 M 是明文，C 是密文，k 是密钥，D 是解密算法。</p>
+<h3 id="针对加密消息的攻击类型"><a href="#针对加密消息的攻击类型" class="headerlink" title="针对加密消息的攻击类型"></a>针对加密消息的攻击类型</h3><ul>
+<li>唯密文、已知明文、选择明文、选择密文等</li>
+</ul>
+<ol>
+<li><p><strong>唯密文攻击（Ciphertext-Only Attack, COA）</strong></p>
+<ul>
+<li><strong>定义</strong>：攻击者只有加密后的密文可用，试图推断明文或密钥。</li>
+<li>应对方法<ul>
+<li>采用强密码学算法（如 AES）。</li>
+<li>增加密钥长度以抵御暴力破解。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>已知明文攻击（Known-Plaintext Attack, KPA）</strong></p>
+<ul>
+<li><strong>定义</strong>：攻击者已知部分明文及其对应的密文，试图推断密钥或其他明文。</li>
+<li>示例<ul>
+<li>在电报加密中，攻击者知道“ATTACK AT DAWN”的明文和密文关系。</li>
+</ul>
+</li>
+<li>应对方法<ul>
+<li>使用随机填充（Padding）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>选择明文攻击（Chosen-Plaintext Attack, CPA）</strong></p>
+<ul>
+<li><strong>定义</strong>：攻击者可以选择一些明文，并获得其加密后的密文，以此分析加密算法的规律或推断密钥。</li>
+<li>示例<ul>
+<li>在加密系统中，通过请求服务端加密特定消息，观察输出。</li>
+</ul>
+</li>
+<li>应对方法<ul>
+<li>使用强加密模式（如 CBC）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>选择密文攻击（Chosen-Ciphertext Attack, CCA）</strong></p>
+<ul>
+<li><p><strong>定义</strong>：攻击者可以选择一些密文并获得其解密后的明文，通过分析解密过程推测密钥或破解算法。</p>
+</li>
+<li><p>示例</p>
+<ul>
+<li>通过伪造密文请求服务端解密服务。</li>
+</ul>
+</li>
+<li><p>应对方法</p>
+<ul>
+<li>使用抗选择密文攻击的加密方案（如 OAEP）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="对称加密的基本构成"><a href="#对称加密的基本构成" class="headerlink" title="对称加密的基本构成"></a>对称加密的基本构成</h3><ul>
+<li><p>密钥生成、加密、解密</p>
+</li>
+<li><p>性质:正确性、高效性、安全性</p>
+</li>
+</ul>
+<ol>
+<li><strong>密钥生成</strong><ul>
+<li>生成随机的对称密钥，长度通常为 128 位、192 位或 256 位。</li>
+<li><strong>工具</strong>：随机数生成器（如 <code>SecureRandom</code>）。</li>
+</ul>
+</li>
+<li><strong>加密</strong><ul>
+<li>使用密钥和加密算法对明文进行处理，生成密文。</li>
+<li><strong>常见算法</strong>：AES、DES、3DES。</li>
+</ul>
+</li>
+<li><strong>解密</strong><ul>
+<li>使用密钥和解密算法将密文还原为明文。</li>
+<li>解密过程与加密过程对称，使用相同密钥。</li>
+</ul>
+</li>
+</ol>
+<h4 id="对称加密的性质"><a href="#对称加密的性质" class="headerlink" title="对称加密的性质"></a><strong>对称加密的性质</strong></h4><ul>
+<li><strong>正确性</strong><br>确保加密和解密能够正确还原数据：$D_k(E_k(M)) = M$</li>
+<li><strong>高效性</strong><br>由于加密和解密使用相同的密钥，对称加密算法通常比非对称加密更高效。</li>
+<li><strong>安全性</strong><br>加密过程必须确保攻击者无法在有限时间内通过暴力破解或分析算法推测明文或密钥。</li>
+</ul>
+<h3 id="One-Time-Pad与流密码"><a href="#One-Time-Pad与流密码" class="headerlink" title="One-Time Pad与流密码"></a>One-Time Pad与流密码</h3><h4 id="One-Time-Pad（一次性密码本）"><a href="#One-Time-Pad（一次性密码本）" class="headerlink" title="One-Time Pad（一次性密码本）"></a><strong>One-Time Pad（一次性密码本）</strong></h4><ol>
+<li><p><strong>定义</strong><br>使用一个与明文等长的随机密钥流进行加密，密钥只能使用一次。<br>加密公式：$C = M \oplus K$</p>
+<p>解密公式：$M = C \oplus K$</p>
+<p>其中 $\oplus$ 表示按位异或操作。</p>
+</li>
+<li><p><strong>性质</strong></p>
+<ul>
+<li>理论上绝对安全（信息论意义上的安全性）。</li>
+<li>实际中难以实现，因为密钥生成和管理的成本极高。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong></p>
+<ul>
+<li>密钥需要绝对随机，且长度必须等于明文。</li>
+<li>密钥不能重复使用，否则会导致密文被破解。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="流密码（Stream-Cipher）"><a href="#流密码（Stream-Cipher）" class="headerlink" title="流密码（Stream Cipher）"></a><strong>流密码（Stream Cipher）</strong></h4><ol>
+<li><p><strong>定义</strong><br>通过伪随机数生成器生成密钥流，与明文按位异或进行加密。</p>
+<ul>
+<li><strong>密钥流生成器</strong>：使用初始密钥和随机向量（IV）生成伪随机序列。</li>
+<li><strong>加密公式</strong>： $C_i = M_i \oplus S_i$ 其中 $S_i$ 为密钥流，$M_i$ 为明文，$C_i$ 为密文。</li>
+</ul>
+</li>
+<li><p><strong>常见算法</strong></p>
+<ul>
+<li>RC4</li>
+<li>Salsa20/ChaCha20</li>
+</ul>
+</li>
+<li><p><strong>优点</strong></p>
+<ul>
+<li>高效，适合处理连续流数据（如音视频加密）。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong></p>
+<ul>
+<li>如果密钥流重复，安全性会完全丧失（与 One-Time Pad 类似）。</li>
+<li>RC4 存在已知漏洞，不再被推荐使用。</li>
+</ul>
+</li>
+</ol>
+<h1 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h1><h3 id="Feistel-Cipher结构"><a href="#Feistel-Cipher结构" class="headerlink" title="Feistel Cipher结构"></a>Feistel Cipher结构</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a><strong>定义</strong></h4><p>Feistel Cipher 是一种对称加密的基本结构，其核心思想是将明文分组后反复应用特定的加密步骤（称为轮函数），最终结合密钥生成密文。<br><strong>特点</strong>：加密和解密结构对称，使用相同的算法。</p>
+<h4 id="基本工作流程"><a href="#基本工作流程" class="headerlink" title="基本工作流程"></a><strong>基本工作流程</strong></h4><p>假设明文为 M，密钥为 K，分组长度为 n，分为左右两部分 $L_0$ 和 $R_0$：</p>
+<ol>
+<li>初始化：将 M 分为两部分：$L_0, R_0$。</li>
+<li>轮迭代：对于每一轮 i： $L_i = R_{i-1}$，$R_i = L_{i-1} \oplus F(R_{i-1}, K_i)$。其中 F 是轮函数，$K_i$ 是第 i 轮的子密钥。</li>
+<li>最终输出：将最后一轮的 $L_n$ 和 $R_n$ 拼接生成密文。</li>
+</ol>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h4><ul>
+<li>解密过程简单，只需按照加密过程逆序执行，因为 Feistel 结构的设计天然支持对称解密。</li>
+<li>灵活性：轮函数 F 可以自由选择，只需保证其非线性性和混淆特性。</li>
+</ul>
+<h3 id="DES的发展以及其基本结构"><a href="#DES的发展以及其基本结构" class="headerlink" title="DES的发展以及其基本结构"></a>DES的发展以及其基本结构</h3><h4 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a><strong>发展历程</strong></h4><ul>
+<li><strong>1970年代初</strong>：由 IBM 公司提出 Lucifer 加密算法，为 DES 的前身。</li>
+<li><strong>1977年</strong>：DES（Data Encryption Standard）成为美国联邦政府的加密标准。</li>
+<li>后续发展<ul>
+<li>随着计算能力提高，DES 的 56 位密钥长度被证明不够安全，逐步被 3DES 和 AES 取代。</li>
+</ul>
+</li>
+</ul>
+<h4 id="DES-基本结构"><a href="#DES-基本结构" class="headerlink" title="DES 基本结构"></a><strong>DES 基本结构</strong></h4><ol>
+<li><p><strong>输入分组</strong></p>
+<ul>
+<li>明文长度固定为 64 位，密钥长度为 64 位（其中 8 位为校验位，实际密钥为 56 位）。</li>
+</ul>
+</li>
+<li><p><strong>初始置换（Initial Permutation, IP）</strong></p>
+<ul>
+<li>对输入的 64 位数据按固定表进行置换，增加混淆性。</li>
+</ul>
+</li>
+<li><p><strong>Feistel 结构的 16 轮加密</strong><br>每轮执行以下操作：</p>
+<ul>
+<li><strong>扩展置换（E-Box）</strong>：将 32 位数据扩展为 48 位。</li>
+<li><strong>子密钥混合</strong>：将扩展后的数据与子密钥进行 XOR。</li>
+<li><strong>S-Box 替换</strong>：将 48 位数据压缩为 32 位。</li>
+<li><strong>P-置换</strong>：对替换后的 32 位数据进行置换。</li>
+</ul>
+</li>
+<li><p><strong>逆置换（Inverse Permutation, IP-1）</strong></p>
+<ul>
+<li>将 16 轮加密的输出重新排列，生成最终密文。</li>
+</ul>
+</li>
+</ol>
+<h3 id="理解Avalanche-Effect-雪崩效应"><a href="#理解Avalanche-Effect-雪崩效应" class="headerlink" title="理解Avalanche Effect 雪崩效应"></a>理解Avalanche Effect 雪崩效应</h3><p>雪崩效应指加密算法的输入（明文或密钥）发生微小变化时，输出的密文会发生大范围不可预测的改变。</p>
+<h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a><strong>意义</strong></h4><ul>
+<li><strong>安全性</strong>：有效的加密算法必须满足雪崩效应，否则攻击者可能通过输出的微小变化推测明文或密钥。</li>
+<li><strong>测试标准</strong>：在理想情况下，对输入数据修改 1 位，输出密文中约有一半的位发生变化。</li>
+</ul>
+<h4 id="DES-雪崩效应分析"><a href="#DES-雪崩效应分析" class="headerlink" title="DES 雪崩效应分析"></a><strong>DES 雪崩效应分析</strong></h4><ul>
+<li>DES 中的 S-Box 和 P-置换设计是雪崩效应的主要来源。</li>
+<li><strong>示例</strong>：<br>修改密钥或明文的 1 位，观察最终密文中 64 位的变化数量，通常会接近 50%。</li>
+</ul>
+<h3 id="多重加密的安全性，以2DES的安全性为主"><a href="#多重加密的安全性，以2DES的安全性为主" class="headerlink" title="多重加密的安全性，以2DES的安全性为主"></a>多重加密的安全性，以2DES的安全性为主</h3><h4 id="多重加密的定义"><a href="#多重加密的定义" class="headerlink" title="多重加密的定义"></a><strong>多重加密的定义</strong></h4><p>通过重复执行加密算法增强加密强度，通常使用多个密钥。</p>
+<ul>
+<li><p><strong>2DES</strong>：两次 DES 加密，使用两个密钥 $K_1$ 和 $K_2$。<br>加密过程： $C = E_{K_2}(E_{K_1}(M))$ </p>
+<p>解密过程： $M = D_{K_1}(D_{K_2}(C))$</p>
+</li>
+<li><p><strong>3DES</strong>：三次 DES 加密（加密-解密-加密模式，EDE）。</p>
+</li>
+</ul>
+<h4 id="2DES-的安全性问题"><a href="#2DES-的安全性问题" class="headerlink" title="2DES 的安全性问题"></a><strong>2DES 的安全性问题</strong></h4><ul>
+<li><p><strong>密钥空间</strong>：理论上 2DES 的密钥空间为 $2^{112}$，比单一 DES 的 $2^{56}$ 更安全。</p>
+</li>
+<li><p><strong>中间相遇攻击（Meet-in-the-Middle Attack）</strong>：<br>攻击者利用加密和解密过程中的中间值缩小密钥搜索空间：</p>
+<ol>
+<li>计算所有可能的 $K_1$ 的加密结果 $E_{K_1}(M)$。</li>
+<li>计算所有可能的 $K_2$ 的解密结果 $D_{K_2}(C)$。</li>
+<li>找到两者匹配的密钥对 $(K_1, K_2)$。</li>
+</ol>
+<p><strong>复杂度</strong>：约为 $2^{57}$，只比单 DES 稍强，但仍远低于理想的 $2^{112}$。</p>
+</li>
+</ul>
+<h4 id="改进方法：3DES"><a href="#改进方法：3DES" class="headerlink" title="改进方法：3DES"></a><strong>改进方法：3DES</strong></h4><p>通过三次加密增加安全性：$C = E_{K_3}(D_{K_2}(E_{K_1}(M)))$</p>
+<ul>
+<li><strong>优点</strong>：抵御了中间相遇攻击。</li>
+<li><strong>缺点</strong>：计算开销较大，被 AES 替代。</li>
+</ul>
+<hr>
+<h3 id="总结：DES-的优缺点"><a href="#总结：DES-的优缺点" class="headerlink" title="总结：DES 的优缺点"></a><strong>总结：DES 的优缺点</strong></h3><h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a><strong>优点</strong></h4><ol>
+<li>结构简单，基于 Feistel 结构易于实现。</li>
+<li>雪崩效应显著，满足基本的密码学要求。</li>
+</ol>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h4><ol>
+<li>密钥长度过短（56 位），易被暴力破解。</li>
+<li>2DES 不完全安全，中间相遇攻击降低了多重加密的效果。</li>
+<li>现代计算技术（如并行计算）加速了 DES 的破解过程。</li>
+</ol>
+<h1 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h1><h3 id="AES的发展历史以及其一般结构了解AES中的四种变换及其设计原理-不需要记忆Boxes"><a href="#AES的发展历史以及其一般结构了解AES中的四种变换及其设计原理-不需要记忆Boxes" class="headerlink" title="AES的发展历史以及其一般结构了解AES中的四种变换及其设计原理(不需要记忆Boxes)"></a>AES的发展历史以及其一般结构了解AES中的四种变换及其设计原理(不需要记忆Boxes)</h3><h4 id="发展历史"><a href="#发展历史" class="headerlink" title="发展历史"></a><strong>发展历史</strong></h4><ol>
+<li><strong>背景</strong>：<ul>
+<li>随着 DES 被证明不再安全，美国国家标准与技术研究院 (NIST) 在 1997 年开始寻求替代方案。</li>
+<li>1998 年，Daemen 和 Rijmen 提出的 Rijndael 算法被选为新标准。</li>
+<li>2001 年，Rijndael 正式成为 AES (Advanced Encryption Standard)。</li>
+</ul>
+</li>
+<li><strong>目标</strong>：<ul>
+<li>提供更强的安全性。</li>
+<li>支持不同的密钥长度（128, 192, 256 位）。</li>
+<li>具备高效的软件和硬件实现。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="一般结构"><a href="#一般结构" class="headerlink" title="一般结构"></a><strong>一般结构</strong></h4><p>AES 是一种分组密码，分组长度固定为 <strong>128 位</strong>，支持 <strong>128/192/256 位密钥长度</strong>。<br>AES 的加密过程分为多个轮次，具体轮数取决于密钥长度：</p>
+<ul>
+<li><strong>128 位密钥</strong>：10 轮</li>
+<li><strong>192 位密钥</strong>：12 轮</li>
+<li><strong>256 位密钥</strong>：14 轮</li>
+</ul>
+<p>每一轮由一组固定的操作组成，最后一轮略有不同（省略部分步骤）。</p>
+<ol>
+<li>Substitute Bytes (字节替换)</li>
+</ol>
+<ul>
+<li><strong>作用</strong>：非线性变换，将输入的每一个字节替换为另一个字节（通过 S-Box 完成）。</li>
+<li>原理<ul>
+<li>S-Box 基于有限域上的数学操作，确保抗线性攻击和差分攻击。</li>
+<li>提供了 AES 加密的非线性性。</li>
+</ul>
+</li>
+<li><strong>特点</strong>：每个字节独立替换，彼此不影响。</li>
+</ul>
+<hr>
+<ol>
+<li>Shift Rows (行移位)<ul>
+<li><strong>作用</strong>：行级别的排列变换，用于打乱数据的列间关系。</li>
+<li>操作<ul>
+<li>第一行保持不变。</li>
+<li>第二行循环左移 1 字节。</li>
+<li>第三行循环左移 2 字节。</li>
+<li>第四行循环左移 3 字节。</li>
+</ul>
+</li>
+<li>原理<ul>
+<li>打乱了列间数据的排列，增强加密效果。</li>
+<li>配合 Mix Columns 提供更高的扩散性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol>
+<li>Mix Columns (列混淆)<ul>
+<li><strong>作用</strong>：通过列的数学变换实现数据的扩散。</li>
+<li>操作<ul>
+<li>每一列看作一个多项式，在有限域 GF(28)GF(2^8)GF(28) 上与固定矩阵相乘。</li>
+</ul>
+</li>
+<li>原理<ul>
+<li>每一列的输出依赖于输入列的所有字节，确保数据扩散。</li>
+<li>增强抗差分攻击能力。</li>
+</ul>
+</li>
+<li><strong>设计细节</strong>：固定矩阵的选择平衡了扩散性和计算效率。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol>
+<li>Add Round Key (轮密钥加)<ul>
+<li><strong>作用</strong>：将密钥与数据混合。</li>
+<li>操作<ul>
+<li>每一轮的状态矩阵与对应的轮密钥逐字节 XOR。</li>
+</ul>
+</li>
+<li>原理<ul>
+<li>XOR 操作快速且不可逆。</li>
+<li>将密钥融入加密过程，每轮使用不同的子密钥。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="AES密钥扩展算法以及其设计原理"><a href="#AES密钥扩展算法以及其设计原理" class="headerlink" title="AES密钥扩展算法以及其设计原理"></a>AES密钥扩展算法以及其设计原理</h3><h4 id="密钥扩展算法简介"><a href="#密钥扩展算法简介" class="headerlink" title="密钥扩展算法简介"></a><strong>密钥扩展算法简介</strong></h4><p>AES 的每一轮都需要使用一个独特的子密钥，密钥扩展算法用于从主密钥生成这些子密钥。</p>
+<ul>
+<li><strong>输入</strong>：主密钥 K（128, 192 或 256 位）。</li>
+<li><strong>输出</strong>：每一轮所需的子密钥（包括初始密钥）。</li>
+</ul>
+<hr>
+<h4 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a><strong>主要步骤</strong></h4><ol>
+<li><strong>初始密钥</strong>：将输入密钥作为第一个子密钥 $W[0], W[1], …, W[N_k-1]$，其中 $N_k$ 为密钥分组数（4/6/8）。</li>
+<li><strong>密钥扩展迭代</strong>：使用以下规则生成后续的密钥分组 W[i]W[i]W[i]：<ul>
+<li>对于每个 i，$W[i] = W[i-N_k] \oplus T$，其中 T 的计算取决于 i 是否为 $N_k$的倍数：<ul>
+<li>如果 $i % N_k == 0$，$T = SubWord(RotWord(W[i-1])) \oplus Rcon[i/N_k]$<ul>
+<li><strong>RotWord</strong>：循环左移一个字节。</li>
+<li><strong>SubWord</strong>：对字的每个字节进行 S-Box 替换。</li>
+<li><strong>Rcon</strong>：轮常数，增加非线性性。</li>
+</ul>
+</li>
+<li>如果 $N_k &gt; 6$ 且 $i % N_k == 4$：<br>$T = SubWord(W[i-1])$</li>
+<li>否则，T = W[i-1]。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a><strong>设计原理</strong></h4><ul>
+<li><strong>扩展性</strong>：生成的子密钥满足 AES 轮次需求，确保每轮的独立性。</li>
+<li><strong>非线性性</strong>：通过 S-Box 替换和轮常数 RconRconRcon 添加非线性性，增加安全性。</li>
+<li><strong>扩散性</strong>：主密钥的微小变化会对所有子密钥产生较大影响。</li>
+</ul>
+<h1 id="分组加密工作模式-Modes-of-Operation"><a href="#分组加密工作模式-Modes-of-Operation" class="headerlink" title="分组加密工作模式 Modes of Operation"></a>分组加密工作模式 Modes of Operation</h1><h3 id="消息填充"><a href="#消息填充" class="headerlink" title="消息填充"></a>消息填充</h3><p>分组加密要求输入数据的长度是分组长度（通常为 128 比特）的倍数。如果消息长度不足分组长度，需要进行填充。<br>常见的填充方式有：</p>
+<ol>
+<li><p><strong>PKCS#7 填充</strong>：添加 nnn 个值为 nnn 的字节，其中 nnn 是需要填充的字节数。<br>例如，明文 “HELLO”（5 字节），128 比特分组需要填充 11 字节： </p>
+<p>$\text{“HELLO”} \rightarrow \text{“HELLO”} | \text{11 11 11 11 11 11 11 11 11 11 11}$</p>
+</li>
+<li><p><strong>零填充</strong>：填充字节为全零。</p>
+</li>
+<li><p><strong>ISO/IEC 7816-4</strong>：在消息尾部添加一个字节的 <code>80</code>，后面填充全零。</p>
+</li>
+</ol>
+<h3 id="常见工作模式及其比较"><a href="#常见工作模式及其比较" class="headerlink" title="常见工作模式及其比较"></a>常见工作模式及其比较</h3><h4 id="1-ECB-Electronic-Codebook"><a href="#1-ECB-Electronic-Codebook" class="headerlink" title="1. ECB (Electronic Codebook)"></a>1. <strong>ECB (Electronic Codebook)</strong></h4><p><strong>过程</strong>：</p>
+<ul>
+<li>每个分组独立加密，不涉及前后分组。</li>
+<li>优点：简单高效；可以并行加密。</li>
+<li>缺点：模式化，不能隐藏数据模式，易受明文相同导致密文相同的攻击。</li>
+<li><strong>应用场景</strong>：不适合传输重要数据，通常用于无关紧要的数据（如数据库密钥）。</li>
+</ul>
+<hr>
+<h4 id="2-CBC-Cipher-Block-Chaining"><a href="#2-CBC-Cipher-Block-Chaining" class="headerlink" title="2. CBC (Cipher Block Chaining)"></a>2. <strong>CBC (Cipher Block Chaining)</strong></h4><p><strong>过程</strong>：</p>
+<ul>
+<li>每个分组的明文与前一个分组的密文进行异或后加密，第一个分组与初始向量（IV）异或。</li>
+</ul>
+<p>$C_i = Enc(K, M_i \oplus C_{i-1})$   $M_i = Dec(K, C_i) \oplus C_{i-1}$</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：每个分组依赖于前一个分组，避免模式化；适合流式传输。</li>
+<li>缺点：不能并行加密；错误传播特性强，某个分组密文出错会影响后续分组的解密。</li>
+<li><strong>应用场景</strong>：数据传输，文件加密。</li>
+</ul>
+<hr>
+<h4 id="3-CFB-Cipher-Feedback"><a href="#3-CFB-Cipher-Feedback" class="headerlink" title="3. CFB (Cipher Feedback)"></a>3. <strong>CFB (Cipher Feedback)</strong></h4><p><strong>过程</strong>：</p>
+<ul>
+<li>将 IV 或上一个密文块加密后与明文异或，生成密文。</li>
+</ul>
+<p>$C_i = M_i \oplus Enc(K, C_{i-1})$</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：密文块长度不必等于分组长度，适合流式传输。</li>
+<li>缺点：解密过程中错误传播到下一个分组。</li>
+<li><strong>应用场景</strong>：实时数据加密（如网络通信）。</li>
+</ul>
+<hr>
+<h4 id="4-OFB-Output-Feedback"><a href="#4-OFB-Output-Feedback" class="headerlink" title="4. OFB (Output Feedback)"></a>4. <strong>OFB (Output Feedback)</strong></h4><p><strong>过程</strong>：</p>
+<ul>
+<li>将 IV 加密后作为伪随机流，与明文异或生成密文。</li>
+</ul>
+<p>$O_i = Enc(K, O_{i-1}), \quad C_i = M_i \oplus O_i$</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：不直接依赖密文分组，错误不会传播到后续分组。</li>
+<li>缺点：无法并行处理；需要唯一且随机的 IV。</li>
+<li><strong>应用场景</strong>：噪声信道中的数据加密。</li>
+</ul>
+<hr>
+<h4 id="5-CTR-Counter-Mode"><a href="#5-CTR-Counter-Mode" class="headerlink" title="5. CTR (Counter Mode)"></a>5. <strong>CTR (Counter Mode)</strong></h4><p><strong>过程</strong>：</p>
+<ul>
+<li>以初始计数器为输入生成伪随机流，与明文异或生成密文，计数器每次加一。</li>
+</ul>
+<p>$C_i = M_i \oplus Enc(K, \text{Counter}_i)$</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：高效并行处理；错误仅影响当前分组。</li>
+<li>缺点：计数器必须唯一，重复会导致严重问题。</li>
+<li><strong>应用场景</strong>：高性能环境下的数据加密（如磁盘加密）。</li>
+</ul>
+<h3 id="工作模式的安全性与鲁棒性"><a href="#工作模式的安全性与鲁棒性" class="headerlink" title="**工作模式的安全性与鲁棒性 *! **"></a>**工作模式的安全性与鲁棒性 *! **</h3><h4 id="1-CBC-修改密文块攻击"><a href="#1-CBC-修改密文块攻击" class="headerlink" title="1. CBC 修改密文块攻击"></a><strong>1. CBC 修改密文块攻击</strong></h4><ul>
+<li>攻击原理：由于 CBC 的解密过程中，明文依赖密文和前一块密文，攻击者可以通过修改某块密文来操控下一块的明文。</li>
+<li>示例： $M_i = Dec(K, C_i) \oplus C_{i-1}$ 如果攻击者修改$C_{i-1}$ 为 $C_{i-1}’$，则解密得到的明文变为： $M_i’ = Dec(K, C_i) \oplus C_{i-1}$</li>
+<li>防御措施：使用消息认证码 (MAC) 验证完整性。</li>
+</ul>
+<hr>
+<h4 id="2-分组加密模式的错误传播"><a href="#2-分组加密模式的错误传播" class="headerlink" title="2. 分组加密模式的错误传播"></a><strong>2. 分组加密模式的错误传播</strong></h4><ul>
+<li>不同模式对错误的传播影响不同：<ul>
+<li><strong>ECB</strong>：错误只影响当前块。</li>
+<li><strong>CBC</strong>：错误影响当前块和下一个块的解密。</li>
+<li><strong>CFB</strong>：错误影响当前块和下一个块的解密。</li>
+<li><strong>OFB 和 CTR</strong>：错误只影响当前块。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="工作模式的应用场景"><a href="#工作模式的应用场景" class="headerlink" title="工作模式的应用场景"></a><strong>工作模式的应用场景</strong></h3><ul>
+<li><strong>ECB</strong>：结构化数据（如密钥表），但安全性较低。</li>
+<li><strong>CBC</strong>：文件加密、消息加密。</li>
+<li><strong>CFB</strong>：适用于实时流数据。</li>
+<li><strong>OFB</strong>：适用于无差错需求的环境（如卫星通信）。</li>
+<li><strong>CTR</strong>：高性能要求的场景（如 HTTPS 传输）。</li>
+</ul>
+<p><strong>总结</strong>：CTR 是综合效率与安全性最优的模式，但需确保计数器的唯一性。</p>
+<h1 id="完整性-Hashes"><a href="#完整性-Hashes" class="headerlink" title="完整性 Hashes"></a>完整性 Hashes</h1><h3 id="Hash函数的基本思想"><a href="#Hash函数的基本思想" class="headerlink" title="Hash函数的基本思想"></a>Hash函数的基本思想</h3><p><strong>Hash 函数</strong>是一种将任意长度输入映射到固定长度输出的数学函数。</p>
+<p>输出通常称为哈希值或摘要，特性如下：</p>
+<ol>
+<li>定长输出：输出长度固定，与输入长度无关。</li>
+<li>快速计算：对任意输入，计算 Hash 值的效率高。</li>
+<li>不可逆性（One-wayness）：无法通过 Hash 值反推输入。</li>
+<li>抗碰撞性（Collision Resistance）：不同输入映射到相同输出的概率极低。</li>
+</ol>
+<h3 id="理解One-wayness、-Weak-Strong-Collision-resistance的含义以及其之间关系"><a href="#理解One-wayness、-Weak-Strong-Collision-resistance的含义以及其之间关系" class="headerlink" title="理解One-wayness、(Weak/Strong)Collision resistance的含义以及其之间关系 *!"></a>理解One-wayness、(Weak/Strong)Collision resistance的含义以及其之间关系 *!</h3><ol>
+<li><strong>One-wayness</strong><ul>
+<li>给定 Hash 值 h=H(x)，找到满足H(x′)=h 的 x′ 是计算上不可行的。</li>
+<li><strong>应用</strong>：密码存储、数字签名。</li>
+</ul>
+</li>
+<li><strong>Weak Collision Resistance</strong><ul>
+<li>对任意给定 x，找到不同的 x′，使得 H(x) = H(x’) 是不可行的。</li>
+<li><strong>关系</strong>：Weak collision resistance 假设攻击者知道特定的初始值。</li>
+</ul>
+</li>
+<li><strong>Strong Collision Resistance</strong><ul>
+<li>找到任意两个不同的输入 x≠x，使得 H(x)=H(x′) 是不可行的。</li>
+<li><strong>应用</strong>：保护文件完整性，防止伪造。</li>
+</ul>
+</li>
+</ol>
+<p><strong>关系总结</strong>：</p>
+<ul>
+<li>强碰撞抗性 ⟹ 弱碰撞抗性 ⟹ 单向性。</li>
+<li>如果 Hash 函数能够抵抗强碰撞攻击，则也满足其他弱形式的安全性。</li>
+</ul>
+<h3 id="了解常用的Hash函数以及其一般结构"><a href="#了解常用的Hash函数以及其一般结构" class="headerlink" title="了解常用的Hash函数以及其一般结构"></a>了解常用的Hash函数以及其一般结构</h3><ol>
+<li>MD5<ul>
+<li>已不安全，存在严重碰撞问题。</li>
+</ul>
+</li>
+<li>SHA-1<ul>
+<li>160 位输出，已被破解，不再推荐使用。</li>
+</ul>
+</li>
+<li>SHA-2 (SHA-256, SHA-512)<ul>
+<li>提供更高安全性和较大输出长度，广泛使用。</li>
+</ul>
+</li>
+<li>SHA-3 (Keccak)<ul>
+<li>使用 Sponge 架构，抵抗各种碰撞攻击。</li>
+</ul>
+</li>
+</ol>
+<p><strong>一般结构</strong>：</p>
+<ul>
+<li>多采用 <strong>Merkle-Damgård 架构</strong>：将输入分成固定大小分组，并逐步压缩。</li>
+</ul>
+<h3 id="理解生日悖论"><a href="#理解生日悖论" class="headerlink" title="理解生日悖论"></a>理解生日悖论</h3><ul>
+<li>通过概率论解释，在只有 $\sqrt{2^n}$ 次尝试中找到碰撞的概率即超过 50%。</li>
+<li>对于 n 位 Hash 输出，攻击复杂度约为 $2^{n/2}$。</li>
+</ul>
+<p><strong>应用</strong>：攻击需要碰撞抗性的系统，例如数字签名伪造</p>
+<h3 id="应用-Password-Hashing"><a href="#应用-Password-Hashing" class="headerlink" title="应用:Password Hashing"></a>应用:Password Hashing</h3><p><strong>用途</strong>：存储用户密码的加密形式，防止数据库泄露时泄露明文密码。</p>
+<p><strong>增强安全性的方法</strong>：</p>
+<ul>
+<li>**使用盐值 (Salt)**：为每个密码添加唯一的随机值，防止彩虹表攻击。</li>
+<li><strong>使用密钥推导函数</strong>：如 PBKDF2、Argon2，提高破解难度</li>
+</ul>
+<h3 id="理解Hash函数在何种情况无法提供完整性保护"><a href="#理解Hash函数在何种情况无法提供完整性保护" class="headerlink" title="理解Hash函数在何种情况无法提供完整性保护? *!"></a>理解Hash函数在何种情况无法提供完整性保护? *!</h3><p>Hash 函数单独使用时，只能验证数据是否被修改，但不能提供认证能力。</p>
+<p>攻击者可以通过以下方式绕过 Hash 的完整性保护：</p>
+<ul>
+<li><strong>中间人攻击</strong>：攻击者可以截取数据及其 Hash 值，并替换为伪造的版本。</li>
+<li><strong>伪造数据与 Hash</strong>：如未使用密钥的情况下，攻击者可以生成与被篡改数据匹配的 Hash 值。</li>
+</ul>
+<p><strong>解决方法</strong>：使用带密钥的消息认证码 (MAC) 提供身份认证。</p>
+<h1 id="MACs"><a href="#MACs" class="headerlink" title="MACs"></a>MACs</h1><h3 id="消息认证码的使用方式和定义"><a href="#消息认证码的使用方式和定义" class="headerlink" title="消息认证码的使用方式和定义"></a>消息认证码的使用方式和定义</h3><ul>
+<li><strong>消息认证码 (MAC)</strong> 是一种利用密钥生成的摘要，用于验证消息的完整性和来源真实性。</li>
+<li>给定一个密钥 K 和消息 m，MAC 的计算为： $\text{MAC}(K, m) = H(K | m) $</li>
+<li>验证时，接收方计算 MAC 并比较接收到的值。</li>
+</ul>
+<h3 id="区别伪造攻击的几种方式"><a href="#区别伪造攻击的几种方式" class="headerlink" title="区别伪造攻击的几种方式"></a>区别伪造攻击的几种方式</h3><p><strong>存在形伪造 (Existential Forgery)</strong></p>
+<ul>
+<li>攻击者伪造出一个合法的消息及其 MAC 值。</li>
+<li>常见于弱 MAC 算法或随机猜测成功的情况下。</li>
+</ul>
+<p><strong>选择性伪造 (Selective Forgery)</strong></p>
+<ul>
+<li>攻击者针对目标消息伪造合法的 MAC 值。</li>
+</ul>
+<p><strong>通用伪造 (Universal Forgery)</strong></p>
+<ul>
+<li>攻击者能够伪造任意消息的合法 MAC。</li>
+<li><strong>最严重的攻击</strong>，通常需要破解 MAC 算法。</li>
+</ul>
+<h3 id="完整性基本概念与机密性的区别"><a href="#完整性基本概念与机密性的区别" class="headerlink" title="完整性基本概念与机密性的区别"></a>完整性基本概念与机密性的区别</h3><ul>
+<li><strong>完整性</strong>：确保数据未被修改或篡改。</li>
+<li><strong>机密性</strong>：确保数据未被未经授权的用户访问。</li>
+<li>两者可以通过加密和 MAC 结合实现。</li>
+</ul>
+<h3 id="消息认证码的几种构造方式"><a href="#消息认证码的几种构造方式" class="headerlink" title="消息认证码的几种构造方式"></a>消息认证码的几种构造方式</h3><ul>
+<li><p><strong>NMAC (Nested MAC)</strong></p>
+<ul>
+<li>结构： $\text{NMAC}(K, m) = H(K_1, H(K_2, m))$</li>
+<li>用两个密钥 $K_1 和 K_2$ 加强安全性。</li>
+</ul>
+</li>
+<li><p><strong>HMAC (Hash-based MAC)</strong></p>
+<ul>
+<li>结构： $\text{HMAC}(K, m) = H((K \oplus \text{opad}) | H((K \oplus \text{ipad}) | m))$</li>
+<li><strong>优点</strong>：广泛使用，基于标准 Hash 函数，安全性强。</li>
+</ul>
+</li>
+<li><p><strong>基于分组密码的 MAC</strong></p>
+<ul>
+<li>通过分组密码（如 AES-CMAC）构造，适合硬件实现。</li>
+</ul>
+</li>
+</ul>
+<h3 id="理解MACs的完整性保证和机密性保证"><a href="#理解MACs的完整性保证和机密性保证" class="headerlink" title="理解MACs的完整性保证和机密性保证"></a>理解MACs的完整性保证和机密性保证</h3><p><strong>完整性</strong>：通过密钥确保消息未被篡改。</p>
+<p><strong>机密性</strong>：需配合加密使用，如结合加密模式中的 GCM。</p>
+<h3 id="Authenticated-Encryption"><a href="#Authenticated-Encryption" class="headerlink" title="Authenticated Encryption"></a>Authenticated Encryption</h3><p><strong>定义</strong>：同时提供机密性与完整性保护的加密方法。</p>
+<p>常见方案：</p>
+<ul>
+<li>GCM (Galois/Counter Mode)：流加密结合 MAC。</li>
+<li>CCM (Counter with CBC-MAC)：结合分组加密和 MAC。</li>
+</ul>
+<p><strong>优点</strong>：无需单独计算 MAC，与加密过程结合更高效。</p>
+<h1 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h1><h3 id="基于公钥密码学的加密基本流程"><a href="#基于公钥密码学的加密基本流程" class="headerlink" title="基于公钥密码学的加密基本流程"></a>基于公钥密码学的加密基本流程</h3><p><strong>密钥生成</strong>：生成一对密钥（公钥和私钥）。</p>
+<ul>
+<li>公钥用于加密，可公开分发。</li>
+<li>私钥用于解密，必须保密。</li>
+</ul>
+<p><strong>加密</strong>：发送方使用接收方的公钥对消息 mmm 加密，生成密文 ccc。</p>
+<ul>
+<li>$c = Enc_{PK}(m)$。</li>
+</ul>
+<p><strong>解密</strong>：接收方用自己的私钥解密密文 ccc，恢复原消息 mmm。</p>
+<ul>
+<li>$m = Dec_{SK}$。</li>
+</ul>
+<h3 id="基于公钥密码学的认证基本流程"><a href="#基于公钥密码学的认证基本流程" class="headerlink" title="基于公钥密码学的认证基本流程"></a>基于公钥密码学的认证基本流程</h3><p><strong>签名生成</strong>：发送方用自己的私钥对消息 mmm 生成签名 sigsigsig。</p>
+<ul>
+<li>$sig = Sign_{SK}(m)$。</li>
+</ul>
+<p><strong>签名验证</strong>：接收方用发送方的公钥验证签名是否有效。</p>
+<ul>
+<li>$Verify_{PK}(m, sig)=\text{True/False}$</li>
+</ul>
+<h3 id="公钥加密的要求"><a href="#公钥加密的要求" class="headerlink" title="公钥加密的要求"></a>公钥加密的要求</h3><p><strong>加密有效性</strong>：用公钥加密的消息，只有对应的私钥可以解密。</p>
+<p><strong>加密安全性</strong>：对攻击者而言，解密密文是计算不可行的。</p>
+<p><strong>密钥独立性</strong>：公钥和私钥具有数学上的对应关系，但不能通过公钥推导出私钥。</p>
+<h3 id="基本的模运算"><a href="#基本的模运算" class="headerlink" title="基本的模运算"></a>基本的模运算</h3><p><strong>模算术性质</strong>：</p>
+<ul>
+<li>加法：$(a + b) \mod n = ((a \mod n) + (b \mod n)) \mod n$。</li>
+<li>乘法：$(a \cdot b) \mod n = ((a \mod n) \cdot (b \mod n)) \mod n$。</li>
+<li>幂运算：$a^k \mod n = ((a \mod n)^k) \mod n$。</li>
+</ul>
+<p><strong>模逆元</strong>：</p>
+<ul>
+<li>给定 a 和 n，模逆元 $a^{-1}$ 满足 $a \cdot a^{-1} \equiv 1 \mod n$。</li>
+<li>存在条件：a 和 n 必须互素</li>
+</ul>
+<h3 id="Diffe-Hellman"><a href="#Diffe-Hellman" class="headerlink" title="Diffe-Hellman"></a>Diffe-Hellman</h3><p><strong>协议流程</strong>：</p>
+<ul>
+<li>公共参数：质数 ppp 和基数 ggg（ggg 是 ppp 的生成元）。</li>
+<li>双方生成私钥 a 和 b：<ul>
+<li>$A = g^a \mod p$</li>
+<li>$B = g^b \mod p$</li>
+</ul>
+</li>
+<li>共享密钥：<ul>
+<li>$K = B^a \mod p = A^b \mod p = g^{ab} \mod p$。</li>
+</ul>
+</li>
+</ul>
+<p><strong>用途</strong>：生成共享密钥，用于对称加密。</p>
+<h3 id="了解Diffe-Hellman的安全性"><a href="#了解Diffe-Hellman的安全性" class="headerlink" title="了解Diffe-Hellman的安全性"></a>了解Diffe-Hellman的安全性</h3><p>**计算 Diffie-Hellman 问题 (CDH)**：</p>
+<ul>
+<li>给定 $g^a \mod p $ 和  $ g^b \mod p$，计算$g^{ab} \mod p$ 是计算上不可行的。</li>
+</ul>
+<p>**离散对数问题 (DLP)**：</p>
+<ul>
+<li>给定 $g^a\mod p$，找到 a 是困难的。</li>
+</ul>
+<h3 id="Diffe-Hellman的中间人攻击-MITM-Attack"><a href="#Diffe-Hellman的中间人攻击-MITM-Attack" class="headerlink" title="Diffe-Hellman的中间人攻击(MITM Attack)"></a>Diffe-Hellman的中间人攻击(MITM Attack)</h3><p><strong>攻击流程</strong>：</p>
+<ul>
+<li>Mallory 拦截 Alice 和 Bob 的公钥 A, B，并发送自己的公钥 M。</li>
+<li>建立两个独立的共享密钥：<ul>
+<li>$K_{AM} = g^{am} \mod p$（Alice 和 Mallory 之间）。</li>
+<li>$K_{MB} = g^{bm} \mod p$（Mallory 和 Bob 之间）。</li>
+</ul>
+</li>
+<li>Mallory 可以解密和篡改双方消息。</li>
+</ul>
+<p><strong>防御措施</strong>：</p>
+<ul>
+<li>使用数字签名验证公钥身份。</li>
+</ul>
+<h1 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h1><h3 id="RSA的加密解密流程"><a href="#RSA的加密解密流程" class="headerlink" title="RSA的加密解密流程"></a>RSA的加密解密流程</h3><p><strong>加密</strong>：</p>
+<ul>
+<li>公钥(e, n)</li>
+<li>$c = m^e \mod n$。</li>
+</ul>
+<p><strong>解密</strong>：</p>
+<ul>
+<li>私钥 (d,n)。</li>
+<li>$m = c^d \mod n$。</li>
+</ul>
+<h3 id="理解并应用Square-and-multiply算法"><a href="#理解并应用Square-and-multiply算法" class="headerlink" title="理解并应用Square-and-multiply算法"></a>理解并应用Square-and-multiply算法</h3><p><strong>用途</strong>：高效计算 $a^b \mod n$。</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>将指数 b 转换为二进制。</li>
+<li>从高位到低位遍历，每次平方当前结果；若位为 1，则再乘以 a。</li>
+</ol>
+<p><strong>优势</strong>：减少模运算次数，提高效率。</p>
+<h3 id="RSA密钥生成过程"><a href="#RSA密钥生成过程" class="headerlink" title="RSA密钥生成过程"></a>RSA密钥生成过程</h3><p>选择两个大素数 p 和 q。</p>
+<p>计算模数 $n = p \cdot q$。</p>
+<p>计算欧拉函数 $\phi(n) = (p-1)(q-1)$。</p>
+<p><strong>选择加密指数 e</strong>：满足 $1 &lt; e &lt; \phi(n)$且 $\gcd(e, \phi(n)) = 1$。</p>
+<p><strong>计算解密指数 d</strong>：满足 $e \cdot d \equiv 1 \mod \phi(n)$。</p>
+<p>公钥为 (e, n)，私钥为 (d,n)。</p>
+<h3 id="理解RSA的安全性保证"><a href="#理解RSA的安全性保证" class="headerlink" title="理解RSA的安全性保证"></a>理解RSA的安全性保证</h3><p>基于大数分解难题：攻击者必须分解 $n = p \cdot q$ 才能破解私钥。</p>
+<p>选择适当的密钥长度（如 2048 位或更高）以确保安全性。</p>
+<h3 id="了解针对RSA的一些攻击"><a href="#了解针对RSA的一些攻击" class="headerlink" title="了解针对RSA的一些攻击"></a>了解针对RSA的一些攻击</h3><p><strong>小加密指数攻击</strong>：当 e 过小（如 3），并且消息未填充时可能被破解。</p>
+<p><strong>模不互质攻击</strong>：多个模数 n 之间有公因数时，可以通过最大公约数攻击。</p>
+<p><strong>低加密指数攻击</strong>：密文短时可能被恢复</p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p><strong>定义</strong>：使用私钥生成签名，提供消息的真实性和完整性。</p>
+<p><strong>RSA 签名流程</strong>：</p>
+<ul>
+<li>发送方：<ul>
+<li>用私钥签名消息：$sig = m^d \mod n$。</li>
+</ul>
+</li>
+<li>接收方：<ul>
+<li>用公钥验证签名：检查 $m = sig^e \mod n$。</li>
+</ul>
+</li>
+</ul>
+<p><strong>用途</strong>：身份认证、不可抵赖性、完整性验证。</p>
+<h3 id="如何用RSA实现数字签名-RSA-Signature"><a href="#如何用RSA实现数字签名-RSA-Signature" class="headerlink" title="如何用RSA实现数字签名:RSA Signature"></a>如何用RSA实现数字签名:RSA Signature</h3><p><strong>签名生成</strong>：发送方用自己的私钥对消息哈希值签名：$sig = H(m)^d \mod n$</p>
+<p><strong>签名验证</strong>：接收方用公钥验证签名： $H(m) \stackrel{?}{=} sig^e \mod n$</p>
+<p><strong>注意</strong>：签名时通常对消息先进行 Hash，以确保签名高效和安全性。</p>
+<h1 id="PKI"><a href="#PKI" class="headerlink" title="PKI"></a>PKI</h1><h3 id="理解密钥分发问题与Certifcates的基本概念"><a href="#理解密钥分发问题与Certifcates的基本概念" class="headerlink" title="理解密钥分发问题与Certifcates的基本概念"></a>理解密钥分发问题与Certifcates的基本概念</h3><ol>
+<li><p><strong>密钥分发问题</strong>：</p>
+<ul>
+<li>公钥加密需要发送方和接收方拥有对方的公钥，但在公开的网络环境下，如何安全分发和验证公钥是真实的（即不被中间人替换）是一个挑战。</li>
+</ul>
+</li>
+<li><p><strong>Certificates 的基本概念</strong>：</p>
+<ul>
+<li><p>证书是由受信任的第三方（CA，Certificate Authority）签发的，包含实体的公钥及相关信息，用来证明公钥的真实性。</p>
+</li>
+<li><p>证书包括以下内容：</p>
+<ul>
+<li>公钥</li>
+<li>证书所有者信息（如域名、组织名）</li>
+<li>证书有效期</li>
+<li>颁发机构（CA）的签名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="了解几种PKI信任模型"><a href="#了解几种PKI信任模型" class="headerlink" title="了解几种PKI信任模型"></a>了解几种PKI信任模型</h3><h5 id="1-Monopoly-Trusted-Directory"><a href="#1-Monopoly-Trusted-Directory" class="headerlink" title="1. Monopoly (Trusted Directory) - *!"></a><strong>1. Monopoly (Trusted Directory) - *!</strong></h5><ul>
+<li>一个单一的、完全受信任的 CA（如根 CA）管理所有证书。</li>
+<li><strong>优势</strong>：简单且集中化，信任来源单一。</li>
+<li><strong>缺点</strong>：如果该 CA 被攻破，整个系统的安全性就会崩溃。</li>
+</ul>
+<h5 id="2-Monopoly-Registration-Authorities-RAs"><a href="#2-Monopoly-Registration-Authorities-RAs" class="headerlink" title="2. Monopoly + Registration Authorities (RAs)"></a><strong>2. Monopoly + Registration Authorities (RAs)</strong></h5><ul>
+<li>在单一的根 CA 下，通过 RA 进行用户身份验证和注册，但证书仍由根 CA 颁发。</li>
+<li><strong>优势</strong>：减轻了根 CA 的负担，提升效率。</li>
+<li><strong>缺点</strong>：仍然存在单点故障。</li>
+</ul>
+<h5 id="3-Monopoly-Delegated-CAs-Trusted-Directory"><a href="#3-Monopoly-Delegated-CAs-Trusted-Directory" class="headerlink" title="3. Monopoly + Delegated CAs (Trusted Directory) - *!"></a><strong>3. Monopoly + Delegated CAs (Trusted Directory) - *!</strong></h5><ul>
+<li>根 CA 将签发证书的职责委派给子 CA，形成分布式的信任体系。</li>
+<li><strong>优势</strong>：分散管理、可扩展性强。</li>
+<li><strong>缺点</strong>：需要对子 CA 的行为进行严格监督。</li>
+</ul>
+<h5 id="4-Oligarchy"><a href="#4-Oligarchy" class="headerlink" title="4. Oligarchy"></a><strong>4. Oligarchy</strong></h5><ul>
+<li>信任多个独立的 CA，每个 CA 可以签发自己的证书。</li>
+<li><strong>优势</strong>：没有单点故障。</li>
+<li><strong>缺点</strong>：如果其中一个 CA 被攻破，会影响到与其相关的信任链。</li>
+</ul>
+<h5 id="5-Anarchy-Model-无-CA"><a href="#5-Anarchy-Model-无-CA" class="headerlink" title="5. Anarchy Model (无 CA)"></a><strong>5. Anarchy Model (无 CA)</strong></h5><ul>
+<li>每个人自己管理公钥，依赖个人信任网络（如 PGP）。</li>
+<li><strong>优势</strong>：完全分布式，无需中心化的信任机构。</li>
+<li><strong>缺点</strong>：缺乏强有力的信任保证，管理复杂。</li>
+</ul>
+<h5 id="6-Name-Constraints-amp-Hierarchical-Name-Constraints"><a href="#6-Name-Constraints-amp-Hierarchical-Name-Constraints" class="headerlink" title="6. Name Constraints &amp; Hierarchical Name Constraints"></a><strong>6. Name Constraints &amp; Hierarchical Name Constraints</strong></h5><ul>
+<li>Name Constraints 是对 CA 签发证书的名称范围进行限制，例如只能签发特定域名下的证书。</li>
+<li>Hierarchical Name Constraints 进一步将这种限制以层级方式实施，确保严格的范围控制。</li>
+</ul>
+<h3 id="x-509"><a href="#x-509" class="headerlink" title="x.509"></a>x.509</h3><h4 id="Certificate-Revocation-的含义"><a href="#Certificate-Revocation-的含义" class="headerlink" title="Certificate Revocation 的含义"></a><strong>Certificate Revocation 的含义</strong></h4><ol>
+<li><strong>证书吊销的原因</strong>：<ul>
+<li>密钥泄露或私钥被盗。</li>
+<li>证书中包含错误信息。</li>
+<li>证书持有人不再符合信任要求。</li>
+</ul>
+</li>
+<li><strong>实现方式</strong>：<ul>
+<li>**CRL (Certificate Revocation List)**：定期发布已吊销证书的列表。</li>
+<li>**OCSP (Online Certificate Status Protocol)**：实时查询证书状态</li>
+</ul>
+</li>
+</ol>
+<h1 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h1><h3 id="认证的目标"><a href="#认证的目标" class="headerlink" title="认证的目标:"></a>认证的目标:</h3><p><strong>Mutual Authentication</strong>：</p>
+<ul>
+<li>双方需要相互验证身份，确保双方是通信的真实参与者。</li>
+</ul>
+<p><strong>Key Establishment</strong>：</p>
+<ul>
+<li>通过认证协议，双方建立共享密钥，用于后续安全通信。</li>
+</ul>
+<h3 id="理解并应用基于对称密钥的认证"><a href="#理解并应用基于对称密钥的认证" class="headerlink" title="理解并应用基于对称密钥的认证 *!"></a>理解并应用基于对称密钥的认证 *!</h3><p><strong>流程</strong>：</p>
+<ul>
+<li>双方共享一个对称密钥 K。</li>
+<li>使用 K 加密随机挑战或消息，验证对方身份。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>高效，适合资源有限的环境。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>密钥分发难度大。</li>
+</ul>
+<h3 id="理解并应用基于非对称密钥的认证"><a href="#理解并应用基于非对称密钥的认证" class="headerlink" title="理解并应用基于非对称密钥的认证 *!"></a>理解并应用基于非对称密钥的认证 *!</h3><p><strong>流程</strong>：</p>
+<ul>
+<li>使用公钥加密挑战消息，验证对方私钥持有者身份。</li>
+<li>或用私钥签名消息，接收方用公钥验证签名。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>无需提前共享密钥，适合开放网络。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>加密计算成本较高。</li>
+</ul>
+<h3 id="了解Kerberos并理解其设计原理"><a href="#了解Kerberos并理解其设计原理" class="headerlink" title="了解Kerberos并理解其设计原理"></a>了解Kerberos并理解其设计原理</h3><p><strong>核心思想</strong>：</p>
+<ul>
+<li>通过可信的第三方（Key Distribution Center, KDC）提供基于对称密钥的认证和密钥分发服务。</li>
+</ul>
+<p><strong>流程</strong>：</p>
+<ul>
+<li><strong>身份认证</strong>：用户向 KDC 请求认证，KDC 使用共享密钥验证用户身份。</li>
+<li><strong>票据分发</strong>：KDC 生成服务票据（Ticket），用户使用该票据访问服务。</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>使用时间戳防止重放攻击。</li>
+<li>减少直接使用密码的次数，提升安全性。</li>
+</ul>
+<h3 id="Kerberos-Realm"><a href="#Kerberos-Realm" class="headerlink" title="Kerberos Realm"></a>Kerberos Realm</h3><p><strong>定义</strong>：</p>
+<ul>
+<li>一个 Kerberos 域（Realm）是一个管理范围，包含用户、服务、以及一个 KDC。</li>
+</ul>
+<p><strong>跨域认证</strong>：</p>
+<ul>
+<li>通过信任关系，允许不同 Realm 的用户进行认证和访问。</li>
+</ul>
+<h1 id="数据隐私"><a href="#数据隐私" class="headerlink" title="数据隐私"></a>数据隐私</h1><h3 id="如何定义数据隐私？"><a href="#如何定义数据隐私？" class="headerlink" title="如何定义数据隐私？"></a><strong>如何定义数据隐私？</strong></h3><p>数据隐私强调保护个人信息，确保在数据处理和共享过程中，防止个人信息被滥用或未经授权访问。它的目标包括：</p>
+<ol>
+<li><strong>机密性</strong>：防止数据被未授权方访问。</li>
+<li><strong>透明性</strong>：清晰告知数据主体数据使用的范围和目的。</li>
+<li><strong>控制权</strong>：让用户对自己的数据有更多的管理权。</li>
+<li><strong>最小化原则</strong>：收集和处理的个人数据应尽量减少，且仅用于明确的合法目的。</li>
+</ol>
+<h3 id="了解匿名化中的基本概念的常见攻击"><a href="#了解匿名化中的基本概念的常见攻击" class="headerlink" title="了解匿名化中的基本概念的常见攻击"></a><strong>了解匿名化中的基本概念的常见攻击</strong></h3><ul>
+<li><h4 id="匿名化概念"><a href="#匿名化概念" class="headerlink" title="匿名化概念"></a><strong>匿名化概念</strong></h4><p>匿名化是指通过技术手段对数据进行处理，使得无法通过数据直接或间接识别出特定的个人身份。常用方法包括：</p>
+<ul>
+<li><strong>删除标识符</strong>（如姓名、身份证号）。</li>
+<li><strong>混淆数据</strong>（如聚合、随机化）。</li>
+</ul>
+<h4 id="常见攻击"><a href="#常见攻击" class="headerlink" title="常见攻击"></a><strong>常见攻击</strong></h4><ol>
+<li><p><strong>Quasi-Identifiers（准标识符）</strong></p>
+<ul>
+<li><p>定义：准标识符是指单独看无法直接标识个人，但结合其他数据来源可能间接识别个人身份的属性。例如：</p>
+<ul>
+<li>出生日期、性别、邮政编码、职业等。</li>
+</ul>
+</li>
+<li><p>移除显式标识符（如姓名）后，如果数据中包含准标识符，攻击者可通过其他外部数据集将其关联，恢复个人身份信息。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Linkage Attack（关联攻击）</strong></p>
+<ul>
+<li><p>概念：攻击者将匿名化数据与外部数据源进行匹配，利用准标识符重新识别个人。例如：</p>
+<ul>
+<li>某匿名医疗数据包含“出生日期、性别、邮政编码”，攻击者结合选举记录匹配，重新识别患者身份。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>防御</strong>：通过技术手段（如k-Anonymity）减少准标识符与外部数据的匹配可能性。</p>
+<pre><code> - 使用更严格的匿名化技术（如 k-Anonymity、l-Diversity、t-Closeness）。
+</code></pre>
+</li>
+</ul>
+<h3 id="理解k-Anonymity-k匿名化-的含义"><a href="#理解k-Anonymity-k匿名化-的含义" class="headerlink" title="理解k-Anonymity(k匿名化)的含义"></a>理解k-Anonymity(k匿名化)的含义</h3><p><strong>定义</strong>：k-Anonymity 要求匿名化数据中的每条记录与至少 k-1 条记录在准标识符属性上完全相同。</p>
+<p><strong>目标</strong>：通过增加“模糊性”减少个体信息被重新识别的风险。</p>
+<p><strong>例子</strong>：假设数据集的准标识符包括“性别、邮编、年龄”，如果 k=3，每组数据中这些属性的组合必须至少出现 3 次。</p>
+<p><strong>不足</strong>：</p>
+<ol>
+<li>**同质性攻击 (Homogeneity Attack)**：如果同组数据中敏感属性值高度一致（如所有患者的疾病都是“流感”），攻击者仍可推断隐私信息。</li>
+<li>**背景知识攻击 (Background Knowledge Attack)**：攻击者结合额外信息缩小可能性范围，从而识别个体。</li>
+</ol>
+<h3 id="了解l-Diversity-Homogeneity-attack-与t-Closeness"><a href="#了解l-Diversity-Homogeneity-attack-与t-Closeness" class="headerlink" title="了解l-Diversity (Homogeneity attack)与t-Closeness"></a>了解l-Diversity (Homogeneity attack)与t-Closeness</h3><h4 id="1-l-Diversity"><a href="#1-l-Diversity" class="headerlink" title="1. l-Diversity"></a><strong>1. l-Diversity</strong></h4><ul>
+<li><strong>目标</strong>：解决 k-Anonymity 的同质性问题。</li>
+<li><strong>定义</strong>：每个准标识符等价类中，敏感属性的值至少有 lll 种不同，且频率相对均匀。</li>
+<li>问题：<ul>
+<li>如果某些敏感值特别“罕见”，即便分布多样化，攻击者仍可能识别出特定个体。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="2-t-Closeness"><a href="#2-t-Closeness" class="headerlink" title="2. t-Closeness"></a><strong>2. t-Closeness</strong></h4><ul>
+<li><strong>目标</strong>：解决 l-Diversity 对分布均衡性缺乏考虑的问题。</li>
+<li><strong>定义</strong>：要求每个等价类中敏感属性的分布与整体数据集中敏感属性的分布差距不超过 ttt（通过地球移动距离（EMD）度量分布差异）。</li>
+<li><strong>优势</strong>：进一步降低因敏感值分布偏差导致的隐私泄露风险。</li>
+</ul>
+<h3 id="Aggregation与推断攻击"><a href="#Aggregation与推断攻击" class="headerlink" title="Aggregation与推断攻击"></a>Aggregation与推断攻击</h3><p><strong>Aggregation</strong>：通过分析多个记录的统计特性，推断出超出单个记录的信息。</p>
+<ul>
+<li><strong>风险</strong>：即使数据被聚合，攻击者仍可能从中挖掘个体信息。</li>
+<li><strong>例子</strong>：攻击者统计某区域收入后，推断个别富裕家庭。</li>
+</ul>
+<p>**推断攻击 (Inference Attack)**：通过分析数据的特定模式或依赖关系，推导出隐私信息。</p>
+<ul>
+<li><p><strong>例子</strong>：从患者的病症推断疾病遗传信息或家族病史。</p>
+</li>
+<li><p>防御：</p>
+<ul>
+<li>添加噪声（如差分隐私）。</li>
+<li>限制查询次数或灵敏度。</li>
+</ul>
+</li>
+</ul>
+<h1 id="差分隐私"><a href="#差分隐私" class="headerlink" title="差分隐私"></a>差分隐私</h1><h3 id="基本定义与性质"><a href="#基本定义与性质" class="headerlink" title="基本定义与性质"></a>基本定义与性质</h3><p>差分隐私（Differential Privacy, DP）是保护数据隐私的数学框架，保证查询结果不会显著暴露某个单个数据记录的存在与否。</p>
+<p><strong>公式定义</strong>：对于数据集 D 和任意相邻数据集 D′（仅相差一条记录），机制 M 满足： $Pr[M(D) \in S] \leq e^\epsilon $</p>
+<ul>
+<li><strong>ϵ</strong>：隐私预算，衡量隐私泄露程度。值越小，隐私保护越强。</li>
+</ul>
+<h3 id="Laplace机制"><a href="#Laplace机制" class="headerlink" title="Laplace机制"></a>Laplace机制</h3><p><strong>Laplace 分布</strong>：</p>
+<ul>
+<li>Laplace 分布是对称分布，其概率密度函数为： $f(x|\lambda) = \frac{1}{2\lambda} e^{-\frac{|x|}{\lambda}}$ 其中，$\lambda = \Delta f / \epsilon$ 决定噪声幅度，Δf\  是查询的敏感度，ϵ 是隐私预算。</li>
+</ul>
+<p><strong>机制公式</strong>：</p>
+<ul>
+<li>对任意查询 f(D)，在输出时添加噪声： $M(D) = f(D) + \text{Noise}, \quad \text{Noise} \sim \text{Laplace}(\lambda)$其中，λ = Δf / ϵ。</li>
+</ul>
+<h3 id="敏感度分析Sensitivity"><a href="#敏感度分析Sensitivity" class="headerlink" title="敏感度分析Sensitivity *!"></a>敏感度分析Sensitivity *!</h3><ul>
+<li>敏感度定义为查询函数输出的最大变化幅度（针对任意相邻数据集）。</li>
+<li>添加的噪声量取决于敏感度和隐私预算 ϵ\epsilonϵ。</li>
+</ul>
+<p><strong>公式</strong>：添加服从 Laplace 分布的噪声：噪声 ∼ Laplace( Δf / ϵ )</p>
+<ul>
+<li>Δf ：查询的敏感度。</li>
+</ul>
+<h3 id="后处理-Post-processing-的特性"><a href="#后处理-Post-processing-的特性" class="headerlink" title="后处理(Post-processing)的特性"></a>后处理(Post-processing)的特性</h3><p>差分隐私保证任何对噪声查询结果的后处理不会增加隐私风险。</p>
+<h3 id="组合定理-Basic-Composition-Theorem"><a href="#组合定理-Basic-Composition-Theorem" class="headerlink" title="组合定理 Basic Composition Theorem *!"></a>组合定理 Basic Composition Theorem *!</h3><p>对多个独立查询的组合，隐私预算 ϵ 会累加：</p>
+<ul>
+<li><strong>串行组合</strong>：总预算为 $\epsilon_1 + \epsilon_2 + \cdots + \epsilon_k$ 。</li>
+<li><strong>并行组合</strong>：如果查询作用于不同的记录，则总预算为 $max(\epsilon_1, \epsilon_2, \cdots, \epsilon_k)$。</li>
+</ul>
+<h3 id="Privacy-for-Non-Numeric-Queries"><a href="#Privacy-for-Non-Numeric-Queries" class="headerlink" title="Privacy for Non-Numeric Queries"></a>Privacy for Non-Numeric Queries</h3><p>主要解决数据类别或顺序等非数值属性的隐私问题，例如用户的偏好、选择或分类数据。这些场景不能直接使用数值差分隐私方法（如添加噪声）。因此，需要特别的设计方法来确保隐私保护。</p>
+<ul>
+<li>隐私的选择：<strong>Randomized Response</strong>：针对非数值问题，随机化用户响应，提升隐私保护。</li>
+</ul>
+<p>Private Median的设计方法：</p>
+<p>中值查询是一种常见的非数值查询，保护隐私时需要防止特定用户的数据对中值结果产生过大影响。</p>
+<ol>
+<li><strong>原理</strong>：<ul>
+<li>将中值问题转化为一系列分位数问题。</li>
+<li>对分位数查询结果添加噪声，从而间接保护中值。</li>
+</ul>
+</li>
+</ol>
+<h3 id="本地化差分隐私-Local-Differential-Privacy-基本定义"><a href="#本地化差分隐私-Local-Differential-Privacy-基本定义" class="headerlink" title="本地化差分隐私 (Local Differential Privacy) 基本定义"></a>本地化差分隐私 (Local Differential Privacy) 基本定义</h3><ul>
+<li>Randomized Response</li>
+<li>Trade off between Utility and Privacy</li>
+</ul>
+<p>在每个用户设备本地添加噪声，减少中心化数据暴露的风险。</p>
+<p><strong>Randomized Response</strong>：对用户回答进行随机化，用于问卷调查等场景。</p>
+<p><strong>权衡</strong>：本地化隐私降低了隐私风险，但可能损失数据实用性。</p>
+<h1 id="实用安全Usable-Security"><a href="#实用安全Usable-Security" class="headerlink" title="实用安全Usable Security"></a>实用安全Usable Security</h1><h3 id="实用的实人认证"><a href="#实用的实人认证" class="headerlink" title="实用的实人认证"></a><strong>实用的实人认证</strong></h3><p>实人认证旨在验证用户的真实性和身份，广泛用于在线服务和金融领域。以下是常见的实人认证机制及其优缺点：</p>
+<p>常见实人认证机制及其优缺点</p>
+<ul>
+<li><strong>身份证明文件验证</strong>：通过上传身份证件（如护照、身份证）进行验证。<ul>
+<li>优点：可直接验证身份真实性。</li>
+<li>缺点：容易被伪造；需高质量扫描件；隐私泄露风险。</li>
+</ul>
+</li>
+<li><strong>人脸识别</strong>：通过拍摄照片或视频进行生物特征验证。<ul>
+<li>优点：便捷，用户无需复杂操作。</li>
+<li>缺点：可能被照片或视频欺骗（面具攻击）；依赖算法性能。</li>
+</ul>
+</li>
+<li><strong>活体检测</strong>：结合人脸识别和动态操作（如眨眼、摇头）。<ul>
+<li>优点：增强了防伪能力。</li>
+<li>缺点：受限于设备质量和用户技术水平。</li>
+</ul>
+</li>
+<li><strong>生物特征认证</strong>：如指纹、虹膜识别。<ul>
+<li>优点：唯一性高，不易被仿冒。</li>
+<li>缺点：传感器硬件要求高；无法更改生物特征，存在隐私风险。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Two-Factor-Authentication-2FA"><a href="#Two-Factor-Authentication-2FA" class="headerlink" title="Two-Factor Authentication (2FA)"></a><strong>Two-Factor Authentication (2FA)</strong></h3><p>2FA通过增加第二层验证机制，提升了安全性。常见的组合包括：</p>
+<ol>
+<li><strong>第一因子：知识因子</strong>（如密码、PIN码）。</li>
+<li><strong>第二因子：拥有因子</strong>（如动态口令、短信验证码）或<strong>生物因子</strong>（如指纹、人脸识别）。</li>
+</ol>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>显著提升攻击者的破解难度。</li>
+<li>在密码泄露的情况下，提供额外保护。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>短信验证码可能被劫持（SIM劫持、信道窃听）。</li>
+<li>动态口令设备易遗失，增加用户负担。</li>
+</ul>
+</li>
+</ul>
+<h3 id="分析认证机制的安全性与攻击面"><a href="#分析认证机制的安全性与攻击面" class="headerlink" title="分析认证机制的安全性与攻击面"></a><strong>分析认证机制的安全性与攻击面</strong></h3><p>给定认证机制时，分析其安全性需考虑以下因素：</p>
+<ol>
+<li><strong>攻击方式</strong>：<ul>
+<li><strong>Phishing（钓鱼攻击）</strong>：窃取用户密码和验证码。</li>
+<li><strong>Man-in-the-Middle（中间人攻击）</strong>：拦截认证数据。</li>
+<li><strong>Replay Attack（重放攻击）</strong>：利用旧的认证数据重新登录。</li>
+<li><strong>Brute Force（暴力破解）</strong>：针对密码或PIN进行穷举。</li>
+<li><strong>设备丢失或被盗</strong>：针对硬件令牌或手机。</li>
+</ul>
+</li>
+<li><strong>改进建议</strong>：<ul>
+<li>强化密钥管理和传输通道安全（如HTTPS）。</li>
+<li>使用硬件安全模块（如U2F密钥）替代短信验证码。</li>
+<li>增强活体检测和生物认证。</li>
+</ul>
+</li>
+</ol>
+<h1 id="传输层安全-SSL-TLS"><a href="#传输层安全-SSL-TLS" class="headerlink" title="传输层安全 SSL/TLS"></a>传输层安全 SSL/TLS</h1><h3 id="SYN-Flooding-Attack"><a href="#SYN-Flooding-Attack" class="headerlink" title="SYN Flooding Attack"></a><strong>SYN Flooding Attack</strong></h3><p><strong>SYN Flooding</strong> 是一种经典的 TCP DoS（拒绝服务）攻击，利用 TCP 三次握手的设计缺陷，通过伪造大量 SYN 包占用服务器资源。</p>
+<ul>
+<li><strong>攻击原理</strong>：<ol>
+<li>攻击者发送伪造的 SYN 包（源地址是伪造的）。</li>
+<li>服务器响应 SYN-ACK，但攻击者不会完成握手（不发送 ACK）。</li>
+<li>服务器的连接队列逐渐被填满，导致正常用户无法连接。</li>
+</ol>
+</li>
+<li><strong>TCP DoS 原因</strong>：<ul>
+<li>TCP 的三次握手机制需要服务器预留资源。</li>
+<li>在握手未完成时，服务器依然占用内存队列。</li>
+<li>伪造源地址使服务器无法确定请求的真实性。</li>
+</ul>
+</li>
+<li><strong>防御措施</strong>：<ol>
+<li><strong>SYN Cookie</strong>：在握手完成前不分配资源，使用 Cookie 记录状态。</li>
+<li><strong>防火墙过滤</strong>：限制单个 IP 的连接频率。</li>
+<li><strong>黑名单和流量限制</strong>：检测并屏蔽可疑的流量。</li>
+</ol>
+</li>
+</ul>
+<p>理解SSL/TLS协议的基本流程和设计原理</p>
+<p>TLS（传输层安全协议）是为网络通信提供安全性的标准协议，主要包括以下两部分：</p>
+<p><strong>TLS Handshake（握手协议）</strong>：</p>
+<ul>
+<li>目标：协商会话密钥和验证身份。</li>
+<li>典型流程：<ol>
+<li>客户端发送支持的加密算法和随机数。</li>
+<li>服务器选择算法并发送公钥证书和随机数。</li>
+<li>客户端验证证书，生成会话密钥并加密发送给服务器。</li>
+<li>双方使用协商密钥加密通信。</li>
+</ol>
+</li>
+</ul>
+<p><strong>SSL/TLS Record Protocol（记录协议）</strong>：</p>
+<ul>
+<li><p>提供数据传输的完整性和机密性。</p>
+</li>
+<li><p>使用对称密钥加密会话数据，同时计算 MAC 验证完整性。</p>
+</li>
+<li><h3 id="SSL-TLS-Record-Protocol"><a href="#SSL-TLS-Record-Protocol" class="headerlink" title="SSL/TLS Record Protocol"></a><strong>SSL/TLS Record Protocol</strong></h3><h4 id="1-SSL-TLS-Record-Protocol-的目标"><a href="#1-SSL-TLS-Record-Protocol-的目标" class="headerlink" title="1. SSL/TLS Record Protocol 的目标"></a><strong>1. SSL/TLS Record Protocol 的目标</strong></h4><p>SSL/TLS Record Protocol 是 SSL/TLS 协议的核心组件之一，负责在通信过程中提供以下两项主要保障：</p>
+<ul>
+<li><strong>完整性</strong>：防止数据在传输过程中被篡改。</li>
+<li><strong>机密性</strong>：通过加密防止数据被窃听。</li>
+</ul>
+<hr>
+<h4 id="2-工作流程"><a href="#2-工作流程" class="headerlink" title="2. 工作流程"></a><strong>2. 工作流程</strong></h4><p>SSL/TLS Record Protocol 的核心操作如下：</p>
+<ol>
+<li><strong>分段</strong>：将应用数据分割为适合传输的块。</li>
+<li><strong>压缩</strong>：可选步骤，对数据进行压缩以减小传输量。</li>
+<li>MAC 计算 ：<ul>
+<li>利用 HMAC 算法计算消息认证码，确保完整性。</li>
+<li>HMAC 输入包括消息内容、密钥和其他协议相关信息。</li>
+</ul>
+</li>
+<li>加密 ：<ul>
+<li>使用对称加密算法（如 AES）对分段后的数据和 MAC 一起加密。</li>
+<li>加密后生成密文，保障机密性。</li>
+</ul>
+</li>
+<li>封装 ：<ul>
+<li>为密文添加协议版本号、内容类型和长度等元数据，形成 TLS Record。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="3-提供的保障"><a href="#3-提供的保障" class="headerlink" title="3. 提供的保障"></a><strong>3. 提供的保障</strong></h4><ol>
+<li><strong>完整性</strong>：<ul>
+<li><strong>实现方式</strong>：使用 HMAC 验证数据未被篡改。</li>
+<li><strong>具体保障</strong>：接收端重新计算 MAC 并与消息附带的 MAC 比较，若匹配则认为数据完整。</li>
+</ul>
+</li>
+<li><strong>机密性</strong>：<ul>
+<li><strong>实现方式</strong>：通过对称加密（如 AES、ChaCha20）对数据加密。</li>
+<li><strong>具体保障</strong>：数据即便被窃听，也无法被破解读取。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="4-常见的对称加密模式"><a href="#4-常见的对称加密模式" class="headerlink" title="4. 常见的对称加密模式"></a><strong>4. 常见的对称加密模式</strong></h4><ul>
+<li>CBC（Cipher Block Chaining）：逐块加密，依赖前一块密文。<ul>
+<li>缺点：容易遭受填充攻击。</li>
+</ul>
+</li>
+<li>GCM（Galois Counter Mode）：提供加密和认证。<ul>
+<li>优点：高效且更安全，适合现代应用。</li>
+</ul>
+</li>
+<li><strong>ChaCha20-Poly1305</strong>：适合低功耗设备的快速加密模式。</li>
+</ul>
+</li>
+</ul>
+<h3 id="TLS-in-Practice"><a href="#TLS-in-Practice" class="headerlink" title="TLS in Practice"></a>TLS in Practice</h3><p> <strong>1. TLS 提供的保障</strong></p>
+<ol>
+<li><strong>机密性（Confidentiality）</strong>：<ul>
+<li>使用对称加密保护通信内容。</li>
+<li>即使攻击者窃取数据，无法解密获取有意义的信息。</li>
+</ul>
+</li>
+<li><strong>完整性（Integrity）</strong>：<ul>
+<li>使用 MAC 校验确保数据未被篡改。</li>
+</ul>
+</li>
+<li><strong>身份认证（Authentication）</strong>：<ul>
+<li>通过服务器证书（使用公钥加密）验证服务器身份。</li>
+<li>可选地，客户端也可通过证书认证自己。</li>
+</ul>
+</li>
+<li><strong>密钥协商（Key Agreement）</strong>：<ul>
+<li>使用非对称加密算法（如 DHE 或 ECDHE）协商会话密钥，确保密钥安全性。</li>
+</ul>
+</li>
+</ol>
+<p><strong>2. TLS 不提供的保障</strong></p>
+<ol>
+<li><strong>应用层数据的语义安全</strong>：<ul>
+<li>TLS 仅保护传输中的数据，无法防止应用层攻击（如 SQL 注入、XSS）。</li>
+<li><strong>例子</strong>：即使数据加密，攻击者仍可利用系统逻辑漏洞。</li>
+</ul>
+</li>
+<li><strong>服务器端或客户端的数据安全</strong>：<ul>
+<li>TLS 不保护数据在服务器端或客户端的存储安全。</li>
+<li><strong>例子</strong>：攻击者通过恶意软件或数据泄露可直接获取明文。</li>
+</ul>
+</li>
+<li><strong>证书验证漏洞</strong>：<ul>
+<li>如果客户端未正确验证证书（如受中间人攻击），TLS 无法提供安全保障。</li>
+</ul>
+</li>
+<li><strong>流量模式分析</strong>：<ul>
+<li>TLS 无法隐藏流量特征（如数据包大小和传输时间）。</li>
+<li><strong>例子</strong>：攻击者通过流量模式推测用户行为（如访问网站）。</li>
+</ul>
+</li>
+</ol>
+<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><h3 id="DNS-Lookup-工作原理"><a href="#DNS-Lookup-工作原理" class="headerlink" title="DNS Lookup 工作原理"></a><strong>DNS Lookup 工作原理</strong></h3><p>DNS（Domain Name System）将人类可读的域名（如<code>example.com</code>）解析为IP地址，以便客户端能够与服务器通信。<br><strong>DNS Lookup 主要步骤</strong>：</p>
+<ol>
+<li><strong>本地缓存检查</strong>：客户端首先检查本地缓存是否已有域名对应的IP地址。</li>
+<li>递归查询：<ul>
+<li>递归解析器向根域名服务器（Root Server）发出请求。</li>
+<li>根服务器返回对应顶级域（TLD）服务器的地址。</li>
+<li>递归解析器查询 TLD 服务器（如<code>.com</code>），获取权威 DNS 服务器的地址。</li>
+<li>最后向权威服务器发出查询请求，获取最终的 IP 地址。</li>
+</ul>
+</li>
+<li><strong>返回结果</strong>：递归解析器将结果返回给客户端，并进行缓存。</li>
+</ol>
+<h3 id="DNS-Security"><a href="#DNS-Security" class="headerlink" title="DNS Security"></a><strong>DNS Security</strong></h3><ol>
+<li>**DNS over TLS (DoT)**：<ul>
+<li><strong>目的</strong>：通过 TLS 加密 DNS 查询，保护查询内容免受窃听。</li>
+<li>性能影响：<ul>
+<li>增加加密开销，尤其在首次建立 TLS 连接时。</li>
+<li>开启连接后，后续查询的性能接近传统 DNS。</li>
+</ul>
+</li>
+<li>缓存问题：<ul>
+<li>DoT 本身不影响缓存机制，但递归解析器需要支持 TLS 的缓存实现。</li>
+</ul>
+</li>
+<li>对恶意 NS（Name Server）的防御：<ul>
+<li>DoT 只加密传输过程，但无法验证返回的响应数据是否真实（需要配合 DNSSEC）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>**DNSSEC (Domain Name System Security Extensions)**：</p>
+<ul>
+<li><p>设计思想：通过数字签名验证 DNS 数据的真实性和完整性，防止数据篡改和伪造。</p>
+<ul>
+<li>每个 DNS 响应附带签名，客户端可以验证其来源和内容。</li>
+</ul>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>防止 DNS 劫持和中间人攻击。</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>增加数据传输的负担。</li>
+<li>部署复杂性较高，需要权威 DNS 服务器和客户端支持。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Web安全"><a href="#Web安全" class="headerlink" title="Web安全"></a>Web安全</h1><h3 id="基本模型"><a href="#基本模型" class="headerlink" title="基本模型"></a><strong>基本模型</strong></h3><ul>
+<li><p>Web 安全主要保护三大核心属性：</p>
+<ol>
+<li><strong>机密性（Confidentiality）</strong>：防止未授权的访问和数据泄露。</li>
+<li><strong>完整性（Integrity）</strong>：防止数据被篡改。</li>
+<li><strong>可用性（Availability）</strong>：确保服务在恶意攻击下持续可用。</li>
+</ol>
+</li>
+<li><p>常见威胁：</p>
+<ul>
+<li>SQL 注入</li>
+<li>跨站脚本攻击（XSS）</li>
+<li>跨站请求伪造（CSRF）</li>
+<li>Session 劫持</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cookies-机制与安全应用"><a href="#Cookies-机制与安全应用" class="headerlink" title="Cookies 机制与安全应用"></a><strong>Cookies 机制与安全应用</strong></h3><ol>
+<li><strong>Cookies 的作用</strong>：<ul>
+<li>存储用户信息（如会话 ID）。</li>
+<li>跟踪用户活动（如购物车内容）。</li>
+<li>实现状态管理（如登录状态）。</li>
+</ul>
+</li>
+<li><strong>安全 Cookies 的实现</strong>：<ul>
+<li><strong>Secure 属性</strong>：仅通过 HTTPS 传输，防止中间人窃取。</li>
+<li><strong>HttpOnly 属性</strong>：防止 JavaScript 读取，降低 XSS 攻击风险。</li>
+<li><strong>SameSite 属性</strong>：限制跨站请求使用 Cookies，防止 CSRF。</li>
+</ul>
+</li>
+</ol>
+<h1 id="网络安全协议"><a href="#网络安全协议" class="headerlink" title="网络安全协议"></a>网络安全协议</h1><h3 id="ARP攻击与DHCP攻击"><a href="#ARP攻击与DHCP攻击" class="headerlink" title="ARP攻击与DHCP攻击"></a><strong>ARP攻击与DHCP攻击</strong></h3><h4 id="1-ARP-攻击"><a href="#1-ARP-攻击" class="headerlink" title="1. ARP 攻击"></a><strong>1. ARP 攻击</strong></h4><ul>
+<li>原理：攻击者通过伪造 ARP 响应，将受害者的 IP 地址映射到攻击者的 MAC 地址，劫持通信。<ul>
+<li>目标：截获、篡改或中断数据传输。</li>
+<li>常见类型：<ul>
+<li>中间人攻击（Man-in-the-Middle, MITM）</li>
+<li>拒绝服务攻击（DoS）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-DHCP-攻击"><a href="#2-DHCP-攻击" class="headerlink" title="2. DHCP 攻击"></a><strong>2. DHCP 攻击</strong></h4><ul>
+<li>原理：攻击者伪造 DHCP 服务器，向客户端发送虚假配置（如错误的网关或 DNS 服务器地址），劫持流量。<ul>
+<li>目标：截获敏感数据或实施中间人攻击。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-ARP-攻击与-DHCP-攻击的相似点"><a href="#3-ARP-攻击与-DHCP-攻击的相似点" class="headerlink" title="3. ARP 攻击与 DHCP 攻击的相似点"></a><strong>3. ARP 攻击与 DHCP 攻击的相似点</strong></h4><ol>
+<li><strong>攻击目标</strong>：两者都试图劫持网络通信，干扰正常的数据流向。</li>
+<li><strong>基于局域网</strong>：都利用局域网的弱点（缺乏认证）进行攻击。</li>
+<li>恶意伪造：<ul>
+<li>ARP 攻击：伪造 ARP 响应。</li>
+<li>DHCP 攻击：伪造 DHCP 配置。</li>
+</ul>
+</li>
+<li><strong>典型用途</strong>：都可以用于实施 MITM 攻击或 DoS 攻击。</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2025/02/05/NJU%E7%BD%91%E5%AE%89%E6%9C%9F%E6%9C%AB/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/" rel="tag">软件分析</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2025/02/05/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">南京大学软件分析复习笔记</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2025
+        <i class="ri-heart-fill heart_icon"></i> LightDust
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">浙ICP备88888888</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+      <li>
+          <img src="/images/beian.png"></img>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" target="_black" rel="nofollow">浙公网安备01234567890123号</a>
+      </li>
+        
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src=''></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="LightDust"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

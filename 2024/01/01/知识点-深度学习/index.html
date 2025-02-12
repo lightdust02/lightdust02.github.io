@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">9.9k</span>
+            <span class="post-count">25.8k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">34 min</span>
+            <span class="post-count">90 min</span>
         </span>
     </span>
 </div>
@@ -299,12 +299,72 @@
 <h2 id="17-正则化"><a href="#17-正则化" class="headerlink" title="17.正则化"></a>17.正则化</h2><p>正则化（regularization）用于控制模型的复杂度，<strong>防止模型在训练数据上过度拟合（overfitting）</strong>。当模型过拟合时，它会学习到训练数据中的噪声和细微变化，导致在新数据上的性能下降。</p>
 <p>正则化通过在模型的<strong>损失函数中引入额外的惩罚项</strong>，来对模型的参数进行约束，从而<strong>降低模型的复杂度</strong>。</p>
 <p>常见正则化手段有如下几种：</p>
-<p>1）L1正则化：在模型的损失函数中增加权重的 <strong>L1 范数作为惩罚项</strong>来控制模型复杂度的技术。L1 范数是向量中各个元素的绝对值之和。公式如下，其中$λ$是正则化参数，用于控制正则化项的强度。$|w_i|$ 表示模型权重的绝对值。<br>$$<br>L_{L1}=L_{data}+λ\sum_n^{i=1}|w_i|<br>$$<br><em>L1相较于L2易获得稀疏解</em></p>
+<p>1）L1正则化：在模型的损失函数中增加权重的 <strong>L1 范数作为惩罚项</strong>来控制模型复杂度的技术。L1 范数是向量中各个元素的绝对值之和。公式如下，其中$λ$是正则化参数，用于控制正则化项的强度。$|w_i|$ 表示模型权重的绝对值。<br>$$<br>L_{L1}=L_{data}+λ\sum_n^{i=1}|w_i|<br>$$<br><strong>L1相较于L2易获得稀疏解</strong></p>
 <p>2）L2正则化：通过向模型的<strong>损失函数添加一个权重参数的 L2 范数的惩罚项</strong>来实现。公式如下，$||w||^2_2$是权重向量w的 L2 范数的平方，表示为权重向量中各个参数的平方和。<br>$$<br>L_{L2}=L_{data}+λ||w||^2_2<br>$$<br>使用 L2 正则化的损失函数时，优化算法在优化过程中会同时考虑数据损失和正则化项，从而在保持对训练数据的拟合能力的同时，尽可能减小模型参数的大小，降低模型的复杂度。</p>
 <p>3）Dropout：一种在<strong>神经网络中常用的正则化技术</strong>，用于减少过拟合。</p>
 <p>其原理是在网络的训练过程中，<strong>随机地将部分神经元的输出置为零（即失活）</strong>，从而使得网络在每次迭代时都在不同的子网络上训练，以减少神经元之间的复杂依赖关系，从而增强模型的泛化能力。</p>
 <p>在每次训练迭代时，Dropout 方法会以一定的概率（通常为 0.5）随机地将某些神经元的输出置为零，即使得这些神经元在此次迭代中不参与前向传播和反向传播。这样可以阻止网络过度依赖于某些特定的神经元，增强模型的泛化能力。</p>
 <p>而在训练时，通过随机失活神经元来减少过拟合；在测试时，所有的神经元都保持活跃，但是输出值需要按照训练时的概率进行缩放，以保持期望输出的一致性。</p>
+<h2 id="18-AUC相关"><a href="#18-AUC相关" class="headerlink" title="18.AUC相关"></a>18.AUC相关</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shiaiao/article/details/108936801">机器学习常用评价指标：ACC、AUC、ROC曲线_acc auc-CSDN博客</a></p>
+<h3 id="0-ROC曲线"><a href="#0-ROC曲线" class="headerlink" title="0.ROC曲线"></a>0.ROC曲线</h3><p>基于样本预测值和真实值是否相符，可得到4种结果：</p>
+<ul>
+<li>TP (True Positive)：样本预测值与真实值相符且均为正，即真阳性</li>
+<li>FP (False Positive)：样本预测值为正而真实值为负，即假阳性</li>
+<li>FN (False Negative)：样本预测值为负而真实值为正，即假阴性</li>
+<li>TN (True Negative)：样本预测值与真实值相符且均为负，即真阴性</li>
+</ul>
+<p>$TPR = \frac{TP}{TP+FN}$</p>
+<p>$FPR = \frac{FP}{FP+TN}$</p>
+<p>ROC曲线的横坐标为 FPR (False Positive Rate)，纵坐标为TPR (True Positive Rate)</p>
+<p>通俗解释：FPR表示负样本分错的概率；TPR表示正样本分对的概率</p>
+<h3 id="1-AUC的定义及其取值范围"><a href="#1-AUC的定义及其取值范围" class="headerlink" title="1.AUC的定义及其取值范围"></a>1.AUC的定义及其取值范围</h3><ul>
+<li><strong>定义</strong>：AUC（Area Under the Curve）是指ROC曲线（Receiver Operating Characteristic Curve）下的面积。ROC曲线是一个二维图，横轴为假正率（False Positive Rate, FPR），纵轴为真正率（True Positive Rate, TPR）。AUC衡量的是模型在不同阈值下区分正负样本的能力。</li>
+<li><strong>取值范围</strong>：AUC的取值范围是 [0, 1]。AUC值越接近1，表示模型的分类性能越好；AUC值越接近0，表示模型的分类性能越差。AUC = 0.5，意味着模型没有区分能力。AUC = 1，意味着模型完美区分正负样本。</li>
+</ul>
+<h3 id="2-AUC的计算方法"><a href="#2-AUC的计算方法" class="headerlink" title="2.AUC的计算方法"></a>2.AUC的计算方法</h3><p>AUC的计算基于正负样本对的比较，具体步骤如下:</p>
+<ol>
+<li><p>排序样本：将测试集中的样本按照模型预测的“正类概率”从高到低排序。</p>
+</li>
+<li><p>统计正负样本对：对于所有可能的”正样本-负样本“对，若正样本的预测概率高于负样本，则记为1个正确对，若两者概率相等，则记为0.5个正确对。</p>
+</li>
+<li><p>计算AUC值：AUC = 正确对数量 / 总正负样本对数量</p>
+</li>
+</ol>
+<h3 id="3-AUC值含义"><a href="#3-AUC值含义" class="headerlink" title="3.AUC值含义"></a>3.AUC值含义</h3><ul>
+<li><strong>AUC值为0.5</strong>：<ul>
+<li>表示模型的性能与随机猜测相当。在这种情况下，模型无法有效区分正负样本，其分类结果没有比随机猜测更好。</li>
+</ul>
+</li>
+<li><strong>AUC值为1.0</strong>：<ul>
+<li>表示模型具有完美的分类能力。在这种情况下，模型能够完美地区分正负样本，没有任何误分类。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-AUC适合用于类别不平衡的数据集的原因"><a href="#4-AUC适合用于类别不平衡的数据集的原因" class="headerlink" title="4. AUC适合用于类别不平衡的数据集的原因"></a>4. AUC适合用于类别不平衡的数据集的原因</h3><ul>
+<li><strong>不受类别分布的影响</strong>：<ul>
+<li>AUC衡量的是模型在不同阈值下区分正负样本的能力，而不是直接关注分类准确率。在类别不平衡的数据集中，少数类的样本数量可能远少于多数类，这会导致基于准确率的评估指标（如准确率、召回率等）失真。而AUC通过考虑不同阈值下的真正率和假正率，能够更公平地评估模型的性能。</li>
+</ul>
+</li>
+<li><strong>综合考虑真正率和假正率</strong>：<ul>
+<li>AUC同时考虑了真正率（TPR）和假正率（FPR），能够全面反映模型在不同阈值下的分类能力。即使正负样本比例悬殊 (如1:99)，只要模型能将少数正样本正确排在负样本之前，AUC仍能反映其性能。</li>
+</ul>
+</li>
+<li><strong>阈值无关性</strong>：<ul>
+<li>AUC不依赖于特定的分类阈值，而是综合考虑所有可能的阈值。这使得AUC在评估模型性能时更加稳定，不受阈值选择的影响。</li>
+<li>对比其他指标，准确率 (Accuracy) 在类别不平衡时可能失效 (例如将所有样本预测为负类准确率仍很高) ，而AUC不受此影响。</li>
+</ul>
+</li>
+</ul>
+<h2 id="19-Softmax操作："><a href="#19-Softmax操作：" class="headerlink" title="19.Softmax操作："></a>19.Softmax操作：</h2><p>Softmax函数将一个实数向量转换为一个概率分布，使得所有元素的和为1。</p>
+<p>注意力机制中，我们通常计算每个位置的注意力分数，这些分数表示每个位置的重要性。</p>
+<p>然而，这些原始分数通常是实数，不能直接用作权重，因为它们可能为负数，且总和不为1。通过Softmax操作，我们可以<strong>将原始注意力分数转换为概率分布，使得每个位置的权重在0到1之间</strong>，并且所有权重的和为1。</p>
+<p>这样，这些权重就可以用于加权平均操作，以生成上下文向量。</p>
+<ul>
+<li><strong>归一化</strong>：Softmax操作确保了所有权重的和为1，使得加权平均操作有意义。</li>
+<li><strong>非负性</strong>：Softmax操作将分数转换为非负值，避免了负权重的问题。</li>
+<li><strong>概率解释</strong>：Softmax操作后的权重可以被解释为每个位置的相对重要性，具有概率的意义。</li>
+</ul>
+<p>这一步骤有两个主要作用：一是确保每个位置的注意力权重在[0, 1]范围内，便于加权计算；二是突出重要特征，放大较大分数并压缩较小分数，从而帮助模型关注关键部分。同时，SoftMax避免了数值过大或过小的问题，保障了反向传播中的梯度稳定。</p>
 <h1 id="Transformer相关"><a href="#Transformer相关" class="headerlink" title="Transformer相关"></a>Transformer相关</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681195398">Transformer面试题(转) - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/667048896">万字秋招算法岗深度学习八股文大全 - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/362131975/answer/2182682685">(95 封私信 / 76 条消息) transformer的细节到底是怎么样的？ - 知乎</a></p>
@@ -340,11 +400,11 @@
 <p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/v2-3173490f0b8fb89b22a22b65d2851c7f_1440w.webp" alt="Q^K示意图。对于权重矩阵的第1行来说，0.7表示的就是“我”与“我”的注意力值；0.2表示的就是“我”与”是”的注意力值；0.1表示的就是“我”与“谁”的注意力值。"></p>
 <h3 id="除以-d-k-："><a href="#除以-d-k-：" class="headerlink" title="除以$d_k$："></a><strong>除以$d_k$：</strong></h3><p><strong>在softmax之前除以$dk$ 可以将 $QK^T$ 的分布的方差纠正回接近1，这样一来，大部分数值都会分布在softmax梯度适当的位置，也就避免了梯度消失的问题。</strong></p>
 <p><strong>大值的点积可能会导致 Softmax 进入梯度消失区域，因为极大的输入值会使 Softmax 函数的梯度较小，接近 0。而通过除以 $\sqrt{d_k}$，可以避免进入这种极端情况，保持梯度稳定。</strong></p>
-<h2 id="5-多头注意力机制"><a href="#5-多头注意力机制" class="headerlink" title="5.多头注意力机制"></a>5.多头注意力机制</h2><p>从上面的计算结果还可以看到一点就是，<strong>模型在对当前位置的信息进行编码时，会过度的将注意力集中于自身的位置</strong>而可能忽略了其它位置。因此采取的一种解决方案就是采用多头注意力机制（MultiHeadAttention）。同时，使用多头注意力机制还能够给予注意力层的输出包含有不同子空间中的编码表示信息，从而增强模型的表达能力。</p>
+<h2 id="5-多头注意力机制"><a href="#5-多头注意力机制" class="headerlink" title="5.多头注意力机制"></a>5.多头注意力机制</h2><p>从上面的计算结果还可以看到一点就是，<strong>模型在对当前位置的信息进行编码时，会过度的将注意力集中于自身的位置</strong>而可能忽略了其它位置。因此采取的一种解决方案就是采用多头注意力机制（Multi-Head-Attention）。同时，使用多头注意力机制还能够给予注意力层的输出包含有不同子空间中的编码表示信息，从而增强模型的表达能力。</p>
 <p>一个比较经典的问题是，在相同维度下使用单头和多头的区别是什么？</p>
-<p>以图1-10中示例为例，此时的自注意力中使用了两个头，每个头的维度为$d_q$，即采用了多头的方式。另外一种做法就是，只是用一个头，但是其维度为$2d_q$，即采用单头的方式。那么在这两种情况下有什么区别呢？</p>
+<p>以图 1-10 中示例为例，此时的自注意力中使用了两个头，每个头的维度为$d_q$，即采用了多头的方式。另外一种做法就是，只是用一个头，但是其维度为$2d_q$，即采用单头的方式。那么在这两种情况下有什么区别呢？</p>
 <p>当模型的维度$d_m$确定时，一定程度上，h越大整个模型的表达能力越强，越能提高模型对于注意力权重的合理分配。</p>
-<h2 id="7-词嵌入问题"><a href="#7-词嵌入问题" class="headerlink" title="7.词嵌入问题"></a>7.词嵌入问题</h2><p>在Transformer模型中，首先第一步要做的同样是将文本以这样的方式进行向量化表示：将各个词（或者字）通过一个Embedding层映射到低维稠密的向量空间，并且将其称之为Token Embedding，也就是深度学习中常说的词嵌入（Word Embedding）</p>
+<h2 id="7-词嵌入问题"><a href="#7-词嵌入问题" class="headerlink" title="7.词嵌入问题"></a>7.词嵌入问题</h2><p>在 Transformer 模型中，首先第一步要做的同样是将文本以这样的方式进行向量化表示：将各个词（或者字）通过一个Embedding层映射到低维稠密的向量空间，并且将其称之为Token Embedding，也就是深度学习中常说的词嵌入（Word Embedding）</p>
 <p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/v2-9e4cb60bd2ed3e1aca137928bf34a537_1440w.webp" alt="词嵌入"></p>
 <p>但是，<strong>仅仅只使用自注意力机制会丢失文本原有的序列信息。序列在交换位置前和交换位置后计算得到的结果在本质上并没有任何区别，仅仅只是交换了对应的位置。</strong>因此，基于这样的原因，Transformer在原始输入文本进行Token Embedding后，又额外的加入了一个Positional Embedding来刻画数据在时序上的特征。</p>
 <p>Transformer 模型本身是基于自注意力机制（Self-Attention）的，它不像循环神经网络（RNN）那样自然地包含序列顺序信息。因此，为了使模型能够理解输入序列中各个元素的相对位置或绝对位置，需要引入位置编码（Position Embedding）。</p>
@@ -352,7 +412,93 @@
 <li><strong>自注意力机制的特性</strong>：自注意力机制在计算注意力权重时，会考虑序列中所有元素之间的关系，但它本身并不区分元素的顺序。换句话说，自注意力机制对输入序列的排列是不变的。</li>
 <li><strong>序列顺序的重要性</strong>：在很多任务中，序列的顺序是非常重要的，例如在自然语言处理任务中，词语的顺序决定了句子的语义。</li>
 </ol>
-<h1 id="Bert相关"><a href="#Bert相关" class="headerlink" title="Bert相关"></a>Bert相关</h1><h2 id="1-bert的具体网络结构"><a href="#1-bert的具体网络结构" class="headerlink" title="1. bert的具体网络结构"></a>1. bert的具体网络结构</h2><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
+<h2 id="8-介绍一下transformer的位置编码，以及你知道哪些关于位置编码的改进方法"><a href="#8-介绍一下transformer的位置编码，以及你知道哪些关于位置编码的改进方法" class="headerlink" title="8.介绍一下transformer的位置编码，以及你知道哪些关于位置编码的改进方法?"></a>8.介绍一下transformer的位置编码，以及你知道哪些关于位置编码的改进方法?</h2><h4 id="1-标准位置编码（固定位置编码）"><a href="#1-标准位置编码（固定位置编码）" class="headerlink" title="1. 标准位置编码（固定位置编码）"></a>1. 标准位置编码（固定位置编码）</h4><p>Transformer模型最初使用的是基于正弦和余弦函数的固定位置编码（Fixed Positional Encoding）。其计算公式如下：</p>
+<ul>
+<li><p>对于每个位置 pos 和维度 2<em>i</em>：</p>
+<p>$PE(pos,2i)=sin(\frac{pos}{10000^{2i/d_{model}}})$</p>
+</li>
+<li><p>对于每个位置 pos 和维度 2<em>i</em>+1：</p>
+<p>$PE(pos,2i+1)=cos(\frac{pos}{10000^{2i/d_{model}}})$</p>
+</li>
+</ul>
+<p>其中，$d_{model}$ 是嵌入的维度。</p>
+<p>这种编码方式的优点是简单且能够捕捉到相对位置信息，因为不同位置的编码可以通过线性组合来表示相对位置关系，能够捕捉序列中的顺序关系。</p>
+<p>然而，缺点在于长度外推能力有限，即在训练时使用的序列长度之外的序列上表现不佳。无法直接表示相对位置。</p>
+<h4 id="2-旋转位置编码（RoPE）-必考"><a href="#2-旋转位置编码（RoPE）-必考" class="headerlink" title="2. 旋转位置编码（RoPE）(必考)"></a>2. 旋转位置编码（RoPE）(必考)</h4><p>旋转位置编码（Rotary Position Embedding, RoPE）是近年来被广泛采用的一种改进方法。它通过引入复数和旋转矩阵来编码位置信息，使得在自注意力机制中能够更好地保留相对位置信息。</p>
+<p>RoPE的核心思想是将每个位置的嵌入表示为复数形式，并通过旋转操作来实现位置编码。具体来说，RoPE通过以下方式实现：</p>
+<ul>
+<li>将嵌入向量分成实部和虚部。</li>
+<li>在自注意力计算中，wei通过旋转操作来调整嵌入向量，从而保留相对位置信息。</li>
+</ul>
+<p>RoPE的优点在于它能够更好地处理长序列，并且具有更好的长度外推能力。</p>
+<p><strong>ROPE通过旋转变换为模型提供相对位置编码，增强了对长序列依赖关系的建模能力，特别适用于长序列和复杂任务</strong></p>
+<h4 id="3-相对位置编码（RPE）"><a href="#3-相对位置编码（RPE）" class="headerlink" title="3. 相对位置编码（RPE）"></a>3. 相对位置编码（RPE）</h4><p>相对位置编码（Relative Position Embedding, RPE）关注的是序列中元素之间的相对位置关系，而不是绝对位置。RPE通过为每个位置对分配一个位置编码向量来实现。</p>
+<p>RPE的计算方式如下：</p>
+<ul>
+<li>在自注意力机制中，为每个位置对 (<em>m</em>,<em>n</em>) 添加一个相对位置编码向量 $R_{m,n}$。</li>
+<li>这些相对位置编码向量可以通过学习得到，或者通过预定义的函数生成。</li>
+</ul>
+<p>相对位置编码的优点在于它能够更好地处理序列中的相对位置关系，从而在长序列建模中表现更好。</p>
+<h4 id="4-双层位置编码（BiPE）"><a href="#4-双层位置编码（BiPE）" class="headerlink" title="4. 双层位置编码（BiPE）"></a>4. 双层位置编码（BiPE）</h4><p>双层位置编码（Bi-layer Position Encoding, BiPE）是一种新型的位置编码方法，它将位置编码分为段内编码和段间编码。BiPE的主要思想是：</p>
+<ul>
+<li>使用绝对位置编码作为段内编码，以捕捉局部位置信息。</li>
+<li>使用相对位置编码（如RoPE或ALiBi）作为段间编码，以捕捉长距离的相对位置信息。</li>
+</ul>
+<p>BiPE在实验中表现出色，尤其是在长序列建模和长度外推任务中，其性能优于传统的单层位置编码方法</p>
+<h2 id="9-RMSNorm"><a href="#9-RMSNorm" class="headerlink" title="9.RMSNorm"></a>9.RMSNorm</h2><p>RMSNorm（Root Mean Square Normalization）是一种归一化方法，主要用于深度学习中的神经网络，尤其是在处理长序列数据时表现出色。它通过计算输入向量的均方根（RMS）值来进行归一化，而不像LayerNorm那样计算均值和方差。</p>
+<p>手撕 RMSNorm：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RMSNorm</span>(nn.Module):    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim: <span class="built_in">int</span>, eps: <span class="built_in">float</span> = <span class="number">1e-8</span></span>):        </span><br><span class="line">        <span class="built_in">super</span>().__init__()        </span><br><span class="line">        self.eps = eps        </span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(dim))  <span class="comment"># 可学习缩放参数</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x: torch.Tensor</span>) -&gt; torch.Tensor:        </span><br><span class="line">        <span class="comment"># 计算输入x的均方根（沿最后一个维度）        </span></span><br><span class="line">        rms = x.<span class="built_in">pow</span>(<span class="number">2</span>).mean(dim=-<span class="number">1</span>, keepdim=<span class="literal">True</span>).sqrt().add(self.eps)        </span><br><span class="line">        <span class="comment"># 归一化并应用缩放        </span></span><br><span class="line">        <span class="keyword">return</span> x / rms * self.gamma</span><br></pre></td></tr></table></figure>
+
+<h3 id="RMSNorm-与-LayerNorm的区别："><a href="#RMSNorm-与-LayerNorm的区别：" class="headerlink" title="RMSNorm 与 LayerNorm的区别："></a>RMSNorm 与 LayerNorm的区别：</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>RMSNorm</th>
+<th>LayerNorm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>归一化公式</td>
+<td>仅用均方根，无均值中心化</td>
+<td>先中心化（减均值），再除以标准差</td>
+</tr>
+<tr>
+<td>参数数量</td>
+<td>仅缩放参数 <code>gamma</code></td>
+<td>缩放参数 <code>gamma</code> 和偏移参数 <code>beta</code></td>
+</tr>
+<tr>
+<td>计算复杂度</td>
+<td>更低（省去均值计算）</td>
+<td>更高（需计算均值和标准差）</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>输入分布接近零中心时效果更好</td>
+<td>对任意输入分布鲁棒性更强</td>
+</tr>
+<tr>
+<td>实现细节</td>
+<td><code>x / sqrt(mean(x²) + ε) * gamma</code></td>
+<td><code>(x - μ) / sqrt(σ² + ε) * gamma + beta</code></td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>LLaMA、T5等模型</td>
+<td>Transformer原始架构、BERT等</td>
+</tr>
+</tbody></table>
+<p><strong>参数与计算效率</strong>：</p>
+<ul>
+<li>RMSNorm减少了一个参数（无 <code>beta</code>）和一次均值计算，适合对计算资源敏感的场景。</li>
+<li>LayerNorm通过 <code>beta</code> 保留偏移能力，对输入分布变化更鲁棒，但计算代价略高。</li>
+</ul>
+<p><strong>适用性</strong>：</p>
+<ul>
+<li>当输入近似零中心（如激活函数后）时，RMSNorm效果与LayerNorm相当且更高效。</li>
+<li>若输入分布偏移较大，LayerNorm的均值中心化可能更稳定。</li>
+</ul>
+<h1 id="大模型相关"><a href="#大模型相关" class="headerlink" title="大模型相关"></a>大模型相关</h1><h2 id="1-Bert的具体网络结构"><a href="#1-Bert的具体网络结构" class="headerlink" title="1. Bert的具体网络结构"></a>1. Bert的具体网络结构</h2><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
 <p>BERT 的核心创新之一是双向编码器。在传统的语言模型  LSTM 或 RNN中，模型会顺序从左到右或从右到左预测下一个词。而 BERT 是通过同时考虑句子的左右上下文来学习词汇的含义。这种双向性使得 BERT 能够理解一个词或子词在句子中的更深层次的语义关系。</p>
 <p><strong>Transformer架构</strong>：BERT 基于 Transformer 编码器，依赖于注意力机制（Self-Attention）来捕捉句子中不同词之间的关系。BERT 只使用 Transformer 的 Encoder 部分，它并不生成文本，而是通过理解现有文本进行分类或问答等任务。</p>
 <p>传统语言模型中，单向上下文（仅前向或后向）导致了信息丢失。而BERT 的成功归功于两种新的预训练任务：</p>
@@ -367,6 +513,682 @@
 <li>输出：True（句子连贯）</li>
 </ul>
 <p>通过这种方式，BERT学习理解句子之间的逻辑和关系，增强对文本的整体理解能力。</p>
+<h2 id="2-为什么LayerNormalization比BatchNormalization更适合NLP任务？"><a href="#2-为什么LayerNormalization比BatchNormalization更适合NLP任务？" class="headerlink" title="2.为什么LayerNormalization比BatchNormalization更适合NLP任务？"></a>2.为什么LayerNormalization比BatchNormalization更适合NLP任务？</h2><ol>
+<li><strong>对批量大小的依赖性</strong></li>
+</ol>
+<p>Batch Normalization依赖于每个mini-batch的数据来计算均值和方差，因此其效果高度依赖于批量大小。当批量大小较小时（例如在NLP任务中常见的小批量或单样本情况），BN的统计信息（均值和方差）可能不够稳定，从而影响模型的训练和泛化能力。</p>
+<p>而Layer Normalization是针对单个样本在特征维度上进行归一化，不依赖于批量大小，因此在小批量或单样本场景下表现更加稳定。</p>
+<ol start="2">
+<li><strong>对序列长度的适应性</strong></li>
+</ol>
+<p>NLP 任务通常涉及变长序列，例如句子或文档的长度可能不同。</p>
+<p>Batch Normalization需要对整个batch中的数据进行统一归一化，而不同序列长度会导致统计信息计算复杂且不稳定，这种情况下难以适应。</p>
+<p>Layer Normalization则对序列长度的变化不敏感，因为它只关注单个样本内部的特征维度。</p>
+<ol start="3">
+<li><strong>计算效率和内存占用</strong></li>
+</ol>
+<p>在处理大规模数据或深层网络时，Layer Normalization的内存效率更高。由于LN的计算只依赖于单个样本的特征维度，而BN需要存储整个batch的统计信息，LN在内存占用和计算复杂度上更具优势。</p>
+<ol start="4">
+<li><strong>训练稳定性</strong></li>
+</ol>
+<p>Layer Normalization在训练过程中表现出更好的稳定性，尤其是在处理长序列或深层网络时。</p>
+<p>例如，在Transformer架构中，LN能够有效缓解梯度消失或爆炸的问题，从而加速模型收敛。此外，LN在训练和推理阶段执行完全相同的计算，而BN在训练和推理阶段的计算方式不同，这可能导致模型在推理时的表现与训练时存在差异。</p>
+<ol start="5">
+<li><strong>与NLP模型架构的兼容性</strong></li>
+</ol>
+<p>在NLP中常用的模型架构（如RNN、Transformer）中，Layer Normalization可以更自然地集成。例如，在Transformer模型中，LN被广泛应用于多头自注意力机制和前馈网络中，以稳定训练过程。而对于RNN，BN难以直接应用，因为RNN需要在每个时间步上动态更新状态，而LN可以独立于时间步进行归一化。</p>
+<h2 id="3-对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同"><a href="#3-对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同" class="headerlink" title="3. 对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同"></a>3. 对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同</h2><h3 id="架构差异"><a href="#架构差异" class="headerlink" title="架构差异"></a>架构差异</h3><ul>
+<li><strong>BERT</strong>：<ul>
+<li>BERT采用的是<strong>双向Transformer编码器架构</strong>，能够同时利用上下文信息。其输入经过WordPiece分词后，会添加特殊标记<code>[CLS]</code>和<code>[SEP]</code>，并使用Segment Embeddings区分不同句子。</li>
+<li>BERT的架构有多个版本，如BERT-BASE（12层编码器，768个隐藏单元，12个注意力头，110M参数）和BERT-LARGE（24层编码器，1024个隐藏单元，16个注意力头，340M参数）。</li>
+</ul>
+</li>
+<li><strong>GPT</strong>：<ul>
+<li>GPT采用的是<strong>单向Transformer解码器Decoder架构</strong>，仅使用前文信息进行预测。这种单向结构使其适合生成任务，但无法直接利用后续信息。</li>
+<li>GPT系列不断扩展模型规模，从GPT-1到GPT-3，参数量从数亿增加到1750亿，GPT-4进一步增强了多模态能力。</li>
+</ul>
+</li>
+</ul>
+<h3 id="预训练任务的差异"><a href="#预训练任务的差异" class="headerlink" title="预训练任务的差异"></a>预训练任务的差异</h3><ul>
+<li><strong>BERT</strong>：<ul>
+<li><strong>掩码语言模型（Masked Language Model, MLM）</strong>：BERT的预训练任务之一是MLM，随机遮盖输入文本中的一部分单词（通常15%），然后预测这些被遮盖的单词。这种双向预测任务使BERT能够学习到丰富的上下文信息，适合理解类任务。</li>
+<li><strong>下一句预测（Next Sentence Prediction, NSP）</strong>：BERT还会预测两个句子是否是连续的文本，这有助于学习句子之间的关系。</li>
+</ul>
+</li>
+<li><strong>GPT</strong>：<ul>
+<li><strong>语言模型（Language Model, LM）</strong>：GPT的预训练任务是标准的语言模型任务，即根据前文预测下一个单词。这种单向预测任务使GPT在文本生成任务中表现出色，能够生成连贯的文本。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>BERT和GPT在架构和预训练任务上的差异导致了它们在应用场景上的不同：</p>
+<ul>
+<li><strong>BERT</strong>适合需要深入理解上下文的任务，如文本分类、命名实体识别和问答。</li>
+<li><strong>GPT</strong>则更适合文本生成任务，如创意写作、对话系统和文本摘要。</li>
+</ul>
+<h2 id="4-为什么在进行多头注意力的时候需要对每个head进行降维"><a href="#4-为什么在进行多头注意力的时候需要对每个head进行降维" class="headerlink" title="4. 为什么在进行多头注意力的时候需要对每个head进行降维?"></a>4. 为什么在进行多头注意力的时候需要对每个head进行降维?</h2><h3 id="1-降低计算复杂度"><a href="#1-降低计算复杂度" class="headerlink" title="1.降低计算复杂度"></a><strong>1.降低计算复杂度</strong></h3><ul>
+<li>在多头注意力中，输入的特征向量通常会被分成多个头（heads），每个头负责处理输入的不同子空间。如果不进行降维，<strong>每个头的维度将与原始输入维度相同，这会导致计算量大幅增加</strong>。通过降维，每个头的维度被缩小，从而降低了计算复杂度。</li>
+<li>例如，假设原始输入维度为 $d_{model}$，分成 <em>h</em> 个头，每个头的维度为 $d_{head}=\frac{d_{model}}{h}$，这样每个头的计算量显著减少。</li>
+</ul>
+<h3 id="2-提高模型的灵活性和表达能力"><a href="#2-提高模型的灵活性和表达能力" class="headerlink" title="2. 提高模型的灵活性和表达能力"></a>2. <strong>提高模型的灵活性和表达能力</strong></h3><ul>
+<li>降维后的<strong>每个头可以专注于输入的不同方面，从而捕捉到更丰富的语义信息</strong>。通过这种方式，模型可以从不同角度理解输入序列，例如语法结构、语义角色等。</li>
+<li>多头注意力机制允许模型并行地学习多种注意力模式，每个头通过独立的线性变换学习不同的特征关联。</li>
+</ul>
+<h3 id="3-避免过拟合"><a href="#3-避免过拟合" class="headerlink" title="3. 避免过拟合"></a>3. <strong>避免过拟合</strong></h3><ul>
+<li>降维<strong>可以减少每个头的参数量，从而降低模型的复杂度，有助于避免过拟合</strong>。通过减少每个头的维度，模型在<strong>训练时更容易收敛</strong>，同时在测试集上的泛化能力也更强。</li>
+</ul>
+<h3 id="4-内存优化"><a href="#4-内存优化" class="headerlink" title="4. 内存优化"></a>4. <strong>内存优化</strong></h3><ul>
+<li>在处理长序列时，降维可以<strong>显著减少内存占用</strong>。例如，传统多头注意力机制中，每个头独立生成键（Key）和值（Value），内存占用会随着头的数量线性增长。通过降维，每个头的维度缩小，从而减少了内存需求。</li>
+</ul>
+<h3 id="5-保持信息多样性"><a href="#5-保持信息多样性" class="headerlink" title="5. 保持信息多样性"></a>5. <strong>保持信息多样性</strong></h3><ul>
+<li>尽管每个头的维度被缩小，但<strong>通过将多个头的输出拼接（concatenate）在一起，模型仍然可以保持丰富的信息</strong>。最终，这些拼接后的输出会通过一个线性层进行融合，从而生成最终的注意力输出。</li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>在多头注意力机制中，对每个头进行降维是为了降低计算复杂度、提高模型的灵活性和表达能力、避免过拟合、优化内存占用，同时保持信息多样性。</p>
+<h2 id="5-o1和o3分别指的是什么？区别有哪些？"><a href="#5-o1和o3分别指的是什么？区别有哪些？" class="headerlink" title="5.o1和o3分别指的是什么？区别有哪些？"></a>5.o1和o3分别指的是什么？区别有哪些？</h2><p><strong>O1</strong>、<strong>O3</strong> 是 OpenAI 推出的两个不同阶段的模型，它们在能力、技术特点和应用场景上存在显著差异。目前没有公开提到“O2”模型，可能是因为 OpenAI 在命名时跳过了该名称。</p>
+<h3 id="O1"><a href="#O1" class="headerlink" title="O1"></a>O1</h3><ul>
+<li><strong>特点</strong>：O1 是 OpenAI 推出的一个专注于推理能力的模型，其核心在于通过强化学习和特定的训练方式，提升模型在复杂任务中的推理和解决问题的能力。</li>
+<li><strong>技术改进</strong>：O1 使用了专注于数学和科学的自定义数据集，并应用了大规模强化学习，这使得它能够处理需要多个步骤才能解决的任务。</li>
+<li><strong>应用场景</strong>：O1 主要用于需要高水平推理能力的任务，例如复杂的数学问题、逻辑推理等。</li>
+</ul>
+<h3 id="O3"><a href="#O3" class="headerlink" title="O3"></a>O3</h3><ul>
+<li><strong>特点</strong>：O3 是 O1 的继任者，代表了 AI 推理能力的进一步提升。它在多个复杂任务中的表现显著优于 O1，特别是在编程、数学和一般智能领域。</li>
+<li><strong>技术改进</strong>：<ul>
+<li><strong>多路推理</strong>：O3 可能采用了多路推理机制，允许模型在解决问题时探索多种可能的路径。</li>
+<li><strong>强化学习与测试时推理</strong>：O3 在推理过程中使用了强化学习，并且在测试时会进行更复杂的推理过程，这使得它能够处理更复杂的任务。</li>
+<li><strong>内置质量检查</strong>：O3 具备检查答案准确性的能力，这使得它在处理需要高精度的任务时更加可靠。</li>
+</ul>
+</li>
+<li><strong>应用场景</strong>：O3 适用于需要极高推理能力和精度的任务，例如编程竞赛、复杂的数学问题解决等。</li>
+</ul>
+<h3 id="O1-与-O3-的区别"><a href="#O1-与-O3-的区别" class="headerlink" title="O1 与 O3 的区别"></a>O1 与 O3 的区别</h3><ul>
+<li><strong>推理能力</strong>：O3 在推理能力上显著优于 O1，能够处理更复杂的任务。</li>
+<li><strong>训练方式</strong>：O3 在训练过程中可能采用了更复杂的多路推理机制和强化学习策略。</li>
+<li><strong>应用场景</strong>：O3 适用于需要更高推理能力和精度的任务，而 O1 已经在推理任务上表现出色。</li>
+<li><strong>成本与效率</strong>：O3 的推理过程需要更高的计算资源和时间，这使得它的使用成本更高。</li>
+</ul>
+<h2 id="6-解释多卡并行训练中的Zero1、Zero2、Zero3策略"><a href="#6-解释多卡并行训练中的Zero1、Zero2、Zero3策略" class="headerlink" title="6.解释多卡并行训练中的Zero1、Zero2、Zero3策略"></a>6.解释多卡并行训练中的Zero1、Zero2、Zero3策略</h2><p>Zero1、Zero2、Zero3是DeepSpeed框架中用于优化大规模模型训练的三种策略，它们通过不同的方式减少内存占用，提高训练效率。</p>
+<h4 id="Zero1"><a href="#Zero1" class="headerlink" title="Zero1"></a>Zero1</h4><ul>
+<li><strong>优化内容</strong>：Zero1主要对<strong>优化器状态</strong>进行拆分。在模型训练中，正向传播和反向传播并不需要优化器状态，只有在梯度更新时才需要。因此，Zero1将优化器状态分成多个小块，每个进程只存储和更新自己负责的部分。</li>
+<li><strong>内存优化</strong>：通过这种方式，Zero1可以将显存消耗减少到原来的1/4。</li>
+<li><strong>通信开销</strong>：通信量与数据并行相同。</li>
+<li><strong>优点</strong>：实现相对简单，适合对内存优化有一定需求但不想引入过多复杂性的场景。</li>
+<li><strong>缺点</strong>：相比更高级的Zero策略，内存优化程度有限。</li>
+</ul>
+<h4 id="Zero2"><a href="#Zero2" class="headerlink" title="Zero2"></a>Zero2</h4><ul>
+<li><strong>优化内容</strong>：Zero2在Zero1的基础上，进一步对<strong>梯度</strong>进行拆分。在计算梯度时，每个进程只计算和存储自己负责的部分，然后通过通信机制进行聚合。</li>
+<li><strong>内存优化</strong>：Zero2可以将显存消耗进一步减少到原来的1/8。</li>
+<li><strong>通信开销</strong>：通信量仍然与数据并行相同。</li>
+<li><strong>优点</strong>：相比Zero1，进一步减少了内存占用，适合训练更大规模的模型。</li>
+<li><strong>缺点</strong>：实现复杂度比Zero1更高，需要更精细的通信机制。</li>
+</ul>
+<h4 id="Zero3"><a href="#Zero3" class="headerlink" title="Zero3"></a>Zero3</h4><ul>
+<li><strong>优化内容</strong>：Zero3在Zero2的基础上，进一步对<strong>模型参数</strong>进行拆分。每个进程只存储和计算自己负责的参数子集。</li>
+<li><strong>内存优化</strong>：Zero3的内存减少幅度与数据并行度成线性关系。例如，在64个GPU的情况下，内存消耗可以降低64倍。</li>
+<li><strong>通信开销</strong>：相比前两个阶段，Zero3的通信量会有所增加。</li>
+<li><strong>优点</strong>：极大地减少了每个GPU所需的显存，能够训练比显存容量大很多的模型，同时保持计算效率。</li>
+<li><strong>缺点</strong>：实现最为复杂，需要更多的通信开销，可能会增加训练时间。</li>
+</ul>
+<h2 id="7-在进行监督微调操作时，选择Chat版本还是Base版本作为baseline模型？有何区别？"><a href="#7-在进行监督微调操作时，选择Chat版本还是Base版本作为baseline模型？有何区别？" class="headerlink" title="7.在进行监督微调操作时，选择Chat版本还是Base版本作为baseline模型？有何区别？"></a>7.在进行监督微调操作时，选择Chat版本还是Base版本作为baseline模型？有何区别？</h2><h3 id="1-训练方式"><a href="#1-训练方式" class="headerlink" title="1. 训练方式"></a><strong>1. 训练方式</strong></h3><ul>
+<li><strong>Base版本</strong>：<ul>
+<li><strong>训练方式</strong>：Base模型是通过<strong>无监督的预训练（Pre-train）</strong>得到的，主要在大量未标注的文本数据上进行训练，学习语言的通用统计规律。</li>
+<li><strong>特点</strong>：<strong>具有强大的语言生成能力，但没有针对特定任务进行优化。</strong></li>
+</ul>
+</li>
+<li><strong>Chat版本</strong>：<ul>
+<li><strong>训练方式</strong>：Chat模型是在Base模型的基础上，通过监督微调（SFT）和强化学习（RLHF）进一步优化得到的。其训练数据包括标注好的对话数据集和用户反馈。</li>
+<li><strong>特点</strong>：<strong>专注于对话和人机交互，能够生成连贯且符合人类偏好的回复。</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="2. 应用场景"></a>2. <strong>应用场景</strong></h3><ul>
+<li><strong>Base版本</strong>：<ul>
+<li><strong>适用场景</strong>：适合需要进一步微调以适应特定任务的场景，如文本生成、语义理解、翻译等。</li>
+<li><strong>优势</strong>：具有较强的<strong>泛化能力</strong>，适合多种<strong>NLP任务</strong>。</li>
+</ul>
+</li>
+<li><strong>Chat版本</strong>：<ul>
+<li><strong>适用场景</strong>：特别适用于构建聊天机器人、虚拟助理等对话系统，需要进行多轮对话并保持上下文连贯的场合。</li>
+<li><strong>优势</strong>：对话能力强，能够<strong>生成符合人类偏好的回复</strong>，并具备情感和礼貌控制。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-任务处理能力"><a href="#3-任务处理能力" class="headerlink" title="3. 任务处理能力"></a>3. <strong>任务处理能力</strong></h3><ul>
+<li><strong>Base版本</strong>：<ul>
+<li><strong>任务处理能力</strong>：没有预定义的指令任务或对话优化，<strong>需要通过监督微调</strong>来适应特定任务。</li>
+</ul>
+</li>
+<li><strong>Chat版本</strong>：<ul>
+<li><strong>任务处理能力</strong>：经过对话数据的监督微调和强化学习，<strong>能够更好地理解上下文并生成合适的回应</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h3><ul>
+<li><strong>选择Base版本</strong>：<ul>
+<li>如果你的任务需要高度定制化，且需要从头开始微调以适应特定的领域或任务，Base版本是一个较好的选择。</li>
+<li>Base版本保留了更纯粹的知识表征，适合学术研究或企业自建垂直模型。</li>
+</ul>
+</li>
+<li><strong>选择Chat版本</strong>：<ul>
+<li>如果你的任务主要集中在对话交互，如聊天机器人或客服系统，Chat版本更适合，因为它已经经过了对话优化，能够生成更自然、更连贯的回复。</li>
+<li>Chat版本在多轮对话中表现更佳，适合需要与用户进行多轮交互的场景。</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-RAG中的切片处理策略"><a href="#8-RAG中的切片处理策略" class="headerlink" title="8.RAG中的切片处理策略"></a>8.RAG中的切片处理策略</h2><p>在RAG（Retrieval-Augmented Generation）模型中，切片处理（Chunking）是提高模型效率和效果的关键步骤。以下是几种常见的切片处理技巧及其优化方法：</p>
+<h3 id="1-切片策略的选择"><a href="#1-切片策略的选择" class="headerlink" title="1. 切片策略的选择"></a>1. 切片策略的选择</h3><p>切片策略的选择直接影响到检索和生成的效果。常见的切片策略包括：</p>
+<ul>
+<li><strong>按固定大小切片（Chunk by Size）</strong>：将文档按固定长度切分成多个片段，适用于格式规整的文本。</li>
+<li><strong>按段落切片（Chunk by Paragraph）</strong>：根据文档的段落结构进行切分，保留段落的完整性。</li>
+<li><strong>按标题切片（Chunk by Markdown Header）</strong>：对于Markdown或HTML格式的文档，按标题层级进行切分。</li>
+<li><strong>按自定义分隔符切片（Chunk by Separator）</strong>：根据特定的分隔符（如换行符）进行切分。</li>
+</ul>
+<h3 id="2-保持上下文完整性和相关性"><a href="#2-保持上下文完整性和相关性" class="headerlink" title="2. 保持上下文完整性和相关性"></a>2. 保持上下文完整性和相关性</h3><p>切片时应尽量保持上下文的完整性和相关性，这直接影响到模型的生成效果：</p>
+<ul>
+<li><strong>避免硬切分</strong>：尽量避免将句子或段落硬性切分，以免破坏上下文连贯性。</li>
+<li><strong>保留元数据</strong>：在切片时，将图片、表格等非文本内容单独抽取为Chunk，并保留其标题或描述作为元数据。</li>
+<li><strong>重叠切片</strong>：设置一定的重叠部分（Overlap），以确保上下文信息的连续性。</li>
+</ul>
+<h3 id="3-多元化信息抽取"><a href="#3-多元化信息抽取" class="headerlink" title="3. 多元化信息抽取"></a>3. 多元化信息抽取</h3><p>除了对文档进行Embedding向量抽取外，还可以进行其他多元化的信息抽取，以增强文档的语义信息：</p>
+<ul>
+<li><strong>知识图谱</strong>：构建知识图谱，将文档中的实体和关系进行结构化表示。</li>
+<li><strong>表格信息抽取</strong>：提取文档中的表格信息，并将其转化为结构化数据。</li>
+</ul>
+<h3 id="4-分块的艺术"><a href="#4-分块的艺术" class="headerlink" title="4. 分块的艺术"></a>4. 分块的艺术</h3><p>分块不仅是为了提高检索效率，还能提升生成内容的质量：</p>
+<ul>
+<li><strong>固定字符大小</strong>：简单粗暴地按固定字符数切分，适用于格式规整的文本。</li>
+<li><strong>递归字符文本分割</strong>：根据标点符号和空格进行切分，使切分后的块更有上下文意义。</li>
+<li><strong>语义分割</strong>：使用语言模型进行语义分割，按意思切块，虽然计算资源消耗较大，但效果更好。</li>
+</ul>
+<h3 id="5-查询分解与优化"><a href="#5-查询分解与优化" class="headerlink" title="5. 查询分解与优化"></a>5. 查询分解与优化</h3><p>查询分解技术可以提高检索的准确性和效率：</p>
+<ul>
+<li><strong>DSP框架</strong>：将复杂查询分解为简单的子查询，逐步解决后再整合答案。</li>
+<li><strong>自我询问</strong>：通过识别合并答案时的难点来分解查询，逐步整合答案。</li>
+</ul>
+<h3 id="6-实际案例中的优化"><a href="#6-实际案例中的优化" class="headerlink" title="6. 实际案例中的优化"></a>6. 实际案例中的优化</h3><p>在实际项目中，通过以下优化方法可以显著提高检索准确率：</p>
+<ul>
+<li><strong>数据预处理</strong>：将文本字段合并为一个内容字段，并为向量搜索创建embeddings。</li>
+<li><strong>索引优化</strong>：在Azure AI Search等平台上构建高效的搜索索引。</li>
+</ul>
+<h2 id="9-KV-Cache相关问题"><a href="#9-KV-Cache相关问题" class="headerlink" title="9.KV Cache相关问题"></a>9.KV Cache相关问题</h2><h3 id="1-什么是KV-Cache？它在自注意力机制中如何应用？"><a href="#1-什么是KV-Cache？它在自注意力机制中如何应用？" class="headerlink" title="1. 什么是KV Cache？它在自注意力机制中如何应用？"></a>1. 什么是KV Cache？它在自注意力机制中如何应用？</h3><p><strong>KV Cache</strong>（Key-Value Cache）是一种优化技术，用于加速Transformer模型中的自注意力机制，特别是在自回归生成任务（如文本生成、对话系统等）中。</p>
+<p>在Transformer模型的自注意力机制中，每次生成一个新token时，模型需要计算当前token的**Query (Q)<strong>向量，并与之前所有token的</strong>Key (K)<strong>和</strong>Value (V)**向量进行交互，以生成注意力权重并合成输出。然而，随着生成序列的增长，重复计算这些K和V向量会带来巨大的计算开销。</p>
+<p><strong>KV Cache的作用</strong>：</p>
+<ul>
+<li><strong>缓存历史K和V向量</strong>：在推理过程中，模型将每个token的K和V向量存储到KV Cache中。</li>
+<li><strong>仅计算新增的Q向量</strong>：当生成新token时，模型只需计算当前token的Q向量，并与缓存中的K和V向量进行注意力计算。</li>
+</ul>
+<p>这种机制显著减少了重复计算，提高了推理效率。</p>
+<h3 id="2-使用KV-Cache的主要优势是什么？如何通过它减少计算开销？"><a href="#2-使用KV-Cache的主要优势是什么？如何通过它减少计算开销？" class="headerlink" title="2. 使用KV Cache的主要优势是什么？如何通过它减少计算开销？"></a>2. 使用KV Cache的主要优势是什么？如何通过它减少计算开销？</h3><p>使用KV Cache的主要优势包括：</p>
+<ul>
+<li><strong>降低计算复杂度</strong>：通过缓存K和V向量，避免了重复计算，将计算复杂度从<em>O</em>(<em>n</em>2⋅<em>d</em>)降低到<em>O</em>(<em>n</em>⋅<em>d</em>)，其中<em>n</em>是序列长度，<em>d</em>是向量维度。</li>
+<li><strong>加快推理速度</strong>：直接使用缓存的K和V向量进行注意力计算，显著提高了推理速度。</li>
+<li><strong>优化内存占用</strong>：虽然KV Cache会占用一定内存，但相比重复计算，总体内存占用是可控的。</li>
+</ul>
+<p><strong>减少计算开销的方式</strong>：</p>
+<ul>
+<li><strong>缓存机制</strong>：在生成新token时，模型从KV Cache中读取之前token的K和V向量，而不是重新计算。</li>
+<li><strong>逐步更新</strong>：每次生成新token后，将新计算的K和V向量追加到KV Cache中，供后续生成使用。</li>
+</ul>
+<h3 id="3-KV-Cache在长文本生成时可能带来什么问题？如何优化？"><a href="#3-KV-Cache在长文本生成时可能带来什么问题？如何优化？" class="headerlink" title="3. KV Cache在长文本生成时可能带来什么问题？如何优化？"></a>3. KV Cache在长文本生成时可能带来什么问题？如何优化？</h3><p><strong>可能的问题</strong>：</p>
+<ul>
+<li><strong>内存占用</strong>：随着生成序列的增长，KV Cache会占用大量显存，尤其在处理长文本时更为明显。</li>
+<li><strong>实现复杂性</strong>：在分布式推理或多模型并行场景下，KV Cache的管理和更新可能会增加系统复杂性。</li>
+</ul>
+<p><strong>优化方法</strong>：</p>
+<ul>
+<li><strong>KV Cache量化</strong>：通过将浮点数参数转换为离散的、有限精度的数值，减少存储空间的占用，同时加快数据访问速度。</li>
+<li><strong>分页技术</strong>：如PagedAttention，通过将KV Cache分页管理，提高内存利用率，减少内存碎片。</li>
+<li><strong>动态调整缓存大小</strong>：根据实际需求动态调整KV Cache的大小，避免显存溢出。</li>
+</ul>
+<p>通过这些优化方法，KV Cache可以在保持高效推理的同时，更好地管理内存资源，适用于长文本生成等复杂任务。</p>
+<h1 id="DDPM："><a href="#DDPM：" class="headerlink" title="DDPM："></a>DDPM：</h1><h2 id="简述DDPM的算法流程："><a href="#简述DDPM的算法流程：" class="headerlink" title="简述DDPM的算法流程："></a>简述DDPM的算法流程：</h2><p>初始化：从带噪声的图像开始。</p>
+<p>正向扩散：逐步向数据添加高斯噪声，直到数据完全转化为无结构的噪声。</p>
+<p>反向去噪：通过模型预测并逐渐去掉每一步加入的噪声，还原得到无噪声的图像。</p>
+<p>训练：使用反向传播算法更新模型参数，以最小化正向和反向过程之间的差异。</p>
+<p>测试：对新的高噪声图像应用训练好的模型进行去噪。</p>
+<h2 id="实现DDPM需要什么条件："><a href="#实现DDPM需要什么条件：" class="headerlink" title="实现DDPM需要什么条件："></a>实现DDPM需要什么条件：</h2><p>马尔可夫链：DDPM使用马尔可夫链来描述数据的扩散过程。</p>
+<p>马尔可夫链是一个随机过程，具有无记忆性，即<strong>在给定当前状态的情况下，未来的状态只依赖于当前状态</strong>。</p>
+<p>微小变化：DDPM通过逐步添加微小的高斯噪声来扩散数据。这些微小的变化是在数据中引入随机性的关键步骤。<br>高斯噪声变化：DDPM使用高斯噪声来模拟数据的扩散过程。高斯噪声是一种常见的随机噪声，也称为正态分布噪声。</p>
+<h3 id="为什么DDPM加噪声的幅度是不⼀致的？"><a href="#为什么DDPM加噪声的幅度是不⼀致的？" class="headerlink" title="为什么DDPM加噪声的幅度是不⼀致的？"></a><strong>为什么DDPM加噪声的幅度是不⼀致的？</strong></h3><p>前期加噪少是为了保持数据结构的完整性，后期加噪多是为了加速扩散过程，使得模型能够更快地从噪声中恢复出清晰的数据。</p>
+<h3 id="DDPM预测噪声还是预测当前分布？"><a href="#DDPM预测噪声还是预测当前分布？" class="headerlink" title="DDPM预测噪声还是预测当前分布？"></a><strong>DDPM预测噪声还是预测当前分布？</strong></h3><p>预测噪声，预测分布只是中间过程</p>
+<h2 id="DDIM算法原理部分："><a href="#DDIM算法原理部分：" class="headerlink" title="DDIM算法原理部分："></a>DDIM算法原理部分：</h2><h3 id="DDIM是怎么实现加速采样的？"><a href="#DDIM是怎么实现加速采样的？" class="headerlink" title="DDIM是怎么实现加速采样的？"></a>DDIM是怎么实现加速采样的？</h3><p>DDIM通过保证DDPM的三项前向条件不变：前向⾼斯噪声+⻢尔可夫链，实现逆向递推公式优化，减少逆向推理步骤</p>
+<h3 id="DDIM是不是确定性⽣成，为什么"><a href="#DDIM是不是确定性⽣成，为什么" class="headerlink" title="DDIM是不是确定性⽣成，为什么"></a>DDIM是不是确定性⽣成，为什么</h3><p>是确定性⽣成。因为在逆向去噪声过程中，DDIM的逆推公式，将随机噪声的部分置为0</p>
+<p> <img src="/_posts/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E5%A4%9A%E6%A8%A1%E6%80%81%E4%B8%8ELLM/d70334687136c0b6aedd584ae7553826.png" alt="img"></p>
+<h3 id="Score-Based-diffusion-model"><a href="#Score-Based-diffusion-model" class="headerlink" title="Score-Based-diffusion-model"></a>Score-Based-diffusion-model</h3><p>提供了⼀种解释扩散模型的等价⽅式，其中降噪过程可以看作是沿着分数（梯度）前进</p>
+<p> ⾼阶采样⽅案：<br>是否了解DPM++等加速采样⽅案</p>
+<p>通过ODE对扩散模型进⾏建模，通过解析解的形式解构扩散模型求解步骤</p>
+<h2 id="特征编码："><a href="#特征编码：" class="headerlink" title="特征编码："></a>特征编码：</h2><h3 id="介绍⼀下CLIP编码："><a href="#介绍⼀下CLIP编码：" class="headerlink" title="介绍⼀下CLIP编码："></a>介绍⼀下CLIP编码：</h3><p><strong>CLIP（Contrastive Language-Image Pretraining）</strong> 是由 OpenAI 提出的一种多模态预训练模型，旨在将图像和文本对齐，从而实现跨模态的表示学习。CLIP 的核心思想是通过对比学习（Contrastive Learning）来学习图像和文本的联合表示，使得模型能够在零样本（zero-shot）任务中表现出色。</p>
+<hr>
+<p><strong>1. CLIP 的核心思想</strong></p>
+<p><strong>(1) 对比学习（Contrastive Learning）</strong></p>
+<ul>
+<li><strong>目标</strong>：通过对比学习，使得模型能够将匹配的图像-文本对（正样本）的表示拉近，而不匹配的图像-文本对（负样本）的表示推远。</li>
+<li><strong>方法</strong>：<ul>
+<li>给定一个图像-文本对，模型分别对图像和文本进行编码，得到它们的嵌入向量。</li>
+<li>通过计算嵌入向量之间的相似度（如余弦相似度），模型可以判断这对图像-文本是否匹配。</li>
+<li>训练过程中，模型会最大化正样本对的相似度，同时最小化负样本对的相似度。</li>
+</ul>
+</li>
+</ul>
+<p><strong>(2) 联合表示学习</strong></p>
+<ul>
+<li><strong>目标</strong>：学习一个共享的嵌入空间，使得图像和文本可以在这个空间中进行比较。</li>
+<li><strong>方法</strong>：<ul>
+<li>使用两个独立的编码器：一个用于图像（如 ResNet 或 Vision Transformer），一个用于文本（如 Transformer）。</li>
+<li>将图像和文本编码到同一个嵌入空间中，使得它们的表示可以直接进行对比。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>2. CLIP 的训练过程</strong></p>
+<p><strong>(1) 数据集</strong></p>
+<ul>
+<li><strong>训练数据</strong>：CLIP 使用了大规模的图像-文本对数据集，例如从互联网上抓取的 4 亿对图像-文本对。</li>
+<li><strong>数据特点</strong>：数据集包含丰富的图像和对应的描述文本，涵盖了多种场景和任务。</li>
+</ul>
+<p><strong>(2) 模型架构</strong></p>
+<ul>
+<li><strong>图像编码器</strong>：<ul>
+<li>使用 ResNet 或 Vision Transformer（ViT）作为图像编码器。</li>
+<li>将图像编码为一个固定维度的嵌入向量。</li>
+</ul>
+</li>
+<li><strong>文本编码器</strong>：<ul>
+<li>使用 Transformer 作为文本编码器。</li>
+<li>将文本编码为一个固定维度的嵌入向量。</li>
+</ul>
+</li>
+</ul>
+<p><strong>(3) 损失函数</strong></p>
+<ul>
+<li><strong>对比损失（Contrastive Loss）</strong>：<ul>
+<li>对于每个图像-文本对，计算其嵌入向量之间的相似度。</li>
+<li>使用对比损失函数（如 InfoNCE 损失）来优化模型，使得正样本对的相似度最大化，负样本对的相似度最小化。</li>
+</ul>
+</li>
+</ul>
+<p><strong>(4) 训练目标</strong></p>
+<ul>
+<li><strong>目标</strong>：通过对比学习，使得模型能够学习到图像和文本的联合表示，从而在零样本任务中表现出色。</li>
+</ul>
+<hr>
+<p><strong>3. CLIP 的应用场景</strong></p>
+<p><strong>(1) 零样本分类（Zero-Shot Classification）</strong></p>
+<ul>
+<li><strong>任务</strong>：在不使用任何特定任务的标签数据的情况下，直接对图像进行分类。</li>
+<li><strong>方法</strong>：<ul>
+<li>使用 CLIP 的文本编码器生成类别标签的嵌入向量。</li>
+<li>使用 CLIP 的图像编码器生成图像的嵌入向量。</li>
+<li>通过计算图像嵌入向量与类别标签嵌入向量之间的相似度，选择最相似的类别作为预测结果。</li>
+</ul>
+</li>
+</ul>
+<p><strong>(2) 图像检索（Image Retrieval）</strong></p>
+<ul>
+<li><strong>任务</strong>：根据输入的文本描述，检索与之最匹配的图像。</li>
+<li><strong>方法</strong>：<ul>
+<li>使用 CLIP 的文本编码器生成文本描述的嵌入向量。</li>
+<li>使用 CLIP 的图像编码器生成图像的嵌入向量。</li>
+<li>通过计算文本嵌入向量与图像嵌入向量之间的相似度，选择最相似的图像。</li>
+</ul>
+</li>
+</ul>
+<p><strong>(3) 文本生成图像（Text-to-Image Generation）</strong></p>
+<ul>
+<li><strong>任务</strong>：根据输入的文本描述，生成与之匹配的图像。</li>
+<li><strong>方法</strong>：<ul>
+<li>使用 CLIP 的文本编码器生成文本描述的嵌入向量。</li>
+<li>使用生成模型（如 DALL·E 或 Stable Diffusion）生成图像，并使用 CLIP 的图像编码器对生成的图像进行评估。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>4. CLIP 的优缺点</strong></p>
+<p><strong>(1) 优点</strong></p>
+<ol>
+<li><strong>零样本学习能力</strong>：<ul>
+<li>CLIP 能够在没有特定任务标签数据的情况下，直接对图像进行分类。</li>
+<li>这使得 CLIP 在处理新任务时非常灵活，无需重新训练模型。</li>
+</ul>
+</li>
+<li><strong>跨模态对齐能力</strong>：<ul>
+<li>CLIP 能够将图像和文本对齐到同一个嵌入空间中，使得它们可以直接进行比较。</li>
+<li>这使得 CLIP 在图像检索、文本生成图像等任务中表现出色。</li>
+</ul>
+</li>
+<li><strong>大规模预训练</strong>：<ul>
+<li>CLIP 使用了大规模的图像-文本对数据集进行预训练，使得模型具有很强的泛化能力。</li>
+<li>这使得 CLIP 在多种任务中都能取得很好的效果。</li>
+</ul>
+</li>
+<li><strong>灵活性</strong>：<ul>
+<li>CLIP 可以与多种下游任务结合，如分类、检索、生成等。</li>
+<li>这使得 CLIP 成为一个通用的多模态工具。</li>
+</ul>
+</li>
+</ol>
+<p><strong>(2) 缺点</strong></p>
+<ol>
+<li><strong>数据需求高</strong>：<ul>
+<li>CLIP 需要大规模的图像-文本对数据集进行预训练，数据获取和处理成本较高。</li>
+<li>对于某些特定领域，可能难以获取足够的高质量数据。</li>
+</ul>
+</li>
+<li><strong>计算资源消耗大</strong>：<ul>
+<li>CLIP 的预训练过程需要大量的计算资源，尤其是在使用大规模数据集时。</li>
+<li>这使得 CLIP 的训练成本较高。</li>
+</ul>
+</li>
+<li><strong>对噪声敏感</strong>：<ul>
+<li>CLIP 的预训练数据集可能包含噪声（如错误的图像-文本对），这可能会影响模型的性能。</li>
+<li>需要对数据进行严格的清洗和筛选。</li>
+</ul>
+</li>
+<li><strong>零样本性能有限</strong>：<ul>
+<li>尽管 CLIP 在零样本任务中表现出色，但在某些特定任务中，其性能可能不如专门训练的模型。</li>
+<li>对于某些复杂的任务，可能需要额外的微调或数据增强。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>5. 总结</strong></p>
+<ul>
+<li><strong>CLIP 是一种基于对比学习的多模态预训练模型</strong>，能够将图像和文本对齐到同一个嵌入空间中，从而实现跨模态的表示学习。</li>
+<li><strong>优点</strong>：<ul>
+<li>零样本学习能力强，跨模态对齐能力出色，适用于多种任务。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>数据需求高，计算资源消耗大，对噪声敏感，零样本性能有限。</li>
+</ul>
+</li>
+</ul>
+<p>CLIP 的出现为多模态学习和跨模态任务提供了一种强大的工具，尤其在零样本分类和图像检索等任务中表现出色。然而，其高昂的训练成本和数据需求也限制了其在某些场景中的应用。</p>
+<h2 id="Stable-Diffusion篇："><a href="#Stable-Diffusion篇：" class="headerlink" title="Stable Diffusion篇："></a>Stable Diffusion篇：</h2><h3 id="Stable-Diffusion-的核⼼优化？"><a href="#Stable-Diffusion-的核⼼优化？" class="headerlink" title="Stable Diffusion 的核⼼优化？"></a>Stable Diffusion 的核⼼优化？</h3><p>通过VAE将特征映射到Latent Space，⼤幅减少运算量的同时还能保证⽣成质量。</p>
+<p>通过Unet实现对⽣成内容的引导</p>
+<h3 id="Stable-Diffusion-怎么训练的？"><a href="#Stable-Diffusion-怎么训练的？" class="headerlink" title="Stable Diffusion 怎么训练的？"></a>Stable Diffusion 怎么训练的？</h3><p>从训练集中选取一张加噪的图片和噪声强度，让unet预测噪声图，并计算和真正的噪声图之间的误差，并通过反向传播更新unet的参数</p>
+<h3 id="VAE为什么会导致图像变模糊"><a href="#VAE为什么会导致图像变模糊" class="headerlink" title="VAE为什么会导致图像变模糊"></a>VAE为什么会导致图像变模糊</h3><p>VAE 编解码整体是⼀个有损过程，可以选择减少损失，⽐如优化模型结构，提升采样效率等。</p>
+<h3 id="介绍⼀下SD，Dall-E2两者的异同"><a href="#介绍⼀下SD，Dall-E2两者的异同" class="headerlink" title="介绍⼀下SD，Dall-E2两者的异同"></a>介绍⼀下SD，Dall-E2两者的异同</h3><p>Dalle2通过自回归的方式逐个预测像素点，最终生成符合描述的图像。</p>
+<p>SD加⼊了Latent-Space（⼤幅降低特征维度），以及交叉注意⼒机制+Unet的步骤，更精细更可控</p>
+<h3 id="Noise-Scheduler了解吗"><a href="#Noise-Scheduler了解吗" class="headerlink" title="Noise Scheduler了解吗"></a>Noise Scheduler了解吗</h3><p>Noise Scheduler定义了⼀个⾼斯分布，其均值和⽅差随着时间步的变化⽽变化，以控制噪声的添加量 </p>
+<h3 id="Stable-Diffusion核⼼模块"><a href="#Stable-Diffusion核⼼模块" class="headerlink" title="Stable Diffusion核⼼模块"></a>Stable Diffusion核⼼模块</h3><p>VAE：将图像特征/⽂本特征，映射到Latent Space。</p>
+<p>LDM相关：Diffusion Model +Unet，去噪声核⼼步骤</p>
+<p>Conditioning：作⽤于Unet的 Cross-Attention位置，实现对输出结果的控制</p>
+<h1 id="大模型名词："><a href="#大模型名词：" class="headerlink" title="大模型名词："></a>大模型名词：</h1><h2 id="大模型训练过程"><a href="#大模型训练过程" class="headerlink" title="大模型训练过程"></a>大模型训练过程</h2><p>AI大模型的训练是一个复杂的过程，涉及多个阶段和优化技巧。以下是详细的训练过程：</p>
+<p><strong>1. 数据准备</strong>:</p>
+<ul>
+<li><strong>数据收集</strong>: 首先需要收集大规模的训练数据，通常包括文本、图像、音频等多种模态的数据。</li>
+<li><strong>数据清洗</strong>: 对数据进行清洗，去除噪声、重复数据和无效数据。</li>
+<li><strong>数据标注</strong>: 对于监督学习任务，需要对数据进行标注，例如文本分类任务中的标签。</li>
+<li><strong>数据增强</strong>: 通过数据增强技术（如文本数据中的同义词替换、图像数据中的旋转和裁剪）来增加数据的多样性。</li>
+</ul>
+<p><strong>2. 模型架构</strong>:</p>
+<ul>
+<li><strong>Transformer架构</strong>: 大多数AI大模型采用Transformer架构，包括多头自注意力机制和前馈神经网络。</li>
+<li><strong>层数和参数规模</strong>: 大模型通常具有数十亿甚至数千亿个参数，层数可以达到上百层。</li>
+<li><strong>多模态融合</strong>: 对于多模态任务，模型需要融合不同模态的数据，例如文本和图像的联合表示。</li>
+</ul>
+<p><strong>3. 训练策略</strong>:</p>
+<ul>
+<li><strong>预训练</strong>: 首先在大规模无监督数据上进行预训练，目标是学习通用的语言或视觉表示。预训练任务通常是自回归语言建模（如GPT）或掩码语言建模（如BERT）。</li>
+<li><strong>微调</strong>: 在预训练完成后，模型会在特定任务上进行微调，例如文本分类、图像分类或对话生成。微调时，使用较小的学习率和特定任务的数据集。</li>
+<li><strong>多任务学习</strong>: 在某些情况下，模型会在多个任务上同时进行训练，以提高泛化能力。</li>
+</ul>
+<p><strong>4. 优化技巧</strong>:</p>
+<ul>
+<li><strong>混合精度训练</strong>: 使用FP16（半精度浮点数）进行计算，以加速训练并减少显存占用。</li>
+<li><strong>梯度累积</strong>: 通过累积多个小批量的梯度，模拟更大的批量大小，从而提高训练稳定性。</li>
+<li><strong>分布式训练</strong>: 使用多台机器和多个GPU进行分布式训练，以加速训练过程。常见的分布式训练策略包括数据并行和模型并行。</li>
+<li><strong>正则化</strong>: 使用Dropout、权重衰减等正则化技术，防止模型过拟合。</li>
+</ul>
+<p><strong>5. 评估与调优</strong>:</p>
+<ul>
+<li><strong>验证集评估</strong>: 在训练过程中，使用验证集评估模型的性能，调整超参数（如学习率、批量大小）。</li>
+<li><strong>早停</strong>: 当验证集性能不再提升时，提前停止训练，防止过拟合。</li>
+<li><strong>模型剪枝和量化</strong>: 在训练完成后，可以对模型进行剪枝和量化，以减少模型的大小和推理时间。</li>
+</ul>
+<h2 id="Lora："><a href="#Lora：" class="headerlink" title="Lora："></a>Lora：</h2><p>LoRA（Low-Rank Adaptation）是一种用于大模型微调的技术，旨在减少微调过程中需要更新的参数量，从而降低计算资源和存储成本。其核心思想是将模型的权重更新分解为低秩矩阵的乘积。</p>
+<p><strong>原理</strong>:</p>
+<ul>
+<li><p>在大模型的全参数微调中，通常需要更新整个模型的权重，这会导致存储和计算成本非常高。LoRA通过引入低秩分解的思想，将权重更新分解为两个低秩矩阵的乘积，即：</p>
+<p>ΔW=A×BΔ<em>W</em>=<em>A</em>×<em>B</em></p>
+<p>其中，ΔWΔ<em>W</em> 是权重更新矩阵，A<em>A</em> 和 B<em>B</em> 是低秩矩阵，秩通常远小于原始权重矩阵的维度。</p>
+</li>
+<li><p>在微调过程中，只需要训练 A<em>A</em> 和 B<em>B</em> 这两个低秩矩阵，而原始模型的权重保持不变。这样，微调所需的参数量大幅减少，计算效率显著提高。</p>
+</li>
+</ul>
+<p><strong>应用场景</strong>:</p>
+<ul>
+<li>LoRA广泛应用于大模型的微调任务，尤其是在资源受限的情况下。例如，在自然语言处理任务中，可以使用LoRA对GPT或BERT等大模型进行微调，而无需更新整个模型的权重。</li>
+<li>此外，LoRA还可以用于多任务学习，通过为每个任务训练不同的低秩矩阵，实现任务间的参数共享。</li>
+</ul>
+<p><strong>实现细节</strong>:</p>
+<ul>
+<li>在实现上，LoRA通常通过在模型的全连接层或注意力机制中插入低秩矩阵来实现。具体来说，可以在Transformer的注意力头或前馈神经网络中应用LoRA。</li>
+<li>训练时，只更新低秩矩阵 A<em>A</em> 和 B<em>B</em>，而原始模型的权重保持冻结。</li>
+<li>在推理时，将低秩矩阵的乘积加到原始权重上，生成最终的权重矩阵。</li>
+</ul>
+<h2 id="ChatGLM"><a href="#ChatGLM" class="headerlink" title="ChatGLM"></a>ChatGLM</h2><p>ChatGLM是一个基于Transformer架构的中文对话生成模型，专门针对中文语言进行了优化。其核心原理和结构与GPT类似，但在训练过程中引入了一些针对中文的改进。</p>
+<p><strong>原理</strong>:</p>
+<ul>
+<li>ChatGLM基于自注意力机制（Self-Attention）和Transformer架构，能够捕捉输入序列中的长距离依赖关系。</li>
+<li>与GPT类似，ChatGLM是一个自回归模型，通过预测下一个词来生成文本。</li>
+</ul>
+<p><strong>模型结构</strong>:</p>
+<ul>
+<li><strong>编码器-解码器结构</strong>: ChatGLM采用了类似GPT的单向Transformer结构，但也可以扩展为编码器-解码器结构，用于生成对话回复。</li>
+<li><strong>多头自注意力机制</strong>: 每个Transformer层包含多头自注意力机制，能够并行处理输入序列中的不同部分。</li>
+<li><strong>前馈神经网络</strong>: 在每个注意力层之后，会接一个前馈神经网络，用于进一步处理特征。</li>
+<li><strong>位置编码</strong>: 使用位置编码来捕捉输入序列中的位置信息，确保模型能够理解序列的顺序。</li>
+</ul>
+<p><strong>训练过程</strong>:</p>
+<ul>
+<li><p><strong>预训练阶段</strong>:</p>
+<ul>
+<li>ChatGLM首先在大规模中文语料上进行预训练，目标是学习语言的通用表示。</li>
+<li>预训练任务通常是自回归语言建模，即根据前面的词预测下一个词。</li>
+<li>训练过程中，使用大量的中文文本数据，包括书籍、新闻、对话等。</li>
+</ul>
+</li>
+<li><p><strong>微调阶段</strong>:</p>
+<ul>
+<li>在预训练完成后，ChatGLM会在特定任务上进行微调，例如对话生成任务。</li>
+<li>微调时，使用对话数据集，目标是让模型学会生成自然流畅的对话回复。</li>
+<li>微调过程中，通常会使用较小的学习率，以避免破坏预训练阶段学到的知识。</li>
+</ul>
+</li>
+<li><p><strong>优化技巧</strong>:</p>
+<ul>
+<li>在训练过程中，ChatGLM可能会使用混合精度训练（Mixed Precision Training）来加速训练并减少显存占用。</li>
+<li>此外，可能会使用梯度累积（Gradient Accumulation）来模拟更大的批量大小，从而提高训练稳定性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="P-tuning"><a href="#P-tuning" class="headerlink" title="P-tuning"></a>P-tuning</h2><p>P-Tuning是一种用于大模型微调的技术，旨在通过插入可训练的“提示”（Prompt）来引导模型生成特定任务的输出，而无需更新整个模型的权重。</p>
+<p><strong>原理</strong>:</p>
+<ul>
+<li>P-Tuning的核心思想是通过在输入序列中插入可训练的提示向量（Prompt Vectors），来引导模型生成特定任务的输出。</li>
+<li>这些提示向量是可训练的参数，而模型的原始权重保持冻结。通过优化提示向量，模型可以在不更新大量参数的情况下，适应新的任务。</li>
+</ul>
+<p><strong>应用场景</strong>:</p>
+<ul>
+<li>P-Tuning广泛应用于自然语言处理任务中，例如文本分类、问答系统、对话生成等。</li>
+<li>它特别适合资源受限的场景，因为只需要训练少量的提示向量，而不需要更新整个模型的权重。</li>
+</ul>
+<p><strong>实现细节</strong>:</p>
+<ul>
+<li><strong>提示插入</strong>: 在输入序列中，P-Tuning会在特定位置插入提示向量。例如，在文本分类任务中，可以在输入文本的开头插入提示向量。</li>
+<li><strong>提示训练</strong>: 提示向量是可训练的参数，通常通过梯度下降法进行优化。训练过程中，只更新提示向量，而模型的原始权重保持不变。</li>
+<li><strong>提示设计</strong>: 提示向量的设计可以非常灵活，可以是固定的模板（如“这个句子是关于[MASK]的”），也可以是可学习的向量。</li>
+<li><strong>推理阶段</strong>: 在推理阶段，提示向量会被固定，模型根据提示向量生成输出。</li>
+</ul>
+<h2 id="SFT"><a href="#SFT" class="headerlink" title="SFT"></a>SFT</h2><p>SFT（Supervised Fine-Tuning）是一种在大模型预训练完成后，使用标注数据进行微调的技术。其目标是让模型在特定任务上表现更好。</p>
+<p><strong>原理</strong>:</p>
+<ul>
+<li>SFT的核心思想是利用标注数据对预训练模型进行微调，使其适应特定任务。</li>
+<li>与无监督预训练不同，SFT使用的是有监督数据，即每个样本都有明确的标签。</li>
+</ul>
+<p><strong>应用场景</strong>:</p>
+<ul>
+<li><strong>文本分类</strong>: 例如情感分析、垃圾邮件检测等任务，模型需要根据输入文本预测类别标签。</li>
+<li><strong>问答系统</strong>: 模型需要根据问题生成答案，通常使用问答数据集进行微调。</li>
+<li><strong>对话生成</strong>: 在对话系统中，模型需要根据上下文生成自然的对话回复。</li>
+<li><strong>机器翻译</strong>: 模型需要将一种语言的文本翻译成另一种语言。</li>
+</ul>
+<p><strong>实现细节</strong>:</p>
+<ul>
+<li><strong>数据准备</strong>: 首先需要准备特定任务的标注数据集，例如文本分类任务中的文本和标签。</li>
+<li><strong>模型初始化</strong>: 使用预训练模型的权重作为初始权重，避免从头开始训练。</li>
+<li><strong>微调策略</strong>:<ul>
+<li><strong>学习率调整</strong>: 通常使用较小的学习率，以避免破坏预训练阶段学到的知识。</li>
+<li><strong>冻结部分层</strong>: 在某些情况下，可以冻结模型的前几层，只微调最后几层，以减少计算量。</li>
+<li><strong>批量大小</strong>: 根据硬件资源调整批量大小，通常较大的批量大小可以提高训练稳定性。</li>
+</ul>
+</li>
+<li><strong>损失函数</strong>: 根据任务类型选择合适的损失函数，例如交叉熵损失用于分类任务，均方误差损失用于回归任务。</li>
+<li><strong>评估与调优</strong>: 在微调过程中，使用验证集评估模型的性能，调整超参数以获得最佳效果。</li>
+</ul>
+<p><strong>优势</strong>:</p>
+<ul>
+<li><strong>高效性</strong>: SFT可以在较短的时间内使模型适应特定任务，而不需要重新训练整个模型。</li>
+<li><strong>灵活性</strong>: SFT可以应用于多种任务，只需准备相应的标注数据集。</li>
+<li><strong>性能提升</strong>: 通过SFT，模型在特定任务上的性能通常会显著提升。</li>
+</ul>
+<h2 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h2><p>RAG（Retrieval-Augmented Generation）是一种结合检索（Retrieval）和生成（Generation）的模型架构，旨在通过引入外部知识源来增强生成模型的能力。RAG的核心思想是将检索到的相关信息与生成模型结合，从而生成更加准确和丰富的输出。</p>
+<p><strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 是一种结合了信息检索技术和语言生成模型的人工智能技术。它通过从外部知识库中检索相关信息，并将其作为提示（Prompt）输入给大型语言模型（LLM），以增强模型处理知识密集型任务的能力。</p>
+<h3 id="RAG的工作原理"><a href="#RAG的工作原理" class="headerlink" title="RAG的工作原理"></a>RAG的工作原理</h3><p>RAG的工作流程主要包括三个步骤：</p>
+<ol>
+<li><strong>检索（Retrieval）</strong>：根据用户的查询内容，从外部知识库中检索出与查询最相关的文档或信息。</li>
+<li><strong>增强（Augmentation）</strong>：将检索到的相关信息与用户的查询内容结合，形成增强后的上下文。</li>
+<li><strong>生成（Generation）</strong>：将增强后的上下文输入到大型语言模型中，生成所需的输出。</li>
+</ol>
+<h3 id="RAG的优势"><a href="#RAG的优势" class="headerlink" title="RAG的优势"></a>RAG的优势</h3><ul>
+<li><strong>提高准确性</strong>：通过检索外部知识库，RAG能够提供更准确、更相关的回答。</li>
+<li><strong>减少幻觉</strong>：RAG通过检索真实信息，减少了大语言模型生成幻觉的可能性。</li>
+<li><strong>即时更新</strong>：无需重新训练模型，即可通过更新知识库来获取最新信息。</li>
+<li><strong>可解释性</strong>：RAG的生成结果基于检索到的信息，具有更强的可解释性。</li>
+<li><strong>数据安全</strong>：RAG可以使用私有知识库，避免了将敏感数据上传到第三方平台进行训练。</li>
+</ul>
+<p><strong>1. 原理</strong></p>
+<ul>
+<li><strong>检索与生成的结合</strong>:<ul>
+<li>RAG的核心是将检索模块和生成模块结合在一起。检索模块负责从外部知识库（如文档、数据库或网页）中检索与输入相关的信息，生成模块则利用这些检索到的信息生成最终的输出。</li>
+<li>检索模块通常是一个基于向量搜索的系统，能够快速找到与输入最相关的文档或片段。</li>
+<li>生成模块通常是一个预训练的语言模型（如GPT、T5或BERT），负责根据输入和检索到的信息生成输出。</li>
+</ul>
+</li>
+<li><strong>外部知识的引入</strong>:<ul>
+<li>传统的生成模型（如GPT）依赖于模型内部的知识，而RAG通过引入外部知识库，能够更好地处理需要外部知识支持的任务（如问答、对话生成等）。</li>
+<li>检索到的信息可以作为生成模型的额外输入，帮助模型生成更准确、更丰富的输出。</li>
+</ul>
+</li>
+</ul>
+<p><strong>2. 架构</strong></p>
+<p>RAG的架构通常包括以下几个核心组件：</p>
+<p><strong>(1) 检索模块</strong></p>
+<ul>
+<li><strong>输入处理</strong>: 输入（如问题或查询）首先被编码为一个向量，通常使用预训练的编码器（如BERT或Sentence-BERT）。</li>
+<li><strong>向量搜索</strong>: 编码后的向量被用于在知识库中进行相似度搜索，找到与输入最相关的文档或片段。</li>
+<li><strong>知识库</strong>: 知识库通常是一个大规模的文档集合，可以是结构化数据（如数据库）或非结构化数据（如网页、书籍）。</li>
+</ul>
+<p><strong>(2) 生成模块</strong></p>
+<ul>
+<li><strong>预训练语言模型</strong>: 生成模块通常是一个预训练的语言模型（如GPT、T5），负责根据输入和检索到的信息生成输出。</li>
+<li><strong>输入融合</strong>: 检索到的信息被融合到生成模型的输入中，通常以文本片段的形式附加到输入序列中。</li>
+<li><strong>输出生成</strong>: 生成模型根据融合后的输入生成最终的输出。</li>
+</ul>
+<p><strong>(3) 端到端训练</strong></p>
+<ul>
+<li><strong>联合优化</strong>: RAG的检索模块和生成模块可以进行联合训练。生成模块的损失函数（如交叉熵损失）不仅依赖于生成输出，还依赖于检索模块的输出。</li>
+<li><strong>检索模块的优化</strong>: 检索模块可以通过生成模块的反馈进行优化，例如通过强化学习或梯度传播来调整检索策略。</li>
+</ul>
+<p><strong>3. 训练过程</strong></p>
+<p><strong>(1) 数据准备</strong></p>
+<ul>
+<li><strong>训练数据</strong>: 训练数据通常包括输入（如问题或查询）和对应的输出（如答案或回复）。此外，还需要一个知识库，包含与输入相关的文档或片段。</li>
+<li><strong>标注数据</strong>: 在某些情况下，训练数据可能需要标注检索到的信息是否与输入相关。</li>
+</ul>
+<p><strong>(2) 检索模块训练</strong></p>
+<ul>
+<li><strong>预训练检索模块</strong>: 检索模块通常使用预训练的编码器（如BERT）进行初始化，并通过对比学习或排序任务进行训练。</li>
+<li><strong>向量索引构建</strong>: 知识库中的文档被编码为向量，并存储在向量数据库中，以便进行快速检索。</li>
+</ul>
+<p><strong>(3) 生成模块训练</strong></p>
+<ul>
+<li><strong>预训练生成模块</strong>: 生成模块通常是一个预训练的语言模型（如GPT或T5），在RAG中可以直接使用，也可以进行微调。</li>
+<li><strong>联合训练</strong>: 检索模块和生成模块可以进行联合训练。生成模块的损失函数不仅依赖于生成输出，还依赖于检索模块的输出。</li>
+</ul>
+<p><strong>(4) 推理阶段</strong></p>
+<ul>
+<li><strong>检索</strong>: 在推理阶段，输入被编码为向量，并在知识库中进行检索，找到与输入最相关的文档或片段。</li>
+<li><strong>生成</strong>: 检索到的信息被融合到生成模型的输入中，生成模型根据融合后的输入生成最终的输出。</li>
+</ul>
+<p><strong>4. 应用场景</strong></p>
+<p>RAG的应用场景非常广泛，尤其是在需要外部知识支持的任务中表现出色。以下是一些典型的应用场景：</p>
+<p><strong>(1) 问答系统</strong></p>
+<ul>
+<li><strong>开放域问答</strong>: RAG可以用于开放域问答任务，例如从维基百科或文档集合中检索相关信息，并生成准确的答案。</li>
+<li><strong>知识密集型问答</strong>: 对于需要外部知识支持的问题（如科学问题、历史问题），RAG能够通过检索相关文档生成更准确的答案。</li>
+</ul>
+<p><strong>(2) 对话系统</strong></p>
+<ul>
+<li><strong>知识增强对话</strong>: 在对话系统中，RAG可以通过检索相关信息（如产品信息、新闻）来生成更丰富和准确的回复。</li>
+<li><strong>多轮对话</strong>: RAG可以处理多轮对话，通过检索上下文相关的信息来生成连贯的回复。</li>
+</ul>
+<p><strong>(3) 文本生成</strong></p>
+<ul>
+<li><strong>文档摘要</strong>: RAG可以用于文档摘要任务，通过检索文档中的关键信息生成简洁的摘要。</li>
+<li><strong>内容创作</strong>: RAG可以用于生成高质量的内容，例如新闻报道、产品描述等。</li>
+</ul>
+<p><strong>(4) 信息检索</strong></p>
+<ul>
+<li><strong>语义搜索</strong>: RAG可以用于语义搜索任务，通过检索与查询最相关的文档或片段，提供更精准的搜索结果。</li>
+<li><strong>知识图谱补全</strong>: RAG可以用于知识图谱的补全任务，通过检索相关信息生成缺失的实体或关系。</li>
+</ul>
+<p><strong>5. 优缺点</strong></p>
+<p><strong>优点</strong>:</p>
+<ul>
+<li><strong>知识增强</strong>: RAG通过引入外部知识库，能够生成更准确和丰富的输出，尤其适用于需要外部知识支持的任务。</li>
+<li><strong>灵活性</strong>: RAG可以与不同的检索模块和生成模块结合，适用于多种任务和场景。</li>
+<li><strong>可解释性</strong>: 由于检索模块的存在，RAG的输出通常具有一定的可解释性，用户可以查看检索到的信息。</li>
+</ul>
+<p><strong>缺点</strong>:</p>
+<ul>
+<li><strong>计算成本高</strong>: RAG的检索和生成过程通常需要较多的计算资源，尤其是在处理大规模知识库时。</li>
+<li><strong>检索效率</strong>: 检索模块的效率可能成为瓶颈，尤其是在实时应用中（如对话系统）。</li>
+<li><strong>知识库维护</strong>: 知识库的维护和更新是一个挑战，需要定期更新以确保检索到的信息是最新的。</li>
+</ul>
+<hr>
+<p><strong>总结</strong></p>
+<p>RAG 是一种结合检索和生成的模型架构，通过引入外部知识库来增强生成模型的能力。它在问答、对话生成、文本生成等任务中表现出色，尤其适用于需要外部知识支持的场景。</p>
+<p>RAG的训练过程包括检索模块和生成模块的联合训练，推理阶段通过检索相关信息并融合到生成模型中，生成最终的输出。尽管RAG在知识增强和灵活性方面具有显著优势，但其计算成本和检索效率仍是需要解决的问题。</p>
+<h1 id="搜广推"><a href="#搜广推" class="headerlink" title="搜广推"></a>搜广推</h1><h2 id="解释一下多任务学习-Multi-task-Learning-的概念，并讨论其在广告推荐系统中的应用"><a href="#解释一下多任务学习-Multi-task-Learning-的概念，并讨论其在广告推荐系统中的应用" class="headerlink" title="解释一下多任务学习(Multi-task Learning)的概念，并讨论其在广告推荐系统中的应用"></a>解释一下多任务学习(Multi-task Learning)的概念，并讨论其在广告推荐系统中的应用</h2><h3 id="多任务学习（Multi-task-Learning-MTL）的概念"><a href="#多任务学习（Multi-task-Learning-MTL）的概念" class="headerlink" title="多任务学习（Multi-task Learning, MTL）的概念"></a>多任务学习（Multi-task Learning, MTL）的概念</h3><h4 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. <strong>定义</strong></h4><p>多任务学习是一种机器学习方法，旨在<strong>同时学习多个相关任务</strong>，通过共享表示（shared representation）或模型参数，使得模型能够<strong>从多个任务中相互学习，从而提高每个任务的性能</strong>。</p>
+<p>多任务学习的<strong>核心思想是利用任务之间的相关性，使得模型能够更好地泛化，并减少过拟合</strong>。</p>
+<h4 id="2-关键特点"><a href="#2-关键特点" class="headerlink" title="2. 关键特点"></a>2. <strong>关键特点</strong></h4><ul>
+<li><strong>任务相关性</strong>：多任务学习中的任务通常是相关的，例如，一个任务的特征可能对另一个任务也有帮助。通过同时学习多个任务，模型可以利用这些相关性来提升性能。</li>
+<li><strong>共享表示</strong>：模型通过共享隐藏层或参数，使得不同任务能够从彼此的经验中受益。这种共享可以是硬共享（hard sharing），即所有任务共享相同的模型参数；也可以是软共享（soft sharing），即任务之间通过某种机制共享信息。</li>
+<li><strong>联合优化</strong>：多任务学习通常通过联合优化多个任务的损失函数来训练模型。损失函数通常是多个任务损失的加权和，权重可以根据任务的重要性进行调整。</li>
+</ul>
+<h3 id="多任务学习在广告推荐系统中的应用"><a href="#多任务学习在广告推荐系统中的应用" class="headerlink" title="多任务学习在广告推荐系统中的应用"></a>多任务学习在广告推荐系统中的应用</h3><h4 id="1-广告推荐系统中的多任务学习场景"><a href="#1-广告推荐系统中的多任务学习场景" class="headerlink" title="1. 广告推荐系统中的多任务学习场景"></a>1. <strong>广告推荐系统中的多任务学习场景</strong></h4><p>在广告推荐系统中，多任务学习可以应用于多个相关任务，例如：</p>
+<ul>
+<li><strong>点击率预测（CTR Prediction）</strong>：预测用户是否会点击某个广告。</li>
+<li><strong>转化率预测（CVR Prediction）</strong>：预测用户点击广告后是否会进行购买或其他转化行为。</li>
+<li><strong>曝光时长预测（Impression Duration Prediction）</strong>：预测用户对广告的关注时间。</li>
+<li><strong>用户兴趣建模</strong>：建模用户的长期和短期兴趣，以更好地推荐符合用户兴趣的广告。</li>
+</ul>
+<h4 id="2-多任务学习的优势"><a href="#2-多任务学习的优势" class="headerlink" title="2. 多任务学习的优势"></a>2. <strong>多任务学习的优势</strong></h4><ul>
+<li><strong>提升模型性能</strong>：通过同时学习多个任务，模型可以利用不同任务之间的相关性，提升每个任务的性能。例如，点击率和转化率之间存在相关性，联合学习可以更好地捕捉这种关系。</li>
+<li><strong>减少过拟合</strong>：多任务学习通过引入多个任务的约束，使得模型更加健壮，减少过拟合的风险。</li>
+<li><strong>提高资源利用效率</strong>：在资源有限的情况下，多任务学习可以更高效地利用数据和计算资源，同时优化多个任务。</li>
+</ul>
+<h4 id="3-多任务学习的实现方式"><a href="#3-多任务学习的实现方式" class="headerlink" title="3. 多任务学习的实现方式"></a>3. <strong>多任务学习的实现方式</strong></h4><ul>
+<li><strong>共享特征表示</strong>：在广告推荐系统中，用户和广告的特征通常可以共享。例如，用户的历史行为数据、广告的属性等特征可以同时用于点击率预测和转化率预测。</li>
+<li><strong>联合优化</strong>：通过联合优化多个任务的损失函数，模型可以同时学习多个任务。例如，损失函数可以是点击率预测损失和转化率预测损失的加权和。</li>
+<li><strong>任务特定的层</strong>：在模型架构中，可以为每个任务设计特定的层，以捕捉任务特定的信息。同时，通过共享隐藏层，模型可以利用任务之间的相关性。</li>
+</ul>
+<h4 id="4-实际应用案例"><a href="#4-实际应用案例" class="headerlink" title="4. 实际应用案例"></a>4. <strong>实际应用案例</strong></h4><ul>
+<li><strong>联合预测点击率和转化率</strong>：在广告推荐系统中，同时预测点击率和转化率可以提高广告投放的效率。通过多任务学习，模型可以更好地捕捉用户的行为模式，从而更准确地预测用户的点击和转化行为。</li>
+<li><strong>多目标优化</strong>：在广告推荐中，除了点击率和转化率，还可以考虑其他目标，如曝光时长、用户满意度等。通过多任务学习，模型可以同时优化多个目标，从而实现更全面的推荐效果。</li>
+</ul>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>多任务学习通过同时学习多个相关任务，利用任务之间的相关性，提升模型的性能和泛化能力。在广告推荐系统中，多任务学习可以应用于点击率预测、转化率预测等多个任务，通过共享特征表示和联合优化，提高推荐系统的准确性和效率。</p>
  
       <!-- reward -->
       
@@ -514,7 +1336,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2023-2024
+        2023-2025
         <i class="ri-heart-fill heart_icon"></i> LightDust
       </li>
     </ul>
