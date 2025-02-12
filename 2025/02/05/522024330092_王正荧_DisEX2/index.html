@@ -123,7 +123,7 @@
 <p>Raft算法是2014年论文《In Search of Understandable Consensus Algorithm》所提出的一种分布式算法。</p>
 <p>一系列分布式算法所要考虑的关键问题都是“一致性”，而 Raft 算法将一致性分解为多个子问题：Leader选举（Leader Election）、日志同步Log Replication）、安全性（Safety）、日志压缩（Log Compaction）、成员变更（Membership Change）等。</p>
 <h2 id="状态与状态转换"><a href="#状态与状态转换" class="headerlink" title="状态与状态转换"></a>状态与状态转换</h2><p>首先，Raft会将系统中的角色分为领导者（Leader）、跟从者（Follower）和候选人（Candidate）三个类型：</p>
-<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/3.jpg" alt="Leader与Follower"></p>
+<p><img src="/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/3.jpg" alt="Leader与Follower"></p>
 <ul>
 <li><p><strong>Leader</strong>：负责接受客户端请求，并向 Follower 同步请求日志，当日志同步到大多数节点上后，会告诉 Follower提交日志。<strong>系统在任意时刻最多只有一个Leader。</strong></p>
 </li>
@@ -133,7 +133,7 @@
 </li>
 </ul>
 <p>这三种角色之间通过选举Election来实现角色状态转换，原论文中给出的示意图如下图。</p>
-<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/v2-7f64a2df8f8817932ed047d35878bca9_1440w.jpg" alt="img"></p>
+<p><img src="/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/v2-7f64a2df8f8817932ed047d35878bca9_1440w.jpg" alt="img"></p>
 <p>具体是怎么实现的呢？</p>
 <h3 id="Follower："><a href="#Follower：" class="headerlink" title="Follower："></a>Follower：</h3><ul>
 <li><p>默认节点。</p>
@@ -183,7 +183,7 @@
 <li>如果遇到 Leader 故障，Followers 会重新发起选举出新的 Leader；</li>
 </ul>
 <p>那么，在本次实验中，我们如何实现这一系列内容呢？论文中提出的 API 如下图所示：</p>
-<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/raft-figure2.png" alt="raft-figure2"></p>
+<p><img src="/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/raft-figure2.png" alt="raft-figure2"></p>
 <h1 id="三、整个实验的实现"><a href="#三、整个实验的实现" class="headerlink" title="三、整个实验的实现"></a>三、整个实验的实现</h1><h3 id="三个角色功能的实现"><a href="#三个角色功能的实现" class="headerlink" title="三个角色功能的实现"></a>三个角色功能的实现</h3><p>原论文中已经给出了一系列我们在Raft结构体中需要准备的一系变量，包括currentTerm、voteFor、Log等一系列变量。每个变量具体作用我已列在注释中。</p>
 <p>除此之外，由于一个节点自己本身具有状态属性，所以还为其设定了状态 state 变量，用以表明其目前的角色。</p>
 <p>当节点参加选举时，需要统计其选票数目，所以还需要 votes 变量，用以确定其目前的选票数目。</p>
@@ -262,11 +262,11 @@
 
 <p>这就是整个代码的逻辑。</p>
 <p>Part 1 通过截图如下所示：</p>
-<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201160820389.png" alt="Pass Part1"></p>
+<p><img src="/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201160820389.png" alt="Pass Part1"></p>
 <p>Part 2 通过截图如下所示：</p>
-<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201154729594.png" alt="Pass Part2"></p>
+<p><img src="/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201154729594.png" alt="Pass Part2"></p>
 <p>Part 3 通过截图如下所示：</p>
-<p><img src="../../../Blog/source/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201155551150.png" alt="Pass Part3"></p>
+<p><img src="/images/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/image-20241201155551150.png" alt="Pass Part3"></p>
 <h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>这个实验难度比较大，但也是通过这个实验，我明白了Raft的原理，感觉还是特别有意思的。收获很大。</p>
  
       <!-- reward -->
@@ -346,9 +346,9 @@
   <nav class="article-nav">
     
     
-      <a href="/2025/02/05/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/" class="article-nav-link">
+      <a href="/2025/02/05/NJU%E7%BD%91%E5%AE%89%E6%9C%9F%E6%9C%AB/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">南京大学软件分析复习笔记</div>
+        <div class="article-nav-title">南京大学网络安全与检测技术复习笔记</div>
       </a>
     
   </nav>

@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">7.1k</span>
+            <span class="post-count">7k</span>
         </span>
     </span>
 
@@ -137,7 +137,7 @@
 <h3 id="三地址码（3-Address-Code-3AC）是什么，它的常用形式有哪些？"><a href="#三地址码（3-Address-Code-3AC）是什么，它的常用形式有哪些？" class="headerlink" title="三地址码（3-Address Code, 3AC）是什么，它的常用形式有哪些？"></a>三地址码（3-Address Code, 3AC）是什么，它的常用形式有哪些？</h3><p>三地址码的一个要求是，在一个指令的右边至多只有一个操作符。</p>
 <p>例如，对于<code>c = a + b + 3</code>这样的语句，3AC 需要引入一个中间变量来将其变成两个指令：<code>t1 = a + b</code>和<code>c = t1 + 3</code>。</p>
 <p>常见形式如下所示：</p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/Xnip2023-03-02_16-40-13.png" alt="Xnip2023-03-02_16-40-13"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/Xnip2023-03-02_16-40-13.png" alt="Xnip2023-03-02_16-40-13"></p>
 <h3 id="如何在-IR-的基础上-构建-BasicBlock"><a href="#如何在-IR-的基础上-构建-BasicBlock" class="headerlink" title="如何在 IR 的基础上 构建 BasicBlock"></a>如何在 IR 的基础上 构建 BasicBlock</h3><h4 id="控制流分析-Control-Flow-Graph"><a href="#控制流分析-Control-Flow-Graph" class="headerlink" title="控制流分析 Control Flow Graph"></a>控制流分析 Control Flow Graph</h4><p>控制流图（Control Flow Graph，CFG）是静态分析的基础结构，CFG的每个节点可以是一个3AC，也可以是一个基本块（Basic Block，BB）</p>
 <p>BB 指的是一个连续、最长的3AC序列，该序列具有以下特性：</p>
 <ul>
@@ -156,7 +156,7 @@
 <p><strong>简而言之：</strong></p>
 <p><strong>BB开头：第一个3AC / goto的目标 /goto的下一个语句</strong></p>
 <p><strong>BB结尾：goto语句 / goto的目标的上一个语句</strong></p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/Xnip2023-03-02_19-23-56.png" alt="Xnip2023-03-02_19-23-56"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/Xnip2023-03-02_19-23-56.png" alt="Xnip2023-03-02_19-23-56"></p>
 <h3 id="在基块的基础上构建控制流图（Control-Flow-Graph-CFG）"><a href="#在基块的基础上构建控制流图（Control-Flow-Graph-CFG）" class="headerlink" title="在基块的基础上构建控制流图（Control Flow Graph, CFG）"></a>在基块的基础上构建控制流图（Control Flow Graph, CFG）</h3><p>根据上面的方法，我们就可以构建CFG。特性如下：</p>
 <ul>
 <li>CFG的节点均为BB。</li>
@@ -168,20 +168,20 @@
 <h3 id="可达性（Reaching-Definitions）分析、活跃变量（Live-Variables）分析和可用表达式（Avaliable-Expressions）分析分别是什么含义？"><a href="#可达性（Reaching-Definitions）分析、活跃变量（Live-Variables）分析和可用表达式（Avaliable-Expressions）分析分别是什么含义？" class="headerlink" title="可达性（Reaching Definitions）分析、活跃变量（Live Variables）分析和可用表达式（Avaliable Expressions）分析分别是什么含义？"></a>可达性（Reaching Definitions）分析、活跃变量（Live Variables）分析和可用表达式（Avaliable Expressions）分析分别是什么含义？</h3><p>不同的数据流分析 有 不同的数据<strong>抽象表达</strong> 和 不同的<strong>安全近似策略</strong>，如 不同的 <strong>转换规则</strong> 和 <strong>控制流</strong>处理。</p>
 <h4 id="可达性分析-Reaching-Definitions-Analysis"><a href="#可达性分析-Reaching-Definitions-Analysis" class="headerlink" title="可达性分析 Reaching Definitions Analysis"></a>可达性分析 Reaching Definitions Analysis</h4><p>p处对变量v的定义在q可达：<strong>从p到q有一条路径，而且这条路径上没有其他对v的定义语句。</strong></p>
 <p>定义可达性分析可以用来检测源代码中的未定义变量。</p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20230306112148922.png" alt="image-20230306112148922"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20230306112148922.png" alt="image-20230306112148922"></p>
 <h4 id="活跃变量分析-Live-Variable-Analysis"><a href="#活跃变量分析-Live-Variable-Analysis" class="headerlink" title="活跃变量分析 Live Variable Analysis"></a>活跃变量分析 Live Variable Analysis</h4><p>变量v在p点是存活的，当且仅当 ：</p>
 <ol>
 <li>变量v在p点之后有被使用，</li>
 <li>从p点开始到被使用前，过程中不能出现变量v的重定义。</li>
 </ol>
 <p>存活变量分析可用于寄存器分配，如果寄存器满了，就需要替换掉不会被用到的变量。</p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/live-var-analysis-algorithm.png" alt="live-var-analysis-algorithm"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/live-var-analysis-algorithm.png" alt="live-var-analysis-algorithm"></p>
 <h4 id="可用表达式分析-Available-Expressions-Analysis"><a href="#可用表达式分析-Available-Expressions-Analysis" class="headerlink" title="可用表达式分析 Available Expressions Analysis"></a>可用表达式分析 Available Expressions Analysis</h4><p><code>x op y</code>表达式在p点是可用的，当且仅当：</p>
 <ol>
 <li>首先，从entry到 p 的路径要经过<code>x op y</code>的表达式计算。</li>
 <li>其次，最后一次使用<code>x op y</code>之后，p点之前，没有重定义操作数x、y。</li>
 </ol>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20230310170528845.png" alt="image-20230310170528845"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20230310170528845.png" alt="image-20230310170528845"></p>
 <h3 id="上述三种数据流分析（Data-Flow-Analysis）有哪些不同点？又有什么相似的地方？"><a href="#上述三种数据流分析（Data-Flow-Analysis）有哪些不同点？又有什么相似的地方？" class="headerlink" title="上述三种数据流分析（Data Flow Analysis）有哪些不同点？又有什么相似的地方？"></a>上述三种数据流分析（Data Flow Analysis）有哪些不同点？又有什么相似的地方？</h3><table>
 <thead>
 <tr>
@@ -235,10 +235,10 @@
 </tr>
 </tbody></table>
 <h3 id="如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？"><a href="#如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？" class="headerlink" title="如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？"></a>如何理解数据流分析的迭代算法？数据流分析的迭代算法为什么最后能够终止？</h3><p>数据流迭代算法，目的是通过迭代计算，最终得到一个稳定的不变的解。其本质是通过不断迭代，直到相邻两次迭代的<strong>k-元组</strong>值一样，算法结束。</p>
-<h3 id="从函数的角度理解迭代算法"><a href="#从函数的角度理解迭代算法" class="headerlink" title="从函数的角度理解迭代算法"></a>从函数的角度理解迭代算法</h3><p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/6349402-67adb219d8749c57.png" alt="img"></p>
+<h3 id="从函数的角度理解迭代算法"><a href="#从函数的角度理解迭代算法" class="headerlink" title="从函数的角度理解迭代算法"></a>从函数的角度理解迭代算法</h3><p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/6349402-67adb219d8749c57.png" alt="img"></p>
 <p>$X_i=X_{i+1}=F(X_i)$，我们称满足 X=F(X) 的X是一个不动点（fixed point），并称上述迭代算法到达了一个不动点。</p>
 <h3 id="格和全格的定义是什么？"><a href="#格和全格的定义是什么？" class="headerlink" title="格和全格的定义是什么？"></a>格和全格的定义是什么？</h3><p>偏序：二元关系    自反性    对称性    传递性</p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207204433313.png" alt="image-20241207204433313"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207204433313.png" alt="image-20241207204433313"></p>
 <p>上下界：</p>
 <p><strong>定义</strong>：给定偏序集(P, <img src="https://math.jianshu.com/math?formula=%5Csqsubseteq" alt="\sqsubseteq">)，且有P的子集S⊆P：</p>
 <ul>
@@ -246,8 +246,8 @@
 <li>∀<em>x</em>∈<em>S</em>, <em>l</em>⊑<em>x</em>, 其中<em>l</em>∈<em>P</em>，则l是S的下界</li>
 </ul>
 <p>最小上界 lub，最大下界 glb</p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207204549622.png" alt="image-20241207204549622"></p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207205340172.png" alt="image-20241207205340172"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207204549622.png" alt="image-20241207204549622"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241207205340172.png" alt="image-20241207205340172"></p>
 <p>格的定义：给定一个偏序集 (P,≼) ，∀ a,b∈P，如果a⌊⌋b和a⌈⌉b均存在，那么(P,≼) 称为格。</p>
 <p>偏序集中的<strong>任意两个元素</strong>构成的集合均<strong>存在最小上界和最大下界</strong>，那么该偏序集就是格。</p>
 <p><strong>格上的元素，都能找到其最大下界与最小上界</strong></p>
@@ -289,7 +289,7 @@
 <h3 id="迭代算法提供的解决方案与-MOP-相比而言精确度如何"><a href="#迭代算法提供的解决方案与-MOP-相比而言精确度如何" class="headerlink" title="迭代算法提供的解决方案与 MOP 相比而言精确度如何"></a>迭代算法提供的解决方案与 MOP 相比而言精确度如何</h3><p><strong>MOP准确性</strong>：有些路径不会被执行，所以不准确；若路径包含循环，或者路径爆炸，所以实操性不高，只能作为理论的一种衡量方式。</p>
 <p>Meet-Over-All-Paths（MOP）。</p>
 <p>我们定义<em>P</em>为从Entry到某个语句Si的某一条路径（可能还会有别的路径），转换函数FP是从Entry到Si经过的所有的转换函数（fS1, … ,fSi−1）构成的复合转换函数，那么有：</p>
-<p><img src="../images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241211221853066.png" alt="image-20241211221853066"></p>
+<p><img src="/images/NJU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/image-20241211221853066.png" alt="image-20241211221853066"></p>
 <p>MOP 在每条路径末尾计算数据流的值，然后将它们 join/meet起来，寻找它们的 lub / glb。</p>
 <p>MOP可能是不精确的。有些路径不会被执行，所以不准确；若路径包含循环，或者路径爆炸，所以实操性不高</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/6349402-e5ea51c1769af60f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
@@ -428,7 +428,6 @@
 <li>Whole-program 全程序：分析全程序的指向关系。</li>
 <li>Demand-driven 需求驱动：只分析影响特定域的指针的指向关系。</li>
 </ul>
-<p>作者：bsauce<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9d15edf2604e">https://www.jianshu.com/p/9d15edf2604e</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 <h3 id="指针分析的过程中具体都分析些什么"><a href="#指针分析的过程中具体都分析些什么" class="headerlink" title="指针分析的过程中具体都分析些什么"></a>指针分析的过程中具体都分析些什么</h3><p>哪些语句会影响指针指向，那就只分析这些语句。</p>
 <p><strong>Java指针类型</strong>：</p>
 <ol>
@@ -679,19 +678,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2025/02/05/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/" class="article-nav-link">
+      <a href="/2025/02/05/NJU%E7%BD%91%E5%AE%89%E6%9C%9F%E6%9C%AB/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            南京大学分布式系统第二次作业
+            南京大学网络安全与检测技术复习笔记
           
         </div>
       </a>
     
     
-      <a href="/2025/02/05/NJU%E7%BD%91%E5%AE%89%E6%9C%9F%E6%9C%AB/" class="article-nav-link">
+      <a href="/2024/09/14/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-DDFM/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">南京大学网络安全与检测技术复习笔记</div>
+        <div class="article-nav-title">论文阅读笔记-DDFM</div>
       </a>
     
   </nav>
