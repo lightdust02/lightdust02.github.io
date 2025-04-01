@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>知识点-深度学习 |  LightDust</title>
+      <title>研一课程笔记 |  LightDust</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-知识点-数据结构与算法"
+  id="post-研一课堂笔记"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  知识点-深度学习
+  研一课程笔记
 </h1>
  
 
@@ -72,19 +72,15 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="article-date">
-  <time datetime="2024-01-01T03:15:00.000Z" itemprop="datePublished">2024-01-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%B0%B1%E4%B8%9A/">就业</a>
-  </div>
-  
+      <a href="/2025/02/14/%E7%A0%94%E4%B8%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2025-02-14T09:35:00.000Z" itemprop="datePublished">2025-02-14</time>
+</a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.2k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -93,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">4 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -108,82 +104,82 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>数据结构与算法相关知识点。</p>
-<p>会一直持续更新。</p>
+  <p>研一对于一系列课程的记录笔记。</p>
 <span id="more"></span>
 
-<h2 id="1-时间复杂度中的O"><a href="#1-时间复杂度中的O" class="headerlink" title="1.时间复杂度中的O"></a>1.时间复杂度中的O</h2><p>O: 最坏情况下的时间复杂度</p>
-<h2 id="2-数据的逻辑结构"><a href="#2-数据的逻辑结构" class="headerlink" title="2.数据的逻辑结构"></a>2.数据的逻辑结构</h2><p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/image-20240926160435531.png" alt="数据逻辑结构"></p>
-<h2 id="3-数据的存储结构"><a href="#3-数据的存储结构" class="headerlink" title="3.数据的存储结构"></a>3.数据的存储结构</h2><p><strong>顺序存储</strong>：把逻辑上相邻的元素存储在物理位置上也相邻的存储单元中，元素之间的关系由存储单元的邻接关系来体现。</p>
-<p>优点：可以<strong>随机存取，快；存储密度大</strong></p>
-<p>缺点：<strong>删除，插入</strong>操作<strong>耗时</strong>在移动元素上，只能使用相邻的一整块存储单元，可能产生较多的<strong>外部碎片</strong></p>
-<p><strong>链式存储</strong>：不要求逻辑上相邻的元素在物理位置上也相邻，借助指示元素存储地址的指针来表示元素之间的逻辑关系。</p>
-<p>优点：<strong>删除，插入快，外部碎片少</strong>，能充分利用所有存储单元</p>
-<p>缺点：<strong>不能随机存取</strong></p>
-<p><strong>索引存储</strong>：在存储元素信息的同时，还建立附加的索引表。</p>
-<p><strong>散列存储</strong>：根据元素的关键字直接计算出该元素的存储地址，又称哈希(Hash) 存储。</p>
-<h2 id="4-头指针与头结点"><a href="#4-头指针与头结点" class="headerlink" title="4. 头指针与头结点"></a>4. 头指针与头结点</h2><p>头指针：<strong>指向第一个节点存储位置的指针</strong>，具有标识作用，头指针是链表的<strong>必要</strong>元素，无论链表是否为空，头指针都存在。</p>
-<p>头结点：<strong>放在第一个元素节点之前</strong>，<strong>便于</strong>在第一个元素节点之前进行<strong>插入和删除</strong>的操作。</p>
-<p>头结点<strong>不是</strong>链表的<strong>必须</strong>元素，可有可无，头结点的数据域也可以不存储任何信息。</p>
-<h2 id="5-查找单链表中倒数第K个结点"><a href="#5-查找单链表中倒数第K个结点" class="headerlink" title="5.查找单链表中倒数第K个结点"></a>5.查找单链表中倒数第K个结点</h2><ol>
-<li><p>建立两个指针：fast、slow</p>
-</li>
-<li><p>先让fast走k步</p>
-</li>
-<li><p>再让fast和slow一起走，直到fast走到末尾后一位，slow指向的就是倒数第k个节点</p>
-</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">listNode* <span class="title">get_kth_from_end</span><span class="params">(listNode *head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">listNode *fast = head; <span class="comment">// 先走的指针</span></span><br><span class="line">listNode *slow = head; <span class="comment">// 后走的指针</span></span><br><span class="line"><span class="keyword">while</span> (k--) fast = fast-&gt;next; <span class="comment">// 先让fast走k步</span></span><br><span class="line"><span class="keyword">while</span> (fast != <span class="literal">NULL</span>) &#123; <span class="comment">// 再让fast和slow一起走，直到fast走到末尾后一位</span></span><br><span class="line">slow = slow-&gt;next;</span><br><span class="line">fast = fast-&gt;next;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="6-单链表的头插法与尾插法"><a href="#6-单链表的头插法与尾插法" class="headerlink" title="6.单链表的头插法与尾插法"></a>6.单链表的头插法与尾插法</h2><p>头插法：在插入时，新的结点插入到当前链表的表头。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s-&gt;next=L-&gt;next;		</span><br><span class="line">L-&gt;next=s;				</span><br></pre></td></tr></table></figure>
-
-<p>尾插法：插入时，新的结点插入到当前链表的表尾，为此必须增加一个尾指针<code>r</code>，使其始终指向当前链表的尾结点。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r-&gt;next=s;			<span class="comment">//r的指针域指向s</span></span><br><span class="line">r=s;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="7-单链表逆序"><a href="#7-单链表逆序" class="headerlink" title="7.单链表逆序"></a>7.单链表逆序</h2><ol>
-<li><p>建立两个指针：p、q</p>
-</li>
-<li><p>p 用于遍历链表中的每个节点</p>
-</li>
-<li><p>q 用于头插法创建新的逆序链表</p>
-</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">reverse</span><span class="params">(listNode* head)</span> </span>&#123;</span><br><span class="line">listNode *p, *q;</span><br><span class="line">p = head-&gt;next;</span><br><span class="line">head-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">while</span> (p) &#123; <span class="comment">// p用于遍历每个节点</span></span><br><span class="line">q = p;</span><br><span class="line">p = p-&gt;next; <span class="comment">// 在该节点的next指针改变前更新p</span></span><br><span class="line">q-&gt;next = head-&gt;next; <span class="comment">// 类似头插法</span></span><br><span class="line">head-&gt;next = q; <span class="comment">// 类似头插法</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="8-判断链表有没有环"><a href="#8-判断链表有没有环" class="headerlink" title="8.判断链表有没有环"></a>8.判断链表有没有环</h2><p>快慢指针法：从头开始设置两个指针，快指针每次走2 步，慢指针每次走1 步。</p>
-<p>如果快指针先碰到尾，则无环。否则两个指针之后一定会重合，则有环。</p>
-<h2 id="9-栈与队列"><a href="#9-栈与队列" class="headerlink" title="9.栈与队列"></a>9.栈与队列</h2><p><strong>栈：</strong></p>
-<p>定义：只允许在<strong>表尾（栈顶）进行插入和删除</strong>的线性表，“<strong>先进后出</strong>”</p>
-<p>顺序栈：数组（存放栈中元素）、栈顶指针</p>
-<p>链栈：栈顶指针</p>
-<p><strong>队列：</strong></p>
-<p>定义：只允许在表的一端（<strong>队尾）插入</strong>，在另一端（<strong>队首）删除</strong>的线性表，“<strong>先进先出</strong>”</p>
-<p>顺序队列：数组（存放队列中元素）、头指针、尾指针</p>
-<p>链式队列：队首指针、队尾指针</p>
-<p>两个栈模拟一个队列：队列是先进先出，栈的是先进后出。同一组数据连续执行两次先进后出之后再出栈，就可以实现队列的先进先出。</p>
-<h2 id="10-区分循环队列是队空还是队满"><a href="#10-区分循环队列是队空还是队满" class="headerlink" title="10.区分循环队列是队空还是队满"></a>10.区分循环队列是队空还是队满</h2><p><strong>如何区分循环队列是队空还是队满</strong></p>
-<p>一般情况，队空和队满的判断条件都是Q.front == Q.rear</p>
-<p>front：指向第一个数</p>
-<p>rear：指向最后一个数的<strong>下一个</strong>位置，即将要入队的位置</p>
-<p>队空：Q.front == Q.rear</p>
-<p>队满：(Q.rear+1) % MaxSize == Q.front</p>
-<p>元素个数：(Q.rear-Q.front+MaxSize) % MaxSize</p>
-<p>怎么区分？</p>
-<p>方法一：<strong>牺牲一个单元</strong>（即最后一个单元不存数据）来区分队空和队满</p>
-<p>方法二：队列结构体中增加一个Q.size表示元素个数</p>
-<h2 id="11-栈在括号匹配中的算法思想"><a href="#11-栈在括号匹配中的算法思想" class="headerlink" title="11.栈在括号匹配中的算法思想"></a>11.栈在括号匹配中的算法思想</h2><p>设置一个空栈，顺序读入括号。</p>
-<p>若是左括号，则进栈</p>
-<p>若是右括号：</p>
-<p>​    若栈空，则匹配失败，右括号多余</p>
-<p>​    否则，弹出一个栈顶的左括号</p>
-<p>读完所有括号后若栈空，则表达式中括号匹配正确否则，匹配失败，左括号多余</p>
+<h1 id="研一上"><a href="#研一上" class="headerlink" title="研一上"></a>研一上</h1><h2 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h2><p>周四9-10节    仙2-122</p>
+<p>成绩考核：</p>
+<p>实验40%，不得抄袭    期末60%，闭卷</p>
+<p><a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/preface/">前言 | 静态分析 (cuijiacai.com)</a></p>
+<p>不点名，两位老师讲得很棒而且都很有人格魅力。但这门课整体难度略高，实验难度并不低。且到后面的知识点会越来越复杂，越来越不好理解。</p>
+<p>虽然编译原理不是这门课的前置课程，但是还是不建议没有学过编译原理的同学选这门课……</p>
+<h2 id="物联网技术导论"><a href="#物联网技术导论" class="headerlink" title="物联网技术导论"></a>物联网技术导论</h2><p>周一5-6节    仙2-122</p>
+<p>没有任何考试，通过project完成考核</p>
+<p>mooc 50%(有个project)    </p>
+<p>期末项目报告 50%</p>
+<p>不点名，老师讲得很风趣幽默，慕课很简单，两次报告的难度也不大，比较容易拿高分。</p>
+<h2 id="网络安全与检测技术"><a href="#网络安全与检测技术" class="headerlink" title="网络安全与检测技术"></a>网络安全与检测技术</h2><p>周一2-4    逸B-104</p>
+<p>平时分10%+作业30%+开卷测试45%+论文汇报15%</p>
+<p>不是每个同学都能参加论文汇报……？可能是写论文报告（</p>
+<p>作业包括手写作业，可迟交</p>
+<p>论文主题包括生成模型安全与大数据安全</p>
+<p><img src="/images/%E7%A0%94%E4%B8%80%E4%B8%8A%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/d51004fd5730c36ad79af001373aee4c.jpg" alt="作业1"></p>
+<p><img src="/images/%E7%A0%94%E4%B8%80%E4%B8%8A%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/bcdc90ba173528a6c1cb15acc2c0225d.jpg" alt="一道题目"></p>
+<p>不点名，期末考试很难，但是给分还可以。作业和论文汇报的难度也不大。</p>
+<p>但是老师好像25年要去软件学院了，这门课不知道还开不开……</p>
+<h2 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h2><p>周三5-6节    仙1-106</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41599380/article/details/122160367">NJU 2021fall 分布式系统复习总结_分布式操作系统具有较好的透明性和易用性,但没有对相互独立的计算机集合的操作处-CSDN博客</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675562739">https://zhuanlan.zhihu.com/p/675562739</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675357022">https://zhuanlan.zhihu.com/p/675357022</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675972352">https://zhuanlan.zhihu.com/p/675972352</a></p>
+<p>期末70%，闭卷+30%三次平时作业</p>
+<p><strong>最后一次课好好听，会有选择题</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ankur-anand/simple-go-rpc/blob/master/src/client/client.go">simple-go-rpc/src/client/client.go at master · ankur-anand/simple-go-rpc (github.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://geektutu.com/post/geerpc-day1.html">动手写RPC框架 - GeeRPC第一天 服务端与消息编码 | 极客兔兔 (geektutu.com)</a></p>
+<p>实验难度并不大，但是期末闭卷考试压力有点大……需要背的东西挺多……</p>
+<h2 id="新时代中国特色社会主义理论与实践"><a href="#新时代中国特色社会主义理论与实践" class="headerlink" title="新时代中国特色社会主义理论与实践"></a>新时代中国特色社会主义理论与实践</h2><p>周四7-8节    仙1-106    高原</p>
+<p>下课期间会要求签到，管的很松。</p>
+<p><strong>最后一堂课会有随堂开卷考试，务必要到！</strong>    </p>
+<h2 id="信息技术前沿与行业应用"><a href="#信息技术前沿与行业应用" class="headerlink" title="信息技术前沿与行业应用"></a>信息技术前沿与行业应用</h2><p>周五5-6节    仙2-207</p>
+<p>考勤20%    个人课程报告30%    小组研讨报告60%</p>
+<p>水漫金山。选就是了，但是小心老师突发奇想的点名。</p>
+<h2 id="软件度量"><a href="#软件度量" class="headerlink" title="软件度量"></a>软件度量</h2><p>周二3-4节    仙2-412</p>
+<p>到课 20%    练习 50%    大作业 30%</p>
+<p>会有点名，作业难度不大，大作业是复现自己领域的相关论文，推荐选这门课。</p>
+<h2 id="软件分析测试"><a href="#软件分析测试" class="headerlink" title="软件分析测试"></a>软件分析测试</h2><p>周二5-6节    仙2-419</p>
+<p>平时10%    论文阅读撰写审阅40%    软件分析测试项目50%。</p>
+<p>两次论文+一次ppt项目，难度不大，老师管得也很松，无点名。</p>
+<p>本人这学期去上课的次数可能连一半都没有，作业总用时可能也不到12h，但还是很幸运地没有被挂（</p>
+<p>​    </p>
+<h1 id="研一下"><a href="#研一下" class="headerlink" title="研一下"></a>研一下</h1><h2 id="工程伦理"><a href="#工程伦理" class="headerlink" title="工程伦理"></a>工程伦理</h2><p>周一7-8节    逸B-101</p>
+<p>不点名，但是事情很多</p>
+<p>5次平时小作业+两次报告+课程大作业<br>小作业：通论部分，每次课布置一个小作业，一周内交;</p>
+<p>两次报告：一次在通论部分，通过案例对工程的价值和风险进行分析；一次在分论部分，对科学发展和隐私保护进行研究和分析;</p>
+<p>课程大作业：可分组完成，从6个专题中选择一个主题或自己选定主题，需要形成初步分析、第一次报告、课堂讨论和答辩、第二次报告，数据真实、论点清晰、论据充分，并说明自己对工程伦理的意识发展和规范应用细节。</p>
+<p>课堂讨论与大作业：给出几个题目，分组选择进行研究，给出报告，课堂答辩。</p>
+<p>-专题1:国家治理现代化的大数据运用</p>
+<p>-专题2:自动驾驶研发、运用中的伦理问题</p>
+<p>-专题3:网瘾、游戏成瘾问题中的伦理分析</p>
+<p>-专题4:移动支付的风险和价值分析</p>
+<p>-专题5:人工智能开发和应用中的伦理分析</p>
+<p>-专题6:身份数据的使用和隐私保护</p>
+<h2 id="高级机器学习"><a href="#高级机器学习" class="headerlink" title="高级机器学习"></a>高级机器学习</h2><p>周二7-8节    仙2-122</p>
+<p>成绩构成：期末考试 50% + Assignment 1 25% + Assignment 2 25%，<strong>不点名</strong></p>
+<p><a target="_blank" rel="noopener" href="https://cs.nju.edu.cn/liyf/aml25/aml25.htm">Advanced Machine Learning Course</a></p>
+<h3 id="作业1：-ddl-03-28"><a href="#作业1：-ddl-03-28" class="headerlink" title="作业1：    ddl    03.28"></a>作业1：    ddl    03.28</h3><p>选择下列任一主题，收集并阅读至少六篇该主题的英文论文，然后用中文撰写报告。注意，你应该回顾所选领域的最新进展（例如，涉及的问题是什么？已经做了什么？将要做什么？），并在论文中给出自己的观点（为了完成一项好的工作，你可能需要阅读远不止六篇论文）。我们鼓励阅读使用前沿模型解决问题的论文。 </p>
+<p>增量学习    迁移学习    自监督学习    半监督学习    强化学习    集成学习    神经符号学习</p>
+<p>注意：只能选择上面列出的一个主题。</p>
+<h3 id="作业2：-ddl-05-09"><a href="#作业2：-ddl-05-09" class="headerlink" title="作业2：    ddl    05.09"></a>作业2：    ddl    05.09</h3><p>概您的工作包括： 1) 阅读任务描述并下载数据集 2) 实现算法并输出预测 3) 撰写报告 4) 提交您的工作</p>
+<p>助教的工作是评估您的工作。 以下是一些供您考虑的基准。 注意：独自完成您的工作！</p>
+<p>我们使用 Fashion-MNIST 数据集创建了一个弱监督图像分类任务。每幅图像为 28x28 像素，表示为 784 个像素值（范围从 0 到 255）的扁平数组。每个标签都是从 0 到 9 的整数值。在训练集中，保留 20% 的图像标签，而丢弃其余 80% 以作为未标记的训练数据。</p>
+<p>我们确保采样的平衡，具体细节如下： </p>
+<p>train_image_labeled.csv：带标签的图像总共包含 12,000 个样本，涵盖 10 个类，每个类有 1,200 张图像。</p>
+<p>train_label.csv：训练图像标签总共包含 12,000 个。 </p>
+<p>train_image_unlabeled.csv：经过打乱的未标记图像数据共包含 48,000 个样本，每个类别有 4,800 张未标记图像。您需要在算法中充分利用这些未标记数据。</p>
+<p>test_image.csv：测试数据共包含 10,000 张测试图像。</p>
+<h2 id="计算理论导引"><a href="#计算理论导引" class="headerlink" title="计算理论导引"></a>计算理论导引</h2><p>周三7-8节    仙2-122</p>
+<p><a target="_blank" rel="noopener" href="https://qiufengyu.gitbooks.io/introduction-to-models-of-computation/content/">课程简介 · Introduction to Models of Computation</a></p>
+<p>3个topic：递归函数，xxx，图灵machine，三个作业一次10%，期末70%，<strong>不会点名</strong>，不要怕考试<br>所有题解，期末题都有</p>
+<h2 id="自然辩证法概论"><a href="#自然辩证法概论" class="headerlink" title="自然辩证法概论"></a>自然辩证法概论</h2><p>1-8周，周五5-6节    仙2-122</p>
+<p>基本不点名，如果人来的太少了可能会点名；</p>
+<p>目前说的是期末开卷，他说回去再和其他老师商量看咋弄</p>
  
       <!-- reward -->
       
@@ -248,7 +244,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lightdust02.github.io/2025/02/14/%E7%A0%94%E4%B8%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -259,19 +255,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-python/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            知识点-python
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/01/01/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+      <a href="/2025/02/05/522024330092_%E7%8E%8B%E6%AD%A3%E8%8D%A7_DisEX2/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">知识点-深度学习</div>
+        <div class="article-nav-title">南京大学分布式系统第二次作业</div>
       </a>
     
   </nav>
