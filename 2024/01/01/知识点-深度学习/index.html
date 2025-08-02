@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">28.6k</span>
+            <span class="post-count">31.2k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">100 min</span>
+            <span class="post-count">109 min</span>
         </span>
     </span>
 </div>
@@ -112,8 +112,7 @@
 <p>会一直持续更新。</p>
 <span id="more"></span>
 
-
-
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zzh516451964zzh/article/details/126857351">人工智能算法面试大总结-总目录_人工智能面经-CSDN博客</a></p>
 <h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="1-正定矩阵和半正定矩阵判断"><a href="#1-正定矩阵和半正定矩阵判断" class="headerlink" title="1. 正定矩阵和半正定矩阵判断"></a><strong>1.</strong> 正定矩阵和半正定矩阵判断</h2><p>​    判断矩阵是不是正定矩阵首先需要看主对角线是不是全大于0，如果对角线不是全大于0或者全小于0则这个矩阵一定是不正定矩阵。</p>
 <p>​    如果主对角线全大于零，就观察其顺序主子式，如果顺序主子式全大于0，那么这个矩阵就是正定的，如果所有主子式全大于等于0，那么这个矩阵就是半正定的。</p>
 <h2 id="2-L0、L1和L2范数"><a href="#2-L0、L1和L2范数" class="headerlink" title="2. L0、L1和L2范数"></a><strong>2.</strong> L0、L1和L2范数</h2><p>​    L0范数是指向量中非0的元素的个数。</p>
@@ -426,7 +425,7 @@
 <p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/v2-6da4c9720ec88860295bd63e19344820_1440w.webp" alt="Transformer结构图"></p>
 <h2 id="Transformer相比于RNN-LSTM的优势？"><a href="#Transformer相比于RNN-LSTM的优势？" class="headerlink" title="Transformer相比于RNN/LSTM的优势？"></a>Transformer相比于RNN/LSTM的优势？</h2><p>1).  Transformer 不依赖于序列中的时间顺序，可以并行处理整个序列（Self-Attention机制）。在计算时，所有的位置都可以同时访问输入数据。这让它在大规模数据和训练时能够充分利用硬件资源，加快训练速度。而 RNN 和 LSTM 是顺序模型，它们按时间步长逐个处理输入，因此无法并行处理序列。这种顺序计算限制了其速度。</p>
 <p>2). 由于其自注意力（Self-Attention）机制，Transformer 可以直接通过注意力权重在序列中的任意位置建立联系，不论序列长度。通过全局的注意力机制，可以有效捕捉长距离依赖关系，可以同等关注远近的依赖。</p>
-<p>而虽然 LSTM 相较于普通 RNN 具有更好的处理长程依赖的能力，但它依然依赖于序列的时间步长。这意味着如果要捕捉长距离依赖关系，信息需要逐步传播，并可能会因为梯度消失问题导致远程依赖信息衰减。</p>
+<p>而虽然 LSTM 相较于普通 RNN 具有更好的处理长程依赖的能力，但它依然依赖于序列的时间步长。这意味着如果要捕捉长距离依赖关系，信息需要逐步传播，并可能会因为梯度消        失问题导致远程依赖信息衰减。</p>
 <h2 id="Transformer中为什么用LayerNorm而不是BatchNorm？"><a href="#Transformer中为什么用LayerNorm而不是BatchNorm？" class="headerlink" title="Transformer中为什么用LayerNorm而不是BatchNorm？"></a>Transformer中为什么用LayerNorm而不是BatchNorm？</h2><p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/norm.jpg" alt="两种Norm对比"></p>
 <p>1).  <strong>LayerNorm</strong> 是对 <strong>单个样本的每一层特征</strong> 进行归一化，而不是像 BatchNorm 那样需要对 <strong>同一批数据的多个样本</strong> 进行归一化。因此，LayerNorm 不依赖批量样本的大小，可以更好地处理 <strong>变长序列数据</strong>，如自然语言中的句子长度。在 Transformer 模型中，输入序列的长度可能会变化，LayerNorm 的计算对这种动态长度序列不敏感，因此在自然语言处理中更加适用。</p>
 <p>2). LayerNorm 则是对每个输入序列的特征进行独立归一化，不需要小批次的均值和方差，因此它可以用于 <strong>单个样本的在线推理</strong> 和 <strong>批次较小的任务</strong>。</p>
@@ -504,7 +503,7 @@
 <li>使用相对位置编码（如RoPE或ALiBi）作为段间编码，以捕捉长距离的相对位置信息。</li>
 </ul>
 <p>BiPE在实验中表现出色，尤其是在长序列建模和长度外推任务中，其性能优于传统的单层位置编码方法</p>
-<h2 id="9-RMSNorm"><a href="#9-RMSNorm" class="headerlink" title="9.RMSNorm"></a>9.RMSNorm</h2><p>RMSNorm（Root Mean Square Normalization）是一种归一化方法，主要用于深度学习中的神经网络，尤其是在处理长序列数据时表现出色。它通过计算输入向量的均方根（RMS）值来进行归一化，而不像LayerNorm那样计算均值和方差。</p>
+<h2 id="RMSNorm"><a href="#RMSNorm" class="headerlink" title="RMSNorm"></a>RMSNorm</h2><p>RMSNorm（Root Mean Square Normalization）是一种归一化方法，主要用于深度学习中的神经网络，尤其是在处理长序列数据时表现出色。它通过计算输入向量的均方根（RMS）值来进行归一化，而不像LayerNorm那样计算均值和方差。</p>
 <p>手撕 RMSNorm：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RMSNorm</span>(nn.Module):    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim: <span class="built_in">int</span>, eps: <span class="built_in">float</span> = <span class="number">1e-8</span></span>):        </span><br><span class="line">        <span class="built_in">super</span>().__init__()        </span><br><span class="line">        self.eps = eps        </span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(dim))  <span class="comment"># 可学习缩放参数</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x: torch.Tensor</span>) -&gt; torch.Tensor:        </span><br><span class="line">        <span class="comment"># 计算输入x的均方根（沿最后一个维度）        </span></span><br><span class="line">        rms = x.<span class="built_in">pow</span>(<span class="number">2</span>).mean(dim=-<span class="number">1</span>, keepdim=<span class="literal">True</span>).sqrt().add(self.eps)        </span><br><span class="line">        <span class="comment"># 归一化并应用缩放        </span></span><br><span class="line">        <span class="keyword">return</span> x / rms * self.gamma</span><br></pre></td></tr></table></figure>
 
@@ -557,15 +556,11 @@
 <li>当输入近似零中心（如激活函数后）时，RMSNorm效果与LayerNorm相当且更高效。</li>
 <li>若输入分布偏移较大，LayerNorm的均值中心化可能更稳定。</li>
 </ul>
-<h2 id="10-Mask相关"><a href="#10-Mask相关" class="headerlink" title="10.Mask相关"></a>10.Mask相关</h2><p><strong>12.Bert中有哪些地方用到了mask?</strong></p>
-<p>预训练任务Masked Language Model (MLM)、self-attention的计算、下游任务的decoder</p>
-<p><strong>13.预训练阶段的mask有什么用？</strong></p>
-<p>主要的思想是，把输入的其中一部分词汇随机掩盖，模型的目标是预测这些掩盖词汇。这种训练方式使得每个位置的BERT都能学习到其上下文的信息。</p>
-<p><strong>14.attention中的mask有什么用？</strong></p>
-<p>这是nlp任务很重要的问题，就是不同样本的seq_len不一样。但是由于输出的seq_len需要一致，所以需要通过补padding来对齐。而在attention中我们不希望一个token去注意到这些padding的部分，因为实际场景下它们是不存在的，所以attention中的mask就是来处理掉这些无效的信息的。</p>
+<h2 id="Mask相关"><a href="#Mask相关" class="headerlink" title="Mask相关"></a>Mask相关</h2><h3 id="Bert中有哪些地方用到了mask"><a href="#Bert中有哪些地方用到了mask" class="headerlink" title="Bert中有哪些地方用到了mask?"></a><strong>Bert中有哪些地方用到了mask?</strong></h3><p>预训练任务Masked Language Model (MLM)、self-attention的计算、下游任务的decoder</p>
+<h3 id="预训练阶段的mask有什么用？"><a href="#预训练阶段的mask有什么用？" class="headerlink" title="预训练阶段的mask有什么用？"></a><strong>预训练阶段的mask有什么用？</strong></h3><p>主要的思想是，把输入的其中一部分词汇随机掩盖，模型的目标是预测这些掩盖词汇。这种训练方式使得每个位置的BERT都能学习到其上下文的信息。</p>
+<h3 id="attention中的mask有什么用？"><a href="#attention中的mask有什么用？" class="headerlink" title="attention中的mask有什么用？"></a><strong>attention中的mask有什么用？</strong></h3><p>这是nlp任务很重要的问题，就是不同样本的seq_len不一样。但是由于输出的seq_len需要一致，所以需要通过补padding来对齐。而在attention中我们不希望一个token去注意到这些padding的部分，因为实际场景下它们是不存在的，所以attention中的mask就是来处理掉这些无效的信息的。</p>
 <p>具体来说就是在softmax前每个都设为-inf（或者实际的场景一个很小的数就可以），然后过完softmax后”padding”部分的权重就会接近于零，query token就不会分配注意力权重了。</p>
-<p><strong>15.decoder中的mask有什么用？</strong></p>
-<p>遮盖掉sequence中当前位置之后信息，以防止模型利用未来信息，也就是信息泄露。mask掉后模型的注意力只会集中在此前的序列上。</p>
+<h3 id="decoder中的mask有什么用？"><a href="#decoder中的mask有什么用？" class="headerlink" title="decoder中的mask有什么用？"></a><strong>decoder中的mask有什么用？</strong></h3><p>遮盖掉sequence中当前位置之后信息，以防止模型利用未来信息，也就是信息泄露。mask掉后模型的注意力只会集中在此前的序列上。</p>
 <h2 id="Bert的具体网络结构"><a href="#Bert的具体网络结构" class="headerlink" title="Bert的具体网络结构"></a>Bert的具体网络结构</h2><p>Bert，Bidirectional Encoder Representations from Transformers，是一种基于 Transformer 结构的语言模型，用来生成文本的深层双向表示。它<strong>彻底</strong>改变了自然语言处理（NLP）领域的研究方式。</p>
 <p>BERT 的核心创新之一是双向编码器。在传统的语言模型  LSTM 或 RNN中，模型会顺序从左到右或从右到左预测下一个词。而 BERT 是通过同时考虑句子的左右上下文来学习词汇的含义。这种双向性使得 BERT 能够理解一个词或子词在句子中的更深层次的语义关系。</p>
 <p><strong>Transformer架构</strong>：BERT 基于 Transformer 编码器，依赖于注意力机制（Self-Attention）来捕捉句子中不同词之间的关系。BERT 只使用 Transformer 的 Encoder 部分，它并不生成文本，而是通过理解现有文本进行分类或问答等任务。</p>
@@ -617,6 +612,9 @@
 <li><strong>下游任务使用</strong>：在下游任务中，如文本分类，会将**[CLS]标记对应的向量输入到一个全连接层（通常还会接一个Softmax层）进行分类**。假设分类任务是K个类别，全连接层的权重矩阵为$W∈R^{k×d}$，偏置为$b∈R^k$，其中d是[CLS]向量的维度。则分类得分$s=Wh_{cls}+b$，通过Softmax函数得到每个类别的概率分布，从而确定文本所属类别。</li>
 </ol>
 <h1 id="大模型相关"><a href="#大模型相关" class="headerlink" title="大模型相关"></a>大模型相关</h1><p><a target="_blank" rel="noopener" href="https://uvoialj5w0z.feishu.cn/docx/XtSCdc9J7obMAjxnhsgcoeQ2n0e">‬﻿‌‌﻿‍⁠﻿⁠⁠⁠‍‌﻿‬‬‌‬﻿‍‌‬DeepSeek速通：从V1到V3再到R1 - 飞书云文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.xlworkshop.ltd/post/deepseek-paper-note/">DeepSeek Paper Note</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/641109766">(71 封私信 / 54 条消息) 大模型LLM知识整理 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669926191">(71 封私信 / 54 条消息) 图解大模型计算加速系列：FlashAttention V1，从硬件到计算逻辑 - 知乎</a></p>
 <h2 id="对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同"><a href="#对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同" class="headerlink" title="对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同"></a>对比BERT和GPT的架构差异，并说明它们在预训练任务上的不同</h2><h3 id="架构差异"><a href="#架构差异" class="headerlink" title="架构差异"></a>架构差异</h3><ul>
 <li><strong>BERT</strong>：<ul>
 <li>BERT采用的是<strong>双向Transformer编码器架构</strong>，能够同时利用上下文信息。其输入经过WordPiece分词后，会添加特殊标记<code>[CLS]</code>和<code>[SEP]</code>，并使用Segment Embeddings区分不同句子。</li>
@@ -847,6 +845,14 @@
 <li><strong>动态调整缓存大小</strong>：根据实际需求动态调整KV Cache的大小，避免显存溢出。</li>
 </ul>
 <p>通过这些优化方法，KV Cache可以在保持高效推理的同时，更好地管理内存资源，适用于长文本生成等复杂任务。</p>
+<h2 id="DPO与PPO"><a href="#DPO与PPO" class="headerlink" title="DPO与PPO"></a>DPO与PPO</h2><p>DPO(Direct Preference Optimization，直接偏好优化)作为一种无奖励的RLHF方法，核心思想是直接基于偏好数据优化策略，而无需显式构建奖励函数。DPO的出现主要是为了简化训练流程，避免奖励建模过程中可能出现的偏差和过拟合问题。</p>
+<p>在原理部分，DPO<strong>将奖励函数表示为策略的对数形式</strong>，通过最大化策略在偏好数据上的似然性来优化模型。DPO通过比较不同响应的偏好关系，直接调整策略参数，使模型更倾向于生成符合人类偏好的响应。这种方法在数学上避免了奖励建模的复杂性，同时能够直接利用偏好数据进行优化。</p>
+<p>DPO的优势在于其简化了训练流程，减少了奖励建模带来的潜在问题。它能够直接从偏好数据中学习，避免了奖励函数设计的主观性和复杂性。此外，DPO在某些学术基准测试中表现出色，例如在代码生成任务中能够取得优异成绩。</p>
+<p>与DPO的原理不同，PPO(Proximal Policy Optimization)是一种基于奖励的RLHF方法，通过构建奖励模型来量化人类偏好，然后利用强化学习算法优化模型策略。PPO的出现是为了在优化过程中保持策略更新的稳定性，避免策略更新过大使模型性能下降。</p>
+<p>PPO首先需要构建一个奖励模型，该模型通过对人类标注的偏好数据进行学习，将人类偏好转化为可量化的奖励信号。然后，利用演员-评论家架构，PPO通过最大化累积奖励来优化策略。具体来说，PPO通过计算策略的优势函数，评估策略在不同状态下的表现，并根据优势函数更新策略参数。</p>
+<p>相比于DPO，PPO的优势在于其能够<strong>有效利用奖励信号进行策略优化</strong>，通过奖励模型捕捉复杂的偏好模式。它在实际应用中表现出色，例如ChatGPT的成功应用。此外，PPO通过<strong>引入截断参数和KL散度正则化，确保了策略更新的稳定性</strong>，避免了策略更新过大使模型性能下降的问题。</p>
+<p>除了PPO和DPO，其他研究如RRHF、PRO等也尝试通过不同的方式优化LLMs的对齐性能。例如，RRHF通过排名响应来对齐语言模型与人类反馈，无需显式奖励函数；PRO则通过偏好排序优化实现模型对齐。这些方法从不同角度出发，为提高LLMs对齐性能提供了多样化的解决方案。</p>
+<p>对于DPO，该论文通过理论分析揭示了DPO可能存在的根本问题。具体而言，DPO可能会找到有偏的解，这些解可能会利用分布外（out-of-distribution，OOD）的响应，导致模型行为不可预测。具体来说，DPO的优化目标可能使模型倾向于生成不在偏好数据集分布中的响应，而这些响应的质量无法得到保证。例如，在一个简单的无状态场景中，DPO可能生成一个策略，该策略对某些动作赋予较高概率，而这些动作并未在偏好数据集中得到充分覆盖。</p>
 <h2 id="RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案"><a href="#RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案" class="headerlink" title="RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案?"></a>RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案?</h2><h3 id="PPO在RLHF中的问题"><a href="#PPO在RLHF中的问题" class="headerlink" title="PPO在RLHF中的问题"></a>PPO在RLHF中的问题</h3><ol>
 <li><strong>复杂度高</strong>：<ul>
 <li>PPO在RLHF中需要维护多个模型，包括策略模型（Actor）、奖励模型（Reward Model）、参考模型（Reference Model）和评价模型（Critic），这使得整个训练过程复杂且内存占用大。</li>
@@ -888,6 +894,114 @@
 </li>
 </ol>
 <h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>PPO在RLHF中虽然有效，但存在复杂度高、训练效率低和稳定性问题。为了克服这些挑战，研究者们提出了多种替代方案和改进方法，如DPO及其变种、RLOO等。这些方法通过简化训练过程、减少内存占用和提高训练效率，为大规模语言模型的对齐提供了更高效和稳定的解决方案</p>
+<h2 id="常见大语言模型架构与原理"><a href="#常见大语言模型架构与原理" class="headerlink" title="常见大语言模型架构与原理"></a>常见大语言模型架构与原理</h2><p>以下是常见开源大模型的架构与原理：</p>
+<h3 id="一、基于Transformer架构的通用模型"><a href="#一、基于Transformer架构的通用模型" class="headerlink" title="一、基于Transformer架构的通用模型"></a>一、<strong>基于Transformer架构的通用模型</strong></h3><h4 id="1-BERT（Bidirectional-Encoder-Representations-from-Transformers）"><a href="#1-BERT（Bidirectional-Encoder-Representations-from-Transformers）" class="headerlink" title="1. BERT（Bidirectional Encoder Representations from Transformers）"></a>1. <strong>BERT（Bidirectional Encoder Representations from Transformers）</strong></h4><ul>
+<li><strong>架构</strong>：<br>纯编码器结构，由多层Transformer编码器堆叠而成（通常为12-24层）。每层包含自注意力机制和前馈神经网络。自注意力机制采用双向上下文建模，即每个词可同时关注左右两侧的上下文信息110。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>预训练任务</strong>：<ol>
+<li><strong>掩码语言模型（MLM）</strong>：随机遮盖输入中15%的词汇，模型需预测被遮盖的词（例如输入“I [MASK] a student”，预测“am”）。</li>
+<li><strong>下一句预测（NSP）</strong>：判断两个句子是否为连续段落，增强模型对句子间关系的理解110。</li>
+</ol>
+</li>
+<li><strong>应用限制</strong>：因编码器无法生成序列，BERT在文本生成任务中表现较弱，主要用于NLU任务（如文本分类、实体识别）110。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-GPT（Generative-Pre-trained-Transformer）"><a href="#2-GPT（Generative-Pre-trained-Transformer）" class="headerlink" title="2. GPT（Generative Pre-trained Transformer）"></a>2. <strong>GPT（Generative Pre-trained Transformer）</strong></h4><ul>
+<li><strong>架构</strong>：<br>纯解码器结构，使用单向自注意力（仅上文可见），层数随版本增加（GPT-3达96层）。采用自回归生成机制，逐词生成输出110。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>预训练任务</strong>：通过最大化序列概率预测下一个词（如输入“The cat sat”，预测“on”）。</li>
+<li><strong>关键技术</strong>：<ol>
+<li><strong>位置编码</strong>：通过可学习参数或正弦函数嵌入词序信息，弥补Transformer的非时序性。</li>
+<li><strong>缩放点积注意力</strong>：引入多头注意力（如GPT-3每层96头），增强对不同语义子空间的学习12。</li>
+</ol>
+</li>
+<li><strong>优势与局限</strong>：生成连贯性强，但无法利用下文信息；GPT-3通过1750亿参数实现零样本学习，但对算力需求极高110。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-T5（Text-to-Text-Transfer-Transformer）"><a href="#3-T5（Text-to-Text-Transfer-Transformer）" class="headerlink" title="3. T5（Text-to-Text Transfer Transformer）"></a>3. <strong>T5（Text-to-Text Transfer Transformer）</strong></h4><ul>
+<li><strong>架构</strong>：<br>编码器-解码器全尺寸Transformer，编码器处理输入，解码器生成输出。采用相对位置编码，支持长序列处理110。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>统一任务框架</strong>：将各类NLP任务转换为文本到文本格式（如翻译任务输入“translate English to German: Hello”，输出“Hallo”）。</li>
+<li><strong>预训练策略</strong>：使用“填空式”任务（Span Corruption），随机遮盖连续文本片段，模型需重构完整文本。例如输入“Thank you <X> me to your party <Y> week”，需预测“<X> for inviting <Y> last”110。</Y></X></Y></X></li>
+</ul>
+</li>
+</ul>
+<h4 id="4-GLM（General-Language-Model）"><a href="#4-GLM（General-Language-Model）" class="headerlink" title="4. GLM（General Language Model）"></a>4. <strong>GLM（General Language Model）</strong></h4><ul>
+<li><strong>架构</strong>：<br>混合自编码与自回归机制，支持双向注意力（编码阶段）和单向生成（解码阶段）。采用2D位置编码，区分被遮盖词的位置和生成顺序110。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>自回归填空任务</strong>：随机遮盖文本片段（如“123_56”遮盖“4”），将遮盖内容移至末尾，按顺序生成（如输入“12356 [MASK]”，生成“[START]4[END]”）。</li>
+<li><strong>优势</strong>：兼具上下文理解（类似BERT）和生成能力（类似GPT），在长文本问答和生成任务中表现突出110。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="二、国产开源大模型"><a href="#二、国产开源大模型" class="headerlink" title="二、国产开源大模型"></a>二、<strong>国产开源大模型</strong></h3><h4 id="1-DeepSeek系列"><a href="#1-DeepSeek系列" class="headerlink" title="1. DeepSeek系列"></a>1. <strong>DeepSeek系列</strong></h4><ul>
+<li><strong>架构</strong>：<br>基于Transformer改进，引入稀疏注意力机制（如局部窗口注意力），支持超长上下文（最高40万汉字）。参数规模覆盖1.3B至33B，训练数据包含87%代码和13%自然语言310。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>强化学习优化</strong>：在代码生成任务中，使用人类反馈强化学习（RLHF）优化输出逻辑性。</li>
+<li><strong>开源策略</strong>：全栈开源（数据生成代码、训练框架、模型权重），支持消费级显卡部署310。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-通义千问（Qwen系列）"><a href="#2-通义千问（Qwen系列）" class="headerlink" title="2. 通义千问（Qwen系列）"></a>2. <strong>通义千问（Qwen系列）</strong></h4><ul>
+<li><strong>架构</strong>：<br>多模态Transformer，集成文本、图像、音频编码器。Qwen-72B采用分组查询注意力（GQA），减少显存占用310。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>混合模态预训练</strong>：使用对齐的图文对和语音文本对，学习跨模态表示。</li>
+<li><strong>轻量化设计</strong>：通过知识蒸馏（如Qwen-1.8B由Qwen-72B蒸馏而来），在低资源设备上实现高效推理310。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-CodeGeeX"><a href="#3-CodeGeeX" class="headerlink" title="3. CodeGeeX"></a>3. <strong>CodeGeeX</strong></h4><ul>
+<li><strong>架构</strong>：<br>基于GPT架构的代码专用模型，支持20+编程语言。采用代码语法树嵌入，增强代码结构理解17。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>多任务训练</strong>：联合训练代码补全、代码翻译（如Python转Java）、文档生成任务。</li>
+<li><strong>IDE集成</strong>：通过“Ask CodeGeeX”功能，开发者可在编码时实时问答，结合上下文生成代码片段17。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="三、国际主流开源模型"><a href="#三、国际主流开源模型" class="headerlink" title="三、国际主流开源模型"></a>三、<strong>国际主流开源模型</strong></h3><h4 id="1-LLaMA系列（Meta）"><a href="#1-LLaMA系列（Meta）" class="headerlink" title="1. LLaMA系列（Meta）"></a>1. <strong>LLaMA系列（Meta）</strong></h4><ul>
+<li><strong>架构</strong>：<br>类GPT的解码器结构，采用RMSNorm替代LayerNorm，使用SwiGLU激活函数提升非线性能力。LLaMA-2-70B参数量达700亿，训练数据2T tokens109。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>高效训练</strong>：使用因果掩码（Causal Mask）确保自回归生成，结合旋转位置编码（RoPE）增强长程依赖捕捉。</li>
+<li><strong>开源策略</strong>：开放模型权重但限制商用，通过社区微调（如Alpaca、Vicuna）扩展应用场景109。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-Falcon"><a href="#2-Falcon" class="headerlink" title="2. Falcon"></a>2. <strong>Falcon</strong></h4><ul>
+<li><strong>架构</strong>：<br>解码器结构，采用并行注意力层（Parallel Attention）减少计算延迟。Falcon-180B参数量达1800亿，训练数据3.5T tokens10。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>数据优化</strong>：使用RefinedWeb数据集，去重并过滤低质量网页内容，提升训练效率。</li>
+<li><strong>多查询注意力（MQA）</strong>：共享键值投影矩阵，降低显存占用30%10。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-BLOOM"><a href="#3-BLOOM" class="headerlink" title="3. BLOOM"></a>3. <strong>BLOOM</strong></h4><ul>
+<li><strong>架构</strong>：<br>解码器结构，参数量176B，训练数据涵盖46种语言。采用ALiBi位置编码（Attention with Linear Biases），无需显式位置嵌入10。</li>
+<li><strong>原理</strong>：<ul>
+<li><strong>多语言支持</strong>：通过词表扩展（25万token）覆盖罕见语言字符，平衡语种分布避免英语主导。</li>
+<li><strong>可持续训练</strong>：使用绿色算力（核能供电数据中心），减少碳足迹10。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="四、技术原理共性"><a href="#四、技术原理共性" class="headerlink" title="四、技术原理共性"></a>四、<strong>技术原理共性</strong></h3><ol>
+<li><strong>自注意力机制</strong>：通过计算词间关联权重动态捕捉上下文依赖，替代RNN的序列处理，实现并行计算12。</li>
+<li><strong>位置编码</strong>：<ul>
+<li><strong>绝对编码</strong>：BERT使用可学习参数，GPT-3使用正弦函数。</li>
+<li><strong>相对编码</strong>：T5采用偏移量编码，增强长文本处理能力110。</li>
+</ul>
+</li>
+<li><strong>模型缩放定律（Scaling Laws）</strong>：<br>性能随参数规模、数据量、算力呈幂律提升，如GPT-3验证了“大模型涌现能力”12。</li>
+<li><strong>分布式训练技术</strong>：<ul>
+<li><strong>数据并行</strong>：分割数据至多GPU。</li>
+<li><strong>模型并行</strong>：如Megatron-LM将层内矩阵分块计算。</li>
+<li><strong>混合精度训练</strong>：FP16存储权重，FP32更新梯度，兼顾速度与精度210。</li>
+</ul>
+</li>
+</ol>
 <h2 id="LLaMA在Transformer的Decoder上做了哪些改进？"><a href="#LLaMA在Transformer的Decoder上做了哪些改进？" class="headerlink" title="LLaMA在Transformer的Decoder上做了哪些改进？"></a>LLaMA在Transformer的Decoder上做了哪些改进？</h2><p><strong>1. 归一化层改进</strong></p>
 <ul>
 <li><strong>使用RMSNorm</strong>：<strong>将传统的LayerNorm改为RMSNorm（Root Mean Square Layer Normalization）。</strong>RMSNorm不需要计算均值和方差，减少了计算量，并且在面对可能存在的异常值导致的均值剧烈变化时，能够使表示不那么容易受到影响，从而避免生成损坏的输出和内部协变量偏移。</li>
@@ -898,10 +1012,6 @@
 <p><strong>4. 上下文长度扩展</strong>：<strong>LLaMA2将上下文长度由LLaMA1的2048升级到4096，LLaMA3进一步增加到8192</strong>，使模型能够理解和生成更长的文本，更好地处理长对话、长篇文章等复杂文本任务，提升了模型对长序列信息的处理能力。</p>
 <p><strong>5. 注意力机制改进</strong>：<strong>LLaMA2的34B和70B模型以及LLaMA3所有模型采用了分组查询注意力（GQA）</strong>。通过将查询向量分组，并行计算注意力，在不降低模型性能的前提下，减少了计算量和内存占用，提高了模型的推理效率。</p>
 <p><strong>6. 增加KV Cache机制</strong>：<strong>在计算注意力时引入了KV Cache机制，缓存之前计算过的键值对，避免重复计算</strong>，加速了生成过程，特别是在生成较长文本时，能显著提高生成速度和效率。</p>
-<ol start="3">
-<li></li>
-</ol>
-<p>13.</p>
 <h1 id="DDPM："><a href="#DDPM：" class="headerlink" title="DDPM："></a>DDPM：</h1><h2 id="简述DDPM的算法流程："><a href="#简述DDPM的算法流程：" class="headerlink" title="简述DDPM的算法流程："></a>简述DDPM的算法流程：</h2><p>初始化：从带噪声的图像开始。</p>
 <p>正向扩散：逐步向数据添加高斯噪声，直到数据完全转化为无结构的噪声。</p>
 <p>反向去噪：通过模型预测并逐渐去掉每一步加入的噪声，还原得到无噪声的图像。</p>
@@ -1164,6 +1274,7 @@
 <li>此外，可能会使用梯度累积（Gradient Accumulation）来模拟更大的批量大小，从而提高训练稳定性。</li>
 </ul>
 </li>
+<li></li>
 </ul>
 <h2 id="P-tuning"><a href="#P-tuning" class="headerlink" title="P-tuning"></a>P-tuning</h2><p>P-Tuning是一种用于大模型微调的技术，旨在通过插入可训练的“提示”（Prompt）来引导模型生成特定任务的输出，而无需更新整个模型的权重。</p>
 <p><strong>原理</strong>:</p>
