@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">31.2k</span>
+            <span class="post-count">31.5k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">109 min</span>
+            <span class="post-count">110 min</span>
         </span>
     </span>
 </div>
@@ -115,10 +115,10 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zzh516451964zzh/article/details/126857351">人工智能算法面试大总结-总目录_人工智能面经-CSDN博客</a></p>
 <h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="1-正定矩阵和半正定矩阵判断"><a href="#1-正定矩阵和半正定矩阵判断" class="headerlink" title="1. 正定矩阵和半正定矩阵判断"></a><strong>1.</strong> 正定矩阵和半正定矩阵判断</h2><p>​    判断矩阵是不是正定矩阵首先需要看主对角线是不是全大于0，如果对角线不是全大于0或者全小于0则这个矩阵一定是不正定矩阵。</p>
 <p>​    如果主对角线全大于零，就观察其顺序主子式，如果顺序主子式全大于0，那么这个矩阵就是正定的，如果所有主子式全大于等于0，那么这个矩阵就是半正定的。</p>
-<h2 id="2-L0、L1和L2范数"><a href="#2-L0、L1和L2范数" class="headerlink" title="2. L0、L1和L2范数"></a><strong>2.</strong> L0、L1和L2范数</h2><p>​    L0范数是指向量中非0的元素的个数。</p>
-<p>​    L1范数是指向量中各个元素绝对值之和。其作用也是可以提高模型参数的稀疏性，效果没有L0范数好，但是更容易求解，更常用。</p>
-<p>​    L2范数是指向量各元素的平方和然后求平方根。其作用是减小模型所有参数大小，可以防止模型过拟合，也很常用。</p>
-<p>​    除了L1,L2范数之外，L1，L2损失函数也很常见。</p>
+<h2 id="2-L0、L1和L2范数"><a href="#2-L0、L1和L2范数" class="headerlink" title="2. L0、L1和L2范数"></a><strong>2.</strong> L0、L1和L2范数</h2><p>L0范数是指向量中非0的元素的个数。</p>
+<p>L1范数是指向量中各个元素绝对值之和。其作用也是可以提高模型参数的稀疏性，效果没有L0范数好，但是更容易求解，更常用。</p>
+<p>L2范数是指向量各元素的平方和然后求平方根。其作用是减小模型所有参数大小，可以防止模型过拟合，也很常用。</p>
+<p>除了L1,L2范数之外，L1，L2损失函数也很常见。</p>
 <p>L1 损失函数也叫平均绝对值误差（MAE）</p>
 <p>优点：对异常的离群点有更好的鲁棒性</p>
 <p>缺点：导数不连续，导致求解困难。</p>
@@ -130,9 +130,7 @@
 <p>除此之外，还有L1正则化与L2正则化，我们在下面提到……。</p>
 <h2 id="3-特征值和特征向量"><a href="#3-特征值和特征向量" class="headerlink" title="**3.**特征值和特征向量"></a>**3.**特征值和特征向量</h2><p>​    如果把矩阵看作是运动，那么特征值就是运动的速度，特征向量就是运动的方向。</p>
 <p>​    特征向量在一个矩阵的作用下作伸缩运动，伸缩的幅度由特征值确定。特征值大于1，所有属于此特征值的特征向量变长；特征值大于0小于1，特征向量缩短；特征值小于0，特征向量缩过了界，反方向到原点那边去了。 </p>
-<h2 id="4-条件概率和贝叶斯公式"><a href="#4-条件概率和贝叶斯公式" class="headerlink" title="4.条件概率和贝叶斯公式"></a>4.条件概率和贝叶斯公式</h2><p>条件概率描述的就是在给定事件B发生的情况下，事件A发生的概率，我们把它记作P(A|B)。一般说到条件概率概念的时候，事件A和事件B都是同一实验条件下的不同的结果集合，事件A和事件B一般是有交集的，如果A和B互斥，则条件概率为0。</p>
-<p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/bys.png" alt="img"> </p>
-<p>贝叶斯公式就是对于一个已知事件B发生了，通过考虑到所有的可能情况，探究某一原因导致这一结果发生的概率。贝叶斯公式全盘考虑了这一原因占总原因的比例。</p>
+<h2 id="4-条件概率和贝叶斯公式"><a href="#4-条件概率和贝叶斯公式" class="headerlink" title="4.条件概率和贝叶斯公式"></a>4.条件概率和贝叶斯公式</h2><p>条件概率描述的就是在给定事件B发生的情况下，事件A发生的概率，我们把它记作P(A|B)。一般说到条件概率概念的时候，事件A和事件B都是同一实验条件下的不同的结果集合，事件A和事件B一般是有交集的，如果A和B互斥，则条件概率为0。<br>$$<br>P(A|B) = \frac{P(B|A)P(A)}{P(B)}<br>$$<br>贝叶斯公式就是对于一个已知事件B发生了，通过考虑到所有的可能情况，探究某一原因导致这一结果发生的概率。贝叶斯公式全盘考虑了这一原因占总原因的比例。</p>
 <p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%B4%9D%E5%8F%B6%E6%96%AF&spm=1001.2101.3001.7020">贝叶斯</a>定理，通过已知的概率计算未知的概率。贝叶斯公式是由结果去反推原因条件，计算后验概率。贝叶斯：条件概率乘先验概率除以全概率得到后验概率。</p>
 <h2 id="5-高斯分布和拉普拉斯分布以及正态分布"><a href="#5-高斯分布和拉普拉斯分布以及正态分布" class="headerlink" title="5. 高斯分布和拉普拉斯分布以及正态分布"></a><strong>5.</strong> 高斯分布和拉普拉斯分布以及正态分布</h2><p>由中心极限定理知，很多独立随机变量均近似服从正态分布，所以现实中很多复杂系统都可以被建模成正态分布的噪声。因此即使在缺乏实数上分布的先验知识，默认选择高斯分布总是合适的。</p>
 <p>拉普拉斯分布是一种连续的概率分布，出现极端大的值的概率，要远远大于正态分布。</p>
@@ -242,10 +240,10 @@
 <ol>
 <li><p>减少训练时间的同时所需内存容量增加</p>
 </li>
-<li><p>大的batchsize可提高稳定性，使得模型训练曲线会更加平滑。在微调的时候，大的batchsize可能会取得更好的结果。但同时可能导致模型泛化能力下降，每次更新参数都是相同的样本，下降方向基本确定，导致模型的泛化性能下降。</p>
+<li><p>大的 batch_size 可提高稳定性，使得模型训练曲线会更加平滑。在微调的时候，大的 batch_size 可能会取得更好的结果。但同时可能导致模型泛化能力下降，每次更新参数都是相同的样本，下降方向基本确定，导致模型的泛化性能下降。</p>
 </li>
 </ol>
-<p>​    应当选择⼀个适中的batch_Size 。当适当增加batch_size值时，内存利⽤率提⾼了，跑完⼀次 epoch（全数据集）所需的迭代次数减少，对于相同数据量的处理速度进⼀步加快。 而且在⼀定范围内，⼀般来说 Batch_Size 越⼤，其确定的下降⽅向越准，引起训练震荡越⼩。 但也不能盲目增大，否则虽然 内存利⽤率提⾼了，但是内存容量可能撑不住了。跑完⼀次 epoch（全数据集）所需的迭代次数减少，要想达到相同的精度，其所花费的时间⼤⼤增加了，从⽽对参数的修正也就显得更加缓慢。</p>
+<p>​    应当选择一个适中的batch_size 。当适当增加batch_size值时，内存利用率提高了，跑完⼀次 epoch（全数据集）所需的迭代次数减少，对于相同数据量的处理速度进⼀步加快。 而且在⼀定范围内，⼀般来说 Batch_size 越大，其确定的下降方向越准，引起训练震荡越小。 但也不能盲目增大，否则虽然内存利用率提高了，但是内存容量可能撑不住了。跑完一次 epoch（全数据集）所需的迭代次数减少，要想达到相同的精度，其所花费的时间大大增加了，从而对参数的修正也就显得更加缓慢。</p>
 <h2 id="13-解决过拟合与欠拟合问题"><a href="#13-解决过拟合与欠拟合问题" class="headerlink" title="13.解决过拟合与欠拟合问题"></a>13.解决过拟合与欠拟合问题</h2><p>(1) 解决欠拟合问题：</p>
 <ol>
 <li><p><strong>模型复杂化，为模型增加更多的特征，添加其他特征项：</strong>有时候特征项不够会导致模型欠拟合</p>
@@ -611,7 +609,7 @@
 <li><strong>获取特征向量</strong>：经过BERT模型的多层Transformer编码器的计算后，会得到每个标记位置对应的输出向量。其中，**[CLS]标记对应的输出向量就被作为整个输入文本的特征向量**。例如，BERT模型有12层Transformer编码器，最后一层输出的[CLS]标记对应的向量 就包含了整个文本的综合语义信息。</li>
 <li><strong>下游任务使用</strong>：在下游任务中，如文本分类，会将**[CLS]标记对应的向量输入到一个全连接层（通常还会接一个Softmax层）进行分类**。假设分类任务是K个类别，全连接层的权重矩阵为$W∈R^{k×d}$，偏置为$b∈R^k$，其中d是[CLS]向量的维度。则分类得分$s=Wh_{cls}+b$，通过Softmax函数得到每个类别的概率分布，从而确定文本所属类别。</li>
 </ol>
-<h1 id="大模型相关"><a href="#大模型相关" class="headerlink" title="大模型相关"></a>大模型相关</h1><p><a target="_blank" rel="noopener" href="https://uvoialj5w0z.feishu.cn/docx/XtSCdc9J7obMAjxnhsgcoeQ2n0e">‬﻿‌‌﻿‍⁠﻿⁠⁠⁠‍‌﻿‬‬‌‬﻿‍‌‬DeepSeek速通：从V1到V3再到R1 - 飞书云文档</a></p>
+<h1 id="大模型"><a href="#大模型" class="headerlink" title="大模型"></a>大模型</h1><p><a target="_blank" rel="noopener" href="https://uvoialj5w0z.feishu.cn/docx/XtSCdc9J7obMAjxnhsgcoeQ2n0e">‬﻿‌‌﻿‍⁠﻿⁠⁠⁠‍‌﻿‬‬‌‬﻿‍‌‬DeepSeek速通：从V1到V3再到R1 - 飞书云文档</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.xlworkshop.ltd/post/deepseek-paper-note/">DeepSeek Paper Note</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/641109766">(71 封私信 / 54 条消息) 大模型LLM知识整理 - 知乎</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669926191">(71 封私信 / 54 条消息) 图解大模型计算加速系列：FlashAttention V1，从硬件到计算逻辑 - 知乎</a></p>
@@ -853,7 +851,7 @@
 <p>相比于DPO，PPO的优势在于其能够<strong>有效利用奖励信号进行策略优化</strong>，通过奖励模型捕捉复杂的偏好模式。它在实际应用中表现出色，例如ChatGPT的成功应用。此外，PPO通过<strong>引入截断参数和KL散度正则化，确保了策略更新的稳定性</strong>，避免了策略更新过大使模型性能下降的问题。</p>
 <p>除了PPO和DPO，其他研究如RRHF、PRO等也尝试通过不同的方式优化LLMs的对齐性能。例如，RRHF通过排名响应来对齐语言模型与人类反馈，无需显式奖励函数；PRO则通过偏好排序优化实现模型对齐。这些方法从不同角度出发，为提高LLMs对齐性能提供了多样化的解决方案。</p>
 <p>对于DPO，该论文通过理论分析揭示了DPO可能存在的根本问题。具体而言，DPO可能会找到有偏的解，这些解可能会利用分布外（out-of-distribution，OOD）的响应，导致模型行为不可预测。具体来说，DPO的优化目标可能使模型倾向于生成不在偏好数据集分布中的响应，而这些响应的质量无法得到保证。例如，在一个简单的无状态场景中，DPO可能生成一个策略，该策略对某些动作赋予较高概率，而这些动作并未在偏好数据集中得到充分覆盖。</p>
-<h2 id="RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案"><a href="#RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案" class="headerlink" title="RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案?"></a>RLHF中PPO存在哪些问题，为什么大家都设计很多方法去替代它。有哪些PPO的改进方案?</h2><h3 id="PPO在RLHF中的问题"><a href="#PPO在RLHF中的问题" class="headerlink" title="PPO在RLHF中的问题"></a>PPO在RLHF中的问题</h3><ol>
+<h2 id="RLHF中PPO存在哪些问题，为什么设计很多方法去替代它。PPO的改进方案"><a href="#RLHF中PPO存在哪些问题，为什么设计很多方法去替代它。PPO的改进方案" class="headerlink" title="RLHF中PPO存在哪些问题，为什么设计很多方法去替代它。PPO的改进方案?"></a>RLHF中PPO存在哪些问题，为什么设计很多方法去替代它。PPO的改进方案?</h2><h3 id="PPO在RLHF中的问题"><a href="#PPO在RLHF中的问题" class="headerlink" title="PPO在RLHF中的问题"></a>PPO在RLHF中的问题</h3><ol>
 <li><strong>复杂度高</strong>：<ul>
 <li>PPO在RLHF中需要维护多个模型，包括策略模型（Actor）、奖励模型（Reward Model）、参考模型（Reference Model）和评价模型（Critic），这使得整个训练过程复杂且内存占用大。</li>
 <li>PPO的训练过程对超参数非常敏感，需要大量试错来调整。</li>
@@ -894,7 +892,7 @@
 </li>
 </ol>
 <h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>PPO在RLHF中虽然有效，但存在复杂度高、训练效率低和稳定性问题。为了克服这些挑战，研究者们提出了多种替代方案和改进方法，如DPO及其变种、RLOO等。这些方法通过简化训练过程、减少内存占用和提高训练效率，为大规模语言模型的对齐提供了更高效和稳定的解决方案</p>
-<h2 id="常见大语言模型架构与原理"><a href="#常见大语言模型架构与原理" class="headerlink" title="常见大语言模型架构与原理"></a>常见大语言模型架构与原理</h2><p>以下是常见开源大模型的架构与原理：</p>
+<h2 id="常见大模型架构与原理"><a href="#常见大模型架构与原理" class="headerlink" title="常见大模型架构与原理"></a>常见大模型架构与原理</h2><p>以下是常见开源大模型的架构与原理：</p>
 <h3 id="一、基于Transformer架构的通用模型"><a href="#一、基于Transformer架构的通用模型" class="headerlink" title="一、基于Transformer架构的通用模型"></a>一、<strong>基于Transformer架构的通用模型</strong></h3><h4 id="1-BERT（Bidirectional-Encoder-Representations-from-Transformers）"><a href="#1-BERT（Bidirectional-Encoder-Representations-from-Transformers）" class="headerlink" title="1. BERT（Bidirectional Encoder Representations from Transformers）"></a>1. <strong>BERT（Bidirectional Encoder Representations from Transformers）</strong></h4><ul>
 <li><strong>架构</strong>：<br>纯编码器结构，由多层Transformer编码器堆叠而成（通常为12-24层）。每层包含自注意力机制和前馈神经网络。自注意力机制采用双向上下文建模，即每个词可同时关注左右两侧的上下文信息110。</li>
 <li><strong>原理</strong>：<ul>
@@ -1024,7 +1022,7 @@
 <h3 id="DDPM预测噪声还是预测当前分布？"><a href="#DDPM预测噪声还是预测当前分布？" class="headerlink" title="DDPM预测噪声还是预测当前分布？"></a><strong>DDPM预测噪声还是预测当前分布？</strong></h3><p>预测噪声，预测分布只是中间过程</p>
 <h2 id="DDIM算法原理部分："><a href="#DDIM算法原理部分：" class="headerlink" title="DDIM算法原理部分："></a>DDIM算法原理部分：</h2><h3 id="DDIM是怎么实现加速采样的？"><a href="#DDIM是怎么实现加速采样的？" class="headerlink" title="DDIM是怎么实现加速采样的？"></a>DDIM是怎么实现加速采样的？</h3><p>DDIM通过保证DDPM的三项前向条件不变：前向⾼斯噪声+⻢尔可夫链，实现逆向递推公式优化，减少逆向推理步骤</p>
 <h3 id="DDIM是不是确定性⽣成，为什么"><a href="#DDIM是不是确定性⽣成，为什么" class="headerlink" title="DDIM是不是确定性⽣成，为什么"></a>DDIM是不是确定性⽣成，为什么</h3><p>是确定性⽣成。因为在逆向去噪声过程中，DDIM的逆推公式，将随机噪声的部分置为0</p>
-<p> <img src="/_posts/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E5%A4%9A%E6%A8%A1%E6%80%81%E4%B8%8ELLM/d70334687136c0b6aedd584ae7553826.png" alt="img"></p>
+<p> <img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E5%A4%9A%E6%A8%A1%E6%80%81%E4%B8%8ELLM/d70334687136c0b6aedd584ae7553826.png" alt="img"></p>
 <h3 id="Score-Based-diffusion-model"><a href="#Score-Based-diffusion-model" class="headerlink" title="Score-Based-diffusion-model"></a>Score-Based-diffusion-model</h3><p>提供了⼀种解释扩散模型的等价⽅式，其中降噪过程可以看作是沿着分数（梯度）前进</p>
 <p> ⾼阶采样⽅案：<br>是否了解DPM++等加速采样⽅案</p>
 <p>通过ODE对扩散模型进⾏建模，通过解析解的形式解构扩散模型求解步骤</p>
@@ -1218,7 +1216,7 @@
 <li><strong>早停</strong>: 当验证集性能不再提升时，提前停止训练，防止过拟合。</li>
 <li><strong>模型剪枝和量化</strong>: 在训练完成后，可以对模型进行剪枝和量化，以减少模型的大小和推理时间。</li>
 </ul>
-<h2 id="Lora："><a href="#Lora：" class="headerlink" title="Lora："></a>Lora：</h2><p>LoRA（Low-Rank Adaptation）是一种用于大模型微调的技术，旨在减少微调过程中需要更新的参数量，从而降低计算资源和存储成本。其核心思想是将模型的权重更新分解为低秩矩阵的乘积。</p>
+<h2 id="LoRA："><a href="#LoRA：" class="headerlink" title="LoRA："></a>LoRA：</h2><p>LoRA（Low-Rank Adaptation）是一种用于<strong>大模型微调</strong>的技术，旨在减少微调过程中需要更新的参数量，从而降低计算资源和存储成本。其核心思想是将模型的权重更新分解为低秩矩阵的乘积。</p>
 <p><strong>原理</strong>:</p>
 <ul>
 <li><p>在大模型的全参数微调中，通常需要更新整个模型的权重，这会导致存储和计算成本非常高。LoRA通过引入低秩分解的思想，将权重更新分解为两个低秩矩阵的乘积，即：</p>
@@ -1230,12 +1228,12 @@
 </ul>
 <p><strong>应用场景</strong>:</p>
 <ul>
-<li>LoRA广泛应用于大模型的微调任务，尤其是在资源受限的情况下。例如，在自然语言处理任务中，可以使用LoRA对GPT或BERT等大模型进行微调，而无需更新整个模型的权重。</li>
-<li>此外，LoRA还可以用于多任务学习，通过为每个任务训练不同的低秩矩阵，实现任务间的参数共享。</li>
+<li>LoRA 广泛应用于大模型的微调任务，尤其是在资源受限的情况下。例如，在自然语言处理任务中，可以使用LoRA对GPT或BERT等大模型进行微调，而无需更新整个模型的权重。</li>
+<li>此外，LoRA 还可以用于多任务学习，通过为每个任务训练不同的低秩矩阵，实现任务间的参数共享。</li>
 </ul>
 <p><strong>实现细节</strong>:</p>
 <ul>
-<li>在实现上，LoRA通常通过在模型的全连接层或注意力机制中插入低秩矩阵来实现。具体来说，可以在Transformer的注意力头或前馈神经网络中应用LoRA。</li>
+<li>在实现上，LoRA 通常通过在模型的全连接层或注意力机制中插入低秩矩阵来实现。具体来说，可以在Transformer的注意力头或前馈神经网络中应用 LoRA。</li>
 <li>训练时，只更新低秩矩阵 A<em>A</em> 和 B<em>B</em>，而原始模型的权重保持冻结。</li>
 <li>在推理时，将低秩矩阵的乘积加到原始权重上，生成最终的权重矩阵。</li>
 </ul>
@@ -1274,7 +1272,6 @@
 <li>此外，可能会使用梯度累积（Gradient Accumulation）来模拟更大的批量大小，从而提高训练稳定性。</li>
 </ul>
 </li>
-<li></li>
 </ul>
 <h2 id="P-tuning"><a href="#P-tuning" class="headerlink" title="P-tuning"></a>P-tuning</h2><p>P-Tuning是一种用于大模型微调的技术，旨在通过插入可训练的“提示”（Prompt）来引导模型生成特定任务的输出，而无需更新整个模型的权重。</p>
 <p><strong>原理</strong>:</p>
@@ -1326,8 +1323,7 @@
 <li><strong>灵活性</strong>: SFT可以应用于多种任务，只需准备相应的标注数据集。</li>
 <li><strong>性能提升</strong>: 通过SFT，模型在特定任务上的性能通常会显著提升。</li>
 </ul>
-<h2 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h2><p>RAG（Retrieval-Augmented Generation）是一种结合检索（Retrieval）和生成（Generation）的模型架构，旨在通过引入外部知识源来增强生成模型的能力。RAG的核心思想是将检索到的相关信息与生成模型结合，从而生成更加准确和丰富的输出。</p>
-<p><strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 是一种结合了信息检索技术和语言生成模型的人工智能技术。它通过从外部知识库中检索相关信息，并将其作为提示（Prompt）输入给大型语言模型（LLM），以增强模型处理知识密集型任务的能力。</p>
+<h2 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h2><p><strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 是一种结合了信息检索技术和语言生成模型的人工智能技术。它通过从外部知识库中检索相关信息，并将其作为提示（Prompt）输入给大型语言模型（LLM），以增强模型处理知识密集型任务的能力。</p>
 <h3 id="RAG的工作原理"><a href="#RAG的工作原理" class="headerlink" title="RAG的工作原理"></a>RAG的工作原理</h3><p>RAG的工作流程主要包括三个步骤：</p>
 <ol>
 <li><strong>检索（Retrieval）</strong>：根据用户的查询内容，从外部知识库中检索出与查询最相关的文档或信息。</li>
@@ -1344,7 +1340,7 @@
 <p><strong>1. 原理</strong></p>
 <ul>
 <li><strong>检索与生成的结合</strong>:<ul>
-<li>RAG的核心是将检索模块和生成模块结合在一起。检索模块负责从外部知识库（如文档、数据库或网页）中检索与输入相关的信息，生成模块则利用这些检索到的信息生成最终的输出。</li>
+<li>RAG的核心是将<strong>检索模块和生成模块结合在一起</strong>。检索模块负责从外部知识库（如文档、数据库或网页）中检索与输入相关的信息，生成模块则利用这些检索到的信息生成最终的输出。</li>
 <li>检索模块通常是一个基于向量搜索的系统，能够快速找到与输入最相关的文档或片段。</li>
 <li>生成模块通常是一个预训练的语言模型（如GPT、T5或BERT），负责根据输入和检索到的信息生成输出。</li>
 </ul>
@@ -1434,6 +1430,58 @@
 <p><strong>总结</strong></p>
 <p>RAG 是一种结合检索和生成的模型架构，通过引入外部知识库来增强生成模型的能力。它在问答、对话生成、文本生成等任务中表现出色，尤其适用于需要外部知识支持的场景。</p>
 <p>RAG的训练过程包括检索模块和生成模块的联合训练，推理阶段通过检索相关信息并融合到生成模型中，生成最终的输出。尽管RAG在知识增强和灵活性方面具有显著优势，但其计算成本和检索效率仍是需要解决的问题。</p>
+<h2 id="MoE"><a href="#MoE" class="headerlink" title="MoE"></a>MoE</h2><p>MoE（Mixture-of-Experts）是一种神经网络架构，它通过路由机制（Router）将输入数据动态地分配给多个专家（Expert）网络中的一组。这种架构允许模型根据输入数据的特性选择不同的专家来处理，从而提高了模型的表达能力和效率。</p>
+<h2 id="各部分作用"><a href="#各部分作用" class="headerlink" title="各部分作用"></a>各部分作用</h2><p><strong><code>pytorch_model.bin</code> / <code>model.safetensors</code></strong></p>
+<ul>
+<li>存储模型的权重参数（矩阵、张量）。</li>
+<li><code>.safetensors</code> 是更安全、高效的权重存储格式（避免 pickle 漏洞，加载也更快）。</li>
+<li>在推理和训练时，真正加载进 GPU 的就是它们。</li>
+</ul>
+<p><strong><code>config.json</code></strong></p>
+<ul>
+<li>模型的结构定义，比如：<ul>
+<li>hidden size</li>
+<li>attention heads 数量</li>
+<li>层数（layers）</li>
+<li>vision encoder 配置（如果是 VLM）</li>
+</ul>
+</li>
+<li><code>transformers</code> 在加载模型时会先读这个文件，构造模型结构，再把权重加载进去。</li>
+</ul>
+<p><strong><code>tokenizer.json</code></strong></p>
+<ul>
+<li>主要分词器文件，定义了 <strong>词表、分词规则、BPE 或 SentencePiece 的 merge 规则</strong>。</li>
+<li>模型在接受文本时，会依赖它把自然语言字符串转成 token ID。</li>
+</ul>
+<p><strong><code>vocab.json</code></strong></p>
+<ul>
+<li>词表文件，和 <code>tokenizer.json</code> 配合使用，里面是 <code>token → id</code> 的映射。</li>
+<li>在某些分词器（如 BPE、GPT2 tokenizer）里会配合 <code>merges.txt</code> 一起使用。</li>
+</ul>
+<p><strong><code>special_tokens_map.json</code></strong></p>
+<ul>
+<li>定义特殊 token 的名字和 ID 对应，比如：<ul>
+<li><code>[PAD]</code>, <code>[UNK]</code>, <code>[CLS]</code>, <code>[SEP]</code>, <code>[BOS]</code>, <code>[EOS]</code></li>
+</ul>
+</li>
+<li>加载 tokenizer 时，会用这个文件来正确处理特殊符号。</li>
+</ul>
+<p><strong><code>added_tokens.json</code></strong></p>
+<ul>
+<li>定义后期新增的 token（不在原始 vocab 里的）。</li>
+<li>比如有人给模型额外加了 <code>&lt;image&gt;</code> token，或者某些领域特定的符号，就会在这里声明。</li>
+</ul>
+<p><strong><code>generation_config.json</code></strong></p>
+<ul>
+<li>推理时的默认参数：<ul>
+<li><code>temperature</code></li>
+<li><code>top_p</code></li>
+<li><code>max_length</code></li>
+<li><code>num_beams</code></li>
+</ul>
+</li>
+<li>如果你不显式传参数，<code>transformers</code> 会自动从这里读。</li>
+</ul>
 <h1 id="搜广推"><a href="#搜广推" class="headerlink" title="搜广推"></a>搜广推</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40006058/article/details/89432773">推荐算法常用评价指标：NDCG、MAP、MRR、HR、ILS、ROC、AUC、F1等_推荐算法常用指标-CSDN博客</a></p>
 <p><img src="/images/%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/640" alt="img"></p>
 <h2 id="解释一下多任务学习-Multi-task-Learning-的概念，并讨论其在广告推荐系统中的应用"><a href="#解释一下多任务学习-Multi-task-Learning-的概念，并讨论其在广告推荐系统中的应用" class="headerlink" title="解释一下多任务学习(Multi-task Learning)的概念，并讨论其在广告推荐系统中的应用"></a>解释一下多任务学习(Multi-task Learning)的概念，并讨论其在广告推荐系统中的应用</h2><h3 id="多任务学习（Multi-task-Learning-MTL）的概念"><a href="#多任务学习（Multi-task-Learning-MTL）的概念" class="headerlink" title="多任务学习（Multi-task Learning, MTL）的概念"></a>多任务学习（Multi-task Learning, MTL）的概念</h3><h4 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. <strong>定义</strong></h4><p>多任务学习是一种机器学习方法，旨在<strong>同时学习多个相关任务</strong>，通过共享表示（shared representation）或模型参数，使得模型能够<strong>从多个任务中相互学习，从而提高每个任务的性能</strong>。</p>
